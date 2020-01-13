@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2005
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimioApiHelper", "SimioApiHelper\SimioApiHelper.csproj", "{2762FF6D-665E-4161-B56D-EA377875A10E}"
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2762FF6D-665E-4161-B56D-EA377875A10E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2762FF6D-665E-4161-B56D-EA377875A10E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2762FF6D-665E-4161-B56D-EA377875A10E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2762FF6D-665E-4161-B56D-EA377875A10E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5D45151B-2430-4678-92A9-FDD22E418E85}
+	EndGlobalSection
+EndGlobal
