@@ -55,17 +55,17 @@ namespace SimioApiHelper
                 // Create some methods to handle experiment events
                 experiment.ReplicationEnded += (s, e) =>
                 {
-                    LogIt($"Event: Replication Ended.");
+                    LogIt($"Info: Event=> Ended Replication={e.ReplicationNumber} of Scenario={e.Scenario.Name}.");
                 };
 
                 experiment.ScenarioEnded += (s, e) =>
                 {
-                    LogIt($"Event: Scenario Ended.");
+                    LogIt($"Info: Event=> Scenario={e.Scenario.Name} Ended.");
                 };
 
                 experiment.RunCompleted += (s, e) =>
                 {
-                    LogIt($"Event: Experiment Run Complete. ");
+                    LogIt($"Info: Event=> Experiment={experiment.Name} Run Complete. ");
                 };
 
                 // Now do the run.
