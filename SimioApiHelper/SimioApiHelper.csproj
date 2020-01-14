@@ -116,6 +116,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="SimioRoam.lic" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

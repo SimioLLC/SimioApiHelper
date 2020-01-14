@@ -37,14 +37,17 @@ namespace SimioApiHelper
                 LogIt($"Info: {marker}");
                 SimioProjectFactory.SetExtensionsPath(extensionsPath);
 
+                marker = $"Loading Project from={projectFullPath}";
                 ISimioProject project = LoadProject(projectFullPath, out explanation);
                 if (project == null)
                     return false;
 
+                marker = $"Loading Model named={modelName}";
                 IModel model = LoadModel(project, modelName, out explanation);
                 if (model == null)
                     return false;
 
+                marker = $"Loading Experiment named={experimentName}";
                 IExperiment experiment = LoadExperiment(model, experimentName, out explanation);
                 if (experiment == null)
                     return false;
@@ -52,23 +55,36 @@ namespace SimioApiHelper
                 // Create some methods to handle experiment events
                 experiment.ReplicationEnded += (s, e) =>
                 {
-                    LogIt($"Replication Ended.");
+                    LogIt($"Event: Replication Ended.");
                 };
 
                 experiment.ScenarioEnded += (s, e) =>
                 {
-                    LogIt($"Scenario Ended.");
+                    LogIt($"Event: Scenario Ended.");
                 };
 
                 experiment.RunCompleted += (s, e) =>
                 {
-                    LogIt($"Experiment Run Complete. ");
+                    LogIt($"Event: Experiment Run Complete. ");
                 };
 
                 // Now do the run.
                 experiment.Reset();
                 experiment.Run();
                 //experiment.RunAsync(); // Another option
+
+                if (saveModelAfterRun)
+                {
+                    marker = $"Save Project After Experiment Run to= (SimioProjectFactory.SaveProject)";
+                    LogIt($"Info: {marker}");
+
+                    string[] warnings;
+                    SimioProjectFactory.SaveProject(project, projectFullPath, out warnings);
+                    foreach ( string warning in warnings)
+                    {
+                        LogIt($"Warning: {warning}");
+                    }
+                }
 
                 return true;
             }

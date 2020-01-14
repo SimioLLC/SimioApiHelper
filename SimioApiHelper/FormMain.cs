@@ -829,7 +829,6 @@ namespace SimioHelper
             catch (Exception ex)
             {
                 alert($"Err={ex.Message}");
-                throw;
             }
             finally
             {
