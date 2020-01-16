@@ -1,4 +1,5 @@
-﻿using SimioApiHelper;
+﻿using LoggertonHelpers;
+using SimioApiHelper;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -38,7 +39,7 @@ namespace SimioHelper
                 StringBuilder sb = new StringBuilder();
                 marker = $"Loading File={comboDllFile.Text}";
                 sb.AppendLine($"********** {marker}");
-                logit(marker);
+                Logit(EnumLogFlags.Information, marker);
                 Assembly myAssembly = Assembly.LoadFrom(comboDllFile.Text);
 
                 marker = "Getting Types";
@@ -153,7 +154,7 @@ namespace SimioHelper
         {
             try
             {
-                logit($"Begin Machine={Environment.MachineName}");
+                Logit(EnumLogFlags.Information, $"Begin Machine={Environment.MachineName}");
 
                 comboSimioLocation.DataSource = DLLHelpers.GetSimioApiLocations();
                 comboFindSimioExtensionLocations.DataSource = DLLHelpers.GetSimioApiLocations();
@@ -705,20 +706,31 @@ namespace SimioHelper
             }
             catch (Exception ex)
             {
-                alert($"RefreshDashboard: Err={ex}");
+                Alert($"RefreshDashboard: Err={ex}");
                 return;
             }
         }
 
-        private void alert(string msg)
+        private void Alert(EnumLogFlags flags, string msg)
         {
-            logit(msg);
+            Loggerton.Instance.LogIt(flags, msg);
             MessageBox.Show(msg);
         }
-        private void logit(string msg)
+        private void Alert(string msg)
+        {
+            Loggerton.Instance.LogIt(EnumLogFlags.Error, msg);
+            MessageBox.Show(msg);
+        }
+
+        private void Logit(string msg)
         {
             SetStatusLabel(msg);
-            LoggertonHelpers.Loggerton.Instance.LogIt(LoggertonHelpers.EnumLogFlags.Error, msg);
+            Loggerton.Instance.LogIt(EnumLogFlags.Error, msg);
+        }
+        private void Logit(EnumLogFlags flags, string msg)
+        {
+            SetStatusLabel(msg);
+            Loggerton.Instance.LogIt(flags, msg);
         }
 
         private void SetStatusLabel(string msg)
@@ -748,7 +760,7 @@ namespace SimioHelper
             }
             catch (Exception ex)
             {
-                alert($"Combo Error={ex}");
+                Alert(EnumLogFlags.Error, $"Combo Error={ex}");
             }
         }
 
@@ -791,16 +803,16 @@ namespace SimioHelper
                     cbHeadlessSaveModelAfterRun.Checked,
                     cbHeadlessPublishPlanAfterRun.Checked, out string explanation))
                 {
-                    alert(explanation);
+                    Alert(explanation);
                 }
                 else
                 {
-                    alert($"Model={textHeadlessModelFile.Text} performed the actions successfully. Check the logs for more information.");
+                    Alert(EnumLogFlags.Information, $"Model={textHeadlessModelFile.Text} performed the actions successfully. Check the logs for more information.");
                 }
             }
             catch (Exception ex)
             {
-                alert($"Err={ex.Message}");
+                Alert($"Err={ex.Message}");
                 throw;
             }
             finally
@@ -819,16 +831,16 @@ namespace SimioHelper
                     cbHeadlessSaveModelAfterRun.Checked,
                     out string explanation))
                 {
-                    alert(explanation);
+                    Alert(explanation);
                 }
                 else
                 {
-                    alert($"Model={textModelName.Text} Experiment={textExperimentName} performed the actions successfully. Check the logs for more information.");
+                    Alert(EnumLogFlags.Information, $"Model={textModelName.Text} Experiment={textExperimentName} performed the actions successfully. Check the logs for more information.");
                 }
             }
             catch (Exception ex)
             {
-                alert($"Err={ex.Message}");
+                Alert($"Err={ex.Message}");
             }
             finally
             {

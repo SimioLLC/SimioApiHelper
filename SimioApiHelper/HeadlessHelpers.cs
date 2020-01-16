@@ -313,8 +313,11 @@ namespace SimioApiHelper
         {
             Loggerton.Instance.LogIt(EnumLogFlags.Error, message);
             MessageBox.Show(message);
-
-
+        }
+        public static void Alert(EnumLogFlags flags, string message)
+        {
+            Loggerton.Instance.LogIt(flags, message);
+            MessageBox.Show(message);
         }
     }
 }
