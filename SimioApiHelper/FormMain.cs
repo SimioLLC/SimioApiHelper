@@ -1042,7 +1042,7 @@ namespace SimioApiHelper
 
         private void buttonHeadlessSelectModel_Click(object sender, EventArgs e)
         {
-            textHeadlessModelFile.Text = GetModelFile();
+            textHeadlessModelFile.Text = HeadlessHelpers.GetModelFile();
         }
 
         private void buttonHeadlessRun_Click(object sender, EventArgs e)

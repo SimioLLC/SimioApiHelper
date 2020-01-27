@@ -80,7 +80,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\HeadlessLibrary.csproj">
+    <ProjectReference Include="..\HeadlessLibrary\HeadlessLibrary.csproj">
       <Project>{ca2ab3a8-edbf-4d16-bb00-fb8c5f6cfeec}</Project>
       <Name>HeadlessLibrary</Name>
     </ProjectReference>

@@ -313,7 +313,7 @@ namespace HeadlessLibrary
         /// Prompt the user for a Simio project file.
         /// </summary>
         /// <returns></returns>
-        private static string GetModelFile()
+        public static string GetModelFile()
         {
             try
             {
