@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SimioHelper
+namespace SimioApiHelper
 {
     partial class DialogAbout : Form
     {

@@ -309,6 +309,31 @@ namespace SimioApiHelper
                 Loggerton.Instance.LogIt(EnumLogFlags.Error, message);
         }
 
+        /// <summary>
+        /// Prompt the user for a Simio project file.
+        /// </summary>
+        /// <returns></returns>
+        private static string GetModelFile()
+        {
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Multiselect = false;
+                dialog.Filter = "Simio Project|*.spfx";
+
+                DialogResult result = dialog.ShowDialog();
+
+                if (result != DialogResult.OK)
+                    return string.Empty;
+
+                return dialog.FileName;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException($"Err={ex.Message}");
+            }
+        }
+
         public static void Alert(string message)
         {
             Loggerton.Instance.LogIt(EnumLogFlags.Error, message);

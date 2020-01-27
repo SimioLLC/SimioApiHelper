@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using System.IO;
+using System.Text.RegularExpressions;
 
-namespace SimioHelper
+namespace SimioApiHelper
 {
     public static class DLLHelpers
     {
@@ -98,7 +99,14 @@ namespace SimioHelper
                 throw new ApplicationException($"Err={ex}");
             }
         }
-        public static List<string> GetDllFiles(string folderPath)
+
+        /// <summary>
+        /// Return a list of DLL files. The regex exclude filter can be used to exclude more.
+        /// </summary>
+        /// <param name="folderPath"></param>
+        /// <param name="regexExcludeFilter"></param>
+        /// <returns></returns>
+        public static List<string> GetDllFiles(string folderPath, string regexExcludePattern)
         {
             try
             {
@@ -107,7 +115,16 @@ namespace SimioHelper
 
                 string[] files = Directory.GetFiles(folderPath, "*.DLL", SearchOption.AllDirectories);
 
-                return files.ToList();
+                List<string> filteredFiles = new List<string>();
+                foreach ( string file in files)
+                {
+                    if ( string.IsNullOrEmpty(regexExcludePattern) || !Regex.IsMatch(file, regexExcludePattern, RegexOptions.IgnoreCase))
+                    {
+                        filteredFiles.Add(file);
+                    }
+                }
+
+                return filteredFiles;
             }
             catch (Exception ex)
             {

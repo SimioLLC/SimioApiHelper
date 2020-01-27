@@ -83,8 +83,6 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="HeadlessHelpers.cs" />
-    <Compile Include="LoggertonHelpers.cs" />
     <Compile Include="PlatformHelpers.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -121,7 +119,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary1\HeadlessLibrary.csproj">
+      <Project>{ca2ab3a8-edbf-4d16-bb00-fb8c5f6cfeec}</Project>
+      <Name>HeadlessLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="QlmControls.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

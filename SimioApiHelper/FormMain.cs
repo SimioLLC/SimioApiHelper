@@ -1,5 +1,5 @@
-﻿using LoggertonHelpers;
-using SimioApiHelper;
+﻿using HeadlessLibrary;
+using LoggertonHelpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SimioHelper
+namespace SimioApiHelper
 {
     public partial class FormMain : Form
     {
@@ -36,11 +36,36 @@ namespace SimioHelper
             string marker = "begin";
             try
             {
+                string assemblyPath = comboDllFile.Text;
+                textAssemblyLoadInfo.Clear();
+                bool showSimioOnly = checkSimioOnly.Checked;
+                textAssemblyLoadInfo.Text = LoadAssembly(assemblyPath, showSimioOnly);
+
+            }
+            catch (Exception ex)
+            {
+                ExceptionLog($"Marker={marker} Err={ex}");
+            }
+        }
+
+        /// <summary>
+        /// Load the assembly of the selected DLL file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private string LoadAssembly( string assemblyFile, bool showSimioOnly )
+        {
+            if (!IsLoaded)
+                return "$(File={assemblyFile}Not Loaded)";
+
+            string marker = "begin";
+            try
+            {
                 StringBuilder sb = new StringBuilder();
-                marker = $"Loading File={comboDllFile.Text}";
+                marker = $"Loading File={assemblyFile}";
                 sb.AppendLine($"********** {marker}");
                 Logit(EnumLogFlags.Information, marker);
-                Assembly myAssembly = Assembly.LoadFrom(comboDllFile.Text);
+                Assembly myAssembly = Assembly.LoadFrom(assemblyFile);
 
                 marker = "Getting Types";
                 try
@@ -59,7 +84,7 @@ namespace SimioHelper
                         {
                             string name = anyType.Name;
                             string fullName = anyType.FullName;
-                            if (checkSimioOnly.Checked)
+                            if (showSimioOnly)
                             {
                                 if (fullName != null && fullName.ToLower().Contains("simio"))
                                     sb.AppendLine($"    Type={anyType}");
@@ -94,12 +119,12 @@ namespace SimioHelper
                     ExceptionLog($"Marker={marker} Err={ex}");
                 }
 
-                textAssemblyLoadInfo.Text = sb.ToString();
-
+                return sb.ToString();
             }
             catch (Exception ex)
             {
                 ExceptionLog($"Marker={marker} Err={ex}");
+                return "Error Occurred.";
             }
         }
 
@@ -121,7 +146,7 @@ namespace SimioHelper
         {
             try
             {
-                List<string> dllFiles = DLLHelpers.GetDllFiles(comboSimioLocation.Text);
+                List<string> dllFiles = DLLHelpers.GetDllFiles(comboSimioLocation.Text, textDllHelperExcludeFilter.Text);
                 comboDllFile.DataSource = dllFiles;
             }
             catch (Exception ex)
@@ -241,19 +266,16 @@ namespace SimioHelper
                                             case "IModelHelperAddIn":
                                                 {
                                                     sb.AppendLine(AddInfo(myType.Name, anyType.Name));
-
                                                 }
                                                 break;
 
                                             case "IStep":
                                                 {
-
                                                     sb.AppendLine(AddInfo(myType.Name, anyType.Name));
                                                 }
                                                 break;
                                             case "IStepDefinition":
                                                 {
-
                                                     sb.AppendLine(AddInfo(myType.Name, anyType.Name));
                                                 }
                                                 break;
@@ -328,10 +350,155 @@ namespace SimioHelper
                                                     sb.AppendLine(AddInfo(myType.Name, anyType.Name));
                                                 }
                                                 break;
+                                            case "IChangeoverMatrices":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
+                                            case "ISimioCollection`1":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
+                                            case "INamedMutableSimioCollection`1":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
+                                            case "IMutableSimioCollection`1":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
+                                            case "INamedSimioCollection`1":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
+                                            case "IPropertyObject`1":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
+                                            case "IIntelligentObject":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
+                                            case "IIntelligentObject`1":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
+                                            case "IIntelligentObjectRuntimeData":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
+                                            case "IElementObject":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
+                                            case "IElementObject`1":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
+                                            case "IElementData":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
+                                            case "IPropertyObject":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
+                                            case "IPropertyDefinition":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
+                                            case "IAgentRuntimeData":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
+                                            case "IRuntimeLog":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
+                                            case "IRuntimeLogRecord":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
+                                            case "IRuntimeLogData":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
+                                            case "IRuntimeLog`1":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
+                                            case "IUnitizedPropertyDefinition":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
+                                            case "IObjectInstanceReferencePropertyDefinition":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
+                                            case "IProperty":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
+                                            case "IState":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
+                                            case "IStateDefinition":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
+                                            case "IUnitizedStateDefinition":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
+                                            case "IExecutionContext":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
+                                            case "ITableColumn":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
+                                            case "IUnitizedTableColumn":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
+                                            case "IRealPropertyDefinition":
+                                                {
+                                                    sb.AppendLine(AddInfo(myType.Name, anyType.Name));
+                                                }
+                                                break;
 
                                             default:
                                                 {
-                                                    string xx = "";
+                                                    string xx = $"Type={anyType.Name}";
                                                 }
                                                 break;
 
@@ -358,7 +525,12 @@ namespace SimioHelper
 
         }
 
-
+        /// <summary>
+        /// Location Simio Property Types
+        /// </summary>
+        /// <param name="myType"></param>
+        /// <param name="anyType"></param>
+        /// <returns></returns>
         private bool FindProperties(Type myType, Type anyType)
         {
             try
@@ -657,16 +829,119 @@ namespace SimioHelper
 
         }
 
+        private void RefreshTabHeadlessRun()
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException($"Err={ex}");
+            }
+        }
+
+        private void RefreshTabHeadlessBuilder()
+        {
+            try
+            {
+                textHeadlessBuildLocation.Text = SimioApiHelper.Properties.Settings.Default.HeadlessSystemFolder;
+                textSimioInstallationFolder.Text = SimioApiHelper.Properties.Settings.Default.SimioInstallationFolder;
+
+                buttonBuildHeadlessSystem.Enabled = false;
+
+                if ( Directory.Exists(textHeadlessBuildLocation.Text) 
+                    && Directory.Exists(textSimioInstallationFolder.Text))
+                {
+                    buttonBuildHeadlessSystem.Enabled = true;
+                }
+
+                if ( Directory.Exists(textSimioInstallationFolder.Text))
+                {
+                    List<string> checkItems = new List<string>
+                    {
+                        "QlmControls.dll",
+                        "QlmLicenseLib.dll",
+                        "Rlm944.dll",
+                        "Rlm944_x64.xll",
+                        "SimioDLL.dll",
+                        "SimioAPI.dll",
+                        "SimioAPI.Extensions.dll",
+                        "SimioEnums.dll",
+                        "IconLib.dll",
+                        "SimioTypes.dll"
+                    };
+
+                    RefreshChecklistForTargets(textSimioInstallationFolder.Text, checkItems);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException($"Err={ex}");
+            }
+        }
+
+        /// <summary>
+        /// Copy a list of files from source to target.
+        /// The list can be full paths, but the filename is extracted.
+        /// Copies are done with overwrite.
+        /// </summary>
+        /// <param name="sourceFolder"></param>
+        /// <param name="targetFolder"></param>
+        /// <param name="filepathList"></param>
+        private void CopyList( string sourceFolder, string targetFolder, List<string> filepathList )
+        {
+            foreach (string filepath in filepathList)
+            {
+                string filename = Path.GetFileName(filepath);
+                string sourcePath = Path.Combine(sourceFolder, filename);
+                string targetPath = Path.Combine(targetFolder, filename);
+
+                try
+                {
+                    File.Copy(sourcePath, targetPath, true);
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException($"Source={sourcePath} Target={targetPath} Err={ex.Message}");
+                }
+            } // foreach file
+        }
+
+
+        private void RefreshChecklistForTargets(string simioInstallPath, List<string> checkItems)
+        {
+            try
+            {
+                string[] files = Directory.GetFiles(simioInstallPath, "*.DLL", SearchOption.AllDirectories);
+
+                checklistSelectedFiles.Items.Clear();
+                foreach ( string file in files)
+                {
+                    string fn = Path.GetFileNameWithoutExtension(file).ToLower();
+                    if (checkItems.Contains(fn))
+                        checklistSelectedFiles.Items.Add(file, true);
+                    else
+                        checklistSelectedFiles.Items.Add(file, false);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Alert($"SimioInstall={simioInstallPath}. Err={ex.Message}");
+            }
+        }
         /// <summary>
         /// Refresh the dashboard, which shows settings and any errors within the settings.
         /// </summary>
-        public void RefreshTabDashboard()
+        private void RefreshTabDashboard()
         {
             string explanation = "";
 
             try
             {
-
                 labelHwComputerName.Text = $"Computer Name: {PlatformHelpers.GetComputerName()}";
                 labelHwPhysicalMemory.Text = $"Physical Memory: {PlatformHelpers.GetPhysicalMemory()}";
                 labelHwCpuMaker.Text = $"CPU Maker: {PlatformHelpers.GetCpuManufacturer()}";
@@ -764,30 +1039,6 @@ namespace SimioHelper
             }
         }
 
-        /// <summary>
-        /// Prompt the user for a Simio project file.
-        /// </summary>
-        /// <returns></returns>
-        private string GetModelFile()
-        {
-            try
-            {
-                OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Multiselect = false;
-                dialog.Filter = "Simio Project|*.spfx";
-
-                DialogResult result = dialog.ShowDialog();
-
-                if (result != DialogResult.OK)
-                    return string.Empty;
-
-                return dialog.FileName;
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException($"Err={ex.Message}");
-            }
-        }
 
         private void buttonHeadlessSelectModel_Click(object sender, EventArgs e)
         {
@@ -825,9 +1076,11 @@ namespace SimioHelper
         private void buttonRunExperiment_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
+            string modelName = textModelName.Text;
+            string experimentName = textExperimentName.Text;
             try
             {
-                if (!HeadlessHelpers.RunExperiment( textHeadlessModelFile.Text, "Model", "Experiment1",
+                if (!HeadlessHelpers.RunExperiment( textHeadlessModelFile.Text, modelName, experimentName,
                     cbHeadlessSaveModelAfterRun.Checked,
                     out string explanation))
                 {
@@ -835,7 +1088,7 @@ namespace SimioHelper
                 }
                 else
                 {
-                    Alert(EnumLogFlags.Information, $"Model={textModelName.Text} Experiment={textExperimentName} performed the actions successfully. Check the logs for more information.");
+                    Alert(EnumLogFlags.Information, $"Model={modelName} Experiment={experimentName} performed the actions successfully. Check the logs for more information.");
                 }
             }
             catch (Exception ex)
@@ -847,6 +1100,101 @@ namespace SimioHelper
                 Cursor.Current = Cursors.Default;
             }
 
+        }
+
+        private void comboSimioLocation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonSelectSimioInstallationFolder_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FolderBrowserDialog dialog = new FolderBrowserDialog();
+                dialog.SelectedPath = Properties.Settings.Default.SimioInstallationFolder;
+                dialog.ShowNewFolderButton = false;
+
+                DialogResult result = dialog.ShowDialog();
+                if (result != DialogResult.OK)
+                    return;
+
+                if (Directory.Exists(dialog.SelectedPath))
+                {
+                    Alert($"Folder={dialog.SelectedPath} does not exist.");
+                    return;
+                }
+
+                Properties.Settings.Default.SimioInstallationFolder = dialog.SelectedPath;
+
+                // Actions upon selection
+                RefreshTabHeadlessBuilder();
+
+            }
+            catch (Exception ex)
+            {
+                Alert($"Error selecting Simio installation location={ex}");
+            }
+
+        }
+
+        private void buttonSelectHeadlessFolder_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FolderBrowserDialog dialog = new FolderBrowserDialog();
+                dialog.SelectedPath = Properties.Settings.Default.HeadlessSystemFolder;
+                dialog.ShowNewFolderButton = true;
+
+                DialogResult result = dialog.ShowDialog();
+                if (result != DialogResult.OK)
+                    return;
+
+                if (Directory.Exists(dialog.SelectedPath))
+                {
+                    Alert($"Folder={dialog.SelectedPath} does not exist.");
+                    return;
+                }
+
+                Properties.Settings.Default.HeadlessSystemFolder = dialog.SelectedPath;
+
+                // Actions upon selection
+
+            }
+            catch (Exception ex)
+            {
+                Alert($"Error Selecting Headless Folder={ex.Message}");
+            }
+
+        }
+
+
+
+        private void buttonBuildHeadlessSystem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string simioFolder = textSimioInstallationFolder.Text;
+                string buildFolder = textHeadlessBuildLocation.Text;
+
+                // Copy minimal headless files
+                List<string> filesToMove = new List<string>();
+                foreach ( var item in checklistSelectedFiles.SelectedItems )
+                {
+                    filesToMove.Add(item as string);
+                }
+
+                CopyList(simioFolder, buildFolder, filesToMove);
+
+                // Copy over optional DLLs
+
+                // Create the minimal Build exe and batch
+
+            }
+            catch (Exception ex)
+            {
+                Alert($"Error Building Headless System={ex.Message}");
+            }
         }
     }
 }

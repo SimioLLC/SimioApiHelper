@@ -1,4 +1,4 @@
-﻿namespace SimioHelper
+﻿namespace SimioApiHelper
 {
     partial class DialogAbout
     {
@@ -169,7 +169,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "About SimioHelper";
+            this.Text = "About SimioApiHelper";
             this.Load += new System.EventHandler(this.DialogAbout_Load);
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
