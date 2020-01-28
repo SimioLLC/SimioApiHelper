@@ -101,12 +101,12 @@ namespace SimioApiHelper
         }
 
         /// <summary>
-        /// Return a list of DLL files. The regex exclude filter can be used to exclude more.
+        /// Return a list of DLL files. The regex exclude filter (pipe delimited) is used to exclude files.
         /// </summary>
         /// <param name="folderPath"></param>
         /// <param name="regexExcludeFilter"></param>
         /// <returns></returns>
-        public static List<string> GetDllFiles(string folderPath, string regexExcludePattern)
+        public static List<string> GetDllFiles(string folderPath, string regexExcludePatterns)
         {
             try
             {
@@ -116,12 +116,18 @@ namespace SimioApiHelper
                 string[] files = Directory.GetFiles(folderPath, "*.DLL", SearchOption.AllDirectories);
 
                 List<string> filteredFiles = new List<string>();
+                List<string> regexTokens = regexExcludePatterns.Split('|').ToList();
                 foreach ( string file in files)
                 {
-                    if ( string.IsNullOrEmpty(regexExcludePattern) || !Regex.IsMatch(file, regexExcludePattern, RegexOptions.IgnoreCase))
+                    foreach ( string pattern in regexTokens)
                     {
-                        filteredFiles.Add(file);
+                        if (Regex.IsMatch(file, pattern.Trim(), RegexOptions.IgnoreCase))
+                            goto GetNextFile;
                     }
+
+                    filteredFiles.Add(file);
+
+                GetNextFile:;
                 }
 
                 return filteredFiles;

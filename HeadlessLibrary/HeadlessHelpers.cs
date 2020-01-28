@@ -90,7 +90,7 @@ namespace HeadlessLibrary
             }
             catch (Exception ex)
             {
-                throw new ApplicationException($"Marker={marker} Err={ex}");
+                throw new ApplicationException($"Marker={marker} Err={ex.Message}");
             }
         }
 
@@ -126,7 +126,7 @@ namespace HeadlessLibrary
             }
             catch (Exception ex)
             {
-                throw new ApplicationException($"Cannot load={projectFullPath} Err={ex}");
+                throw new ApplicationException($"Cannot load={projectFullPath} Err={ex.Message}");
             }
         }
 
@@ -166,7 +166,7 @@ namespace HeadlessLibrary
             }
             catch (Exception ex)
             {
-                explanation = $"Cannot load={modelName} Err={ex}";
+                explanation = $"Cannot load={modelName} Err={ex.Message}";
                 return null;
             }
         }
@@ -204,7 +204,7 @@ namespace HeadlessLibrary
             }
             catch (Exception ex)
             {
-                explanation = $"Cannot load={experimentName} Err={ex}";
+                explanation = $"Cannot load={experimentName} Err={ex.Message}";
                 return null;
             }
         }
@@ -245,7 +245,7 @@ namespace HeadlessLibrary
                 }
                 catch (Exception ex)
                 {
-                    explanation = $"Cannot load from {projectFullPath}. Err={ex}";
+                    explanation = $"Cannot load from {projectFullPath}. Err={ex.Message}";
                     return false;
                 }
                 finally

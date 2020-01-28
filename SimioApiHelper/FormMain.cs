@@ -23,6 +23,38 @@ namespace SimioApiHelper
             InitializeComponent();
         }
 
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                Logit(EnumLogFlags.Information, $"Begin Machine={Environment.MachineName}");
+
+                comboSimioLocation.DataSource = DLLHelpers.GetSimioApiLocations();
+                comboFindSimioExtensionLocations.DataSource = DLLHelpers.GetSimioApiLocations();
+
+                RefreshForm();
+
+                timerLogs.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                ExceptionLog($"Err={ex}");
+            }
+            finally
+            {
+                IsLoaded = true;
+            }
+
+        }
+
+        private void RefreshForm()
+        {
+            RefreshTabDashboard();
+            RefreshTabHeadlessBuilder();
+            RefreshTabHeadlessRun();
+
+        }
+
         /// <summary>
         /// Load the assembly of the selected DLL file
         /// </summary>
@@ -171,27 +203,6 @@ namespace SimioApiHelper
             catch (Exception ex)
             {
                 ExceptionLog($"Err={ex}");
-            }
-
-        }
-
-        private void FormMain_Load(object sender, EventArgs e)
-        {
-            try
-            {
-                Logit(EnumLogFlags.Information, $"Begin Machine={Environment.MachineName}");
-
-                comboSimioLocation.DataSource = DLLHelpers.GetSimioApiLocations();
-                comboFindSimioExtensionLocations.DataSource = DLLHelpers.GetSimioApiLocations();
-                timerLogs.Enabled = true;
-            }
-            catch (Exception ex)
-            {
-                ExceptionLog($"Err={ex}");
-            }
-            finally
-            {
-                IsLoaded = true;
             }
 
         }
@@ -869,8 +880,13 @@ namespace SimioApiHelper
                         "SimioAPI.Extensions.dll",
                         "SimioEnums.dll",
                         "IconLib.dll",
-                        "SimioTypes.dll"
+                        "SimioTypes.dll",
+                        "SimioReplicationRunnerContracts.dll",
+                        "SimioTypes.dll",
+                        "SimioEnums.dll",
+                        "SimioRoam.lic"
                     };
+
 
                     RefreshChecklistForTargets(textSimioInstallationFolder.Text, checkItems);
                 }
@@ -910,17 +926,19 @@ namespace SimioApiHelper
         }
 
 
-        private void RefreshChecklistForTargets(string simioInstallPath, List<string> checkItems)
+        private void RefreshChecklistForTargets(string simioInstallPath, List<string> itemsToBeChecked)
         {
             try
             {
                 string[] files = Directory.GetFiles(simioInstallPath, "*.DLL", SearchOption.AllDirectories);
 
+                List<string> includedFiles = itemsToBeChecked.ConvertAll(rr => rr.ToLower());
+
                 checklistSelectedFiles.Items.Clear();
                 foreach ( string file in files)
                 {
-                    string fn = Path.GetFileNameWithoutExtension(file).ToLower();
-                    if (checkItems.Contains(fn))
+                    string fn = Path.GetFileName(file).ToLower();
+                    if ( includedFiles.Contains(fn) )
                         checklistSelectedFiles.Items.Add(file, true);
                     else
                         checklistSelectedFiles.Items.Add(file, false);
@@ -1042,7 +1060,7 @@ namespace SimioApiHelper
 
         private void buttonHeadlessSelectModel_Click(object sender, EventArgs e)
         {
-            textHeadlessModelFile.Text = HeadlessHelpers.GetModelFile();
+            textHeadlessProjectFile.Text = HeadlessHelpers.GetModelFile();
         }
 
         private void buttonHeadlessRun_Click(object sender, EventArgs e)
@@ -1050,7 +1068,7 @@ namespace SimioApiHelper
             Cursor.Current = Cursors.WaitCursor;
             try
             {
-                if (!HeadlessHelpers.RunModel(textHeadlessModelFile.Text, "Model", cbHeadlessRunRiskAnalysis.Checked,
+                if (!HeadlessHelpers.RunModel(textHeadlessProjectFile.Text, "Model", cbHeadlessRunRiskAnalysis.Checked,
                     cbHeadlessSaveModelAfterRun.Checked,
                     cbHeadlessPublishPlanAfterRun.Checked, out string explanation))
                 {
@@ -1058,7 +1076,7 @@ namespace SimioApiHelper
                 }
                 else
                 {
-                    Alert(EnumLogFlags.Information, $"Model={textHeadlessModelFile.Text} performed the actions successfully. Check the logs for more information.");
+                    Alert(EnumLogFlags.Information, $"Model={textHeadlessProjectFile.Text} performed the actions successfully. Check the logs for more information.");
                 }
             }
             catch (Exception ex)
@@ -1080,7 +1098,7 @@ namespace SimioApiHelper
             string experimentName = textExperimentName.Text;
             try
             {
-                if (!HeadlessHelpers.RunExperiment( textHeadlessModelFile.Text, modelName, experimentName,
+                if (!HeadlessHelpers.RunExperiment( textHeadlessProjectFile.Text, modelName, experimentName,
                     cbHeadlessSaveModelAfterRun.Checked,
                     out string explanation))
                 {
@@ -1119,13 +1137,15 @@ namespace SimioApiHelper
                 if (result != DialogResult.OK)
                     return;
 
-                if (Directory.Exists(dialog.SelectedPath))
+                if ( !Directory.Exists(dialog.SelectedPath))
                 {
                     Alert($"Folder={dialog.SelectedPath} does not exist.");
                     return;
                 }
 
+                textSimioInstallationFolder.Text = dialog.SelectedPath;
                 Properties.Settings.Default.SimioInstallationFolder = dialog.SelectedPath;
+                Properties.Settings.Default.Save();
 
                 // Actions upon selection
                 RefreshTabHeadlessBuilder();
@@ -1150,13 +1170,15 @@ namespace SimioApiHelper
                 if (result != DialogResult.OK)
                     return;
 
-                if (Directory.Exists(dialog.SelectedPath))
+                if ( !Directory.Exists(dialog.SelectedPath))
                 {
                     Alert($"Folder={dialog.SelectedPath} does not exist.");
                     return;
                 }
 
+                textHeadlessBuildLocation.Text = dialog.SelectedPath;
                 Properties.Settings.Default.HeadlessSystemFolder = dialog.SelectedPath;
+                Properties.Settings.Default.Save();
 
                 // Actions upon selection
 
@@ -1177,9 +1199,21 @@ namespace SimioApiHelper
                 string simioFolder = textSimioInstallationFolder.Text;
                 string buildFolder = textHeadlessBuildLocation.Text;
 
+                if (!Directory.Exists(simioFolder))
+                {
+                    Alert($"Folder={simioFolder} does not exist.");
+                    return;
+                }
+
+                if (!Directory.Exists(buildFolder))
+                {
+                    Alert($"Folder={buildFolder} does not exist.");
+                    return;
+                }
+
                 // Copy minimal headless files
                 List<string> filesToMove = new List<string>();
-                foreach ( var item in checklistSelectedFiles.SelectedItems )
+                foreach ( var item in checklistSelectedFiles.CheckedItems)
                 {
                     filesToMove.Add(item as string);
                 }
@@ -1195,6 +1229,45 @@ namespace SimioApiHelper
             {
                 Alert($"Error Building Headless System={ex.Message}");
             }
+        }
+
+        private void buttonChangeHeadlessLocation_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FolderBrowserDialog dialog = new FolderBrowserDialog();
+                dialog.SelectedPath = Properties.Settings.Default.HeadlessSystemFolder;
+                dialog.ShowNewFolderButton = true;
+
+                DialogResult result = dialog.ShowDialog();
+                if (result != DialogResult.OK)
+                    return;
+
+                if (!Directory.Exists(dialog.SelectedPath))
+                {
+                    Alert($"Folder={dialog.SelectedPath} does not exist.");
+                    return;
+                }
+
+                textHeadlessFilesLocation.Text = dialog.SelectedPath;
+
+                List<string> exeFiles = Directory.GetFiles(textHeadlessFilesLocation.Text, "*.exe").ToList();
+                comboExecutableToRun.DataSource = exeFiles;
+                if (exeFiles.Any())
+                    comboExecutableToRun.Text = Path.GetFileName(exeFiles[0]);
+                
+                Properties.Settings.Default.HeadlessSystemFolder = dialog.SelectedPath;
+                Properties.Settings.Default.Save();
+
+                // Actions upon selection
+
+            }
+            catch (Exception ex)
+            {
+                Alert($"Error Selecting Headless Folder={ex.Message}");
+            }
+
+            
         }
     }
 }

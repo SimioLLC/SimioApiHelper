@@ -118,7 +118,8 @@ namespace LoggertonHelpers
 
         public string ShowLogs()
         {
-            return Logs.ToString();
+            string filteredLogs = GetLogs(EnumLogFlags.All);
+            return filteredLogs;
         }
 
         public void WriteLogs(string path)

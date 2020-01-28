@@ -85,11 +85,12 @@
             this.cbHeadlessPublishPlanAfterRun = new System.Windows.Forms.CheckBox();
             this.cbHeadlessRunRiskAnalysis = new System.Windows.Forms.CheckBox();
             this.buttonHeadlessRun = new System.Windows.Forms.Button();
-            this.textHeadlessModelFile = new System.Windows.Forms.TextBox();
-            this.buttonHeadlessSelectModel = new System.Windows.Forms.Button();
+            this.textHeadlessProjectFile = new System.Windows.Forms.TextBox();
+            this.buttonHeadlessSelectProjectFile = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.tabHeadlessBuilder = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label13 = new System.Windows.Forms.Label();
             this.checklistSelectedFiles = new System.Windows.Forms.CheckedListBox();
             this.label12 = new System.Windows.Forms.Label();
             this.buttonBuildHeadlessSystem = new System.Windows.Forms.Button();
@@ -104,7 +105,10 @@
             this.Settings = new System.Windows.Forms.TabPage();
             this.timerLogs = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label13 = new System.Windows.Forms.Label();
+            this.comboExecutableToRun = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.buttonRunExecutable = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.labelStatus.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -132,7 +136,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1280, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1232, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -170,10 +174,10 @@
             this.labelStatus.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.labelStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.labelStatus.Location = new System.Drawing.Point(0, 723);
+            this.labelStatus.Location = new System.Drawing.Point(0, 742);
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Padding = new System.Windows.Forms.Padding(1, 0, 18, 0);
-            this.labelStatus.Size = new System.Drawing.Size(1280, 25);
+            this.labelStatus.Size = new System.Drawing.Size(1232, 25);
             this.labelStatus.TabIndex = 1;
             this.labelStatus.Text = "statusStrip1";
             // 
@@ -196,7 +200,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 28);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1280, 695);
+            this.tabControl1.Size = new System.Drawing.Size(1232, 714);
             this.tabControl1.TabIndex = 2;
             // 
             // tabDllHelper
@@ -205,7 +209,7 @@
             this.tabDllHelper.Location = new System.Drawing.Point(4, 29);
             this.tabDllHelper.Name = "tabDllHelper";
             this.tabDllHelper.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDllHelper.Size = new System.Drawing.Size(1272, 662);
+            this.tabDllHelper.Size = new System.Drawing.Size(1224, 662);
             this.tabDllHelper.TabIndex = 0;
             this.tabDllHelper.Text = "DLL Helper";
             this.tabDllHelper.UseVisualStyleBackColor = true;
@@ -229,22 +233,23 @@
             this.panelDll.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDll.Location = new System.Drawing.Point(3, 3);
             this.panelDll.Name = "panelDll";
-            this.panelDll.Size = new System.Drawing.Size(1266, 656);
+            this.panelDll.Size = new System.Drawing.Size(1218, 656);
             this.panelDll.TabIndex = 13;
             // 
             // textDllHelperExcludeFilter
             // 
-            this.textDllHelperExcludeFilter.Location = new System.Drawing.Point(465, 119);
+            this.textDllHelperExcludeFilter.Location = new System.Drawing.Point(465, 135);
             this.textDllHelperExcludeFilter.Name = "textDllHelperExcludeFilter";
             this.textDllHelperExcludeFilter.Size = new System.Drawing.Size(535, 27);
             this.textDllHelperExcludeFilter.TabIndex = 14;
-            this.textDllHelperExcludeFilter.Text = "DevExpress";
-            this.toolTip1.SetToolTip(this.textDllHelperExcludeFilter, "Use this case-insensitive regex filter on file names to exclude files.");
+            this.textDllHelperExcludeFilter.Text = "DevExpress|System";
+            this.toolTip1.SetToolTip(this.textDllHelperExcludeFilter, "Use this case-insensitive pipe-delimite regex filter on file names to exclude DLL" +
+        " files.");
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(278, 122);
+            this.label8.Location = new System.Drawing.Point(278, 138);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(169, 20);
             this.label8.TabIndex = 13;
@@ -291,7 +296,7 @@
             this.textAssemblyLoadInfo.Name = "textAssemblyLoadInfo";
             this.textAssemblyLoadInfo.ReadOnly = true;
             this.textAssemblyLoadInfo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textAssemblyLoadInfo.Size = new System.Drawing.Size(967, 156);
+            this.textAssemblyLoadInfo.Size = new System.Drawing.Size(919, 156);
             this.textAssemblyLoadInfo.TabIndex = 11;
             // 
             // comboDllFile
@@ -299,9 +304,9 @@
             this.comboDllFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboDllFile.FormattingEnabled = true;
-            this.comboDllFile.Location = new System.Drawing.Point(282, 155);
+            this.comboDllFile.Location = new System.Drawing.Point(282, 170);
             this.comboDllFile.Name = "comboDllFile";
-            this.comboDllFile.Size = new System.Drawing.Size(967, 28);
+            this.comboDllFile.Size = new System.Drawing.Size(919, 28);
             this.comboDllFile.TabIndex = 2;
             this.comboDllFile.SelectedIndexChanged += new System.EventHandler(this.comboDllFile_SelectedIndexChanged);
             // 
@@ -318,7 +323,7 @@
             // labelDLLFiles
             // 
             this.labelDLLFiles.AutoSize = true;
-            this.labelDLLFiles.Location = new System.Drawing.Point(21, 158);
+            this.labelDLLFiles.Location = new System.Drawing.Point(21, 173);
             this.labelDLLFiles.Name = "labelDLLFiles";
             this.labelDLLFiles.Size = new System.Drawing.Size(126, 20);
             this.labelDLLFiles.TabIndex = 3;
@@ -333,7 +338,7 @@
             this.textExceptions.Name = "textExceptions";
             this.textExceptions.ReadOnly = true;
             this.textExceptions.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textExceptions.Size = new System.Drawing.Size(967, 87);
+            this.textExceptions.Size = new System.Drawing.Size(919, 87);
             this.textExceptions.TabIndex = 9;
             // 
             // comboSimioLocation
@@ -343,7 +348,7 @@
             this.comboSimioLocation.FormattingEnabled = true;
             this.comboSimioLocation.Location = new System.Drawing.Point(282, 85);
             this.comboSimioLocation.Name = "comboSimioLocation";
-            this.comboSimioLocation.Size = new System.Drawing.Size(967, 28);
+            this.comboSimioLocation.Size = new System.Drawing.Size(919, 28);
             this.comboSimioLocation.TabIndex = 4;
             this.comboSimioLocation.SelectedIndexChanged += new System.EventHandler(this.comboSimioLocation_SelectedIndexChanged);
             this.comboSimioLocation.SelectedValueChanged += new System.EventHandler(this.comboSimioLocation_SelectedValueChanged);
@@ -366,7 +371,7 @@
             this.textAssemblyName.Name = "textAssemblyName";
             this.textAssemblyName.ReadOnly = true;
             this.textAssemblyName.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textAssemblyName.Size = new System.Drawing.Size(967, 151);
+            this.textAssemblyName.Size = new System.Drawing.Size(919, 151);
             this.textAssemblyName.TabIndex = 5;
             // 
             // label1
@@ -383,7 +388,7 @@
             this.tabNetVersions.Controls.Add(this.panel1);
             this.tabNetVersions.Location = new System.Drawing.Point(4, 29);
             this.tabNetVersions.Name = "tabNetVersions";
-            this.tabNetVersions.Size = new System.Drawing.Size(1272, 662);
+            this.tabNetVersions.Size = new System.Drawing.Size(1224, 662);
             this.tabNetVersions.TabIndex = 3;
             this.tabNetVersions.Text = ".NET Versions";
             this.tabNetVersions.UseVisualStyleBackColor = true;
@@ -401,7 +406,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1272, 662);
+            this.panel1.Size = new System.Drawing.Size(1224, 662);
             this.panel1.TabIndex = 20;
             // 
             // labelHwCpuSpeed
@@ -496,7 +501,7 @@
             this.tabFindUserExtensions.Controls.Add(this.panelFindSteps);
             this.tabFindUserExtensions.Location = new System.Drawing.Point(4, 29);
             this.tabFindUserExtensions.Name = "tabFindUserExtensions";
-            this.tabFindUserExtensions.Size = new System.Drawing.Size(1272, 662);
+            this.tabFindUserExtensions.Size = new System.Drawing.Size(1224, 681);
             this.tabFindUserExtensions.TabIndex = 2;
             this.tabFindUserExtensions.Text = "Find UserExtensions";
             this.tabFindUserExtensions.UseVisualStyleBackColor = true;
@@ -511,7 +516,7 @@
             this.panelFindSteps.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFindSteps.Location = new System.Drawing.Point(0, 0);
             this.panelFindSteps.Name = "panelFindSteps";
-            this.panelFindSteps.Size = new System.Drawing.Size(1272, 662);
+            this.panelFindSteps.Size = new System.Drawing.Size(1224, 681);
             this.panelFindSteps.TabIndex = 11;
             // 
             // textStepsAndAddIns
@@ -523,7 +528,7 @@
             this.textStepsAndAddIns.Name = "textStepsAndAddIns";
             this.textStepsAndAddIns.ReadOnly = true;
             this.textStepsAndAddIns.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textStepsAndAddIns.Size = new System.Drawing.Size(1223, 454);
+            this.textStepsAndAddIns.Size = new System.Drawing.Size(1175, 454);
             this.textStepsAndAddIns.TabIndex = 12;
             // 
             // buttonFindUserExtensions
@@ -562,7 +567,7 @@
             this.comboFindSimioExtensionLocations.FormattingEnabled = true;
             this.comboFindSimioExtensionLocations.Location = new System.Drawing.Point(230, 68);
             this.comboFindSimioExtensionLocations.Name = "comboFindSimioExtensionLocations";
-            this.comboFindSimioExtensionLocations.Size = new System.Drawing.Size(1012, 28);
+            this.comboFindSimioExtensionLocations.Size = new System.Drawing.Size(964, 28);
             this.comboFindSimioExtensionLocations.TabIndex = 9;
             this.comboFindSimioExtensionLocations.SelectedIndexChanged += new System.EventHandler(this.comboFindSimioExtensionLocations_SelectedIndexChanged);
             // 
@@ -571,13 +576,17 @@
             this.tabHeadlessRun.Controls.Add(this.panelHeadlessRun);
             this.tabHeadlessRun.Location = new System.Drawing.Point(4, 29);
             this.tabHeadlessRun.Name = "tabHeadlessRun";
-            this.tabHeadlessRun.Size = new System.Drawing.Size(1272, 662);
+            this.tabHeadlessRun.Size = new System.Drawing.Size(1224, 681);
             this.tabHeadlessRun.TabIndex = 4;
             this.tabHeadlessRun.Text = "Headless Run";
             this.tabHeadlessRun.UseVisualStyleBackColor = true;
             // 
             // panelHeadlessRun
             // 
+            this.panelHeadlessRun.Controls.Add(this.buttonRunExecutable);
+            this.panelHeadlessRun.Controls.Add(this.label15);
+            this.panelHeadlessRun.Controls.Add(this.label14);
+            this.panelHeadlessRun.Controls.Add(this.comboExecutableToRun);
             this.panelHeadlessRun.Controls.Add(this.label9);
             this.panelHeadlessRun.Controls.Add(this.textHeadlessFilesLocation);
             this.panelHeadlessRun.Controls.Add(this.buttonChangeHeadlessLocation);
@@ -588,47 +597,50 @@
             this.panelHeadlessRun.Controls.Add(this.textModelName);
             this.panelHeadlessRun.Controls.Add(this.groupBox1);
             this.panelHeadlessRun.Controls.Add(this.buttonHeadlessRun);
-            this.panelHeadlessRun.Controls.Add(this.textHeadlessModelFile);
-            this.panelHeadlessRun.Controls.Add(this.buttonHeadlessSelectModel);
+            this.panelHeadlessRun.Controls.Add(this.textHeadlessProjectFile);
+            this.panelHeadlessRun.Controls.Add(this.buttonHeadlessSelectProjectFile);
             this.panelHeadlessRun.Controls.Add(this.label5);
             this.panelHeadlessRun.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelHeadlessRun.Location = new System.Drawing.Point(0, 0);
             this.panelHeadlessRun.Name = "panelHeadlessRun";
-            this.panelHeadlessRun.Size = new System.Drawing.Size(1272, 662);
+            this.panelHeadlessRun.Size = new System.Drawing.Size(1224, 681);
             this.panelHeadlessRun.TabIndex = 9;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(63, 97);
+            this.label9.Location = new System.Drawing.Point(63, 185);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(175, 20);
+            this.label9.Size = new System.Drawing.Size(222, 20);
             this.label9.TabIndex = 26;
-            this.label9.Text = "Project Name (.SPFX)";
+            this.label9.Text = "Simio Project Name (.SPFX)";
             // 
             // textHeadlessFilesLocation
             // 
             this.textHeadlessFilesLocation.Location = new System.Drawing.Point(63, 53);
             this.textHeadlessFilesLocation.Name = "textHeadlessFilesLocation";
-            this.textHeadlessFilesLocation.Size = new System.Drawing.Size(971, 27);
+            this.textHeadlessFilesLocation.Size = new System.Drawing.Size(719, 27);
             this.textHeadlessFilesLocation.TabIndex = 25;
             // 
             // buttonChangeHeadlessLocation
             // 
-            this.buttonChangeHeadlessLocation.Location = new System.Drawing.Point(1061, 53);
+            this.buttonChangeHeadlessLocation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonChangeHeadlessLocation.Location = new System.Drawing.Point(821, 43);
             this.buttonChangeHeadlessLocation.Name = "buttonChangeHeadlessLocation";
-            this.buttonChangeHeadlessLocation.Size = new System.Drawing.Size(165, 40);
+            this.buttonChangeHeadlessLocation.Size = new System.Drawing.Size(240, 40);
             this.buttonChangeHeadlessLocation.TabIndex = 24;
             this.buttonChangeHeadlessLocation.Text = "Change Location...";
             this.toolTip1.SetToolTip(this.buttonChangeHeadlessLocation, "Select where the headless executable files are located.");
             this.buttonChangeHeadlessLocation.UseVisualStyleBackColor = true;
+            this.buttonChangeHeadlessLocation.Click += new System.EventHandler(this.buttonChangeHeadlessLocation_Click);
             // 
             // buttonRunExperiment
             // 
-            this.buttonRunExperiment.Location = new System.Drawing.Point(1061, 189);
+            this.buttonRunExperiment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonRunExperiment.Location = new System.Drawing.Point(821, 286);
             this.buttonRunExperiment.Name = "buttonRunExperiment";
-            this.buttonRunExperiment.Size = new System.Drawing.Size(165, 46);
+            this.buttonRunExperiment.Size = new System.Drawing.Size(240, 46);
             this.buttonRunExperiment.TabIndex = 23;
             this.buttonRunExperiment.Text = "Run Experiment";
             this.toolTip1.SetToolTip(this.buttonRunExperiment, "Run the model and the post-run actions according to the checkboxes");
@@ -638,7 +650,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(59, 192);
+            this.label6.Location = new System.Drawing.Point(59, 303);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(147, 20);
@@ -648,7 +660,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(63, 281);
+            this.label7.Location = new System.Drawing.Point(59, 257);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(113, 20);
@@ -657,7 +669,7 @@
             // 
             // textExperimentName
             // 
-            this.textExperimentName.Location = new System.Drawing.Point(247, 189);
+            this.textExperimentName.Location = new System.Drawing.Point(247, 296);
             this.textExperimentName.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textExperimentName.Name = "textExperimentName";
             this.textExperimentName.Size = new System.Drawing.Size(158, 27);
@@ -666,7 +678,7 @@
             // 
             // textModelName
             // 
-            this.textModelName.Location = new System.Drawing.Point(247, 278);
+            this.textModelName.Location = new System.Drawing.Point(247, 254);
             this.textModelName.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textModelName.Name = "textModelName";
             this.textModelName.Size = new System.Drawing.Size(210, 27);
@@ -678,7 +690,7 @@
             this.groupBox1.Controls.Add(this.cbHeadlessSaveModelAfterRun);
             this.groupBox1.Controls.Add(this.cbHeadlessPublishPlanAfterRun);
             this.groupBox1.Controls.Add(this.cbHeadlessRunRiskAnalysis);
-            this.groupBox1.Location = new System.Drawing.Point(63, 321);
+            this.groupBox1.Location = new System.Drawing.Point(63, 374);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(369, 155);
             this.groupBox1.TabIndex = 18;
@@ -719,48 +731,50 @@
             // 
             // buttonHeadlessRun
             // 
-            this.buttonHeadlessRun.Location = new System.Drawing.Point(1061, 278);
+            this.buttonHeadlessRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHeadlessRun.Location = new System.Drawing.Point(821, 346);
             this.buttonHeadlessRun.Name = "buttonHeadlessRun";
-            this.buttonHeadlessRun.Size = new System.Drawing.Size(165, 46);
+            this.buttonHeadlessRun.Size = new System.Drawing.Size(240, 46);
             this.buttonHeadlessRun.TabIndex = 14;
-            this.buttonHeadlessRun.Text = "Run Model...";
+            this.buttonHeadlessRun.Text = "Run Plan...";
             this.toolTip1.SetToolTip(this.buttonHeadlessRun, "Run the model and the post-run actions according to the checkboxes");
             this.buttonHeadlessRun.UseVisualStyleBackColor = true;
             this.buttonHeadlessRun.Click += new System.EventHandler(this.buttonHeadlessRun_Click);
             // 
-            // textHeadlessModelFile
+            // textHeadlessProjectFile
             // 
-            this.textHeadlessModelFile.Location = new System.Drawing.Point(63, 120);
-            this.textHeadlessModelFile.Name = "textHeadlessModelFile";
-            this.textHeadlessModelFile.Size = new System.Drawing.Size(971, 27);
-            this.textHeadlessModelFile.TabIndex = 13;
+            this.textHeadlessProjectFile.Location = new System.Drawing.Point(63, 208);
+            this.textHeadlessProjectFile.Name = "textHeadlessProjectFile";
+            this.textHeadlessProjectFile.Size = new System.Drawing.Size(719, 27);
+            this.textHeadlessProjectFile.TabIndex = 13;
             // 
-            // buttonHeadlessSelectModel
+            // buttonHeadlessSelectProjectFile
             // 
-            this.buttonHeadlessSelectModel.Location = new System.Drawing.Point(1061, 120);
-            this.buttonHeadlessSelectModel.Name = "buttonHeadlessSelectModel";
-            this.buttonHeadlessSelectModel.Size = new System.Drawing.Size(165, 40);
-            this.buttonHeadlessSelectModel.TabIndex = 12;
-            this.buttonHeadlessSelectModel.Text = "Select Project";
-            this.toolTip1.SetToolTip(this.buttonHeadlessSelectModel, "Select a Simio SPFX project file for loading");
-            this.buttonHeadlessSelectModel.UseVisualStyleBackColor = true;
-            this.buttonHeadlessSelectModel.Click += new System.EventHandler(this.buttonHeadlessSelectModel_Click);
+            this.buttonHeadlessSelectProjectFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHeadlessSelectProjectFile.Location = new System.Drawing.Point(821, 201);
+            this.buttonHeadlessSelectProjectFile.Name = "buttonHeadlessSelectProjectFile";
+            this.buttonHeadlessSelectProjectFile.Size = new System.Drawing.Size(240, 40);
+            this.buttonHeadlessSelectProjectFile.TabIndex = 12;
+            this.buttonHeadlessSelectProjectFile.Text = "Select Project";
+            this.toolTip1.SetToolTip(this.buttonHeadlessSelectProjectFile, "Select a Simio SPFX project file for loading");
+            this.buttonHeadlessSelectProjectFile.UseVisualStyleBackColor = true;
+            this.buttonHeadlessSelectProjectFile.Click += new System.EventHandler(this.buttonHeadlessSelectModel_Click);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(59, 30);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(292, 20);
+            this.label5.Size = new System.Drawing.Size(521, 20);
             this.label5.TabIndex = 8;
-            this.label5.Text = "Location of the Headless Executables";
+            this.label5.Text = "Location of the Folder holding the Headless Executable(s) and DLLs";
             // 
             // tabHeadlessBuilder
             // 
             this.tabHeadlessBuilder.Controls.Add(this.panel2);
             this.tabHeadlessBuilder.Location = new System.Drawing.Point(4, 29);
             this.tabHeadlessBuilder.Name = "tabHeadlessBuilder";
-            this.tabHeadlessBuilder.Size = new System.Drawing.Size(1272, 662);
+            this.tabHeadlessBuilder.Size = new System.Drawing.Size(1224, 662);
             this.tabHeadlessBuilder.TabIndex = 6;
             this.tabHeadlessBuilder.Text = "HeadlessBuilder";
             this.tabHeadlessBuilder.UseVisualStyleBackColor = true;
@@ -780,15 +794,28 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1272, 662);
+            this.panel2.Size = new System.Drawing.Size(1224, 662);
             this.panel2.TabIndex = 29;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(30, 14);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(977, 20);
+            this.label13.TabIndex = 35;
+            this.label13.Text = "Assists in the building of a headless version of Simio using the installation fol" +
+    "der and a target folder to receive the necessary files.";
+            this.toolTip1.SetToolTip(this.label13, "Where are the files from the Simio Desktop installation?");
             // 
             // checklistSelectedFiles
             // 
+            this.checklistSelectedFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.checklistSelectedFiles.FormattingEnabled = true;
             this.checklistSelectedFiles.Location = new System.Drawing.Point(34, 298);
             this.checklistSelectedFiles.Name = "checklistSelectedFiles";
-            this.checklistSelectedFiles.Size = new System.Drawing.Size(967, 224);
+            this.checklistSelectedFiles.Size = new System.Drawing.Size(919, 224);
             this.checklistSelectedFiles.TabIndex = 34;
             // 
             // label12
@@ -802,7 +829,8 @@
             // 
             // buttonBuildHeadlessSystem
             // 
-            this.buttonBuildHeadlessSystem.Location = new System.Drawing.Point(1029, 298);
+            this.buttonBuildHeadlessSystem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonBuildHeadlessSystem.Location = new System.Drawing.Point(981, 298);
             this.buttonBuildHeadlessSystem.Name = "buttonBuildHeadlessSystem";
             this.buttonBuildHeadlessSystem.Size = new System.Drawing.Size(165, 40);
             this.buttonBuildHeadlessSystem.TabIndex = 32;
@@ -813,9 +841,11 @@
             // 
             // textSimioInstallationFolder
             // 
+            this.textSimioInstallationFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textSimioInstallationFolder.Location = new System.Drawing.Point(31, 76);
             this.textSimioInstallationFolder.Name = "textSimioInstallationFolder";
-            this.textSimioInstallationFolder.Size = new System.Drawing.Size(971, 27);
+            this.textSimioInstallationFolder.Size = new System.Drawing.Size(923, 27);
             this.textSimioInstallationFolder.TabIndex = 31;
             // 
             // label11
@@ -830,7 +860,8 @@
             // 
             // buttonSelectSimioInstallationFolder
             // 
-            this.buttonSelectSimioInstallationFolder.Location = new System.Drawing.Point(1029, 69);
+            this.buttonSelectSimioInstallationFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSelectSimioInstallationFolder.Location = new System.Drawing.Point(981, 69);
             this.buttonSelectSimioInstallationFolder.Name = "buttonSelectSimioInstallationFolder";
             this.buttonSelectSimioInstallationFolder.Size = new System.Drawing.Size(165, 40);
             this.buttonSelectSimioInstallationFolder.TabIndex = 30;
@@ -841,9 +872,11 @@
             // 
             // textHeadlessBuildLocation
             // 
+            this.textHeadlessBuildLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textHeadlessBuildLocation.Location = new System.Drawing.Point(31, 161);
             this.textHeadlessBuildLocation.Name = "textHeadlessBuildLocation";
-            this.textHeadlessBuildLocation.Size = new System.Drawing.Size(971, 27);
+            this.textHeadlessBuildLocation.Size = new System.Drawing.Size(923, 27);
             this.textHeadlessBuildLocation.TabIndex = 28;
             // 
             // label10
@@ -857,7 +890,8 @@
             // 
             // buttonSelectHeadlessFolder
             // 
-            this.buttonSelectHeadlessFolder.Location = new System.Drawing.Point(1029, 148);
+            this.buttonSelectHeadlessFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSelectHeadlessFolder.Location = new System.Drawing.Point(981, 148);
             this.buttonSelectHeadlessFolder.Name = "buttonSelectHeadlessFolder";
             this.buttonSelectHeadlessFolder.Size = new System.Drawing.Size(165, 40);
             this.buttonSelectHeadlessFolder.TabIndex = 27;
@@ -872,7 +906,7 @@
             this.tabLogs.Location = new System.Drawing.Point(4, 29);
             this.tabLogs.Name = "tabLogs";
             this.tabLogs.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLogs.Size = new System.Drawing.Size(1272, 662);
+            this.tabLogs.Size = new System.Drawing.Size(1224, 662);
             this.tabLogs.TabIndex = 1;
             this.tabLogs.Text = "Logs";
             this.tabLogs.UseVisualStyleBackColor = true;
@@ -885,7 +919,7 @@
             this.textLogs.Name = "textLogs";
             this.textLogs.ReadOnly = true;
             this.textLogs.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textLogs.Size = new System.Drawing.Size(1266, 656);
+            this.textLogs.Size = new System.Drawing.Size(1218, 656);
             this.textLogs.TabIndex = 0;
             this.textLogs.Text = "(no logs yet...)";
             // 
@@ -904,22 +938,51 @@
             this.timerLogs.Interval = 1000;
             this.timerLogs.Tick += new System.EventHandler(this.timerLogs_Tick);
             // 
-            // label13
+            // comboExecutableToRun
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(30, 14);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(977, 20);
-            this.label13.TabIndex = 35;
-            this.label13.Text = "Assists in the building of a headless version of Simio using the installation fol" +
-    "der and a target folder to receive the necessary files.";
-            this.toolTip1.SetToolTip(this.label13, "Where are the files from the Simio Desktop installation?");
+            this.comboExecutableToRun.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboExecutableToRun.FormattingEnabled = true;
+            this.comboExecutableToRun.Location = new System.Drawing.Point(63, 122);
+            this.comboExecutableToRun.Name = "comboExecutableToRun";
+            this.comboExecutableToRun.Size = new System.Drawing.Size(427, 28);
+            this.comboExecutableToRun.TabIndex = 27;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(59, 99);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(346, 20);
+            this.label14.TabIndex = 28;
+            this.label14.Text = "Select the Executable within this folder to run";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(909, 164);
+            this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(51, 20);
+            this.label15.TabIndex = 29;
+            this.label15.Text = "- or - ";
+            // 
+            // buttonRunExecutable
+            // 
+            this.buttonRunExecutable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonRunExecutable.Location = new System.Drawing.Point(821, 115);
+            this.buttonRunExecutable.Name = "buttonRunExecutable";
+            this.buttonRunExecutable.Size = new System.Drawing.Size(240, 40);
+            this.buttonRunExecutable.TabIndex = 30;
+            this.buttonRunExecutable.Text = "Run the Executable";
+            this.toolTip1.SetToolTip(this.buttonRunExecutable, "Run the selected executable");
+            this.buttonRunExecutable.UseVisualStyleBackColor = true;
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1280, 748);
+            this.ClientSize = new System.Drawing.Size(1232, 767);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.menuStrip1);
@@ -1004,8 +1067,8 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.TabPage tabHeadlessRun;
         private System.Windows.Forms.Panel panelHeadlessRun;
-        private System.Windows.Forms.TextBox textHeadlessModelFile;
-        private System.Windows.Forms.Button buttonHeadlessSelectModel;
+        private System.Windows.Forms.TextBox textHeadlessProjectFile;
+        private System.Windows.Forms.Button buttonHeadlessSelectProjectFile;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button buttonHeadlessRun;
         private System.Windows.Forms.CheckBox cbHeadlessSaveModelAfterRun;
@@ -1036,6 +1099,10 @@
         private System.Windows.Forms.CheckedListBox checklistSelectedFiles;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ComboBox comboExecutableToRun;
+        private System.Windows.Forms.Button buttonRunExecutable;
     }
 }
 

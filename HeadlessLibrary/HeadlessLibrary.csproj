@@ -7,8 +7,8 @@
     <ProjectGuid>{CA2AB3A8-EDBF-4D16-BB00-FB8C5F6CFEEC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ClassLibrary1</RootNamespace>
-    <AssemblyName>ClassLibrary1</AssemblyName>
+    <RootNamespace>HeadlessLibrary</RootNamespace>
+    <AssemblyName>HeadlessLibrary</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
