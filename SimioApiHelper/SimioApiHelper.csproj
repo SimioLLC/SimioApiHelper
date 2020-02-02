@@ -37,16 +37,19 @@
       <HintPath>..\Library\IconLib.dll</HintPath>
     </Reference>
     <Reference Include="SimioAPI">
-      <HintPath>C:\Program Files (x86)\Simio\SimioAPI.dll</HintPath>
+      <HintPath>..\Executables\SimioAPI.dll</HintPath>
     </Reference>
     <Reference Include="SimioAPI.Extensions">
-      <HintPath>C:\Program Files (x86)\Simio\SimioAPI.Extensions.dll</HintPath>
+      <HintPath>..\Executables\SimioAPI.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="SimioDLL">
-      <HintPath>C:\Program Files (x86)\Simio\SimioDLL.dll</HintPath>
+      <HintPath>..\Executables\SimioDLL.dll</HintPath>
     </Reference>
     <Reference Include="SimioEnums">
-      <HintPath>C:\Program Files (x86)\Simio\SimioEnums.dll</HintPath>
+      <HintPath>..\Executables\SimioEnums.dll</HintPath>
+    </Reference>
+    <Reference Include="SimioTypes">
+      <HintPath>..\Executables\SimioTypes.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -114,30 +117,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="SimioRoam.lic" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="QlmControls.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="QlmLicenseLib.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="rlm944.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="rlm944_x64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SimioSelectionRules.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TextFileReadWrite.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HeadlessLibrary\HeadlessLibrary.csproj">

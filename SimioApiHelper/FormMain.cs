@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -844,6 +845,7 @@ namespace SimioApiHelper
         {
             try
             {
+                textHeadlessRunFilesLocation.Text = Properties.Settings.Default.HeadlessSystemFolder;
 
             }
             catch (Exception ex)
@@ -869,7 +871,7 @@ namespace SimioApiHelper
 
                 if ( Directory.Exists(textSimioInstallationFolder.Text))
                 {
-                    List<string> checkItems = new List<string>
+                    List<string> basicItems = new List<string>
                     {
                         "QlmControls.dll",
                         "QlmLicenseLib.dll",
@@ -878,6 +880,7 @@ namespace SimioApiHelper
                         "SimioDLL.dll",
                         "SimioAPI.dll",
                         "SimioAPI.Extensions.dll",
+                        "SimioAPI.Graphics.dll",
                         "SimioEnums.dll",
                         "IconLib.dll",
                         "SimioTypes.dll",
@@ -887,8 +890,43 @@ namespace SimioApiHelper
                         "SimioRoam.lic"
                     };
 
+                    List<string> ignorePatterns = new List<string>
+                    {
+                        "^LumenWorks",
+                        "^DevExpress",
+                        "^SPG",
+                        "^WW",
+                        "^Smart",
+                        "^SharpDX",
+                        "^Windows7",
+                        "^NDepend",
+                        "^NewtonSoft",
+                        "^Ogre",
+                        "^PlexityHide",
+                        "^PSTaskDialog"
+                    };
 
-                    RefreshChecklistForTargets(textSimioInstallationFolder.Text, checkItems);
+                    List<string> extensionItems = new List<string>
+                    {
+                        "ADOGridDataProvider",
+                        "BinaryGate",
+                        "CSVGridDataProvider",
+                        "DbReadWrite",
+                        "ExcelGridDataProvider",
+                        "ExcelReadWrite",
+                        "GoodSelectionProcedure",
+                        "RelocateObject",
+                        "SelectBestScenario",
+                        "SimioReplenishmentPolicies",
+                        "SimioSelectionRules",
+                        "SimioTravelSteeringBehaviors",
+                        "TextFileReadWrite",
+                        "XMLGridDataProvider"
+                    };
+
+                    List<string> allItems = basicItems.Concat(extensionItems).ToList();
+
+                    RefreshChecklistForTargets(textSimioInstallationFolder.Text, ignorePatterns);
                 }
 
             }
@@ -916,34 +954,62 @@ namespace SimioApiHelper
 
                 try
                 {
-                    File.Copy(sourcePath, targetPath, true);
+                    File.Copy(filepath, targetPath, true);
                 }
                 catch (Exception ex)
                 {
                     throw new ApplicationException($"Source={sourcePath} Target={targetPath} Err={ex.Message}");
                 }
             } // foreach file
+
         }
 
 
-        private void RefreshChecklistForTargets(string simioInstallPath, List<string> itemsToBeChecked)
+        private void RefreshChecklistForTargets(string simioInstallPath, List<string> ignorePatternList )
         {
             try
             {
-                string[] files = Directory.GetFiles(simioInstallPath, "*.DLL", SearchOption.AllDirectories);
+                string[] files = Directory.GetFiles(simioInstallPath, "*.DLL", SearchOption.TopDirectoryOnly);
 
-                List<string> includedFiles = itemsToBeChecked.ConvertAll(rr => rr.ToLower());
-
-                checklistSelectedFiles.Items.Clear();
+                List<string> includedFiles = new List<string>();
                 foreach ( string file in files)
                 {
-                    string fn = Path.GetFileName(file).ToLower();
-                    if ( includedFiles.Contains(fn) )
-                        checklistSelectedFiles.Items.Add(file, true);
-                    else
-                        checklistSelectedFiles.Items.Add(file, false);
+                    includedFiles.Add(file);
                 }
 
+                string[] folders = Directory.GetDirectories(Path.Combine(simioInstallPath, "UserExtensions"));
+                foreach ( string folder in folders)
+                {
+                    foreach ( string dllFile in Directory.GetFiles(folder, "*.dll", SearchOption.TopDirectoryOnly))
+                    {
+                        includedFiles.Add(dllFile);
+                    }
+                }
+
+                // Filter and add to the checklist control
+                List<string> filteredFiles = new List<string>();
+                foreach ( string file in includedFiles )
+                {
+                    string fn = Path.GetFileName(file);
+                    foreach ( string pattern in ignorePatternList )
+                    {
+                        if ( Regex.IsMatch(fn, pattern, RegexOptions.IgnoreCase))
+                        {
+                            goto GetNextFile;
+                        }
+                    }
+
+                    filteredFiles.Add(file);
+
+                GetNextFile:;
+                } // foreach file
+
+                foreach (string file in filteredFiles)
+                {
+                    checklistSelectedFiles.Items.Add(file, true);
+                }
+
+                checklistSelectedFiles.Items.Add(Path.Combine(simioInstallPath, "SimioRoam.lic"));
 
             }
             catch (Exception ex)
@@ -1049,7 +1115,6 @@ namespace SimioApiHelper
                 ComboBox combo = sender as ComboBox;
 
                 string location = combo.SelectedItem as string;
-
             }
             catch (Exception ex)
             {
@@ -1058,9 +1123,24 @@ namespace SimioApiHelper
         }
 
 
-        private void buttonHeadlessSelectModel_Click(object sender, EventArgs e)
+        private void buttonHeadlessRunSelectProjectFile_Click(object sender, EventArgs e)
         {
-            textHeadlessProjectFile.Text = HeadlessHelpers.GetModelFile();
+            string projectFile = HeadlessHelpers.GetProjectFile();
+            textHeadlessRunProjectFile.Text = projectFile;
+
+            string extensionsPath = textHeadlessRunFilesLocation.Text;
+            var project = HeadlessHelpers.LoadProject(extensionsPath, projectFile, out string explanation);
+            if (project == null)
+            {
+                Alert(explanation);
+                return;
+            }
+
+            comboHeadlessRunModels.Items.Clear();
+            foreach ( var model in project.Models )
+            {
+                comboHeadlessRunModels.Items.Add(model.Name);
+            }
         }
 
         private void buttonHeadlessRun_Click(object sender, EventArgs e)
@@ -1068,15 +1148,17 @@ namespace SimioApiHelper
             Cursor.Current = Cursors.WaitCursor;
             try
             {
-                if (!HeadlessHelpers.RunModel(textHeadlessProjectFile.Text, "Model", cbHeadlessRunRiskAnalysis.Checked,
-                    cbHeadlessSaveModelAfterRun.Checked,
-                    cbHeadlessPublishPlanAfterRun.Checked, out string explanation))
+                string extensionsPath = textHeadlessRunFilesLocation.Text;
+
+                if (!HeadlessHelpers.RunModelPlan(extensionsPath, textHeadlessRunProjectFile.Text, "Model", cbHeadlessRunRiskAnalysis.Checked,
+                    cbHeadlessRunSaveModelAfterRun.Checked,
+                    cbHeadlessRunPublishPlanAfterRun.Checked, out string explanation))
                 {
                     Alert(explanation);
                 }
                 else
                 {
-                    Alert(EnumLogFlags.Information, $"Model={textHeadlessProjectFile.Text} performed the actions successfully. Check the logs for more information.");
+                    Alert(EnumLogFlags.Information, $"Model={textHeadlessRunProjectFile.Text} performed the actions successfully. Check the logs for more information.");
                 }
             }
             catch (Exception ex)
@@ -1094,12 +1176,14 @@ namespace SimioApiHelper
         private void buttonRunExperiment_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
-            string modelName = textModelName.Text;
-            string experimentName = textExperimentName.Text;
+            string modelName = comboHeadlessRunModels.Text;
+            string experimentName = textHeadlessRunExperimentName.Text;
             try
             {
-                if (!HeadlessHelpers.RunExperiment( textHeadlessProjectFile.Text, modelName, experimentName,
-                    cbHeadlessSaveModelAfterRun.Checked,
+                string extensionsPath = textHeadlessRunFilesLocation.Text;
+
+                if (!HeadlessHelpers.RunExperiment( extensionsPath, textHeadlessRunProjectFile.Text, modelName, experimentName,
+                    cbHeadlessRunSaveModelAfterRun.Checked,
                     out string explanation))
                 {
                     Alert(explanation);
@@ -1249,12 +1333,12 @@ namespace SimioApiHelper
                     return;
                 }
 
-                textHeadlessFilesLocation.Text = dialog.SelectedPath;
+                textHeadlessRunFilesLocation.Text = dialog.SelectedPath;
 
-                List<string> exeFiles = Directory.GetFiles(textHeadlessFilesLocation.Text, "*.exe").ToList();
-                comboExecutableToRun.DataSource = exeFiles;
+                List<string> exeFiles = Directory.GetFiles(textHeadlessRunFilesLocation.Text, "*.exe").ToList();
+                comboHeadlessRunExecutableToRun.DataSource = exeFiles;
                 if (exeFiles.Any())
-                    comboExecutableToRun.Text = Path.GetFileName(exeFiles[0]);
+                    comboHeadlessRunExecutableToRun.Text = Path.GetFileName(exeFiles[0]);
                 
                 Properties.Settings.Default.HeadlessSystemFolder = dialog.SelectedPath;
                 Properties.Settings.Default.Save();

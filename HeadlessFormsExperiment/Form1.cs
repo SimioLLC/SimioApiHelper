@@ -1,5 +1,6 @@
 ﻿using HeadlessLibrary;
 using LoggertonHelpers;
+using SimioAPI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,16 +26,68 @@ namespace HeadlessFormsExperiment
             timerLogs.Enabled = true;
         }
 
+        private bool LoadProject(string projectPath, out string explanation)
+        {
+            explanation = "";
+
+            Cursor.Current = Cursors.WaitCursor;
+            try
+            {
+                string extensionsPath = System.AppDomain.CurrentDomain.BaseDirectory;
+                labelExtensionsPath.Text = extensionsPath;
+
+                ISimioProject project = HeadlessHelpers.LoadProject(extensionsPath, projectPath, out explanation);
+                if (project == null)
+                {
+                    explanation = $"Cannot load project={projectPath}";
+                    return false;
+                }
+
+                comboHeadlessRunModels.Items.Clear();
+                comboHeadlessRunModels.DisplayMember = "Name";
+                foreach ( var model in project.Models)
+                {
+                    comboHeadlessRunModels.Items.Add(model);
+                }
+
+                IModel defaultModel = comboHeadlessRunModels.Items[1] as IModel;
+
+                comboHeadlessExperiments.Items.Clear();
+                comboHeadlessExperiments.DisplayMember = "Name";
+                foreach ( var experiment in defaultModel.Experiments)
+                {
+                    comboHeadlessExperiments.Items.Add(experiment);
+                }
+
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                explanation = $"Err={ex.Message}";
+                return false;
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
+
+        }
+
+
         private void buttonRunExperiment_Click(object sender, EventArgs e)
         {
-            Cursor.Current = Cursors.WaitCursor;
-            string experimentName = textExperimentName.Text;
-            string modelName = textModelName.Text;
-            Logit($"Info: Running Model={modelName}. Experiment={experimentName}");
+
+            string experimentName = comboHeadlessExperiments.Text;
+            string modelName = comboHeadlessRunModels.Text;
+
+            string projectPath = textHeadlessProjectFile.Text;
+            string extensionsPath = labelExtensionsPath.Text;
+            Logit($"Info: Running Model={modelName}. Experiment={experimentName}. ExtensionsPath={extensionsPath}");
 
             try
             {
-                if (!HeadlessHelpers.RunExperiment(textHeadlessProjectFile.Text, modelName, experimentName, 
+                if (!HeadlessHelpers.RunExperiment(extensionsPath, projectPath, modelName, experimentName, 
                     cbHeadlessSaveModelAfterRun.Checked,
                     out string explanation))
                 {
@@ -42,7 +95,7 @@ namespace HeadlessFormsExperiment
                 }
                 else
                 {
-                    Alert(EnumLogFlags.Information, $"Model={textModelName.Text} Experiment={textExperimentName} performed the actions successfully. Check the logs for more information.");
+                    Alert(EnumLogFlags.Information, $"Model={comboHeadlessRunModels.Text} Experiment={comboHeadlessExperiments.Text} performed the actions successfully. Check the logs for more information.");
                 }
             }
             catch (Exception ex)
@@ -75,7 +128,11 @@ namespace HeadlessFormsExperiment
 
         private void buttonHeadlessSelectModel_Click(object sender, EventArgs e)
         {
-            textHeadlessProjectFile.Text = HeadlessHelpers.GetModelFile();
+            textHeadlessProjectFile.Text = HeadlessHelpers.GetProjectFile();
+            string projectPath = textHeadlessProjectFile.Text;
+
+            if (!LoadProject(projectPath, out string explanation))
+                Alert($"{explanation}");
 
         }
 
