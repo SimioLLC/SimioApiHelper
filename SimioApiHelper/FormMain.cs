@@ -1404,13 +1404,11 @@ namespace SimioApiHelper
                 textHeadlessRunProjectFile.Text = projectFile;
 
                 string extensionsPath = textHeadlessRunFilesLocation.Text;
-                var project = HeadlessHelpers.SaveProject( , out string explanation);
-                if (project == null)
-                {
+                if ( !HeadlessHelpers.SaveProject( , out string explanation)
                     Alert(explanation);
                     return;
                 }
-                marker = $"Selected and loaded Project={project.Name} with {project.Models.Count} models.";
+                marker = $"Save Project={project.Name} with {project.Models.Count} models.";
                 Logit($"Info: {marker}");
 
 

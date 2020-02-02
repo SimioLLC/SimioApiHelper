@@ -96,6 +96,85 @@ namespace HeadlessLibrary
             }
         }
 
+        /// <summary>
+        /// Save the given project to the 'savePath'.
+        /// </summary>
+        /// <param name="project"></param>
+        /// <param name="savePath"></param>
+        public static bool SaveProject(HeadlessContext context, string savePath, out string explanation)
+        {
+            explanation = "";
+            string marker = "Begin.";
+            string[] warnings;
+
+            // If project not loaded, return error
+            if (context == null || context.CurrentProject == null)
+            {
+                explanation = $"Context or Project is null.";
+                return false;
+            }
+
+            string folderPath = Path.GetDirectoryName(savePath);
+
+            if (Directory.Exists(folderPath) == false)
+            {
+                explanation = $"FolderPath={folderPath} not found.";
+                return false;
+            }
+
+            try
+            {
+
+                // Open project file.
+                marker = $"Saving Project={context.CurrentProject.Name} to {savePath}.";
+                LogIt($"Info: {marker}");
+                if (!SimioProjectFactory.SaveProject(context.CurrentProject, savePath, out warnings))
+                    LogIt($"SaveProject failed.");
+
+                marker = $"Saved Project={savePath} with {warnings.Count()} warnings.";
+                int ii = 1;
+                foreach (string warning in warnings)
+                {
+                    LogIt($"Warning: {ii++}{warning}");
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                explanation = $"Cannot Save Simio Project={context.CurrentProject.Name} to {savePath} Err={ex.Message}";
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Create and return HeadlessContext with the given extensions path and
+        /// a Simio Project at projectFullPath.
+        /// Returns null if there is errors are encountered, along with an explanation.
+        /// Note that the project can load with a warnings list, which is null if there are no errors.
+        /// Load the project file and return a SimioProject
+        /// </summary>
+        /// <param name="projectFullPath"></param>
+        public static HeadlessContext CreateContext(string extensionsPath, out string explanation)
+        {
+            explanation = "";
+            
+            try
+            {
+                HeadlessContext context = new HeadlessContext();
+
+                if (context.Initialize(explanation, out explanation))
+                    return null;
+
+                return context;
+            }
+            catch (Exception ex)
+            {
+                explanation = $"Cannot Create Context with ExtensionsPath={extensionsPath} Err={ex.Message}";
+                return null;
+            }
+        }
+
 
         /// <summary>
         /// Set the extensions path and then Load the project file and return a SimioProject.
@@ -110,13 +189,13 @@ namespace HeadlessLibrary
             try
             {
                 // If File Not Exist, Throw Exeption
-                if ( File.Exists(projectFullPath) == false)
+                if (File.Exists(projectFullPath) == false)
                 {
                     explanation = $"Project File={projectFullPath} not found.";
                     return null;
                 }
 
-                if ( Directory.Exists(extensionsPath) == false )
+                if (Directory.Exists(extensionsPath) == false)
                 {
                     explanation = $"ExtensionsPath={extensionsPath} not found.";
                     return null;
@@ -146,34 +225,7 @@ namespace HeadlessLibrary
             }
         }
 
-        /// <summary>
-        /// Create and return HeadlessContext with the given extensions path and
-        /// a Simio Project at projectFullPath.
-        /// Returns null if there is errors are encountered, along with an explanation.
-        /// Note that the project can load with a warnings list, which is null if there are no errors.
-        /// Load the project file and return a SimioProject
-        /// </summary>
-        /// <param name="projectFullPath"></param>
-        public static HeadlessContext LoadProject(string extensionsPath, string projectFullPath, out List<string> warnings, out string explanation)
-        {
-            explanation = "";
-            warnings = null;
 
-            try
-            {
-                HeadlessContext context = new HeadlessContext();
-
-                if (context.Initialize(explanation, projectFullPath, out explanation))
-                    return null;
-
-                return context;
-            }
-            catch (Exception ex)
-            {
-                explanation = $"Cannot load={projectFullPath} Err={ex.Message}";
-                return null;
-            }
-        }
 
         /// <summary>
         /// Load the model from the given project.

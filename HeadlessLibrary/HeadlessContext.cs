@@ -38,10 +38,53 @@ namespace HeadlessLibrary
         /// <param name="projectFullPath"></param>
         /// <param name="explanation"></param>
         /// <returns></returns>
-        public bool Initialize(string extensionsPath, string projectFullPath, out string explanation)
+        public bool Initialize(string extensionsPath, out string explanation)
         {
             explanation = "";
             string marker = "Checking extension and project paths.";
+
+            try
+            {
+                if (Directory.Exists(extensionsPath) == false)
+                {
+                    explanation = $"ExtensionsPath={extensionsPath} not found.";
+                    return false;
+                }
+
+                ExtensionsPath = extensionsPath;
+
+                marker = $"Setting extensions path={extensionsPath}";
+                SimioProjectFactory.SetExtensionsPath(extensionsPath);
+
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                explanation = $"Failed to initialize HeadlessContext. ExtensionsPath={extensionsPath} Err={ex.Message}";
+                return false;
+            }
+
+        }
+
+        /// <summary>
+        /// Initialize, which means setting the ExtensionsPath and loading the project.
+        /// If there are warnings, they are placed in LoadWarningsList.
+        /// </summary>
+        /// <param name="extensionsPath"></param>
+        /// <param name="projectFullPath"></param>
+        /// <param name="explanation"></param>
+        /// <returns></returns>
+        public bool LoadProject(string projectFullPath, out string explanation)
+        {
+            explanation = "";
+            string marker = "Checking extension and project paths.";
+
+            if ( ExtensionsPath == null )
+            {
+                explanation = $"Cannot LoadProject with null ExtensionsPath";
+                return false;
+            }
 
             try
             {
@@ -52,24 +95,17 @@ namespace HeadlessLibrary
                     return false;
                 }
 
-                if (Directory.Exists(extensionsPath) == false)
-                {
-                    explanation = $"ExtensionsPath={extensionsPath} not found.";
-                    return false;
-                }
-
                 ProjectPath = projectFullPath;
-                ExtensionsPath = extensionsPath;
 
-                marker = $"Setting extensions path={extensionsPath}";
-                SimioProjectFactory.SetExtensionsPath(extensionsPath);
+                marker = $"Setting extensions path={ExtensionsPath}";
+                SimioProjectFactory.SetExtensionsPath(ExtensionsPath); // No harm in doing it again.
 
                 // Open project file.
                 marker = $"Loading Project={projectFullPath}.";
                 CurrentProject = SimioProjectFactory.LoadProject(projectFullPath, out string[] warnings);
 
                 ProjectLoadErrorList = null;
-                if ( warnings.Length > 0 )
+                if (warnings.Length > 0)
                 {
                     ProjectLoadErrorList = new List<string>();
                     foreach (string warning in warnings)
