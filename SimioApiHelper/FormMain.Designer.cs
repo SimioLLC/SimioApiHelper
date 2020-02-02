@@ -34,6 +34,7 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createIconToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelStatus = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -72,13 +73,18 @@
             this.comboFindSimioExtensionLocations = new System.Windows.Forms.ComboBox();
             this.tabHeadlessRun = new System.Windows.Forms.TabPage();
             this.panelHeadlessRun = new System.Windows.Forms.Panel();
+            this.comboHeadlessRunExperiments = new System.Windows.Forms.ComboBox();
+            this.comboHeadlessRunModels = new System.Windows.Forms.ComboBox();
+            this.buttonHeadlessRunExecutable = new System.Windows.Forms.Button();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.comboHeadlessRunExecutableToRun = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.textHeadlessRunFilesLocation = new System.Windows.Forms.TextBox();
             this.buttonHeadlessRunChangeLocation = new System.Windows.Forms.Button();
             this.buttonHeadlessRunExperiment = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.textHeadlessRunExperimentName = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cbHeadlessRunSaveModelAfterRun = new System.Windows.Forms.CheckBox();
             this.cbHeadlessRunPublishPlanAfterRun = new System.Windows.Forms.CheckBox();
@@ -104,11 +110,7 @@
             this.Settings = new System.Windows.Forms.TabPage();
             this.timerLogs = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.comboHeadlessRunExecutableToRun = new System.Windows.Forms.ComboBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.buttonHeadlessRunExecutable = new System.Windows.Forms.Button();
-            this.comboHeadlessRunModels = new System.Windows.Forms.ComboBox();
+            this.buttonSaveProject = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.labelStatus.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -132,7 +134,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.aboutToolStripMenuItem,
-            this.createIconToolStripMenuItem});
+            this.createIconToolStripMenuItem,
+            this.refreshToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
@@ -168,6 +171,13 @@
             this.createIconToolStripMenuItem.Size = new System.Drawing.Size(105, 24);
             this.createIconToolStripMenuItem.Text = "Create Icon...";
             this.createIconToolStripMenuItem.Click += new System.EventHandler(this.createIconToolStripMenuItem_Click);
+            // 
+            // refreshToolStripMenuItem
+            // 
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(70, 24);
+            this.refreshToolStripMenuItem.Text = "&Refresh";
+            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
             // labelStatus
             // 
@@ -209,7 +219,7 @@
             this.tabDllHelper.Location = new System.Drawing.Point(4, 29);
             this.tabDllHelper.Name = "tabDllHelper";
             this.tabDllHelper.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDllHelper.Size = new System.Drawing.Size(1224, 662);
+            this.tabDllHelper.Size = new System.Drawing.Size(1224, 681);
             this.tabDllHelper.TabIndex = 0;
             this.tabDllHelper.Text = "DLL Helper";
             this.tabDllHelper.UseVisualStyleBackColor = true;
@@ -233,7 +243,7 @@
             this.panelDll.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDll.Location = new System.Drawing.Point(3, 3);
             this.panelDll.Name = "panelDll";
-            this.panelDll.Size = new System.Drawing.Size(1218, 656);
+            this.panelDll.Size = new System.Drawing.Size(1218, 675);
             this.panelDll.TabIndex = 13;
             // 
             // textDllHelperExcludeFilter
@@ -333,7 +343,7 @@
             // 
             this.textExceptions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textExceptions.Location = new System.Drawing.Point(282, 551);
+            this.textExceptions.Location = new System.Drawing.Point(282, 570);
             this.textExceptions.Multiline = true;
             this.textExceptions.Name = "textExceptions";
             this.textExceptions.ReadOnly = true;
@@ -388,7 +398,7 @@
             this.tabNetVersions.Controls.Add(this.panel1);
             this.tabNetVersions.Location = new System.Drawing.Point(4, 29);
             this.tabNetVersions.Name = "tabNetVersions";
-            this.tabNetVersions.Size = new System.Drawing.Size(1224, 662);
+            this.tabNetVersions.Size = new System.Drawing.Size(1224, 681);
             this.tabNetVersions.TabIndex = 3;
             this.tabNetVersions.Text = ".NET Versions";
             this.tabNetVersions.UseVisualStyleBackColor = true;
@@ -406,7 +416,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1224, 662);
+            this.panel1.Size = new System.Drawing.Size(1224, 681);
             this.panel1.TabIndex = 20;
             // 
             // labelHwCpuSpeed
@@ -583,6 +593,8 @@
             // 
             // panelHeadlessRun
             // 
+            this.panelHeadlessRun.Controls.Add(this.buttonSaveProject);
+            this.panelHeadlessRun.Controls.Add(this.comboHeadlessRunExperiments);
             this.panelHeadlessRun.Controls.Add(this.comboHeadlessRunModels);
             this.panelHeadlessRun.Controls.Add(this.buttonHeadlessRunExecutable);
             this.panelHeadlessRun.Controls.Add(this.label15);
@@ -594,7 +606,6 @@
             this.panelHeadlessRun.Controls.Add(this.buttonHeadlessRunExperiment);
             this.panelHeadlessRun.Controls.Add(this.label6);
             this.panelHeadlessRun.Controls.Add(this.label7);
-            this.panelHeadlessRun.Controls.Add(this.textHeadlessRunExperimentName);
             this.panelHeadlessRun.Controls.Add(this.groupBox1);
             this.panelHeadlessRun.Controls.Add(this.buttonHeadlessRunPlan);
             this.panelHeadlessRun.Controls.Add(this.textHeadlessRunProjectFile);
@@ -606,10 +617,72 @@
             this.panelHeadlessRun.Size = new System.Drawing.Size(1224, 681);
             this.panelHeadlessRun.TabIndex = 9;
             // 
+            // comboHeadlessRunExperiments
+            // 
+            this.comboHeadlessRunExperiments.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboHeadlessRunExperiments.FormattingEnabled = true;
+            this.comboHeadlessRunExperiments.Location = new System.Drawing.Point(247, 341);
+            this.comboHeadlessRunExperiments.Name = "comboHeadlessRunExperiments";
+            this.comboHeadlessRunExperiments.Size = new System.Drawing.Size(435, 28);
+            this.comboHeadlessRunExperiments.TabIndex = 32;
+            // 
+            // comboHeadlessRunModels
+            // 
+            this.comboHeadlessRunModels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboHeadlessRunModels.FormattingEnabled = true;
+            this.comboHeadlessRunModels.Location = new System.Drawing.Point(247, 298);
+            this.comboHeadlessRunModels.Name = "comboHeadlessRunModels";
+            this.comboHeadlessRunModels.Size = new System.Drawing.Size(435, 28);
+            this.comboHeadlessRunModels.TabIndex = 31;
+            this.comboHeadlessRunModels.SelectedIndexChanged += new System.EventHandler(this.comboHeadlessRunModels_SelectedIndexChanged);
+            this.comboHeadlessRunModels.SelectedValueChanged += new System.EventHandler(this.comboHeadlessRunModels_SelectedValueChanged);
+            // 
+            // buttonHeadlessRunExecutable
+            // 
+            this.buttonHeadlessRunExecutable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHeadlessRunExecutable.Location = new System.Drawing.Point(967, 119);
+            this.buttonHeadlessRunExecutable.Name = "buttonHeadlessRunExecutable";
+            this.buttonHeadlessRunExecutable.Size = new System.Drawing.Size(240, 40);
+            this.buttonHeadlessRunExecutable.TabIndex = 30;
+            this.buttonHeadlessRunExecutable.Text = "Run the Executable";
+            this.toolTip1.SetToolTip(this.buttonHeadlessRunExecutable, "Run the selected executable from the given location folder");
+            this.buttonHeadlessRunExecutable.UseVisualStyleBackColor = true;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(1052, 187);
+            this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(51, 20);
+            this.label15.TabIndex = 29;
+            this.label15.Text = "- or - ";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(59, 99);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(346, 20);
+            this.label14.TabIndex = 28;
+            this.label14.Text = "Select the Executable within this folder to run";
+            // 
+            // comboHeadlessRunExecutableToRun
+            // 
+            this.comboHeadlessRunExecutableToRun.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboHeadlessRunExecutableToRun.FormattingEnabled = true;
+            this.comboHeadlessRunExecutableToRun.Location = new System.Drawing.Point(63, 122);
+            this.comboHeadlessRunExecutableToRun.Name = "comboHeadlessRunExecutableToRun";
+            this.comboHeadlessRunExecutableToRun.Size = new System.Drawing.Size(619, 28);
+            this.comboHeadlessRunExecutableToRun.TabIndex = 27;
+            // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(63, 185);
+            this.label9.Location = new System.Drawing.Point(63, 226);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(222, 20);
@@ -618,15 +691,18 @@
             // 
             // textHeadlessRunFilesLocation
             // 
+            this.textHeadlessRunFilesLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textHeadlessRunFilesLocation.Location = new System.Drawing.Point(63, 53);
             this.textHeadlessRunFilesLocation.Name = "textHeadlessRunFilesLocation";
-            this.textHeadlessRunFilesLocation.Size = new System.Drawing.Size(719, 27);
+            this.textHeadlessRunFilesLocation.Size = new System.Drawing.Size(844, 27);
             this.textHeadlessRunFilesLocation.TabIndex = 25;
+            this.toolTip1.SetToolTip(this.textHeadlessRunFilesLocation, "This is what the SetExtsnsionsPath should reference");
             // 
             // buttonHeadlessRunChangeLocation
             // 
             this.buttonHeadlessRunChangeLocation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHeadlessRunChangeLocation.Location = new System.Drawing.Point(821, 43);
+            this.buttonHeadlessRunChangeLocation.Location = new System.Drawing.Point(967, 47);
             this.buttonHeadlessRunChangeLocation.Name = "buttonHeadlessRunChangeLocation";
             this.buttonHeadlessRunChangeLocation.Size = new System.Drawing.Size(240, 40);
             this.buttonHeadlessRunChangeLocation.TabIndex = 24;
@@ -638,7 +714,7 @@
             // buttonHeadlessRunExperiment
             // 
             this.buttonHeadlessRunExperiment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHeadlessRunExperiment.Location = new System.Drawing.Point(821, 286);
+            this.buttonHeadlessRunExperiment.Location = new System.Drawing.Point(967, 331);
             this.buttonHeadlessRunExperiment.Name = "buttonHeadlessRunExperiment";
             this.buttonHeadlessRunExperiment.Size = new System.Drawing.Size(240, 46);
             this.buttonHeadlessRunExperiment.TabIndex = 23;
@@ -650,38 +726,29 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(59, 303);
+            this.label6.Location = new System.Drawing.Point(59, 344);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(147, 20);
+            this.label6.Size = new System.Drawing.Size(107, 20);
             this.label6.TabIndex = 22;
-            this.label6.Text = "Experiment Name:";
+            this.label6.Text = "Experiments:";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(59, 257);
+            this.label7.Location = new System.Drawing.Point(59, 298);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(113, 20);
+            this.label7.Size = new System.Drawing.Size(73, 20);
             this.label7.TabIndex = 21;
-            this.label7.Text = "Model Name: ";
-            // 
-            // textHeadlessRunExperimentName
-            // 
-            this.textHeadlessRunExperimentName.Location = new System.Drawing.Point(247, 296);
-            this.textHeadlessRunExperimentName.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.textHeadlessRunExperimentName.Name = "textHeadlessRunExperimentName";
-            this.textHeadlessRunExperimentName.Size = new System.Drawing.Size(210, 27);
-            this.textHeadlessRunExperimentName.TabIndex = 20;
-            this.textHeadlessRunExperimentName.Text = "Experiment1";
+            this.label7.Text = "Models: ";
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.cbHeadlessRunSaveModelAfterRun);
             this.groupBox1.Controls.Add(this.cbHeadlessRunPublishPlanAfterRun);
             this.groupBox1.Controls.Add(this.cbHeadlessRunRiskAnalysis);
-            this.groupBox1.Location = new System.Drawing.Point(63, 374);
+            this.groupBox1.Location = new System.Drawing.Point(63, 415);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(369, 155);
             this.groupBox1.TabIndex = 18;
@@ -723,7 +790,7 @@
             // buttonHeadlessRunPlan
             // 
             this.buttonHeadlessRunPlan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHeadlessRunPlan.Location = new System.Drawing.Point(821, 346);
+            this.buttonHeadlessRunPlan.Location = new System.Drawing.Point(967, 391);
             this.buttonHeadlessRunPlan.Name = "buttonHeadlessRunPlan";
             this.buttonHeadlessRunPlan.Size = new System.Drawing.Size(240, 46);
             this.buttonHeadlessRunPlan.TabIndex = 14;
@@ -734,22 +801,24 @@
             // 
             // textHeadlessRunProjectFile
             // 
-            this.textHeadlessRunProjectFile.Location = new System.Drawing.Point(63, 208);
+            this.textHeadlessRunProjectFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textHeadlessRunProjectFile.Location = new System.Drawing.Point(63, 249);
             this.textHeadlessRunProjectFile.Name = "textHeadlessRunProjectFile";
-            this.textHeadlessRunProjectFile.Size = new System.Drawing.Size(719, 27);
+            this.textHeadlessRunProjectFile.Size = new System.Drawing.Size(844, 27);
             this.textHeadlessRunProjectFile.TabIndex = 13;
             // 
             // buttonHeadlessRunSelectProjectFile
             // 
             this.buttonHeadlessRunSelectProjectFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHeadlessRunSelectProjectFile.Location = new System.Drawing.Point(821, 201);
+            this.buttonHeadlessRunSelectProjectFile.Location = new System.Drawing.Point(967, 246);
             this.buttonHeadlessRunSelectProjectFile.Name = "buttonHeadlessRunSelectProjectFile";
             this.buttonHeadlessRunSelectProjectFile.Size = new System.Drawing.Size(240, 40);
             this.buttonHeadlessRunSelectProjectFile.TabIndex = 12;
-            this.buttonHeadlessRunSelectProjectFile.Text = "Select Project";
-            this.toolTip1.SetToolTip(this.buttonHeadlessRunSelectProjectFile, "Select a Simio SPFX project file for loading");
+            this.buttonHeadlessRunSelectProjectFile.Text = "Select and Load Project";
+            this.toolTip1.SetToolTip(this.buttonHeadlessRunSelectProjectFile, "Select and Load a Simio SPFX project file");
             this.buttonHeadlessRunSelectProjectFile.UseVisualStyleBackColor = true;
-            this.buttonHeadlessRunSelectProjectFile.Click += new System.EventHandler(this.buttonHeadlessRunSelectProjectFile_Click);
+            this.buttonHeadlessRunSelectProjectFile.Click += new System.EventHandler(this.buttonHeadlessRunSelectAndLoadProjectFile_Click);
             // 
             // label5
             // 
@@ -765,7 +834,7 @@
             this.tabHeadlessBuilder.Controls.Add(this.panel2);
             this.tabHeadlessBuilder.Location = new System.Drawing.Point(4, 29);
             this.tabHeadlessBuilder.Name = "tabHeadlessBuilder";
-            this.tabHeadlessBuilder.Size = new System.Drawing.Size(1224, 662);
+            this.tabHeadlessBuilder.Size = new System.Drawing.Size(1224, 681);
             this.tabHeadlessBuilder.TabIndex = 6;
             this.tabHeadlessBuilder.Text = "HeadlessBuilder";
             this.tabHeadlessBuilder.UseVisualStyleBackColor = true;
@@ -785,7 +854,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1224, 662);
+            this.panel2.Size = new System.Drawing.Size(1224, 681);
             this.panel2.TabIndex = 29;
             // 
             // label13
@@ -844,9 +913,9 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(27, 53);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(288, 20);
+            this.label11.Size = new System.Drawing.Size(358, 20);
             this.label11.TabIndex = 29;
-            this.label11.Text = "Location of the Simio Installation files";
+            this.label11.Text = "Location of the Simio Installation files (Source)";
             this.toolTip1.SetToolTip(this.label11, "Where are the files from the Simio Desktop installation?");
             // 
             // buttonSelectSimioInstallationFolder
@@ -875,9 +944,9 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(27, 138);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(292, 20);
+            this.label10.Size = new System.Drawing.Size(357, 20);
             this.label10.TabIndex = 26;
-            this.label10.Text = "Location of the Headless Executables";
+            this.label10.Text = "Location of the Headless Executables (Target)";
             // 
             // buttonSelectHeadlessFolder
             // 
@@ -897,7 +966,7 @@
             this.tabLogs.Location = new System.Drawing.Point(4, 29);
             this.tabLogs.Name = "tabLogs";
             this.tabLogs.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLogs.Size = new System.Drawing.Size(1224, 662);
+            this.tabLogs.Size = new System.Drawing.Size(1224, 681);
             this.tabLogs.TabIndex = 1;
             this.tabLogs.Text = "Logs";
             this.tabLogs.UseVisualStyleBackColor = true;
@@ -910,7 +979,7 @@
             this.textLogs.Name = "textLogs";
             this.textLogs.ReadOnly = true;
             this.textLogs.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textLogs.Size = new System.Drawing.Size(1218, 656);
+            this.textLogs.Size = new System.Drawing.Size(1218, 675);
             this.textLogs.TabIndex = 0;
             this.textLogs.Text = "(no logs yet...)";
             // 
@@ -919,7 +988,7 @@
             this.Settings.Location = new System.Drawing.Point(4, 29);
             this.Settings.Name = "Settings";
             this.Settings.Padding = new System.Windows.Forms.Padding(3);
-            this.Settings.Size = new System.Drawing.Size(1272, 662);
+            this.Settings.Size = new System.Drawing.Size(1224, 681);
             this.Settings.TabIndex = 5;
             this.Settings.Text = "Settings";
             this.Settings.UseVisualStyleBackColor = true;
@@ -929,55 +998,17 @@
             this.timerLogs.Interval = 1000;
             this.timerLogs.Tick += new System.EventHandler(this.timerLogs_Tick);
             // 
-            // comboHeadlessRunExecutableToRun
+            // buttonSaveProject
             // 
-            this.comboHeadlessRunExecutableToRun.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboHeadlessRunExecutableToRun.FormattingEnabled = true;
-            this.comboHeadlessRunExecutableToRun.Location = new System.Drawing.Point(63, 122);
-            this.comboHeadlessRunExecutableToRun.Name = "comboHeadlessRunExecutableToRun";
-            this.comboHeadlessRunExecutableToRun.Size = new System.Drawing.Size(427, 28);
-            this.comboHeadlessRunExecutableToRun.TabIndex = 27;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(59, 99);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(346, 20);
-            this.label14.TabIndex = 28;
-            this.label14.Text = "Select the Executable within this folder to run";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(909, 164);
-            this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(51, 20);
-            this.label15.TabIndex = 29;
-            this.label15.Text = "- or - ";
-            // 
-            // buttonHeadlessRunExecutable
-            // 
-            this.buttonHeadlessRunExecutable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHeadlessRunExecutable.Location = new System.Drawing.Point(821, 115);
-            this.buttonHeadlessRunExecutable.Name = "buttonHeadlessRunExecutable";
-            this.buttonHeadlessRunExecutable.Size = new System.Drawing.Size(240, 40);
-            this.buttonHeadlessRunExecutable.TabIndex = 30;
-            this.buttonHeadlessRunExecutable.Text = "Run the Executable";
-            this.toolTip1.SetToolTip(this.buttonHeadlessRunExecutable, "Run the selected executable from the given location folder");
-            this.buttonHeadlessRunExecutable.UseVisualStyleBackColor = true;
-            // 
-            // comboHeadlessRunModels
-            // 
-            this.comboHeadlessRunModels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboHeadlessRunModels.FormattingEnabled = true;
-            this.comboHeadlessRunModels.Location = new System.Drawing.Point(247, 257);
-            this.comboHeadlessRunModels.Name = "comboHeadlessRunModels";
-            this.comboHeadlessRunModels.Size = new System.Drawing.Size(352, 28);
-            this.comboHeadlessRunModels.TabIndex = 31;
+            this.buttonSaveProject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSaveProject.Location = new System.Drawing.Point(967, 452);
+            this.buttonSaveProject.Name = "buttonSaveProject";
+            this.buttonSaveProject.Size = new System.Drawing.Size(240, 46);
+            this.buttonSaveProject.TabIndex = 33;
+            this.buttonSaveProject.Text = "Save Project";
+            this.toolTip1.SetToolTip(this.buttonSaveProject, "Save the Project File");
+            this.buttonSaveProject.UseVisualStyleBackColor = true;
+            this.buttonSaveProject.Click += new System.EventHandler(this.buttonSaveProject_Click);
             // 
             // FormMain
             // 
@@ -1080,7 +1111,6 @@
         private System.Windows.Forms.Button buttonHeadlessRunExperiment;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textHeadlessRunExperimentName;
         private System.Windows.Forms.TextBox textDllHelperExcludeFilter;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TabPage tabHeadlessBuilder;
@@ -1104,6 +1134,9 @@
         private System.Windows.Forms.ComboBox comboHeadlessRunExecutableToRun;
         private System.Windows.Forms.Button buttonHeadlessRunExecutable;
         private System.Windows.Forms.ComboBox comboHeadlessRunModels;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
+        private System.Windows.Forms.ComboBox comboHeadlessRunExperiments;
+        private System.Windows.Forms.Button buttonSaveProject;
     }
 }
 

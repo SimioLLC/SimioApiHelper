@@ -25,7 +25,7 @@ namespace SimioApiHelper.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("e:\\(temp)\\SimioHeadless")]
+        [global::System.Configuration.DefaultSettingValueAttribute("c:\\(test)\\SimioHeadless")]
         public string HeadlessSystemFolder {
             get {
                 return ((string)(this["HeadlessSystemFolder"]));
@@ -44,6 +44,102 @@ namespace SimioApiHelper.Properties {
             }
             set {
                 this["SimioInstallationFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("c:\\(test)\\SimioHeadlessTests")]
+        public string HeadlessRunFolder {
+            get {
+                return ((string)(this["HeadlessRunFolder"]));
+            }
+            set {
+                this["HeadlessRunFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string HeadlessRunExecutable {
+            get {
+                return ((string)(this["HeadlessRunExecutable"]));
+            }
+            set {
+                this["HeadlessRunExecutable"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string HeadlessRunModel {
+            get {
+                return ((string)(this["HeadlessRunModel"]));
+            }
+            set {
+                this["HeadlessRunModel"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string HeadlessRunExperiment {
+            get {
+                return ((string)(this["HeadlessRunExperiment"]));
+            }
+            set {
+                this["HeadlessRunExperiment"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string HeadlessBuilderTargetFolder {
+            get {
+                return ((string)(this["HeadlessBuilderTargetFolder"]));
+            }
+            set {
+                this["HeadlessBuilderTargetFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("c:\\program files (x86)\\simio")]
+        public string HeadlessBuilderSourceFolder {
+            get {
+                return ((string)(this["HeadlessBuilderSourceFolder"]));
+            }
+            set {
+                this["HeadlessBuilderSourceFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string HeadlessRunSimioProjectFile {
+            get {
+                return ((string)(this["HeadlessRunSimioProjectFile"]));
+            }
+            set {
+                this["HeadlessRunSimioProjectFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string HeadlessRunSimioProjectsFolder {
+            get {
+                return ((string)(this["HeadlessRunSimioProjectsFolder"]));
+            }
+            set {
+                this["HeadlessRunSimioProjectsFolder"] = value;
             }
         }
     }

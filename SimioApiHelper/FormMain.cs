@@ -1,5 +1,6 @@
 ﻿using HeadlessLibrary;
 using LoggertonHelpers;
+using SimioAPI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -845,13 +846,41 @@ namespace SimioApiHelper
         {
             try
             {
-                textHeadlessRunFilesLocation.Text = Properties.Settings.Default.HeadlessSystemFolder;
+                textHeadlessRunFilesLocation.Text = Properties.Settings.Default.HeadlessBuilderSourceFolder;
+
+                comboHeadlessRunExecutableToRun.DataSource = Directory.GetFiles(textHeadlessRunFilesLocation.Text, "*.EXE").ToList();
+
+                textHeadlessRunProjectFile.Text = Properties.Settings.Default.HeadlessRunSimioProjectFile;
+
+                comboHeadlessRunModels.Text = Properties.Settings.Default.HeadlessRunModel;
+                comboHeadlessRunExperiments.Text = Properties.Settings.Default.HeadlessRunExperiment;
 
             }
             catch (Exception ex)
             {
                 throw new ApplicationException($"Err={ex}");
             }
+        }
+
+        private void SaveTabHeadlessRun()
+        {
+            try
+            {
+                textHeadlessRunFilesLocation.Text = Properties.Settings.Default.HeadlessBuilderSourceFolder;
+
+                comboHeadlessRunExecutableToRun.DataSource = Directory.GetFiles(textHeadlessRunFilesLocation.Text, "*.EXE").ToList();
+
+                textHeadlessRunProjectFile.Text = Properties.Settings.Default.HeadlessRunSimioProjectFile;
+
+                comboHeadlessRunModels.Text = Properties.Settings.Default.HeadlessRunModel;
+                comboHeadlessRunExperiments.Text = Properties.Settings.Default.HeadlessRunExperiment;
+
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException($"Err={ex}");
+            }
+
         }
 
         private void RefreshTabHeadlessBuilder()
@@ -871,24 +900,6 @@ namespace SimioApiHelper
 
                 if ( Directory.Exists(textSimioInstallationFolder.Text))
                 {
-                    List<string> basicItems = new List<string>
-                    {
-                        "QlmControls.dll",
-                        "QlmLicenseLib.dll",
-                        "Rlm944.dll",
-                        "Rlm944_x64.xll",
-                        "SimioDLL.dll",
-                        "SimioAPI.dll",
-                        "SimioAPI.Extensions.dll",
-                        "SimioAPI.Graphics.dll",
-                        "SimioEnums.dll",
-                        "IconLib.dll",
-                        "SimioTypes.dll",
-                        "SimioReplicationRunnerContracts.dll",
-                        "SimioTypes.dll",
-                        "SimioEnums.dll",
-                        "SimioRoam.lic"
-                    };
 
                     List<string> ignorePatterns = new List<string>
                     {
@@ -905,26 +916,6 @@ namespace SimioApiHelper
                         "^PlexityHide",
                         "^PSTaskDialog"
                     };
-
-                    List<string> extensionItems = new List<string>
-                    {
-                        "ADOGridDataProvider",
-                        "BinaryGate",
-                        "CSVGridDataProvider",
-                        "DbReadWrite",
-                        "ExcelGridDataProvider",
-                        "ExcelReadWrite",
-                        "GoodSelectionProcedure",
-                        "RelocateObject",
-                        "SelectBestScenario",
-                        "SimioReplenishmentPolicies",
-                        "SimioSelectionRules",
-                        "SimioTravelSteeringBehaviors",
-                        "TextFileReadWrite",
-                        "XMLGridDataProvider"
-                    };
-
-                    List<string> allItems = basicItems.Concat(extensionItems).ToList();
 
                     RefreshChecklistForTargets(textSimioInstallationFolder.Text, ignorePatterns);
                 }
@@ -964,6 +955,11 @@ namespace SimioApiHelper
 
         }
 
+        /// <summary>
+        /// Rebuild the checklist for files to be included in the target folder.
+        /// </summary>
+        /// <param name="simioInstallPath"></param>
+        /// <param name="ignorePatternList"></param>
 
         private void RefreshChecklistForTargets(string simioInstallPath, List<string> ignorePatternList )
         {
@@ -1123,23 +1119,46 @@ namespace SimioApiHelper
         }
 
 
-        private void buttonHeadlessRunSelectProjectFile_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Select and load a Simio Project.
+        /// Done showing a 'wait' cursor, as the load can take a while.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonHeadlessRunSelectAndLoadProjectFile_Click(object sender, EventArgs e)
         {
-            string projectFile = HeadlessHelpers.GetProjectFile();
-            textHeadlessRunProjectFile.Text = projectFile;
+            Cursor.Current = Cursors.WaitCursor;
 
-            string extensionsPath = textHeadlessRunFilesLocation.Text;
-            var project = HeadlessHelpers.LoadProject(extensionsPath, projectFile, out string explanation);
-            if (project == null)
+            string marker = "Select the project";
+            try
             {
-                Alert(explanation);
-                return;
+                string projectFile = HeadlessHelpers.GetProjectFile();
+                textHeadlessRunProjectFile.Text = projectFile;
+
+                string extensionsPath = textHeadlessRunFilesLocation.Text;
+                var project = HeadlessHelpers.LoadProject(extensionsPath, projectFile, out string explanation);
+                if (project == null)
+                {
+                    Alert(explanation);
+                    return;
+                }
+                marker = $"Selected and loaded Project={project.Name} with {project.Models.Count} models.";
+                Logit($"Info: {marker}");
+
+                comboHeadlessRunModels.Items.Clear();
+                foreach (var model in project.Models)
+                {
+                    comboHeadlessRunModels.Items.Add(model.Name);
+                }
+
             }
-
-            comboHeadlessRunModels.Items.Clear();
-            foreach ( var model in project.Models )
+            catch (Exception ex)
             {
-                comboHeadlessRunModels.Items.Add(model.Name);
+                throw new ApplicationException($"Cannot Get/Load. Marker={marker} Err={ex.Message}");
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
             }
         }
 
@@ -1177,7 +1196,7 @@ namespace SimioApiHelper
         {
             Cursor.Current = Cursors.WaitCursor;
             string modelName = comboHeadlessRunModels.Text;
-            string experimentName = textHeadlessRunExperimentName.Text;
+            string experimentName = comboHeadlessRunExperiments.Text;
             try
             {
                 string extensionsPath = textHeadlessRunFilesLocation.Text;
@@ -1352,6 +1371,59 @@ namespace SimioApiHelper
             }
 
             
+        }
+
+        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RefreshForm();
+        }
+
+        private void comboHeadlessRunModels_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var model = (sender as ComboBox).SelectedItem as IModel;
+            if ( model != null )
+            {
+                comboHeadlessRunExperiments.Items.Clear();
+                comboHeadlessRunExperiments.DataSource = model.Experiments;
+            }
+        }
+
+        private void comboHeadlessRunModels_SelectedValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonSaveProject_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            string marker = "Select the project";
+            try
+            {
+                string projectFile = HeadlessHelpers.GetProjectFile();
+                textHeadlessRunProjectFile.Text = projectFile;
+
+                string extensionsPath = textHeadlessRunFilesLocation.Text;
+                var project = HeadlessHelpers.SaveProject( , out string explanation);
+                if (project == null)
+                {
+                    Alert(explanation);
+                    return;
+                }
+                marker = $"Selected and loaded Project={project.Name} with {project.Models.Count} models.";
+                Logit($"Info: {marker}");
+
+
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException($"Cannot Get/Load. Marker={marker} Err={ex.Message}");
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
+
         }
     }
 }

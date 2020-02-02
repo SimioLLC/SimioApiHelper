@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HeadlessContext.cs" />
     <Compile Include="HeadlessHelpers.cs" />
     <Compile Include="LoggertonHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
