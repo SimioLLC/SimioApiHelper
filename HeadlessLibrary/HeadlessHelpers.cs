@@ -161,10 +161,7 @@ namespace HeadlessLibrary
             
             try
             {
-                HeadlessContext context = new HeadlessContext();
-
-                if (context.Initialize(explanation, out explanation))
-                    return null;
+                HeadlessContext context = new HeadlessContext(extensionsPath);
 
                 return context;
             }
@@ -316,7 +313,7 @@ namespace HeadlessLibrary
         }
 
         /// <summary>
-        /// Set the extensionpath, load a project, and run a plan for the given model.
+        /// Set the extensionpath, load a project, then the load the model, and run a plan for that model.
         /// </summary>
         /// <param name="extensionsPath">For DLL search. E.g. AppDomain.CurrentDomain.BaseDirectory</param>
         /// <param name="projectPathAndFile"></param>

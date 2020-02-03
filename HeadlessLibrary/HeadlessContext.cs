@@ -14,19 +14,45 @@ namespace HeadlessLibrary
 
         public string ProjectPath { get; set; }
 
+        /// <summary>
+        /// Points to where all the supporting files (EXE, DLL, etc. live)
+        /// </summary>
         public string ExtensionsPath { get; set; }
 
+        /// <summary>
+        /// The currently loaded project.
+        /// </summary>
         public ISimioProject CurrentProject { get; set; }
         
+        /// <summary>
+        /// The currently loaded model
+        /// </summary>
         public IModel CurrentModel { get; set; }
-   
+
+        /// <summary>
+        /// The currently loaded experiment
+        /// </summary>
+        public IExperiment CurrentExperiment { get; set; }
+
+        /// <summary>
+        /// Errors generated during the project load
+        /// </summary>
         public List<string> ProjectLoadErrorList { get; set; }
 
+        /// <summary>
+        /// Errors generated during the Model load
+        /// </summary>
         public List<string> ModelLoadErrorList { get; set; }
 
-        public HeadlessContext()
-        {
+        /// <summary>
+        /// Errors generated during the Project save
+        /// </summary>
+        public List<string> ProjectSaveErrorList { get; set; }
 
+        public HeadlessContext(string extensionsPath)
+        {
+            if (!Initialize(extensionsPath, out string explanation))
+                throw new ApplicationException($"Initializing Headless Context. Err-{explanation}");
 
         }
 
@@ -118,7 +144,7 @@ namespace HeadlessLibrary
             }
             catch (Exception ex)
             {
-                explanation = $"Failed to initialize HeadlessContext. ProjectPath={projectFullPath} Err={ex.Message}";
+                explanation = $"Failed to LoadProject={projectFullPath} Err={ex.Message}";
                 return false;
             }
 
@@ -128,7 +154,7 @@ namespace HeadlessLibrary
         /// Load the model from the given project.
         /// Returns a Model object or a null if errors.
         /// </summary>
-        /// <param name="projectFullPath"></param>
+        /// <param name="modelName"></param>
         public bool LoadModel(string modelName, out string explanation)
         {
             explanation = "";
@@ -170,31 +196,30 @@ namespace HeadlessLibrary
             }
             catch (Exception ex)
             {
-                explanation = $"Cannot load={modelName} Err={ex.Message}";
+                explanation = $"Cannot load Model={modelName} Err={ex.Message}";
                 return false;
             }
         }
 
         /// <summary>
-        /// Assumes a Model is loaded, this initiates a RunPlan with the given options.
+        /// Assumes a Model is loaded, this initiates a RunPlan.
+        /// The running of a Plan creates about dozen Simio logs, such as ResourceCapacityLog.
         /// </summary>
         /// <param name="options"></param>
         /// <param name="explanation"></param>
         /// <returns></returns>
-        public bool RunModelPlan(EnumRunPlanOptions options, out string explanation)
+        public bool RunModelPlan(out string explanation)
         {
             explanation = "";
             string marker = "Begin";
 
-            string[] warnings;
-
-            if ( CurrentProject == null )
+            if (CurrentProject == null)
             {
                 explanation = $"Cannot run plan. No Project is currently loaded";
                 return false;
             }
 
-            if ( CurrentModel == null  )
+            if (CurrentModel == null)
             {
                 explanation = $"Cannot run plan. No Model is currently loaded";
                 return false;
@@ -209,27 +234,9 @@ namespace HeadlessLibrary
 
             try
             {
-
-                // Start Plan
                 marker = "Starting Plan (model.Plan.RunPlan)";
                 CurrentModel.Plan.RunPlan();
 
-                if ( (options & EnumRunPlanOptions.RunRiskAnalysis) != 0 )
-                {
-                    marker = "Plan Finished...Starting Analyze Risk (model.Plan.RunRiskAnalysis)";
-                    CurrentModel.Plan.RunRiskAnalysis();
-                }
-                if ( (options & EnumRunPlanOptions.SaveProjectAfterRun) != 0)
-                {
-                    marker = "Save Project After Schedule Run (SimioProjectFactory.SaveProject)";
-                    SimioProjectFactory.SaveProject(CurrentProject, this.ProjectPath, out warnings);
-                }
-                if ( (options & EnumRunPlanOptions.PublicPlanAfterRun) != 0)
-                {
-                    marker = "PublishPlan";
-
-                    // ADD PUBLISH PLAN CODE HERE
-                }
                 marker = "End";
 
                 return true;
@@ -240,6 +247,151 @@ namespace HeadlessLibrary
                 return false;
             }
 
+        }
+        /// <summary>
+        /// Assumes a Model is loaded, this initiates a RiskAnalysis run.
+        /// The running of a RiskAnalysis creates about a dozen Simio logs, such as ResourceCapacityLog.
+        /// </summary>
+        /// <param name="explanation"></param>
+        /// <returns></returns>
+        public bool RunModelRiskAnalysis(out string explanation)
+        {
+            explanation = "";
+            string marker = "Begin";
+
+            if (CurrentProject == null)
+            {
+                explanation = $"Cannot run plan. No Project is currently loaded";
+                return false;
+            }
+
+            if (CurrentModel == null)
+            {
+                explanation = $"Cannot run plan. No Model is currently loaded";
+                return false;
+            }
+
+            // Check for Plan
+            if (CurrentModel.Plan == null)
+            {
+                explanation = $"Model={CurrentModel.Name} has no Plan.";
+                return false;
+            }
+
+            try
+            {
+                marker = "Starting RiskAnalysis (model.Plan.RunRiskAnalysis)";
+                CurrentModel.Plan.RunRiskAnalysis();
+
+                marker = "End";
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                explanation = $"Project={CurrentProject.Name} Model={CurrentModel.Name} Marker={marker} Err={ex.Message}";
+                return false;
+            }
+
+        }
+
+        /// <summary>
+        /// Assumes an Experiment is loaded, this initiates an Experiment run.
+        /// This can be very long-running.
+        /// </summary>
+        /// <param name="explanation"></param>
+        /// <returns></returns>
+        public bool RunModelExperiment( out string explanation)
+        {
+            explanation = "";
+            string marker = "Begin";
+
+            if (CurrentProject == null)
+            {
+                explanation = $"Cannot run plan. No Project is currently loaded";
+                return false;
+            }
+
+            if (CurrentModel == null)
+            {
+                explanation = $"Cannot run plan. No Model is currently loaded";
+                return false;
+            }
+
+            // Check for Experiment
+            if (CurrentExperiment == null)
+            {
+                explanation = $"Model={CurrentModel.Name} has no Experiment selected.";
+                return false;
+            }
+
+            try
+            {
+                // Run the experiment. Events will be thrown when replications start and end,
+                // so you would have to handle those elsewhere.
+                marker = "Starting Experiment (Experiment.Run)";
+                CurrentExperiment.Run();
+
+                marker = "End";
+                return true;
+            }
+            catch (Exception ex)
+            {
+                explanation = $"Project={CurrentProject.Name} Model={CurrentModel.Name} Marker={marker} Err={ex.Message}";
+                return false;
+            }
+
+        }
+
+        /// <summary>
+        /// Save the given project to the 'savePath'.
+        /// </summary>
+        /// <param name="project"></param>
+        /// <param name="savePath"></param>
+        public bool SaveProject(string savePath, out string explanation)
+        {
+            explanation = "";
+            string marker = "Begin.";
+            string[] warnings;
+
+            // If project not loaded, return error
+            if ( CurrentProject == null)
+            {
+                explanation = $"No project is loaded (Project is null).";
+                return false;
+            }
+
+            string folderPath = Path.GetDirectoryName(savePath);
+
+            if (Directory.Exists(folderPath) == false)
+            {
+                explanation = $"FolderPath={folderPath} not found.";
+                return false;
+            }
+
+            try
+            {
+
+                // Save project file.
+                marker = $"Saving Project={CurrentProject.Name} to {savePath}.";
+                if (!SimioProjectFactory.SaveProject(CurrentProject, savePath, out warnings))
+                    explanation = $"SaveProject failed.";
+
+                marker = $"Saved Project={savePath} with {warnings.Count()} warnings.";
+                ProjectSaveErrorList = new List<string>();
+                int ii = 1;
+                foreach (string warning in warnings)
+                {
+                    ProjectSaveErrorList.Add($"Warning: {ii++}{warning}");
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                explanation = $"Cannot Save Simio Project={CurrentProject.Name} to {savePath} Err={ex.Message}";
+                return false;
+            }
         }
 
     }

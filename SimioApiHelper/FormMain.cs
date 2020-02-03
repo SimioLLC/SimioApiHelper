@@ -20,6 +20,10 @@ namespace SimioApiHelper
     {
         private bool IsLoaded = false;
 
+        HeadlessContext HeadlessRunContext { get; set; }
+
+        FileSystemWatcher FileWatcher { get; set; }
+
         public FormMain()
         {
             InitializeComponent();
@@ -1135,21 +1139,20 @@ namespace SimioApiHelper
                 string projectFile = HeadlessHelpers.GetProjectFile();
                 textHeadlessRunProjectFile.Text = projectFile;
 
-                string extensionsPath = textHeadlessRunFilesLocation.Text;
-                var project = HeadlessHelpers.LoadProject(extensionsPath, projectFile, out string explanation);
-                if (project == null)
+                if ( !HeadlessRunContext.LoadProject(projectFile, out string explanation))
                 {
                     Alert(explanation);
                     return;
                 }
+
+                var project = HeadlessRunContext.CurrentProject;
                 marker = $"Selected and loaded Project={project.Name} with {project.Models.Count} models.";
                 Logit($"Info: {marker}");
 
-                comboHeadlessRunModels.Items.Clear();
-                foreach (var model in project.Models)
-                {
-                    comboHeadlessRunModels.Items.Add(model.Name);
-                }
+                comboHeadlessRunModels.DataSource = project.Models.ToList();
+                comboHeadlessRunModels.DisplayMember = "Name";
+
+                SetStateTabHeadlessRun("ProjectLoaded");
 
             }
             catch (Exception ex)
@@ -1167,17 +1170,13 @@ namespace SimioApiHelper
             Cursor.Current = Cursors.WaitCursor;
             try
             {
-                string extensionsPath = textHeadlessRunFilesLocation.Text;
-
-                if (!HeadlessHelpers.RunModelPlan(extensionsPath, textHeadlessRunProjectFile.Text, "Model", cbHeadlessRunRiskAnalysis.Checked,
-                    cbHeadlessRunSaveModelAfterRun.Checked,
-                    cbHeadlessRunPublishPlanAfterRun.Checked, out string explanation))
+                if (!HeadlessRunContext.RunModelPlan(out string explanation))
                 {
                     Alert(explanation);
                 }
                 else
                 {
-                    Alert(EnumLogFlags.Information, $"Model={textHeadlessRunProjectFile.Text} performed the actions successfully. Check the logs for more information.");
+                    Alert(EnumLogFlags.Information, $"Model={textHeadlessRunProjectFile.Text} ran the Plan successfully. Check the logs for more information.");
                 }
             }
             catch (Exception ex)
@@ -1195,21 +1194,17 @@ namespace SimioApiHelper
         private void buttonRunExperiment_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
-            string modelName = comboHeadlessRunModels.Text;
-            string experimentName = comboHeadlessRunExperiments.Text;
             try
             {
                 string extensionsPath = textHeadlessRunFilesLocation.Text;
 
-                if (!HeadlessHelpers.RunExperiment( extensionsPath, textHeadlessRunProjectFile.Text, modelName, experimentName,
-                    cbHeadlessRunSaveModelAfterRun.Checked,
-                    out string explanation))
+                if (!HeadlessRunContext.RunModelExperiment( out string explanation))
                 {
                     Alert(explanation);
                 }
                 else
                 {
-                    Alert(EnumLogFlags.Information, $"Model={modelName} Experiment={experimentName} performed the actions successfully. Check the logs for more information.");
+                    Alert(EnumLogFlags.Information, $"Model={HeadlessRunContext.CurrentModel.Name} Experiment={HeadlessRunContext.CurrentExperiment.Name} was run. Check the logs for more information.");
                 }
             }
             catch (Exception ex)
@@ -1334,6 +1329,70 @@ namespace SimioApiHelper
             }
         }
 
+        private void SetStateTabHeadlessRun(string state)
+        {
+
+            switch (state.ToUpper())
+            {
+                case "NULL":
+                    {
+                        comboHeadlessRunModels.Enabled = false;
+                        comboHeadlessRunExperiments.Enabled = false;
+                        buttonHeadlessRunExperiment.Enabled = false;
+                        buttonHeadlessRunPlan.Enabled = false;
+                        buttonHeadlessRunRiskAnalysis.Enabled = false;
+                        buttonHeadlessRunSelectProjectFile.Enabled = false;
+                    }
+                    break;
+                case "SETEXTENSIONS":
+                    {
+                        buttonHeadlessRunSelectProjectFile.Enabled = true;
+                        comboHeadlessRunModels.Enabled = false;
+                        comboHeadlessRunExperiments.Enabled = false;
+                        buttonHeadlessRunExperiment.Enabled = false;
+                        buttonHeadlessRunPlan.Enabled = false;
+                        buttonHeadlessRunRiskAnalysis.Enabled = false;
+                    }
+                    break;
+                case "PROJECTLOADED":
+                    {
+                        buttonHeadlessRunSelectProjectFile.Enabled = true;
+                        comboHeadlessRunModels.Enabled = true;
+                        comboHeadlessRunExperiments.Enabled = false;
+                        buttonHeadlessRunExperiment.Enabled = false;
+                        buttonHeadlessRunPlan.Enabled = false;
+                        buttonHeadlessRunRiskAnalysis.Enabled = false;
+                    }
+                    break;
+                case "MODELLOADED":
+                    {
+                        buttonHeadlessRunSelectProjectFile.Enabled = true;
+                        comboHeadlessRunModels.Enabled = true;
+                        comboHeadlessRunExperiments.Enabled = true;
+                        buttonHeadlessRunExperiment.Enabled = false;
+                        buttonHeadlessRunPlan.Enabled = true;
+                        buttonHeadlessRunRiskAnalysis.Enabled = true;
+                    }
+                    break;
+                case "EXPERIMENTLOADED":
+                    {
+                        buttonHeadlessRunSelectProjectFile.Enabled = true;
+                        comboHeadlessRunModels.Enabled = true;
+                        comboHeadlessRunExperiments.Enabled = true;
+                        buttonHeadlessRunExperiment.Enabled = true;
+                        buttonHeadlessRunPlan.Enabled = true;
+                        buttonHeadlessRunRiskAnalysis.Enabled = true;
+                    }
+                    break;
+                default:
+                    {
+                        Alert($"Unknown State={state}");
+                    }
+                    break;
+            }
+
+        }
+
         private void buttonChangeHeadlessLocation_Click(object sender, EventArgs e)
         {
             try
@@ -1346,13 +1405,22 @@ namespace SimioApiHelper
                 if (result != DialogResult.OK)
                     return;
 
+                SetStateTabHeadlessRun("Null");
+
                 if (!Directory.Exists(dialog.SelectedPath))
                 {
                     Alert($"Folder={dialog.SelectedPath} does not exist.");
                     return;
                 }
 
-                textHeadlessRunFilesLocation.Text = dialog.SelectedPath;
+                HeadlessRunContext = new HeadlessContext(dialog.SelectedPath);
+                if ( HeadlessRunContext == null )
+                {
+                    Alert($"Cannot SetExtensions to={dialog.SelectedPath}");
+                    return;
+                }
+
+                textHeadlessRunFilesLocation.Text = HeadlessRunContext.ExtensionsPath;
 
                 List<string> exeFiles = Directory.GetFiles(textHeadlessRunFilesLocation.Text, "*.exe").ToList();
                 comboHeadlessRunExecutableToRun.DataSource = exeFiles;
@@ -1362,7 +1430,10 @@ namespace SimioApiHelper
                 Properties.Settings.Default.HeadlessSystemFolder = dialog.SelectedPath;
                 Properties.Settings.Default.Save();
 
+
+
                 // Actions upon selection
+                SetStateTabHeadlessRun("SetExtensions");
 
             }
             catch (Exception ex)
@@ -1380,37 +1451,45 @@ namespace SimioApiHelper
 
         private void comboHeadlessRunModels_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var model = (sender as ComboBox).SelectedItem as IModel;
-            if ( model != null )
-            {
-                comboHeadlessRunExperiments.Items.Clear();
-                comboHeadlessRunExperiments.DataSource = model.Experiments;
-            }
         }
 
         private void comboHeadlessRunModels_SelectedValueChanged(object sender, EventArgs e)
         {
+            var model = (IModel)(sender as ComboBox).SelectedItem;
+            if (model != null)
+            {
+                //comboHeadlessRunExperiments.Items.Clear();
+                comboHeadlessRunExperiments.DataSource = model.Experiments.ToList();
+                comboHeadlessRunExperiments.DisplayMember = "Name";
+            }
+            HeadlessRunContext.CurrentModel = model;
+            SetStateTabHeadlessRun("ModelLoaded");
 
         }
 
+        /// <summary>
+        /// Save the project file back to disk.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonSaveProject_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
 
-            string marker = "Select the project";
+            string marker = "Begin";
             try
             {
-                string projectFile = HeadlessHelpers.GetProjectFile();
-                textHeadlessRunProjectFile.Text = projectFile;
+                string projectPath = textHeadlessRunProjectFile.Text;
 
-                string extensionsPath = textHeadlessRunFilesLocation.Text;
-                if ( !HeadlessHelpers.SaveProject( , out string explanation)
+                if ( !HeadlessRunContext.SaveProject( projectPath, out string explanation) )
+                { 
                     Alert(explanation);
                     return;
                 }
-                marker = $"Save Project={project.Name} with {project.Models.Count} models.";
-                Logit($"Info: {marker}");
-
+                else
+                {
+                    Alert($"Project saved");
+                }
 
             }
             catch (Exception ex)
@@ -1422,6 +1501,105 @@ namespace SimioApiHelper
                 Cursor.Current = Cursors.Default;
             }
 
+        }
+
+        private void comboHeadlessRunExperiments_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var experiment = (sender as ComboBox).SelectedItem as IExperiment;
+            if (experiment != null)
+            {
+                HeadlessRunContext.CurrentExperiment = experiment;
+                SetStateTabHeadlessRun("ExperimentLoaded");
+            }
+
+        }
+
+        private void buttonHeadlessRunRiskAnalysis_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            try
+            {
+                if (!HeadlessRunContext.RunModelRiskAnalysis(out string explanation))
+                {
+                    Alert(explanation);
+                }
+                else
+                {
+                    Alert(EnumLogFlags.Information, $"Model={textHeadlessRunProjectFile.Text} ran the RiskAnalysis successfully. Check the logs for more information.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Alert($"Err={ex.Message}");
+                throw;
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
+
+        }
+
+        private void buttonFileWatcherStart_Click(object sender, EventArgs e)
+        {
+            FileWatcher = new FileSystemWatcher();
+            FileWatcher.Path = textFilewatcherPath.Text;
+            FileWatcher.Filter = textFilewatcherFilter.Text;
+            FileWatcher.IncludeSubdirectories = true;
+
+            if (cbFwNotifyLastAccess.Checked)
+                FileWatcher.NotifyFilter |= NotifyFilters.LastAccess;
+            if (cbFwNotifyLastWrite.Checked)
+                FileWatcher.NotifyFilter |= NotifyFilters.LastWrite;
+
+            FileWatcher.Changed += OnChanged;
+            FileWatcher.EnableRaisingEvents = true;
+
+            buttonFileWatcherStart.Enabled = false;
+            buttonFileWatcherStop.Enabled = true;
+        }
+
+        private void OnChanged(object fsw, FileSystemEventArgs fsea)
+        {
+            string msg = $"{DateTime.Now.ToString("HH:mm:ss.ff")}: {fsea.ChangeType.ToString()} {fsea.FullPath}\n";
+            if (!cbFwPauseLogging.Checked)
+            {
+                //textFileWatcherLog.Invoke((MethodInvoker)(() => textFileWatcherLog.Text = msg));
+                this.UIThread(() => this.textFileWatcherLog.AppendText(msg));
+            }
+
+        }
+
+        private void FileWatcher_Changed(object sender, FileSystemEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void buttonFileWatcherStop_Click(object sender, EventArgs e)
+        {
+
+            FileWatcher.Changed -= OnChanged;
+            FileWatcher.Dispose();
+
+            buttonFileWatcherStart.Enabled = true;
+            buttonFileWatcherStop.Enabled = false;
+
+        }
+
+        private void textFileWatcherLog_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            textFileWatcherLog.Clear();
+        }
+
+        private void buttonFilewatcherSelect_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+
+            DialogResult result = dialog.ShowDialog();
+            if ( result == DialogResult.OK)
+            {
+                textFilewatcherPath.Text = dialog.SelectedPath;
+            }
         }
     }
 }
