@@ -337,7 +337,7 @@ namespace HeadlessLibrary
             }
             catch (Exception ex)
             {
-                explanation = $"Project={CurrentProject.Name} Model={CurrentModel.Name} Marker={marker} Err={ex.Message}";
+                explanation = $"Project={CurrentProject.Name} Model={CurrentModel.Name} Marker={marker} Err={ex.Message} InnerEx={ex.InnerException}";
                 return false;
             }
 

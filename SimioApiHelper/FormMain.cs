@@ -56,7 +56,7 @@ namespace SimioApiHelper
         private void RefreshForm()
         {
             RefreshTabDashboard();
-            RefreshTabHeadlessBuilder();
+            RefreshTabHeadlessBuilder(true);
             RefreshTabHeadlessRun();
 
         }
@@ -859,6 +859,9 @@ namespace SimioApiHelper
                 comboHeadlessRunModels.Text = Properties.Settings.Default.HeadlessRunModel;
                 comboHeadlessRunExperiments.Text = Properties.Settings.Default.HeadlessRunExperiment;
 
+                HeadlessRunContext = new HeadlessContext(textHeadlessRunFilesLocation.Text);
+
+
             }
             catch (Exception ex)
             {
@@ -887,7 +890,11 @@ namespace SimioApiHelper
 
         }
 
-        private void RefreshTabHeadlessBuilder()
+        /// <summary>
+        /// Put the selected files (DLLs, etc) except for those ignored into the checkbox list.
+        /// </summary>
+        /// <param name="includeUserFiles"></param>
+        private void RefreshTabHeadlessBuilder( bool includeUserFiles )
         {
             try
             {
@@ -921,7 +928,7 @@ namespace SimioApiHelper
                         "^PSTaskDialog"
                     };
 
-                    RefreshChecklistForTargets(textSimioInstallationFolder.Text, ignorePatterns);
+                    RefreshChecklistForTargets(textSimioInstallationFolder.Text, includeUserFiles, ignorePatterns);
                 }
 
             }
@@ -953,7 +960,7 @@ namespace SimioApiHelper
                 }
                 catch (Exception ex)
                 {
-                    throw new ApplicationException($"Source={sourcePath} Target={targetPath} Err={ex.Message}");
+                    Logit($"Source={sourcePath} Target={targetPath} Err={ex.Message}");
                 }
             } // foreach file
 
@@ -961,14 +968,24 @@ namespace SimioApiHelper
 
         /// <summary>
         /// Rebuild the checklist for files to be included in the target folder.
+        /// This includes 
+        /// 1. files at the top of the SimioInstallPath (except those matching the ignore pattern)
+        /// 2. DLLs under UserExtensions
+        /// 3. Optionally DLLs under Documents > SimioUserExtensions.
+        /// Log any duplicated names.
         /// </summary>
         /// <param name="simioInstallPath"></param>
         /// <param name="ignorePatternList"></param>
+        /// <param name="includeUserExtension">Add files from person Documents > SimioUserExtensions</param>
 
-        private void RefreshChecklistForTargets(string simioInstallPath, List<string> ignorePatternList )
+        private void RefreshChecklistForTargets(string simioInstallPath, bool includeUserExtension, List<string> ignorePatternList )
         {
+            string marker = "Begin";
             try
             {
+                checklistSelectedFiles.Items.Clear();
+
+                marker = $"Getting files from {simioInstallPath}";
                 string[] files = Directory.GetFiles(simioInstallPath, "*.DLL", SearchOption.TopDirectoryOnly);
 
                 List<string> includedFiles = new List<string>();
@@ -977,7 +994,9 @@ namespace SimioApiHelper
                     includedFiles.Add(file);
                 }
 
-                string[] folders = Directory.GetDirectories(Path.Combine(simioInstallPath, "UserExtensions"));
+                string dllPath = Path.Combine(simioInstallPath, "UserExtensions");
+                marker = $"Getting files from Main UserExternsions={dllPath}";
+                string[] folders = Directory.GetDirectories(dllPath);
                 foreach ( string folder in folders)
                 {
                     foreach ( string dllFile in Directory.GetFiles(folder, "*.dll", SearchOption.TopDirectoryOnly))
@@ -1004,17 +1023,50 @@ namespace SimioApiHelper
                 GetNextFile:;
                 } // foreach file
 
-                foreach (string file in filteredFiles)
+                // Check for user extensions
+                if ( includeUserExtension )
                 {
-                    checklistSelectedFiles.Items.Add(file, true);
+                    string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                    marker = $"Getting DLL files from User's Userextensions={docPath}";
+                    docPath = Path.Combine(docPath, "SimioUserExtensions");
+                    if ( Directory.Exists(docPath))
+                    {
+                        foreach ( string dllFile in Directory.GetFiles(docPath, "*.dll") )
+                        {
+                            filteredFiles.Add(dllFile);
+                        }
+                    }
                 }
 
-                checklistSelectedFiles.Items.Add(Path.Combine(simioInstallPath, "SimioRoam.lic"));
+                // All the files are now collected, so add them to the checklist
+
+                Dictionary<string, string> filenameDict = new Dictionary<string, string>();
+                int duplicates = 0;
+                foreach (string filepath in filteredFiles)
+                {
+                    string fn = Path.GetFileName(filepath);
+                    if (filenameDict.TryGetValue(fn, out string foundPath))
+                    {
+                        duplicates++;
+                        Logit($"Warning: Duplicate Name={fn} File1={foundPath}, so File2={filepath} not added.");
+                    }
+                    else
+                    {
+                        filenameDict.Add(fn, filepath);
+                        checklistSelectedFiles.Items.Add(filepath, true);
+                    }
+                }
+
+                // Add the roaming licens
+                checklistSelectedFiles.Items.Add(Path.Combine(simioInstallPath, "SimioRoam.lic"), true);
+
+                if (duplicates > 0)
+                    Alert($"Warning: There were {duplicates} duplicates. See the log for details.");
 
             }
             catch (Exception ex)
             {
-                Alert($"SimioInstall={simioInstallPath}. Err={ex.Message}");
+                Alert($"SimioInstall={simioInstallPath}. Marker={marker} Err={ex.Message}");
             }
         }
         /// <summary>
@@ -1134,6 +1186,13 @@ namespace SimioApiHelper
             Cursor.Current = Cursors.WaitCursor;
 
             string marker = "Select the project";
+
+            if ( HeadlessRunContext == null )
+            {
+                Alert($"HeadlessContext is null.");
+                return;
+            }
+
             try
             {
                 string projectFile = HeadlessHelpers.GetProjectFile();
@@ -1223,6 +1282,14 @@ namespace SimioApiHelper
 
         }
 
+        /// <summary>
+        /// Choose a folder for the source of DLLs (e.g. ProgramFiles) and gather up
+        /// all the files (except those in the exclude list). This includes the
+        /// DLLs in the UserExtension folders. Optionally also gather up the
+        /// DLLs in the user's SimioUserExtensions folder that lives under MyDocuments.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonSelectSimioInstallationFolder_Click(object sender, EventArgs e)
         {
             try
@@ -1246,7 +1313,7 @@ namespace SimioApiHelper
                 Properties.Settings.Default.Save();
 
                 // Actions upon selection
-                RefreshTabHeadlessBuilder();
+                RefreshTabHeadlessBuilder( cbHeadlessBuildUsersFiles.Checked );
 
             }
             catch (Exception ex)
@@ -1599,6 +1666,40 @@ namespace SimioApiHelper
             if ( result == DialogResult.OK)
             {
                 textFilewatcherPath.Text = dialog.SelectedPath;
+            }
+        }
+
+        private void buttonHeadlessBuildAddExe_Click(object sender, EventArgs e)
+        {
+            string sourceFilepath = "";
+            string targetFilepath = "";
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = "Exe File (*.exe)|*.exe";
+
+                DialogResult result = dialog.ShowDialog();
+                if (result != DialogResult.OK)
+                    return;
+
+                sourceFilepath = dialog.FileName;
+                targetFilepath = Path.Combine(textHeadlessRunFilesLocation.Text, Path.GetFileName(sourceFilepath));
+
+                if ( File.Exists(targetFilepath))
+                {
+                    result = MessageBox.Show($"File exists. Overwrite {targetFilepath}?");
+                    if (result != DialogResult.OK)
+                        return;
+
+                    File.Delete(targetFilepath);
+                }
+
+                File.Copy(sourceFilepath, targetFilepath);
+
+            }
+            catch (Exception ex)
+            {
+                Alert($"Source={sourceFilepath} Target={targetFilepath} Err={ex.Message}");
             }
         }
     }

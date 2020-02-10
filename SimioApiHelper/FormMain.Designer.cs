@@ -93,21 +93,27 @@
             this.label5 = new System.Windows.Forms.Label();
             this.tabHeadlessBuilder = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label13 = new System.Windows.Forms.Label();
+            this.groupHeadlessBuild = new System.Windows.Forms.GroupBox();
+            this.buttonHeadlessBuildAddExe = new System.Windows.Forms.Button();
             this.checklistSelectedFiles = new System.Windows.Forms.CheckedListBox();
             this.label12 = new System.Windows.Forms.Label();
             this.buttonBuildHeadlessSystem = new System.Windows.Forms.Button();
-            this.textSimioInstallationFolder = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.buttonSelectSimioInstallationFolder = new System.Windows.Forms.Button();
-            this.textHeadlessBuildLocation = new System.Windows.Forms.TextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.textHeadlessBuildLocation = new System.Windows.Forms.TextBox();
             this.buttonSelectHeadlessFolder = new System.Windows.Forms.Button();
+            this.groupFileSource = new System.Windows.Forms.GroupBox();
+            this.cbHeadlessBuildUsersFiles = new System.Windows.Forms.CheckBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textSimioInstallationFolder = new System.Windows.Forms.TextBox();
+            this.buttonSelectSimioInstallationFolder = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
             this.tabLogs = new System.Windows.Forms.TabPage();
             this.textLogs = new System.Windows.Forms.TextBox();
             this.Settings = new System.Windows.Forms.TabPage();
             this.tabUtilities = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.buttonFilewatcherSelect = new System.Windows.Forms.Button();
             this.cbFwPauseLogging = new System.Windows.Forms.CheckBox();
             this.cbFwNotifyLastWrite = new System.Windows.Forms.CheckBox();
@@ -122,7 +128,6 @@
             this.buttonFileWatcherStart = new System.Windows.Forms.Button();
             this.timerLogs = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label18 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.labelStatus.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -136,6 +141,9 @@
             this.panelHeadlessRun.SuspendLayout();
             this.tabHeadlessBuilder.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.groupHeadlessBuild.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupFileSource.SuspendLayout();
             this.tabLogs.SuspendLayout();
             this.tabUtilities.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -833,26 +841,181 @@
             this.tabHeadlessBuilder.Name = "tabHeadlessBuilder";
             this.tabHeadlessBuilder.Size = new System.Drawing.Size(1224, 681);
             this.tabHeadlessBuilder.TabIndex = 6;
-            this.tabHeadlessBuilder.Text = "HeadlessBuilder";
+            this.tabHeadlessBuilder.Text = "Headless Builder";
             this.tabHeadlessBuilder.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.groupHeadlessBuild);
+            this.panel2.Controls.Add(this.groupBox2);
+            this.panel2.Controls.Add(this.groupFileSource);
             this.panel2.Controls.Add(this.label13);
-            this.panel2.Controls.Add(this.checklistSelectedFiles);
-            this.panel2.Controls.Add(this.label12);
-            this.panel2.Controls.Add(this.buttonBuildHeadlessSystem);
-            this.panel2.Controls.Add(this.textSimioInstallationFolder);
-            this.panel2.Controls.Add(this.label11);
-            this.panel2.Controls.Add(this.buttonSelectSimioInstallationFolder);
-            this.panel2.Controls.Add(this.textHeadlessBuildLocation);
-            this.panel2.Controls.Add(this.label10);
-            this.panel2.Controls.Add(this.buttonSelectHeadlessFolder);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1224, 681);
             this.panel2.TabIndex = 29;
+            // 
+            // groupHeadlessBuild
+            // 
+            this.groupHeadlessBuild.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupHeadlessBuild.Controls.Add(this.buttonHeadlessBuildAddExe);
+            this.groupHeadlessBuild.Controls.Add(this.checklistSelectedFiles);
+            this.groupHeadlessBuild.Controls.Add(this.label12);
+            this.groupHeadlessBuild.Controls.Add(this.buttonBuildHeadlessSystem);
+            this.groupHeadlessBuild.Location = new System.Drawing.Point(31, 323);
+            this.groupHeadlessBuild.Name = "groupHeadlessBuild";
+            this.groupHeadlessBuild.Size = new System.Drawing.Size(1115, 355);
+            this.groupHeadlessBuild.TabIndex = 38;
+            this.groupHeadlessBuild.TabStop = false;
+            this.groupHeadlessBuild.Text = "Build Folder for Headless Runs";
+            // 
+            // buttonHeadlessBuildAddExe
+            // 
+            this.buttonHeadlessBuildAddExe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHeadlessBuildAddExe.Location = new System.Drawing.Point(927, 110);
+            this.buttonHeadlessBuildAddExe.Name = "buttonHeadlessBuildAddExe";
+            this.buttonHeadlessBuildAddExe.Size = new System.Drawing.Size(182, 40);
+            this.buttonHeadlessBuildAddExe.TabIndex = 35;
+            this.buttonHeadlessBuildAddExe.Text = "Add Executable...";
+            this.toolTip1.SetToolTip(this.buttonHeadlessBuildAddExe, "Select where the Simio desktop software was installed");
+            this.buttonHeadlessBuildAddExe.UseVisualStyleBackColor = true;
+            this.buttonHeadlessBuildAddExe.Click += new System.EventHandler(this.buttonHeadlessBuildAddExe_Click);
+            // 
+            // checklistSelectedFiles
+            // 
+            this.checklistSelectedFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.checklistSelectedFiles.FormattingEnabled = true;
+            this.checklistSelectedFiles.Location = new System.Drawing.Point(12, 64);
+            this.checklistSelectedFiles.Name = "checklistSelectedFiles";
+            this.checklistSelectedFiles.Size = new System.Drawing.Size(909, 268);
+            this.checklistSelectedFiles.TabIndex = 34;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(13, 32);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(430, 20);
+            this.label12.TabIndex = 33;
+            this.label12.Text = "Selected Simio Files Targeted for Headless Executables";
+            // 
+            // buttonBuildHeadlessSystem
+            // 
+            this.buttonBuildHeadlessSystem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonBuildHeadlessSystem.Location = new System.Drawing.Point(927, 64);
+            this.buttonBuildHeadlessSystem.Name = "buttonBuildHeadlessSystem";
+            this.buttonBuildHeadlessSystem.Size = new System.Drawing.Size(182, 40);
+            this.buttonBuildHeadlessSystem.TabIndex = 32;
+            this.buttonBuildHeadlessSystem.Text = "Build...";
+            this.toolTip1.SetToolTip(this.buttonBuildHeadlessSystem, "Move the checked files in the checklist from the Target to the Source folder");
+            this.buttonBuildHeadlessSystem.UseVisualStyleBackColor = true;
+            this.buttonBuildHeadlessSystem.Click += new System.EventHandler(this.buttonBuildHeadlessSystem_Click);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.textHeadlessBuildLocation);
+            this.groupBox2.Controls.Add(this.buttonSelectHeadlessFolder);
+            this.groupBox2.Location = new System.Drawing.Point(31, 178);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(1115, 139);
+            this.groupBox2.TabIndex = 37;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Target Location";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(7, 23);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(357, 20);
+            this.label10.TabIndex = 26;
+            this.label10.Text = "Location of the Headless Executables (Target)";
+            // 
+            // textHeadlessBuildLocation
+            // 
+            this.textHeadlessBuildLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textHeadlessBuildLocation.Location = new System.Drawing.Point(11, 46);
+            this.textHeadlessBuildLocation.Name = "textHeadlessBuildLocation";
+            this.textHeadlessBuildLocation.Size = new System.Drawing.Size(1098, 27);
+            this.textHeadlessBuildLocation.TabIndex = 28;
+            // 
+            // buttonSelectHeadlessFolder
+            // 
+            this.buttonSelectHeadlessFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSelectHeadlessFolder.Location = new System.Drawing.Point(927, 79);
+            this.buttonSelectHeadlessFolder.Name = "buttonSelectHeadlessFolder";
+            this.buttonSelectHeadlessFolder.Size = new System.Drawing.Size(182, 40);
+            this.buttonSelectHeadlessFolder.TabIndex = 27;
+            this.buttonSelectHeadlessFolder.Text = "Select Folder...";
+            this.toolTip1.SetToolTip(this.buttonSelectHeadlessFolder, "Select where to locate the headless executable files");
+            this.buttonSelectHeadlessFolder.UseVisualStyleBackColor = true;
+            this.buttonSelectHeadlessFolder.Click += new System.EventHandler(this.buttonSelectHeadlessFolder_Click);
+            // 
+            // groupFileSource
+            // 
+            this.groupFileSource.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupFileSource.Controls.Add(this.cbHeadlessBuildUsersFiles);
+            this.groupFileSource.Controls.Add(this.label11);
+            this.groupFileSource.Controls.Add(this.textSimioInstallationFolder);
+            this.groupFileSource.Controls.Add(this.buttonSelectSimioInstallationFolder);
+            this.groupFileSource.Location = new System.Drawing.Point(31, 37);
+            this.groupFileSource.Name = "groupFileSource";
+            this.groupFileSource.Size = new System.Drawing.Size(1115, 135);
+            this.groupFileSource.TabIndex = 36;
+            this.groupFileSource.TabStop = false;
+            this.groupFileSource.Text = "Source Location";
+            // 
+            // cbHeadlessBuildUsersFiles
+            // 
+            this.cbHeadlessBuildUsersFiles.AutoSize = true;
+            this.cbHeadlessBuildUsersFiles.Location = new System.Drawing.Point(545, 89);
+            this.cbHeadlessBuildUsersFiles.Name = "cbHeadlessBuildUsersFiles";
+            this.cbHeadlessBuildUsersFiles.Size = new System.Drawing.Size(257, 24);
+            this.cbHeadlessBuildUsersFiles.TabIndex = 32;
+            this.cbHeadlessBuildUsersFiles.Text = "Include User\'s UserExtentions";
+            this.toolTip1.SetToolTip(this.cbHeadlessBuildUsersFiles, "Get all UserExtensions DLLs from this user\'s MyDocuments folder");
+            this.cbHeadlessBuildUsersFiles.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 23);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(358, 20);
+            this.label11.TabIndex = 29;
+            this.label11.Text = "Location of the Simio Installation files (Source)";
+            this.toolTip1.SetToolTip(this.label11, "Where are the files from the Simio Desktop installation?");
+            // 
+            // textSimioInstallationFolder
+            // 
+            this.textSimioInstallationFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textSimioInstallationFolder.Location = new System.Drawing.Point(10, 46);
+            this.textSimioInstallationFolder.Name = "textSimioInstallationFolder";
+            this.textSimioInstallationFolder.Size = new System.Drawing.Size(1099, 27);
+            this.textSimioInstallationFolder.TabIndex = 31;
+            // 
+            // buttonSelectSimioInstallationFolder
+            // 
+            this.buttonSelectSimioInstallationFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSelectSimioInstallationFolder.Location = new System.Drawing.Point(927, 79);
+            this.buttonSelectSimioInstallationFolder.Name = "buttonSelectSimioInstallationFolder";
+            this.buttonSelectSimioInstallationFolder.Size = new System.Drawing.Size(182, 40);
+            this.buttonSelectSimioInstallationFolder.TabIndex = 30;
+            this.buttonSelectSimioInstallationFolder.Text = "Select Folder...";
+            this.toolTip1.SetToolTip(this.buttonSelectSimioInstallationFolder, "Select where the Simio desktop software was installed");
+            this.buttonSelectSimioInstallationFolder.UseVisualStyleBackColor = true;
+            this.buttonSelectSimioInstallationFolder.Click += new System.EventHandler(this.buttonSelectSimioInstallationFolder_Click);
             // 
             // label13
             // 
@@ -864,98 +1027,6 @@
             this.label13.Text = "Assists in the building of a headless version of Simio using the installation fol" +
     "der and a target folder to receive the necessary files.";
             this.toolTip1.SetToolTip(this.label13, "Where are the files from the Simio Desktop installation?");
-            // 
-            // checklistSelectedFiles
-            // 
-            this.checklistSelectedFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.checklistSelectedFiles.FormattingEnabled = true;
-            this.checklistSelectedFiles.Location = new System.Drawing.Point(34, 298);
-            this.checklistSelectedFiles.Name = "checklistSelectedFiles";
-            this.checklistSelectedFiles.Size = new System.Drawing.Size(919, 224);
-            this.checklistSelectedFiles.TabIndex = 34;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(27, 268);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(430, 20);
-            this.label12.TabIndex = 33;
-            this.label12.Text = "Selected Simio Files Targeted for Headless Executables";
-            // 
-            // buttonBuildHeadlessSystem
-            // 
-            this.buttonBuildHeadlessSystem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonBuildHeadlessSystem.Location = new System.Drawing.Point(981, 298);
-            this.buttonBuildHeadlessSystem.Name = "buttonBuildHeadlessSystem";
-            this.buttonBuildHeadlessSystem.Size = new System.Drawing.Size(165, 40);
-            this.buttonBuildHeadlessSystem.TabIndex = 32;
-            this.buttonBuildHeadlessSystem.Text = "Build...";
-            this.toolTip1.SetToolTip(this.buttonBuildHeadlessSystem, "Select where the Simio desktop software was installed");
-            this.buttonBuildHeadlessSystem.UseVisualStyleBackColor = true;
-            this.buttonBuildHeadlessSystem.Click += new System.EventHandler(this.buttonBuildHeadlessSystem_Click);
-            // 
-            // textSimioInstallationFolder
-            // 
-            this.textSimioInstallationFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textSimioInstallationFolder.Location = new System.Drawing.Point(31, 76);
-            this.textSimioInstallationFolder.Name = "textSimioInstallationFolder";
-            this.textSimioInstallationFolder.Size = new System.Drawing.Size(923, 27);
-            this.textSimioInstallationFolder.TabIndex = 31;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(27, 53);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(358, 20);
-            this.label11.TabIndex = 29;
-            this.label11.Text = "Location of the Simio Installation files (Source)";
-            this.toolTip1.SetToolTip(this.label11, "Where are the files from the Simio Desktop installation?");
-            // 
-            // buttonSelectSimioInstallationFolder
-            // 
-            this.buttonSelectSimioInstallationFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSelectSimioInstallationFolder.Location = new System.Drawing.Point(981, 69);
-            this.buttonSelectSimioInstallationFolder.Name = "buttonSelectSimioInstallationFolder";
-            this.buttonSelectSimioInstallationFolder.Size = new System.Drawing.Size(165, 40);
-            this.buttonSelectSimioInstallationFolder.TabIndex = 30;
-            this.buttonSelectSimioInstallationFolder.Text = "Select Folder...";
-            this.toolTip1.SetToolTip(this.buttonSelectSimioInstallationFolder, "Select where the Simio desktop software was installed");
-            this.buttonSelectSimioInstallationFolder.UseVisualStyleBackColor = true;
-            this.buttonSelectSimioInstallationFolder.Click += new System.EventHandler(this.buttonSelectSimioInstallationFolder_Click);
-            // 
-            // textHeadlessBuildLocation
-            // 
-            this.textHeadlessBuildLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textHeadlessBuildLocation.Location = new System.Drawing.Point(31, 161);
-            this.textHeadlessBuildLocation.Name = "textHeadlessBuildLocation";
-            this.textHeadlessBuildLocation.Size = new System.Drawing.Size(923, 27);
-            this.textHeadlessBuildLocation.TabIndex = 28;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(27, 138);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(357, 20);
-            this.label10.TabIndex = 26;
-            this.label10.Text = "Location of the Headless Executables (Target)";
-            // 
-            // buttonSelectHeadlessFolder
-            // 
-            this.buttonSelectHeadlessFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSelectHeadlessFolder.Location = new System.Drawing.Point(981, 148);
-            this.buttonSelectHeadlessFolder.Name = "buttonSelectHeadlessFolder";
-            this.buttonSelectHeadlessFolder.Size = new System.Drawing.Size(165, 40);
-            this.buttonSelectHeadlessFolder.TabIndex = 27;
-            this.buttonSelectHeadlessFolder.Text = "Select Folder...";
-            this.toolTip1.SetToolTip(this.buttonSelectHeadlessFolder, "Select where to locate the headless executable files");
-            this.buttonSelectHeadlessFolder.UseVisualStyleBackColor = true;
-            this.buttonSelectHeadlessFolder.Click += new System.EventHandler(this.buttonSelectHeadlessFolder_Click);
             // 
             // tabLogs
             // 
@@ -1022,6 +1093,16 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "File Watcher";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(26, 36);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(794, 20);
+            this.label18.TabIndex = 12;
+            this.label18.Text = "Select a folder and file filter and \"Start Watching\" to see all the file changes " +
+    "in that folder and sub-folders ";
             // 
             // buttonFilewatcherSelect
             // 
@@ -1152,16 +1233,6 @@
             this.timerLogs.Interval = 1000;
             this.timerLogs.Tick += new System.EventHandler(this.timerLogs_Tick);
             // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(26, 36);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(794, 20);
-            this.label18.TabIndex = 12;
-            this.label18.Text = "Select a folder and file filter and \"Start Watching\" to see all the file changes " +
-    "in that folder and sub-folders ";
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
@@ -1196,6 +1267,12 @@
             this.tabHeadlessBuilder.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.groupHeadlessBuild.ResumeLayout(false);
+            this.groupHeadlessBuild.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupFileSource.ResumeLayout(false);
+            this.groupFileSource.PerformLayout();
             this.tabLogs.ResumeLayout(false);
             this.tabLogs.PerformLayout();
             this.tabUtilities.ResumeLayout(false);
@@ -1302,6 +1379,11 @@
         private System.Windows.Forms.CheckBox cbFwPauseLogging;
         private System.Windows.Forms.Button buttonFilewatcherSelect;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.GroupBox groupFileSource;
+        private System.Windows.Forms.CheckBox cbHeadlessBuildUsersFiles;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupHeadlessBuild;
+        private System.Windows.Forms.Button buttonHeadlessBuildAddExe;
     }
 }
 

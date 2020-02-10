@@ -87,8 +87,8 @@ namespace HeadlessFormsExperiment
 
             try
             {
-                if (!HeadlessHelpers.RunExperiment(extensionsPath, projectPath, modelName, experimentName, 
-                    cbHeadlessSaveModelAfterRun.Checked,
+                bool saveModelAfterRun = cbHeadlessSaveModelAfterRun.Checked;
+                if (!HeadlessHelpers.RunExperiment(extensionsPath, projectPath, modelName, experimentName, saveModelAfterRun,
                     out string explanation))
                 {
                     Alert(explanation);
