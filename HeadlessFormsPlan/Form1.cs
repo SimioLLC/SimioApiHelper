@@ -24,17 +24,19 @@ namespace HeadlessFormsPlan
         {
 
             timerLogs.Enabled = true;
+
+            string extensionsPath = System.AppDomain.CurrentDomain.BaseDirectory;
+            textExtensionsPath.Text = extensionsPath;
+
         }
 
-        private bool LoadProject(string projectPath, out string explanation)
+        private bool LoadProject(string extensionsPath, string projectPath, out string explanation)
         {
             explanation = "";
 
             Cursor.Current = Cursors.WaitCursor;
             try
             {
-                string extensionsPath = System.AppDomain.CurrentDomain.BaseDirectory;
-                labelExtensionsPath.Text = extensionsPath;
 
                 ISimioProject project = HeadlessHelpers.LoadProject(extensionsPath, projectPath, out explanation);
                 if (project == null)
@@ -91,8 +93,6 @@ namespace HeadlessFormsPlan
             textHeadlessProjectFile.Text = HeadlessHelpers.GetProjectFile();
             string projectPath = textHeadlessProjectFile.Text;
 
-            if (!LoadProject(projectPath, out string explanation))
-                Alert($"{explanation}");
 
         }
 
@@ -109,7 +109,7 @@ namespace HeadlessFormsPlan
                 string modelName = comboHeadlessRunModels.Text;
 
                 string projectPath = textHeadlessProjectFile.Text;
-                string extensionsPath = labelExtensionsPath.Text;
+                string extensionsPath = textExtensionsPath.Text;
                 Logit($"Info: Running Model={modelName} Plan. ExtensionsPath={extensionsPath}");
 
                 if (!HeadlessHelpers.RunModelPlan(extensionsPath, projectPath, modelName, 
@@ -136,5 +136,20 @@ namespace HeadlessFormsPlan
 
         }
 
+        private void buttonLoadSimioProject_Click(object sender, EventArgs e)
+        {
+            string projectPath = textHeadlessProjectFile.Text;
+            string extensionsPath = textExtensionsPath.Text;
+
+            if (!LoadProject(extensionsPath, projectPath, out string explanation))
+                Alert($"{explanation}");
+
+        }
+
+        private void buttonSelectExtensionsPath_Click(object sender, EventArgs e)
+        {
+            string extensionsPath = HeadlessHelpers.GetExtensionsFolder();
+            textExtensionsPath.Text = extensionsPath;
+        }
     }
 }

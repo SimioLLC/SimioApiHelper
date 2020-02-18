@@ -445,6 +445,30 @@ namespace HeadlessLibrary
                 throw new ApplicationException($"Cannot get project file. Err={ex.Message}");
             }
         }
+        /// <summary>
+        /// Prompt the user for a Simio project file.
+        /// </summary>
+        /// <returns></returns>
+        public static string GetExtensionsFolder()
+        {
+            try
+            {
+                FolderBrowserDialog dialog = new FolderBrowserDialog();
+                dialog.SelectedPath = "";
+                dialog.ShowNewFolderButton = false;
+
+                DialogResult result = dialog.ShowDialog();
+
+                if (result != DialogResult.OK)
+                    return string.Empty;
+
+                return dialog.SelectedPath;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException($"Cannot get project file. Err={ex.Message}");
+            }
+        }
 
         public static void Alert(string message)
         {
