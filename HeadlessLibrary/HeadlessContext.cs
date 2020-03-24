@@ -234,15 +234,7 @@ namespace HeadlessLibrary
             try
             {
                 marker = "Starting Plan (model.Plan.RunPlan)";
-                if ( true )
-                {
-                    IPlan myPlan = CurrentModel as IPlan;
-                    myPlan.RunPlan();
-                }
-                else
-                {
-                    CurrentModel.Plan.RunPlan();
-                }
+                CurrentModel.Plan.RunPlan();
 
                 marker = "End";
 

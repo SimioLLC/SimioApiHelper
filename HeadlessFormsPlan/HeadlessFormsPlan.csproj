@@ -34,11 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="SimioAPI">
-      <HintPath>..\Executables\SimioAPI.dll</HintPath>
-    </Reference>
-    <Reference Include="SimioTypes, Version=11.198.19348.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Executables\SimioTypes.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Simio202\SimioAPI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

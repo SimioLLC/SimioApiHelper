@@ -37,19 +37,19 @@
       <HintPath>..\Library\IconLib.dll</HintPath>
     </Reference>
     <Reference Include="SimioAPI">
-      <HintPath>..\Executables\SimioAPI.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Simio\SimioAPI.dll</HintPath>
     </Reference>
     <Reference Include="SimioAPI.Extensions">
-      <HintPath>..\Executables\SimioAPI.Extensions.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Simio\SimioAPI.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="SimioDLL">
-      <HintPath>..\Executables\SimioDLL.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Simio\SimioDLL.dll</HintPath>
     </Reference>
     <Reference Include="SimioEnums">
-      <HintPath>..\Executables\SimioEnums.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Simio\SimioEnums.dll</HintPath>
     </Reference>
-    <Reference Include="SimioTypes">
-      <HintPath>..\Executables\SimioTypes.dll</HintPath>
+    <Reference Include="SimioServerAPI">
+      <HintPath>C:\Program Files (x86)\Simio\SimioServerAPI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
