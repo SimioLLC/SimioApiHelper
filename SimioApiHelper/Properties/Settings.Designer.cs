@@ -25,7 +25,7 @@ namespace SimioApiHelper.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("c:\\(test)\\SimioHeadless")]
+        [global::System.Configuration.DefaultSettingValueAttribute("c:\\(test)\\SimioHeadlessTest")]
         public string HeadlessSystemFolder {
             get {
                 return ((string)(this["HeadlessSystemFolder"]));
@@ -44,30 +44,6 @@ namespace SimioApiHelper.Properties {
             }
             set {
                 this["SimioInstallationFolder"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("c:\\(test)\\SimioHeadlessTests")]
-        public string HeadlessRunFolder {
-            get {
-                return ((string)(this["HeadlessRunFolder"]));
-            }
-            set {
-                this["HeadlessRunFolder"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string HeadlessRunExecutable {
-            get {
-                return ((string)(this["HeadlessRunExecutable"]));
-            }
-            set {
-                this["HeadlessRunExecutable"] = value;
             }
         }
         
@@ -104,18 +80,6 @@ namespace SimioApiHelper.Properties {
             }
             set {
                 this["HeadlessBuilderTargetFolder"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("c:\\program files (x86)\\simio")]
-        public string HeadlessBuilderSourceFolder {
-            get {
-                return ((string)(this["HeadlessBuilderSourceFolder"]));
-            }
-            set {
-                this["HeadlessBuilderSourceFolder"] = value;
             }
         }
         

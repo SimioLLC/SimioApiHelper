@@ -53,6 +53,7 @@ namespace HeadlessFormsPlan
                 }
 
                 IModel defaultModel = comboHeadlessRunModels.Items[1] as IModel;
+                comboHeadlessRunModels.Enabled = true;
 
                 return true;
             }
@@ -91,9 +92,6 @@ namespace HeadlessFormsPlan
         private void buttonHeadlessSelectModel_Click(object sender, EventArgs e)
         {
             textHeadlessProjectFile.Text = HeadlessHelpers.GetProjectFile();
-            string projectPath = textHeadlessProjectFile.Text;
-
-
         }
 
         private void timerLogs_Tick(object sender, EventArgs e)
@@ -150,6 +148,17 @@ namespace HeadlessFormsPlan
         {
             string extensionsPath = HeadlessHelpers.GetExtensionsFolder();
             textExtensionsPath.Text = extensionsPath;
+        }
+
+        private void actionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            Application.Exit();
         }
     }
 }

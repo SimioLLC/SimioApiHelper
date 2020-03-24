@@ -3,16 +3,10 @@
   <Profiles />
   <Settings>
     <Setting Name="HeadlessSystemFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)">c:\(test)\SimioHeadless</Value>
+      <Value Profile="(Default)">c:\(test)\SimioHeadlessTest</Value>
     </Setting>
     <Setting Name="SimioInstallationFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)">c:\program files (x86)\simio</Value>
-    </Setting>
-    <Setting Name="HeadlessRunFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)">c:\(test)\SimioHeadlessTests</Value>
-    </Setting>
-    <Setting Name="HeadlessRunExecutable" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="HeadlessRunModel" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -22,9 +16,6 @@
     </Setting>
     <Setting Name="HeadlessBuilderTargetFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="HeadlessBuilderSourceFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)">c:\program files (x86)\simio</Value>
     </Setting>
     <Setting Name="HeadlessRunSimioProjectFile" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

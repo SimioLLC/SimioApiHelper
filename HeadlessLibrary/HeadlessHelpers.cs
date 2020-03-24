@@ -368,10 +368,14 @@ namespace HeadlessLibrary
                 if (model == null)
                     return false;
 
+                // Test to see if we can 'cheat'
+                IPlan plan = (IPlan)model;
+                plan.RunPlan();
+
                 // Check for Plan
                 if (model.Plan == null)
                 {
-                    explanation = $"Model={model.Name} has no Plan.";
+                    explanation = $"Model={model.Name} has no Plan (you may not have a license for one)";
                     return false;
                 }
 
@@ -379,6 +383,9 @@ namespace HeadlessLibrary
                 marker = "Starting Plan (model.Plan.RunPlan)";
                 LogIt($"Info: {marker}");
                 model.Plan.RunPlan();
+
+                IPlan plan2 = (IPlan)model;
+                plan2.RunPlan();
 
                 if (runRiskAnalysis)
                 {
@@ -397,10 +404,9 @@ namespace HeadlessLibrary
                     marker = "PublishPlan";
                     LogIt($"Info: {marker}");
 
-                    // ADD PUBLISH PLAN CODE HERE
+                    // Todo: Add publish plan code here
                 }
                 marker = "End";
-
 
                 return true;
             }

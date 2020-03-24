@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -40,7 +41,6 @@ namespace SimioApiHelper
 
                 RefreshForm();
 
-                timerLogs.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -48,6 +48,7 @@ namespace SimioApiHelper
             }
             finally
             {
+                timerLogs.Enabled = true;
                 IsLoaded = true;
             }
 
@@ -55,9 +56,17 @@ namespace SimioApiHelper
 
         private void RefreshForm()
         {
-            RefreshTabDashboard();
-            RefreshTabHeadlessBuilder(true);
-            RefreshTabHeadlessRun();
+            try
+            {
+                RefreshTabDashboard();
+                RefreshTabHeadlessBuilder(true);
+                RefreshTabHeadlessRun();
+                RefreshTabSettings();
+            }
+            catch (Exception ex)
+            {
+                Alert($"Refresh Error={ex}");
+            }
 
         }
 
@@ -850,7 +859,7 @@ namespace SimioApiHelper
         {
             try
             {
-                textHeadlessRunFilesLocation.Text = Properties.Settings.Default.HeadlessBuilderSourceFolder;
+                textHeadlessRunFilesLocation.Text = Properties.Settings.Default.HeadlessSystemFolder;
 
                 comboHeadlessRunExecutableToRun.DataSource = Directory.GetFiles(textHeadlessRunFilesLocation.Text, "*.EXE").ToList();
 
@@ -873,7 +882,7 @@ namespace SimioApiHelper
         {
             try
             {
-                textHeadlessRunFilesLocation.Text = Properties.Settings.Default.HeadlessBuilderSourceFolder;
+                textHeadlessRunFilesLocation.Text = Properties.Settings.Default.HeadlessSystemFolder;
 
                 comboHeadlessRunExecutableToRun.DataSource = Directory.GetFiles(textHeadlessRunFilesLocation.Text, "*.EXE").ToList();
 
@@ -888,6 +897,19 @@ namespace SimioApiHelper
                 throw new ApplicationException($"Err={ex}");
             }
 
+        }
+
+        private void RefreshTabSettings()
+        {
+            try
+            {
+                propertyGrid1.SelectedObject = Properties.Settings.Default;
+
+            }
+            catch (Exception ex)
+            {
+                Logit($"Err={ex}");
+            }
         }
 
         /// <summary>
@@ -985,7 +1007,13 @@ namespace SimioApiHelper
             {
                 checklistSelectedFiles.Items.Clear();
 
-                marker = $"Getting files from {simioInstallPath}";
+                if ( !Directory.Exists(simioInstallPath) )
+                {
+                    Logit($"Warning: SimioInstallPath={simioInstallPath} cannot be found.");
+                    return;
+                }
+
+                marker = $"Getting top-level files from {simioInstallPath}";
                 string[] files = Directory.GetFiles(simioInstallPath, "*.DLL", SearchOption.TopDirectoryOnly);
 
                 List<string> includedFiles = new List<string>();
@@ -995,7 +1023,7 @@ namespace SimioApiHelper
                 }
 
                 string dllPath = Path.Combine(simioInstallPath, "UserExtensions");
-                marker = $"Getting files from Main UserExternsions={dllPath}";
+                marker = $"Getting files from UserExternsions folder={dllPath}";
                 string[] folders = Directory.GetDirectories(dllPath);
                 foreach ( string folder in folders)
                 {
@@ -1038,16 +1066,15 @@ namespace SimioApiHelper
                     }
                 }
 
-                // All the files are now collected, so add them to the checklist
-
+                // All the files are now collected, so add them to the checklist, noting any duplicates that were found.
                 Dictionary<string, string> filenameDict = new Dictionary<string, string>();
-                int duplicates = 0;
+                int duplicateCount = 0;
                 foreach (string filepath in filteredFiles)
                 {
                     string fn = Path.GetFileName(filepath);
                     if (filenameDict.TryGetValue(fn, out string foundPath))
                     {
-                        duplicates++;
+                        duplicateCount++;
                         Logit($"Warning: Duplicate Name={fn} File1={foundPath}, so File2={filepath} not added.");
                     }
                     else
@@ -1060,8 +1087,8 @@ namespace SimioApiHelper
                 // Add the roaming licens
                 checklistSelectedFiles.Items.Add(Path.Combine(simioInstallPath, "SimioRoam.lic"), true);
 
-                if (duplicates > 0)
-                    Alert($"Warning: There were {duplicates} duplicates. See the log for details.");
+                if (duplicateCount > 0)
+                    Alert($"Warning: While searching UserExtension files, there were {duplicateCount} duplicates. See the log for details.");
 
             }
             catch (Exception ex)
@@ -1069,6 +1096,7 @@ namespace SimioApiHelper
                 Alert($"SimioInstall={simioInstallPath}. Marker={marker} Err={ex.Message}");
             }
         }
+
         /// <summary>
         /// Refresh the dashboard, which shows settings and any errors within the settings.
         /// </summary>
@@ -1183,7 +1211,6 @@ namespace SimioApiHelper
         /// <param name="e"></param>
         private void buttonHeadlessRunSelectAndLoadProjectFile_Click(object sender, EventArgs e)
         {
-            Cursor.Current = Cursors.WaitCursor;
 
             string marker = "Select the project";
 
@@ -1198,6 +1225,7 @@ namespace SimioApiHelper
                 string projectFile = HeadlessHelpers.GetProjectFile();
                 textHeadlessRunProjectFile.Text = projectFile;
 
+                Cursor.Current = Cursors.WaitCursor;
                 if ( !HeadlessRunContext.LoadProject(projectFile, out string explanation))
                 {
                     Alert(explanation);
@@ -1489,6 +1517,7 @@ namespace SimioApiHelper
 
                 textHeadlessRunFilesLocation.Text = HeadlessRunContext.ExtensionsPath;
 
+                // Put the executables in the combo dropdown, and make the first one the default.
                 List<string> exeFiles = Directory.GetFiles(textHeadlessRunFilesLocation.Text, "*.exe").ToList();
                 comboHeadlessRunExecutableToRun.DataSource = exeFiles;
                 if (exeFiles.Any())
@@ -1496,8 +1525,6 @@ namespace SimioApiHelper
                 
                 Properties.Settings.Default.HeadlessSystemFolder = dialog.SelectedPath;
                 Properties.Settings.Default.Save();
-
-
 
                 // Actions upon selection
                 SetStateTabHeadlessRun("SetExtensions");
@@ -1701,6 +1728,59 @@ namespace SimioApiHelper
             {
                 Alert($"Source={sourceFilepath} Target={targetFilepath} Err={ex.Message}");
             }
+        }
+
+        private void buttonTabSettingsSave_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+            this.RefreshForm();
+        }
+
+        private void buttonHeadlessRunExecutable_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(comboHeadlessRunExecutableToRun.Text))
+                {
+                    Alert($"Please select an executable and try again.");
+                    return;
+                }
+
+                string folder = textHeadlessRunFilesLocation.Text;
+                string exeName = comboHeadlessRunExecutableToRun.Text;
+                string exePath = Path.Combine(folder, exeName);
+                if ( !File.Exists(exePath) )
+                {
+                    Alert($"Cannot find Executable={exePath}");
+                    return;
+                }
+
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    CreateNoWindow = false,
+                    UseShellExecute = false,
+                    FileName = exePath,
+                    WindowStyle = ProcessWindowStyle.Hidden
+                };
+
+                using (Process exeProcess = Process.Start(startInfo))
+                {
+                    exeProcess.WaitForExit();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Alert($"Error={ex}");
+            }
+            
+
+        }
+
+        private void comboHeadlessRunExecutableToRun_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

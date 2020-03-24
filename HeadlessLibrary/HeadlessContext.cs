@@ -97,7 +97,6 @@ namespace HeadlessLibrary
         /// Initialize, which means setting the ExtensionsPath and loading the project.
         /// If there are warnings, they are placed in LoadWarningsList.
         /// </summary>
-        /// <param name="extensionsPath"></param>
         /// <param name="projectFullPath"></param>
         /// <param name="explanation"></param>
         /// <returns></returns>
@@ -235,7 +234,15 @@ namespace HeadlessLibrary
             try
             {
                 marker = "Starting Plan (model.Plan.RunPlan)";
-                CurrentModel.Plan.RunPlan();
+                if ( true )
+                {
+                    IPlan myPlan = CurrentModel as IPlan;
+                    myPlan.RunPlan();
+                }
+                else
+                {
+                    CurrentModel.Plan.RunPlan();
+                }
 
                 marker = "End";
 

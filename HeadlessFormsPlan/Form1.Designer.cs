@@ -30,6 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonLoadSimioProject = new System.Windows.Forms.Button();
+            this.buttonSelectExtensionsPath = new System.Windows.Forms.Button();
+            this.textExtensionsPath = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.comboHeadlessRunModels = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -44,15 +47,11 @@
             this.buttonHeadlessSelectModel = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.actionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.selectSimioModelFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.runModelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.textLogs = new System.Windows.Forms.TextBox();
             this.timerLogs = new System.Windows.Forms.Timer(this.components);
-            this.textExtensionsPath = new System.Windows.Forms.TextBox();
-            this.buttonSelectExtensionsPath = new System.Windows.Forms.Button();
-            this.buttonLoadSimioProject = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -60,6 +59,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.buttonLoadSimioProject);
             this.panel1.Controls.Add(this.buttonSelectExtensionsPath);
             this.panel1.Controls.Add(this.textExtensionsPath);
@@ -78,6 +78,37 @@
             this.panel1.Size = new System.Drawing.Size(1152, 299);
             this.panel1.TabIndex = 4;
             // 
+            // buttonLoadSimioProject
+            // 
+            this.buttonLoadSimioProject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonLoadSimioProject.Location = new System.Drawing.Point(950, 138);
+            this.buttonLoadSimioProject.Name = "buttonLoadSimioProject";
+            this.buttonLoadSimioProject.Size = new System.Drawing.Size(190, 40);
+            this.buttonLoadSimioProject.TabIndex = 43;
+            this.buttonLoadSimioProject.Text = "Load Simio Project";
+            this.buttonLoadSimioProject.UseVisualStyleBackColor = true;
+            this.buttonLoadSimioProject.Click += new System.EventHandler(this.buttonLoadSimioProject_Click);
+            // 
+            // buttonSelectExtensionsPath
+            // 
+            this.buttonSelectExtensionsPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSelectExtensionsPath.Location = new System.Drawing.Point(950, 92);
+            this.buttonSelectExtensionsPath.Name = "buttonSelectExtensionsPath";
+            this.buttonSelectExtensionsPath.Size = new System.Drawing.Size(190, 40);
+            this.buttonSelectExtensionsPath.TabIndex = 42;
+            this.buttonSelectExtensionsPath.Text = "Select Extensions Path...";
+            this.buttonSelectExtensionsPath.UseVisualStyleBackColor = true;
+            this.buttonSelectExtensionsPath.Click += new System.EventHandler(this.buttonSelectExtensionsPath_Click);
+            // 
+            // textExtensionsPath
+            // 
+            this.textExtensionsPath.Location = new System.Drawing.Point(169, 97);
+            this.textExtensionsPath.Name = "textExtensionsPath";
+            this.textExtensionsPath.ReadOnly = true;
+            this.textExtensionsPath.Size = new System.Drawing.Size(766, 22);
+            this.textExtensionsPath.TabIndex = 41;
+            this.toolTip1.SetToolTip(this.textExtensionsPath, "Folder holding the assemblies (binaries) necessary to run the Simio project");
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -93,9 +124,9 @@
             this.comboHeadlessRunModels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboHeadlessRunModels.FormattingEnabled = true;
-            this.comboHeadlessRunModels.Location = new System.Drawing.Point(150, 202);
+            this.comboHeadlessRunModels.Location = new System.Drawing.Point(169, 202);
             this.comboHeadlessRunModels.Name = "comboHeadlessRunModels";
-            this.comboHeadlessRunModels.Size = new System.Drawing.Size(355, 24);
+            this.comboHeadlessRunModels.Size = new System.Drawing.Size(346, 24);
             this.comboHeadlessRunModels.TabIndex = 38;
             // 
             // label1
@@ -105,10 +136,10 @@
             this.label1.Location = new System.Drawing.Point(10, 10);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(1017, 20);
+            this.label1.Size = new System.Drawing.Size(1064, 20);
             this.label1.TabIndex = 36;
             this.label1.Text = "This Sample Project assumes the DLL files are in the same folder as this EXE. It " +
-    "is for running Model Plans only (RPS license needed)";
+    "is for running Model Plans only (Simio RPS license needed)";
             // 
             // label7
             // 
@@ -122,10 +153,11 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.cbHeadlessRunPublishPlanAfterRun);
             this.groupBox1.Controls.Add(this.cbHeadlessRunRiskAnalysis);
             this.groupBox1.Controls.Add(this.cbHeadlessSaveModelAfterRun);
-            this.groupBox1.Location = new System.Drawing.Point(536, 193);
+            this.groupBox1.Location = new System.Drawing.Point(546, 193);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(375, 100);
             this.groupBox1.TabIndex = 33;
@@ -141,6 +173,7 @@
             this.cbHeadlessRunPublishPlanAfterRun.TabIndex = 19;
             this.cbHeadlessRunPublishPlanAfterRun.Text = "Publish Plan After Run";
             this.cbHeadlessRunPublishPlanAfterRun.UseVisualStyleBackColor = true;
+            this.cbHeadlessRunPublishPlanAfterRun.Visible = false;
             // 
             // cbHeadlessRunRiskAnalysis
             // 
@@ -179,7 +212,7 @@
             this.buttonRunPlan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRunPlan.Location = new System.Drawing.Point(950, 202);
             this.buttonRunPlan.Name = "buttonRunPlan";
-            this.buttonRunPlan.Size = new System.Drawing.Size(187, 40);
+            this.buttonRunPlan.Size = new System.Drawing.Size(190, 40);
             this.buttonRunPlan.TabIndex = 31;
             this.buttonRunPlan.Text = "Run Plan";
             this.buttonRunPlan.UseVisualStyleBackColor = true;
@@ -189,15 +222,17 @@
             // 
             this.textHeadlessProjectFile.Location = new System.Drawing.Point(169, 59);
             this.textHeadlessProjectFile.Name = "textHeadlessProjectFile";
+            this.textHeadlessProjectFile.ReadOnly = true;
             this.textHeadlessProjectFile.Size = new System.Drawing.Size(766, 22);
             this.textHeadlessProjectFile.TabIndex = 28;
+            this.toolTip1.SetToolTip(this.textHeadlessProjectFile, "The Simio project file");
             // 
             // buttonHeadlessSelectModel
             // 
             this.buttonHeadlessSelectModel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHeadlessSelectModel.Location = new System.Drawing.Point(950, 54);
+            this.buttonHeadlessSelectModel.Location = new System.Drawing.Point(950, 46);
             this.buttonHeadlessSelectModel.Name = "buttonHeadlessSelectModel";
-            this.buttonHeadlessSelectModel.Size = new System.Drawing.Size(187, 32);
+            this.buttonHeadlessSelectModel.Size = new System.Drawing.Size(190, 40);
             this.buttonHeadlessSelectModel.TabIndex = 27;
             this.buttonHeadlessSelectModel.Text = "Select Simio Project...";
             this.buttonHeadlessSelectModel.UseVisualStyleBackColor = true;
@@ -207,8 +242,7 @@
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.actionsToolStripMenuItem});
+            this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1152, 28);
@@ -218,29 +252,9 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
-            this.fileToolStripMenuItem.Text = "&File";
-            // 
-            // actionsToolStripMenuItem
-            // 
-            this.actionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.selectSimioModelFileToolStripMenuItem,
-            this.runModelToolStripMenuItem});
-            this.actionsToolStripMenuItem.Name = "actionsToolStripMenuItem";
-            this.actionsToolStripMenuItem.Size = new System.Drawing.Size(70, 24);
-            this.actionsToolStripMenuItem.Text = "&Actions";
-            // 
-            // selectSimioModelFileToolStripMenuItem
-            // 
-            this.selectSimioModelFileToolStripMenuItem.Name = "selectSimioModelFileToolStripMenuItem";
-            this.selectSimioModelFileToolStripMenuItem.Size = new System.Drawing.Size(249, 26);
-            this.selectSimioModelFileToolStripMenuItem.Text = "&Select Simio Model File...";
-            // 
-            // runModelToolStripMenuItem
-            // 
-            this.runModelToolStripMenuItem.Name = "runModelToolStripMenuItem";
-            this.runModelToolStripMenuItem.Size = new System.Drawing.Size(249, 26);
-            this.runModelToolStripMenuItem.Text = "&Run Model";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(45, 24);
+            this.fileToolStripMenuItem.Text = "E&xit";
+            this.fileToolStripMenuItem.Click += new System.EventHandler(this.fileToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -267,34 +281,16 @@
             // 
             this.timerLogs.Tick += new System.EventHandler(this.timerLogs_Tick);
             // 
-            // textExtensionsPath
+            // label3
             // 
-            this.textExtensionsPath.Location = new System.Drawing.Point(169, 97);
-            this.textExtensionsPath.Name = "textExtensionsPath";
-            this.textExtensionsPath.Size = new System.Drawing.Size(766, 22);
-            this.textExtensionsPath.TabIndex = 41;
-            // 
-            // buttonSelectExtensionsPath
-            // 
-            this.buttonSelectExtensionsPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSelectExtensionsPath.Location = new System.Drawing.Point(950, 92);
-            this.buttonSelectExtensionsPath.Name = "buttonSelectExtensionsPath";
-            this.buttonSelectExtensionsPath.Size = new System.Drawing.Size(187, 32);
-            this.buttonSelectExtensionsPath.TabIndex = 42;
-            this.buttonSelectExtensionsPath.Text = "Select Extensions Path...";
-            this.buttonSelectExtensionsPath.UseVisualStyleBackColor = true;
-            this.buttonSelectExtensionsPath.Click += new System.EventHandler(this.buttonSelectExtensionsPath_Click);
-            // 
-            // buttonLoadSimioProject
-            // 
-            this.buttonLoadSimioProject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonLoadSimioProject.Location = new System.Drawing.Point(950, 143);
-            this.buttonLoadSimioProject.Name = "buttonLoadSimioProject";
-            this.buttonLoadSimioProject.Size = new System.Drawing.Size(187, 32);
-            this.buttonLoadSimioProject.TabIndex = 43;
-            this.buttonLoadSimioProject.Text = "Load Simio Project";
-            this.buttonLoadSimioProject.UseVisualStyleBackColor = true;
-            this.buttonLoadSimioProject.Click += new System.EventHandler(this.buttonLoadSimioProject_Click);
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(8, 158);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(323, 20);
+            this.label3.TabIndex = 44;
+            this.label3.Text = "After loading, select Actions and Run Plan";
             // 
             // Form1
             // 
@@ -333,9 +329,6 @@
         private System.Windows.Forms.Button buttonHeadlessSelectModel;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem actionsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem selectSimioModelFileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem runModelToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.TextBox textLogs;
         private System.Windows.Forms.Timer timerLogs;
@@ -345,6 +338,8 @@
         private System.Windows.Forms.Button buttonSelectExtensionsPath;
         private System.Windows.Forms.TextBox textExtensionsPath;
         private System.Windows.Forms.Button buttonLoadSimioProject;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label label3;
     }
 }
 
