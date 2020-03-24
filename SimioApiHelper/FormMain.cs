@@ -1387,6 +1387,8 @@ namespace SimioApiHelper
 
         private void buttonBuildHeadlessSystem_Click(object sender, EventArgs e)
         {
+
+            Cursor.Current = Cursors.WaitCursor;
             try
             {
                 string simioFolder = textSimioInstallationFolder.Text;
@@ -1404,6 +1406,7 @@ namespace SimioApiHelper
                     return;
                 }
 
+
                 // Copy minimal headless files
                 List<string> filesToMove = new List<string>();
                 foreach ( var item in checklistSelectedFiles.CheckedItems)
@@ -1411,6 +1414,7 @@ namespace SimioApiHelper
                     filesToMove.Add(item as string);
                 }
 
+                Logit($"Info: Harvesting {filesToMove.Count} files.");
                 CopyList(simioFolder, buildFolder, filesToMove);
 
                 // Copy over optional DLLs
@@ -1421,6 +1425,11 @@ namespace SimioApiHelper
             catch (Exception ex)
             {
                 Alert($"Error Building Headless System={ex.Message}");
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+                Alert($"Info: Harvest is complete.");
             }
         }
 
