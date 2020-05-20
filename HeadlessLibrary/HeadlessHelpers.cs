@@ -275,7 +275,7 @@ namespace HeadlessLibrary
         }
 
         /// <summary>
-        /// Load the experiment from the given model.
+        /// Load the experiment with name 'experimentName' from the given model.
         /// Returns an Experiment object or a null if errors.
         /// </summary>
         /// <param name="model">The model object; see LoadModel</param>

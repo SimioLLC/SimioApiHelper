@@ -73,6 +73,7 @@ namespace RunSimioScheduleConsole
                 {
                     if ( model.Plan == null )
                         throw new ApplicationException($"Model's Plan is null. Do you have the correct Simio licensing?");
+
                     
                     // Start Plan
                     Console.WriteLine("Starting Plan");
@@ -82,11 +83,15 @@ namespace RunSimioScheduleConsole
                         Console.WriteLine("Plan Finished...Starting Analyze Risk");
                         model.Plan.RunRiskAnalysis();
                     }
+
                     if (saveModelAfterRun)
                     {
                         Console.WriteLine("Save Project After Schedule Run");
                         SimioProjectFactory.SaveProject(_simioProject, projectPathAndFile, out warnings);
                     }
+
+                    // Publish the plan to portal after Run. 
+                    // This (of course) requires the URL of your Portal, plus an access token (PAT) for security.
                     if (publishPlanAfterRun)
                     {
                         Console.WriteLine("Info: PublishPlan");
@@ -95,6 +100,8 @@ namespace RunSimioScheduleConsole
                         var pub = DoPublish(url, projectPathAndFile, pat, modelName, publishName, "Scheduling Discrete Part Production");
                         pub.Wait();
                     }
+
+
                     Console.WriteLine("End");
                     Console.ReadLine();
                 }

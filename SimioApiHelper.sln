@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30002.166
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.902
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimioApiHelper", "SimioApiHelper\SimioApiHelper.csproj", "{2762FF6D-665E-4161-B56D-EA377875A10E}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeadlessFormsPlan", "HeadlessFormsPlan\HeadlessFormsPlan.csproj", "{9A929FED-8005-479D-96F9-3CD20B6F9CB1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeadlessConsolePlanPublish", "HeadlessConsolePlanPublish\HeadlessConsolePlanPublish.csproj", "{74A01328-FFD1-4DC0-88AA-CD77CA34E7D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeadlessConsoleExperimentSaveTable", "HeadlessConsoleExperimentSaveTable\HeadlessConsoleExperimentSaveTable.csproj", "{B1E18896-9816-40E3-B260-E4E56A23CD72}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{74A01328-FFD1-4DC0-88AA-CD77CA34E7D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74A01328-FFD1-4DC0-88AA-CD77CA34E7D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74A01328-FFD1-4DC0-88AA-CD77CA34E7D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1E18896-9816-40E3-B260-E4E56A23CD72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1E18896-9816-40E3-B260-E4E56A23CD72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1E18896-9816-40E3-B260-E4E56A23CD72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1E18896-9816-40E3-B260-E4E56A23CD72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

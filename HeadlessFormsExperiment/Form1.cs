@@ -119,14 +119,14 @@ namespace HeadlessFormsExperiment
             string experimentName = comboHeadlessExperiments.Text;
             string modelName = comboHeadlessRunModels.Text;
 
-            string projectPath = textHeadlessProjectFile.Text;
+            string simioProjectPath = textHeadlessProjectFile.Text;
             string extensionsPath = textExtensionsPath.Text;
             Logit($"Info: Running Model={modelName}. Experiment={experimentName}. ExtensionsPath={extensionsPath}");
 
             try
             {
                 bool saveModelAfterRun = cbHeadlessSaveModelAfterRun.Checked;
-                if (!HeadlessHelpers.RunExperiment(extensionsPath, projectPath, modelName, experimentName, saveModelAfterRun,
+                if (!HeadlessHelpers.RunExperiment(extensionsPath, simioProjectPath, modelName, experimentName, saveModelAfterRun,
                     out string explanation))
                 {
                     Alert(explanation);
