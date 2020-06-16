@@ -113,7 +113,7 @@ namespace HeadlessLibrary
 
             try
             {
-                // If File Not Exist, Throw Exeption
+                // If File Not Exist, Throw Exception
                 if (File.Exists(projectFullPath) == false)
                 {
                     explanation = $"Project File={projectFullPath} not found.";

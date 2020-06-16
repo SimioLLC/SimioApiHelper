@@ -68,9 +68,8 @@ namespace RunSimioScheduleConsole
 
                     // Start Experiment
                     Console.WriteLine("Starting Experiment");
-                    string projectPath = "";
 
-                    if (!HeadlessHelpers.RunExperiment(extensionsPath, projectPath, modelName, experimentName, saveModelAfterRun,
+                    if (!HeadlessHelpers.RunExperiment(extensionsPath, projectPathAndFile, modelName, experimentName, saveModelAfterRun,
                             out string explanation))
                     {
                         throw new ApplicationException(explanation);
@@ -93,7 +92,7 @@ namespace RunSimioScheduleConsole
             }
             catch (Exception ex)
             {
-                Console.WriteLine("RunError=" + ex.Message);
+                Console.WriteLine($"RunError={ex.Message}");
             }
         }
 

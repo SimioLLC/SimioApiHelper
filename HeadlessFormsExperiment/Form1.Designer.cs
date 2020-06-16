@@ -34,6 +34,10 @@
             this.textLogs = new System.Windows.Forms.TextBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.buttonSelectExtensionsPath = new System.Windows.Forms.Button();
+            this.textExtensionsPath = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.buttonLoadSimioProject = new System.Windows.Forms.Button();
             this.comboHeadlessExperiments = new System.Windows.Forms.ComboBox();
             this.comboHeadlessRunModels = new System.Windows.Forms.ComboBox();
@@ -47,10 +51,6 @@
             this.textHeadlessProjectFile = new System.Windows.Forms.TextBox();
             this.buttonHeadlessSelectModel = new System.Windows.Forms.Button();
             this.timerLogs = new System.Windows.Forms.Timer(this.components);
-            this.buttonSelectExtensionsPath = new System.Windows.Forms.Button();
-            this.textExtensionsPath = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -63,14 +63,14 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1175, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1218, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(45, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(47, 24);
             this.fileToolStripMenuItem.Text = "E&xit";
             this.fileToolStripMenuItem.Click += new System.EventHandler(this.fileToolStripMenuItem_Click);
             // 
@@ -82,7 +82,7 @@
             this.textLogs.Name = "textLogs";
             this.textLogs.ReadOnly = true;
             this.textLogs.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textLogs.Size = new System.Drawing.Size(1175, 327);
+            this.textLogs.Size = new System.Drawing.Size(1218, 327);
             this.textLogs.TabIndex = 1;
             this.textLogs.Text = "(No logs yet...)";
             // 
@@ -91,7 +91,7 @@
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Location = new System.Drawing.Point(0, 673);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1175, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1218, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -115,13 +115,52 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 28);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1175, 318);
+            this.panel1.Size = new System.Drawing.Size(1218, 318);
             this.panel1.TabIndex = 3;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(13, 169);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(323, 20);
+            this.label3.TabIndex = 48;
+            this.label3.Text = "After loading, select Actions and Run Plan";
+            // 
+            // buttonSelectExtensionsPath
+            // 
+            this.buttonSelectExtensionsPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSelectExtensionsPath.Location = new System.Drawing.Point(955, 98);
+            this.buttonSelectExtensionsPath.Name = "buttonSelectExtensionsPath";
+            this.buttonSelectExtensionsPath.Size = new System.Drawing.Size(187, 40);
+            this.buttonSelectExtensionsPath.TabIndex = 47;
+            this.buttonSelectExtensionsPath.Text = "Select Extensions Path...";
+            this.buttonSelectExtensionsPath.UseVisualStyleBackColor = true;
+            // 
+            // textExtensionsPath
+            // 
+            this.textExtensionsPath.Location = new System.Drawing.Point(182, 107);
+            this.textExtensionsPath.Name = "textExtensionsPath";
+            this.textExtensionsPath.ReadOnly = true;
+            this.textExtensionsPath.Size = new System.Drawing.Size(690, 22);
+            this.textExtensionsPath.TabIndex = 46;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(14, 110);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(113, 17);
+            this.label2.TabIndex = 45;
+            this.label2.Text = "Extensions Path:";
             // 
             // buttonLoadSimioProject
             // 
             this.buttonLoadSimioProject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonLoadSimioProject.Location = new System.Drawing.Point(912, 160);
+            this.buttonLoadSimioProject.Location = new System.Drawing.Point(955, 160);
             this.buttonLoadSimioProject.Name = "buttonLoadSimioProject";
             this.buttonLoadSimioProject.Size = new System.Drawing.Size(187, 40);
             this.buttonLoadSimioProject.TabIndex = 44;
@@ -136,7 +175,7 @@
             this.comboHeadlessExperiments.FormattingEnabled = true;
             this.comboHeadlessExperiments.Location = new System.Drawing.Point(156, 265);
             this.comboHeadlessExperiments.Name = "comboHeadlessExperiments";
-            this.comboHeadlessExperiments.Size = new System.Drawing.Size(378, 24);
+            this.comboHeadlessExperiments.Size = new System.Drawing.Size(421, 24);
             this.comboHeadlessExperiments.TabIndex = 40;
             // 
             // comboHeadlessRunModels
@@ -146,7 +185,7 @@
             this.comboHeadlessRunModels.FormattingEnabled = true;
             this.comboHeadlessRunModels.Location = new System.Drawing.Point(156, 223);
             this.comboHeadlessRunModels.Name = "comboHeadlessRunModels";
-            this.comboHeadlessRunModels.Size = new System.Drawing.Size(378, 24);
+            this.comboHeadlessRunModels.Size = new System.Drawing.Size(421, 24);
             this.comboHeadlessRunModels.TabIndex = 38;
             // 
             // label1
@@ -178,7 +217,7 @@
             this.groupBox1.Controls.Add(this.cbHeadlessSaveModelAfterRun);
             this.groupBox1.Location = new System.Drawing.Point(565, 223);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(307, 75);
+            this.groupBox1.Size = new System.Drawing.Size(350, 75);
             this.groupBox1.TabIndex = 33;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Post-Run Actions";
@@ -208,7 +247,7 @@
             // buttonRunExperiment
             // 
             this.buttonRunExperiment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRunExperiment.Location = new System.Drawing.Point(912, 223);
+            this.buttonRunExperiment.Location = new System.Drawing.Point(955, 223);
             this.buttonRunExperiment.Name = "buttonRunExperiment";
             this.buttonRunExperiment.Size = new System.Drawing.Size(187, 40);
             this.buttonRunExperiment.TabIndex = 31;
@@ -237,7 +276,7 @@
             // buttonHeadlessSelectModel
             // 
             this.buttonHeadlessSelectModel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHeadlessSelectModel.Location = new System.Drawing.Point(912, 52);
+            this.buttonHeadlessSelectModel.Location = new System.Drawing.Point(955, 52);
             this.buttonHeadlessSelectModel.Name = "buttonHeadlessSelectModel";
             this.buttonHeadlessSelectModel.Size = new System.Drawing.Size(187, 40);
             this.buttonHeadlessSelectModel.TabIndex = 27;
@@ -250,50 +289,11 @@
             this.timerLogs.Interval = 1000;
             this.timerLogs.Tick += new System.EventHandler(this.timerLogs_Tick);
             // 
-            // buttonSelectExtensionsPath
-            // 
-            this.buttonSelectExtensionsPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSelectExtensionsPath.Location = new System.Drawing.Point(912, 98);
-            this.buttonSelectExtensionsPath.Name = "buttonSelectExtensionsPath";
-            this.buttonSelectExtensionsPath.Size = new System.Drawing.Size(187, 40);
-            this.buttonSelectExtensionsPath.TabIndex = 47;
-            this.buttonSelectExtensionsPath.Text = "Select Extensions Path...";
-            this.buttonSelectExtensionsPath.UseVisualStyleBackColor = true;
-            // 
-            // textExtensionsPath
-            // 
-            this.textExtensionsPath.Location = new System.Drawing.Point(182, 107);
-            this.textExtensionsPath.Name = "textExtensionsPath";
-            this.textExtensionsPath.ReadOnly = true;
-            this.textExtensionsPath.Size = new System.Drawing.Size(690, 22);
-            this.textExtensionsPath.TabIndex = 46;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 110);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(113, 17);
-            this.label2.TabIndex = 45;
-            this.label2.Text = "Extensions Path:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(13, 169);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(323, 20);
-            this.label3.TabIndex = 48;
-            this.label3.Text = "After loading, select Actions and Run Plan";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1175, 695);
+            this.ClientSize = new System.Drawing.Size(1218, 695);
             this.Controls.Add(this.textLogs);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.statusStrip1);

@@ -6,12 +6,17 @@ using System.Threading.Tasks;
 using System.Reflection;
 using System.IO;
 using System.Text.RegularExpressions;
+using LoggertonHelpers;
 
 namespace SimioApiHelper
 {
     public static class DLLHelpers
     {
-
+        /// <summary>
+        /// Get the AssemblyName object and create a string from it.
+        /// </summary>
+        /// <param name="filepathForDll"></param>
+        /// <returns></returns>
         public static string GetDllInfo(string filepathForDll)
         {
             try
@@ -51,8 +56,10 @@ namespace SimioApiHelper
                     string myDocs = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                     string fullPath = Path.Combine(myDocs, "SimioUserExtensions");
 
-                    if (!Directory.Exists(fullPath))
-                        throw new ApplicationException($"Cannot find Path={fullPath}. Check if Simio is installed.");
+                    if (Directory.Exists(fullPath))
+                        locations.Add(fullPath);
+                    else
+                        LogIt($"Info: Cannot find Path={fullPath} (there may not be any personal UserExtensions)");
 
                     locations.Add(fullPath);
                 }
@@ -156,5 +163,204 @@ namespace SimioApiHelper
             }
         }
 
+        private static bool IsIgnoredAssembly(string name)
+        {
+            if (!name.StartsWith("System")
+                && !name.StartsWith("mscorlib")
+                && !name.StartsWith("PresentationCore")
+                && !name.StartsWith("PresentationFramework")
+                && !name.StartsWith("ReachFramework")
+                && !name.StartsWith("UIAutomationProvider")
+                && !name.StartsWith("UIAutomationTypes")
+                && !name.StartsWith("UIAutomationFramework")
+                && !name.StartsWith("WindowsBase")
+                )
+                return false;
+            else
+                return true;
+        }
+
+        /// <summary>
+        /// Load the assembly of the selected DLL file, and
+        /// also discover the chain of DLL references (recursively discovered)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static bool GetDependencies(AssemblyReference assemblyRef, Dictionary<string, AssemblyReference> dependentAssemblyDict, 
+            Stack<AssemblyReference> stack, out string explanation)
+        {
+
+            string marker = "begin";
+            explanation = "";
+            stack.Push(assemblyRef);
+
+            if ( stack.Count > 350 )
+            {
+                LogIt($"Dependcies are too large (Count={stack.Count}. Exiting.");
+                return false;
+            }
+
+            try
+            {
+                StringBuilder sb = new StringBuilder();
+                marker = $"Loading Assembly={assemblyRef}";
+
+                Assembly myAssembly = null;
+                if (assemblyRef.AssemblyPath != null)
+                {
+                    myAssembly = Assembly.LoadFrom(assemblyRef.AssemblyPath);
+                }
+                else
+                {
+                    myAssembly = Assembly.Load(assemblyRef.AssemblyName);
+                    if (!string.IsNullOrEmpty(myAssembly.Location))
+                        assemblyRef.AssemblyPath = myAssembly.Location;
+
+                }
+
+                if (myAssembly == null)
+                    return true;
+
+                marker = "Getting Referenced Assemblies";
+                try
+                {
+                    
+                    List<AssemblyName> aNameList = myAssembly.GetReferencedAssemblies().ToList();
+
+                    string MyName = assemblyRef.Name;
+                    if ( !IsIgnoredAssembly(MyName) )
+                    {
+                        foreach (AssemblyName aName in aNameList)
+                        {
+                            if (aName == assemblyRef.AssemblyName)
+                            {
+                                string xx = ""; // looking for recursion
+                            }
+
+                            if (!IsIgnoredAssembly(aName.Name))
+                            {
+                                // See if it is already there
+                                if (!dependentAssemblyDict.TryGetValue(aName.FullName, out AssemblyReference aRef))
+                                {
+                                    aRef = new AssemblyReference(aName, assemblyRef.Level);
+                                    dependentAssemblyDict.Add(aRef.Key, aRef);
+                                }
+
+                                if (aRef != null)
+                                {
+                                    aRef.AddReferencedBy(assemblyRef);
+                                    if (!GetDependencies(aRef, dependentAssemblyDict, stack, out explanation))
+                                        return false;
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    explanation = $"Marker={marker} Err={ex.Message}";
+                    return false;
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                explanation = $"Marker={marker} Err={ex.Message}";
+                return false;
+            }
+        }
+
+        private static void LogIt(string message)
+        {
+            if (message.ToLower().StartsWith("info:"))
+                Loggerton.Instance.LogIt(EnumLogFlags.Information, message);
+            else
+                Loggerton.Instance.LogIt(EnumLogFlags.Error, message);
+        }
+
+
+    }
+
+    public class AssemblyReference
+    {
+        
+        /// <summary>
+        /// Unique key (fullname from AssemblyName??)
+        /// </summary>
+        public string Key { get; set; }
+
+        /// <summary>
+        /// Level of dependency
+        /// </summary>
+        public int Level { get; set; }
+
+        /// <summary>
+        /// Where the assembly lives (could be null)
+        /// </summary>
+        public string AssemblyPath { get; set; } 
+
+        public AssemblyName AssemblyName { get; set; }
+
+        /// <summary>
+        /// Short name from AssemblyName
+        /// </summary>
+        public string Name => AssemblyName.Name;
+
+        /// <summary>
+        /// Full name from AssemblyName. Includes version and token
+        /// </summary>
+        public string FullName => AssemblyName.FullName;
+
+        /// <summary>
+        /// A list of assemblies that reference this assembly
+        /// </summary>
+        public List<AssemblyReference> ReferencedBy { get; private set; }
+
+        public AssemblyReference( AssemblyName aName, int callingLevel)
+        {
+            if (aName == null)
+                throw new ApplicationException($"AssemblyName cannot be null.");
+
+            AssemblyName = aName;
+
+            AssemblyPath = aName.CodeBase;
+
+            Key = FullName;
+            Level = callingLevel+1;
+
+            ReferencedBy = new List<AssemblyReference>();
+
+        }
+
+        /// <summary>
+        /// Add a referenced-by entry, ignoring duplicates.
+        /// </summary>
+        /// <param name="path"></param>
+        public void AddReferencedBy(AssemblyReference aRef)
+        {
+            if (ReferencedBy.Contains(aRef))
+                return;
+
+            ReferencedBy.Add(aRef);
+        }
+
+        public override string ToString()
+        {
+            if (Level > 100)
+                return $"Level too high={Level}";
+
+
+            if (AssemblyPath != null)
+                return $"Name={Name} Level={Level} FullName={AssemblyName.FullName} Path={AssemblyPath}";
+            else
+            {
+                if ( Name == "System" )
+                {
+                    string xx = "";
+                }
+                return $"Level={Level} FullName={AssemblyName.FullName} *No Path*";
+            }
+        }
     }
 }

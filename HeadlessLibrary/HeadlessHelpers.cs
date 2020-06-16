@@ -419,14 +419,6 @@ namespace HeadlessLibrary
         } // RunModel
 
 
-        public static void LogIt(string message)
-        {
-            if (message.ToLower().StartsWith("info:"))
-                Loggerton.Instance.LogIt(EnumLogFlags.Information, message);
-            else
-                Loggerton.Instance.LogIt(EnumLogFlags.Error, message);
-        }
-
         /// <summary>
         /// Prompt the user for a Simio project file.
         /// </summary>
@@ -474,6 +466,14 @@ namespace HeadlessLibrary
             {
                 throw new ApplicationException($"Cannot get project file. Err={ex.Message}");
             }
+        }
+
+        public static void LogIt(string message)
+        {
+            if (message.ToLower().StartsWith("info:"))
+                Loggerton.Instance.LogIt(EnumLogFlags.Information, message);
+            else
+                Loggerton.Instance.LogIt(EnumLogFlags.Error, message);
         }
 
         public static void Alert(string message)

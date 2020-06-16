@@ -25,6 +25,11 @@ namespace SimioApiHelper
 
         FileSystemWatcher FileWatcher { get; set; }
 
+        /// <summary>
+        /// A DLLs list of the assemblies it is dependent upon
+        /// </summary>
+        List<AssemblyReference> DependencyList = new List<AssemblyReference>();
+
         public FormMain()
         {
             InitializeComponent();
@@ -86,7 +91,10 @@ namespace SimioApiHelper
                 string assemblyPath = comboDllFile.Text;
                 textAssemblyLoadInfo.Clear();
                 bool showSimioOnly = checkSimioOnly.Checked;
-                textAssemblyLoadInfo.Text = LoadAssembly(assemblyPath, showSimioOnly);
+
+                textAssemblyLoadInfo.Text = LoadAssembly(assemblyPath, showSimioOnly, DependencyList);
+
+
 
             }
             catch (Exception ex)
@@ -100,10 +108,12 @@ namespace SimioApiHelper
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private string LoadAssembly( string assemblyFile, bool showSimioOnly )
+        private string LoadAssembly( string assemblyFile, bool showSimioOnly, List<AssemblyReference> dependencyList )
         {
             if (!IsLoaded)
                 return "$(File={assemblyFile}Not Loaded)";
+
+            dependencyList.Clear();
 
             string marker = "begin";
             try
@@ -154,11 +164,35 @@ namespace SimioApiHelper
                 {
                     sb.AppendLine();
                     sb.AppendLine("********** Referenced Assemblies:");
-                    int nn = 0;
-                    foreach (AssemblyName refName in myAssembly.GetReferencedAssemblies().ToList())
+                    
+                    AssemblyName aName = AssemblyName.GetAssemblyName(myAssembly.Location);
+                    AssemblyReference aReference = new AssemblyReference(aName, -1);
+
+                    Dictionary<string, AssemblyReference> dependencyDict = new Dictionary<string, AssemblyReference>();
+                    Stack<AssemblyReference> stack = new Stack<AssemblyReference>();
+                    if ( !DLLHelpers.GetDependencies(aReference, dependencyDict, stack, out string explanation ))
                     {
-                        sb.AppendLine($"{++nn}. {refName}");
+                        ExceptionLog($"Marker={marker} Err={explanation}");
+                        sb.AppendLine($" ** Error getting dependencies={explanation}");
                     }
+                    else
+                    {
+                        sb.AppendLine($"  There are {dependencyDict.Count} unique dependencies:");
+                        sb.AppendLine($"");
+                        int nn = 0;
+                        
+                        foreach ( AssemblyReference aRef in dependencyDict.Values )
+                        {
+                            sb.AppendLine($"{nn++} {aRef.Name} Full={aRef.FullName}");
+                            if (string.IsNullOrEmpty(aRef.AssemblyPath))
+                                sb.AppendLine($"    No assembly path (perhaps in GAC)");
+                            else
+                                sb.AppendLine($"    Path={aRef.AssemblyPath}");
+
+                            dependencyList.Add(aRef);
+                        }
+                    }
+
                 }
                 catch (Exception ex)
                 {
@@ -1084,7 +1118,7 @@ namespace SimioApiHelper
                     }
                 }
 
-                // Add the roaming licens
+                // Add the roaming license
                 checklistSelectedFiles.Items.Add(Path.Combine(simioInstallPath, "SimioRoam.lic"), true);
 
                 if (duplicateCount > 0)
@@ -1497,6 +1531,11 @@ namespace SimioApiHelper
 
         }
 
+        /// <summary>
+        /// Change the location of the EXE,DLLs, ... aka the SetExtensions location.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonChangeHeadlessLocation_Click(object sender, EventArgs e)
         {
             try
@@ -1790,6 +1829,63 @@ namespace SimioApiHelper
         private void comboHeadlessRunExecutableToRun_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private bool AddDependenciesToHarvestTarget(List<AssemblyReference> DependencyList, 
+            string simioInstallFolder, string targetFolder, out string explanation)
+        {
+            explanation = "";
+            try
+            {
+                if (!DependencyList.Any())
+                {
+                    explanation = $"Nothing in Dependency List";
+                    return false;
+                }
+
+                if (!Directory.Exists(simioInstallFolder))
+                {
+                    explanation = $"Harvest source({simioInstallFolder} not found.";
+                    return false;
+                }
+                if (!Directory.Exists(targetFolder))
+                {
+                    explanation = $"Harvest target({targetFolder} not found.";
+                    return false;
+                }
+
+                foreach (AssemblyReference aRef in DependencyList)
+                {
+                    string filename = Path.GetFileName(aRef.AssemblyPath);
+
+                    string targetPath = Path.Combine(targetFolder, filename);
+                    if ( !File.Exists(targetPath))
+                    {
+                        string sourcePath = Path.Combine(simioInstallFolder, filename);
+                        if (File.Exists(sourcePath))
+                        {
+                            File.Copy(sourcePath, targetPath, false);
+                            Logit($"Info: Copied file from {sourcePath} to {targetPath}");
+                        }
+                        else
+                            Logit($"Warning: Could not find source file={sourcePath}");
+                    }
+
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                explanation = $"TargetFolder={targetFolder} Err={ex.Message}";
+                return false;
+            }
+        }
+
+        private void buttonAddDependentsToHarvest_Click(object sender, EventArgs e)
+        {
+            if (!AddDependenciesToHarvestTarget(DependencyList, textSimioInstallationFolder.Text, textHeadlessBuildLocation.Text, out string explanation))
+                Alert(explanation);
         }
     }
 }

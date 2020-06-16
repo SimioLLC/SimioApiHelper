@@ -33,19 +33,27 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SimioAPI">
-      <HintPath>C:\Program Files (x86)\Simio202\SimioAPI.dll</HintPath>
+    <Reference Include="SimioAPI, Version=11.202.19819.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\HeadlessConsoleExperimentRunSaveOutputTable\SimioBin\SimioAPI.dll</HintPath>
     </Reference>
     <Reference Include="SimioAPI.Extensions, Version=11.205.20185.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Simio\SimioAPI.Extensions.dll</HintPath>
+      <HintPath>..\HeadlessConsoleExperimentRunSaveOutputTable\SimioBin\SimioAPI.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="SimioDLL">
-      <HintPath>C:\Program Files (x86)\Simio\SimioDLL.dll</HintPath>
+    <Reference Include="SimioDLL, Version=11.205.20185.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\HeadlessConsoleExperimentRunSaveOutputTable\SimioBin\SimioDLL.dll</HintPath>
     </Reference>
     <Reference Include="SimioEnums, Version=11.205.20185.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Simio\SimioEnums.dll</HintPath>
+      <HintPath>..\HeadlessConsoleExperimentRunSaveOutputTable\SimioBin\SimioEnums.dll</HintPath>
+    </Reference>
+    <Reference Include="SimioSelectionRules">
+      <HintPath>..\HeadlessConsoleExperimentRunSaveOutputTable\SimioBin\SimioSelectionRules.dll</HintPath>
+    </Reference>
+    <Reference Include="SimioServerAPI">
+      <HintPath>..\HeadlessConsoleExperimentRunSaveOutputTable\SimioBin\SimioServerAPI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
