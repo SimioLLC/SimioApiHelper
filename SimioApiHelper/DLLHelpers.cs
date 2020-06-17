@@ -165,19 +165,21 @@ namespace SimioApiHelper
 
         private static bool IsIgnoredAssembly(string name)
         {
-            if (!name.StartsWith("System")
-                && !name.StartsWith("mscorlib")
-                && !name.StartsWith("PresentationCore")
-                && !name.StartsWith("PresentationFramework")
-                && !name.StartsWith("ReachFramework")
-                && !name.StartsWith("UIAutomationProvider")
-                && !name.StartsWith("UIAutomationTypes")
-                && !name.StartsWith("UIAutomationFramework")
-                && !name.StartsWith("WindowsBase")
-                )
-                return false;
-            else
-                return true;
+            string[] IgnoredPrefixes = {
+                "System",
+                "mscorlib",
+                "PresentationCore",
+                "PresentationFramework",
+                "ReachFramework",
+                "UIAutomationProvider",
+                "UIAutomationTypes",
+                "UIAutomationFramework",
+                "WindowsBase"
+            };
+
+            bool ignore = IgnoredPrefixes.Any(rr => name.ToLower().StartsWith(rr.ToLower()));
+            return ignore;
+
         }
 
         /// <summary>
@@ -194,7 +196,12 @@ namespace SimioApiHelper
             explanation = "";
             stack.Push(assemblyRef);
 
-            if ( stack.Count > 350 )
+            if ( assemblyRef.Name.StartsWith("System.Data.SqlXml"))
+            {
+                string xx = "";
+            }
+
+            if ( stack.Count > 550 )
             {
                 LogIt($"Dependcies are too large (Count={stack.Count}. Exiting.");
                 return false;

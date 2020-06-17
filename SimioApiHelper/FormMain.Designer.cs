@@ -339,7 +339,7 @@
             this.textAssemblyLoadInfo.Name = "textAssemblyLoadInfo";
             this.textAssemblyLoadInfo.ReadOnly = true;
             this.textAssemblyLoadInfo.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textAssemblyLoadInfo.Size = new System.Drawing.Size(799, 156);
+            this.textAssemblyLoadInfo.Size = new System.Drawing.Size(799, 204);
             this.textAssemblyLoadInfo.TabIndex = 11;
             this.textAssemblyLoadInfo.WordWrap = false;
             // 
@@ -377,13 +377,14 @@
             // 
             this.textExceptions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textExceptions.Location = new System.Drawing.Point(282, 580);
+            this.textExceptions.Location = new System.Drawing.Point(282, 587);
             this.textExceptions.Multiline = true;
             this.textExceptions.Name = "textExceptions";
             this.textExceptions.ReadOnly = true;
-            this.textExceptions.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textExceptions.Size = new System.Drawing.Size(799, 87);
+            this.textExceptions.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textExceptions.Size = new System.Drawing.Size(799, 80);
             this.textExceptions.TabIndex = 9;
+            this.textExceptions.WordWrap = false;
             // 
             // comboSimioLocation
             // 
@@ -401,7 +402,7 @@
             // labelExceptions
             // 
             this.labelExceptions.AutoSize = true;
-            this.labelExceptions.Location = new System.Drawing.Point(23, 572);
+            this.labelExceptions.Location = new System.Drawing.Point(24, 590);
             this.labelExceptions.Name = "labelExceptions";
             this.labelExceptions.Size = new System.Drawing.Size(183, 17);
             this.labelExceptions.TabIndex = 8;
@@ -415,9 +416,10 @@
             this.textAssemblyName.Multiline = true;
             this.textAssemblyName.Name = "textAssemblyName";
             this.textAssemblyName.ReadOnly = true;
-            this.textAssemblyName.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textAssemblyName.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textAssemblyName.Size = new System.Drawing.Size(799, 151);
             this.textAssemblyName.TabIndex = 5;
+            this.textAssemblyName.WordWrap = false;
             // 
             // label1
             // 
