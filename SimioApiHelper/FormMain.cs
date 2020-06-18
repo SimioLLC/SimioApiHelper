@@ -94,8 +94,6 @@ namespace SimioApiHelper
 
                 textAssemblyLoadInfo.Text = LoadAssembly(assemblyPath, showSimioOnly, DependencyList);
 
-
-
             }
             catch (Exception ex)
             {
@@ -174,9 +172,11 @@ namespace SimioApiHelper
                     {
                         ExceptionLog($"Marker={marker} Err={explanation}");
                         sb.AppendLine($" ** Error getting dependencies={explanation}");
+                        Logit($"Error: Cannot get dependencies. Err={explanation}");
                     }
                     else
                     {
+                        Logit($"Info: Found {dependencyDict.Count} dependices. Stack count={stack.Count}");
                         sb.AppendLine($"  There are {dependencyDict.Count} unique dependencies:");
                         sb.AppendLine($"");
                         int nn = 0;

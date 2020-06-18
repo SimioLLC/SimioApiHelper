@@ -117,12 +117,16 @@ namespace SimioApiHelper
         {
             try
             {
+                List<string> filteredFiles = new List<string>();
+
                 if (!Directory.Exists(folderPath))
-                    throw new ApplicationException($"Cannot find Path={folderPath}. Check if Simio is installed.");
+                {
+                    LogIt($"Info: No such folder={folderPath}");
+                    return filteredFiles;
+                }
 
                 string[] files = Directory.GetFiles(folderPath, "*.DLL", SearchOption.AllDirectories);
 
-                List<string> filteredFiles = new List<string>();
                 List<string> regexTokens = regexExcludePatterns.Split('|').ToList();
                 foreach ( string file in files)
                 {
