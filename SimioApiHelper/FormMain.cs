@@ -893,6 +893,21 @@ namespace SimioApiHelper
         {
             try
             {
+                string headlessSystemFolder = Properties.Settings.Default.HeadlessSystemFolder;
+                if ( !Directory.Exists(headlessSystemFolder))
+                {
+                    string myDocsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                    headlessSystemFolder = Path.Combine(myDocsFolder, "SimioAutomationTest");
+                    if (!Directory.Exists(headlessSystemFolder))
+                    {
+                        Logit($"Info: Creating new HeadlessSystemFolder={headlessSystemFolder}");
+                        Directory.CreateDirectory(Path.Combine(myDocsFolder, "SimioAutomation"));
+                    }
+
+                    Properties.Settings.Default.HeadlessSystemFolder = headlessSystemFolder;
+                    Logit($"Info: Set HeadlessSystemFolder to={headlessSystemFolder}");
+                }
+
                 textHeadlessRunFilesLocation.Text = Properties.Settings.Default.HeadlessSystemFolder;
 
                 comboHeadlessRunExecutableToRun.DataSource = Directory.GetFiles(textHeadlessRunFilesLocation.Text, "*.EXE").ToList();
@@ -1423,6 +1438,7 @@ namespace SimioApiHelper
         {
 
             Cursor.Current = Cursors.WaitCursor;
+            int fileCount = 0;
             try
             {
                 string simioFolder = textSimioInstallationFolder.Text;
@@ -1448,12 +1464,9 @@ namespace SimioApiHelper
                     filesToMove.Add(item as string);
                 }
 
-                Logit($"Info: Harvesting {filesToMove.Count} files.");
+                fileCount = filesToMove.Count;
+                Logit($"Info: Harvesting {fileCount} files.");
                 CopyList(simioFolder, buildFolder, filesToMove);
-
-                // Copy over optional DLLs
-
-                // Create the minimal Build exe and batch
 
             }
             catch (Exception ex)
@@ -1463,7 +1476,7 @@ namespace SimioApiHelper
             finally
             {
                 Cursor.Current = Cursors.Default;
-                Alert($"Info: Harvest is complete.");
+                Alert($"Info: Harvest is complete. {fileCount} files copied.");
             }
         }
 

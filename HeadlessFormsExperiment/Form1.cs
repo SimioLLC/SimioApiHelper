@@ -189,5 +189,17 @@ namespace HeadlessFormsExperiment
                 Alert($"{explanation}");
 
         }
+
+        private void buttonSelectExtensionsPath_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            dialog.SelectedPath = Environment.CurrentDirectory;
+
+            DialogResult result = dialog.ShowDialog();
+            if (result == DialogResult.Cancel)
+                return;
+
+            textExtensionsPath.Text = dialog.SelectedPath;
+        }
     }
 }

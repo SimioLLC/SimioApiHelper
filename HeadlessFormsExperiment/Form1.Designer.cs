@@ -138,6 +138,7 @@
             this.buttonSelectExtensionsPath.TabIndex = 47;
             this.buttonSelectExtensionsPath.Text = "Select Extensions Path...";
             this.buttonSelectExtensionsPath.UseVisualStyleBackColor = true;
+            this.buttonSelectExtensionsPath.Click += new System.EventHandler(this.buttonSelectExtensionsPath_Click);
             // 
             // textExtensionsPath
             // 
@@ -212,12 +213,10 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.cbHeadlessSaveModelAfterRun);
-            this.groupBox1.Location = new System.Drawing.Point(565, 223);
+            this.groupBox1.Location = new System.Drawing.Point(595, 223);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(350, 75);
+            this.groupBox1.Size = new System.Drawing.Size(320, 75);
             this.groupBox1.TabIndex = 33;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Post-Run Actions";
@@ -280,7 +279,7 @@
             this.buttonHeadlessSelectModel.Name = "buttonHeadlessSelectModel";
             this.buttonHeadlessSelectModel.Size = new System.Drawing.Size(187, 40);
             this.buttonHeadlessSelectModel.TabIndex = 27;
-            this.buttonHeadlessSelectModel.Text = "Select Simio Project";
+            this.buttonHeadlessSelectModel.Text = "Select Simio Project...";
             this.buttonHeadlessSelectModel.UseVisualStyleBackColor = true;
             this.buttonHeadlessSelectModel.Click += new System.EventHandler(this.buttonHeadlessSelectModel_Click);
             // 

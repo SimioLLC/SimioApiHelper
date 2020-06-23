@@ -40,6 +40,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabDllHelper = new System.Windows.Forms.TabPage();
             this.panelDll = new System.Windows.Forms.Panel();
+            this.buttonAddDependentsToHarvest = new System.Windows.Forms.Button();
             this.textDllHelperExcludeFilter = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -133,7 +134,6 @@
             this.buttonFileWatcherStart = new System.Windows.Forms.Button();
             this.timerLogs = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.buttonAddDependentsToHarvest = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.labelStatus.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -170,7 +170,7 @@
             this.refreshToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1112, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1112, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -179,34 +179,34 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(116, 26);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(73, 24);
             this.aboutToolStripMenuItem.Text = "&About...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // createIconToolStripMenuItem
             // 
             this.createIconToolStripMenuItem.Name = "createIconToolStripMenuItem";
-            this.createIconToolStripMenuItem.Size = new System.Drawing.Size(88, 20);
+            this.createIconToolStripMenuItem.Size = new System.Drawing.Size(107, 24);
             this.createIconToolStripMenuItem.Text = "Create Icon...";
             this.createIconToolStripMenuItem.Click += new System.EventHandler(this.createIconToolStripMenuItem_Click);
             // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(72, 24);
             this.refreshToolStripMenuItem.Text = "&Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
@@ -215,17 +215,17 @@
             this.labelStatus.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.labelStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.labelStatus.Location = new System.Drawing.Point(0, 745);
+            this.labelStatus.Location = new System.Drawing.Point(0, 741);
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Padding = new System.Windows.Forms.Padding(1, 0, 18, 0);
-            this.labelStatus.Size = new System.Drawing.Size(1112, 22);
+            this.labelStatus.Size = new System.Drawing.Size(1112, 26);
             this.labelStatus.TabIndex = 1;
             this.labelStatus.Text = "statusStrip1";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(16, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(18, 20);
             this.toolStripStatusLabel1.Text = "...";
             // 
             // tabControl1
@@ -239,19 +239,19 @@
             this.tabControl1.Controls.Add(this.Settings);
             this.tabControl1.Controls.Add(this.tabUtilities);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 24);
+            this.tabControl1.Location = new System.Drawing.Point(0, 28);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1112, 721);
+            this.tabControl1.Size = new System.Drawing.Size(1112, 713);
             this.tabControl1.TabIndex = 2;
             // 
             // tabDllHelper
             // 
             this.tabDllHelper.Controls.Add(this.panelDll);
-            this.tabDllHelper.Location = new System.Drawing.Point(4, 26);
+            this.tabDllHelper.Location = new System.Drawing.Point(4, 29);
             this.tabDllHelper.Name = "tabDllHelper";
             this.tabDllHelper.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDllHelper.Size = new System.Drawing.Size(1104, 691);
+            this.tabDllHelper.Size = new System.Drawing.Size(1104, 680);
             this.tabDllHelper.TabIndex = 0;
             this.tabDllHelper.Text = "DLL Helper";
             this.tabDllHelper.UseVisualStyleBackColor = true;
@@ -276,14 +276,26 @@
             this.panelDll.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDll.Location = new System.Drawing.Point(3, 3);
             this.panelDll.Name = "panelDll";
-            this.panelDll.Size = new System.Drawing.Size(1098, 685);
+            this.panelDll.Size = new System.Drawing.Size(1098, 674);
             this.panelDll.TabIndex = 13;
+            // 
+            // buttonAddDependentsToHarvest
+            // 
+            this.buttonAddDependentsToHarvest.Location = new System.Drawing.Point(27, 460);
+            this.buttonAddDependentsToHarvest.Name = "buttonAddDependentsToHarvest";
+            this.buttonAddDependentsToHarvest.Size = new System.Drawing.Size(224, 50);
+            this.buttonAddDependentsToHarvest.TabIndex = 15;
+            this.buttonAddDependentsToHarvest.Text = "Add Dependencies to Harvest";
+            this.toolTip1.SetToolTip(this.buttonAddDependentsToHarvest, "Any DLLs that are dependents are added to the target folder (if not already there" +
+        ")");
+            this.buttonAddDependentsToHarvest.UseVisualStyleBackColor = true;
+            this.buttonAddDependentsToHarvest.Click += new System.EventHandler(this.buttonAddDependentsToHarvest_Click);
             // 
             // textDllHelperExcludeFilter
             // 
             this.textDllHelperExcludeFilter.Location = new System.Drawing.Point(465, 135);
             this.textDllHelperExcludeFilter.Name = "textDllHelperExcludeFilter";
-            this.textDllHelperExcludeFilter.Size = new System.Drawing.Size(535, 23);
+            this.textDllHelperExcludeFilter.Size = new System.Drawing.Size(535, 27);
             this.textDllHelperExcludeFilter.TabIndex = 14;
             this.textDllHelperExcludeFilter.Text = "^DevExpress|^System";
             this.toolTip1.SetToolTip(this.textDllHelperExcludeFilter, "Use this case-insensitive pipe-delimite regex filter on file names to exclude DLL" +
@@ -294,7 +306,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(278, 138);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(141, 17);
+            this.label8.Size = new System.Drawing.Size(169, 20);
             this.label8.TabIndex = 13;
             this.label8.Text = "Exclude Filter (regex)";
             // 
@@ -303,7 +315,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(21, 31);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(690, 17);
+            this.label2.Size = new System.Drawing.Size(828, 20);
             this.label2.TabIndex = 7;
             this.label2.Text = "Select a Simio Location, which will fetch the DLL files there. Then select a DLL " +
     "file to get information about it.";
@@ -315,7 +327,7 @@
             this.checkSimioOnly.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkSimioOnly.Location = new System.Drawing.Point(27, 433);
             this.checkSimioOnly.Name = "checkSimioOnly";
-            this.checkSimioOnly.Size = new System.Drawing.Size(94, 21);
+            this.checkSimioOnly.Size = new System.Drawing.Size(112, 24);
             this.checkSimioOnly.TabIndex = 12;
             this.checkSimioOnly.Text = "Simio Only";
             this.toolTip1.SetToolTip(this.checkSimioOnly, "Only show Simio types");
@@ -326,7 +338,7 @@
             this.labelSelectSimioLocation.AutoSize = true;
             this.labelSelectSimioLocation.Location = new System.Drawing.Point(21, 85);
             this.labelSelectSimioLocation.Name = "labelSelectSimioLocation";
-            this.labelSelectSimioLocation.Size = new System.Drawing.Size(143, 17);
+            this.labelSelectSimioLocation.Size = new System.Drawing.Size(172, 20);
             this.labelSelectSimioLocation.TabIndex = 0;
             this.labelSelectSimioLocation.Text = "Select Simio Location";
             // 
@@ -350,7 +362,7 @@
             this.comboDllFile.FormattingEnabled = true;
             this.comboDllFile.Location = new System.Drawing.Point(282, 170);
             this.comboDllFile.Name = "comboDllFile";
-            this.comboDllFile.Size = new System.Drawing.Size(799, 25);
+            this.comboDllFile.Size = new System.Drawing.Size(799, 28);
             this.comboDllFile.TabIndex = 2;
             this.comboDllFile.SelectedIndexChanged += new System.EventHandler(this.comboDllFile_SelectedIndexChanged);
             // 
@@ -369,7 +381,7 @@
             this.labelDLLFiles.AutoSize = true;
             this.labelDLLFiles.Location = new System.Drawing.Point(21, 173);
             this.labelDLLFiles.Name = "labelDLLFiles";
-            this.labelDLLFiles.Size = new System.Drawing.Size(103, 17);
+            this.labelDLLFiles.Size = new System.Drawing.Size(126, 20);
             this.labelDLLFiles.TabIndex = 3;
             this.labelDLLFiles.Text = "Select DLL File";
             // 
@@ -377,7 +389,7 @@
             // 
             this.textExceptions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textExceptions.Location = new System.Drawing.Point(282, 587);
+            this.textExceptions.Location = new System.Drawing.Point(282, 576);
             this.textExceptions.Multiline = true;
             this.textExceptions.Name = "textExceptions";
             this.textExceptions.ReadOnly = true;
@@ -393,7 +405,7 @@
             this.comboSimioLocation.FormattingEnabled = true;
             this.comboSimioLocation.Location = new System.Drawing.Point(282, 85);
             this.comboSimioLocation.Name = "comboSimioLocation";
-            this.comboSimioLocation.Size = new System.Drawing.Size(799, 25);
+            this.comboSimioLocation.Size = new System.Drawing.Size(799, 28);
             this.comboSimioLocation.TabIndex = 4;
             this.toolTip1.SetToolTip(this.comboSimioLocation, "Use the dropdown list to select one of the standard simio locations for DLLs");
             this.comboSimioLocation.SelectedIndexChanged += new System.EventHandler(this.comboSimioLocation_SelectedIndexChanged);
@@ -404,7 +416,7 @@
             this.labelExceptions.AutoSize = true;
             this.labelExceptions.Location = new System.Drawing.Point(24, 590);
             this.labelExceptions.Name = "labelExceptions";
-            this.labelExceptions.Size = new System.Drawing.Size(183, 17);
+            this.labelExceptions.Size = new System.Drawing.Size(215, 20);
             this.labelExceptions.TabIndex = 8;
             this.labelExceptions.Text = "Exceptions (hopefully none)";
             // 
@@ -426,16 +438,16 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(21, 221);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(95, 17);
+            this.label1.Size = new System.Drawing.Size(114, 20);
             this.label1.TabIndex = 6;
             this.label1.Text = "Assembly Info";
             // 
             // tabNetVersions
             // 
             this.tabNetVersions.Controls.Add(this.panel1);
-            this.tabNetVersions.Location = new System.Drawing.Point(4, 26);
+            this.tabNetVersions.Location = new System.Drawing.Point(4, 29);
             this.tabNetVersions.Name = "tabNetVersions";
-            this.tabNetVersions.Size = new System.Drawing.Size(1067, 683);
+            this.tabNetVersions.Size = new System.Drawing.Size(1104, 688);
             this.tabNetVersions.TabIndex = 3;
             this.tabNetVersions.Text = ".NET Versions";
             this.tabNetVersions.UseVisualStyleBackColor = true;
@@ -453,7 +465,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1067, 683);
+            this.panel1.Size = new System.Drawing.Size(1104, 688);
             this.panel1.TabIndex = 20;
             // 
             // labelHwCpuSpeed
@@ -463,7 +475,7 @@
             this.labelHwCpuSpeed.Location = new System.Drawing.Point(416, 111);
             this.labelHwCpuSpeed.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelHwCpuSpeed.Name = "labelHwCpuSpeed";
-            this.labelHwCpuSpeed.Size = new System.Drawing.Size(89, 17);
+            this.labelHwCpuSpeed.Size = new System.Drawing.Size(106, 20);
             this.labelHwCpuSpeed.TabIndex = 24;
             this.labelHwCpuSpeed.Text = "CPU Speed: ";
             // 
@@ -474,7 +486,7 @@
             this.labelHwCpuMaker.Location = new System.Drawing.Point(416, 81);
             this.labelHwCpuMaker.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelHwCpuMaker.Name = "labelHwCpuMaker";
-            this.labelHwCpuMaker.Size = new System.Drawing.Size(87, 17);
+            this.labelHwCpuMaker.Size = new System.Drawing.Size(105, 20);
             this.labelHwCpuMaker.TabIndex = 23;
             this.labelHwCpuMaker.Text = "CPU Maker: ";
             // 
@@ -485,7 +497,7 @@
             this.labelHwPhysicalMemory.Location = new System.Drawing.Point(416, 51);
             this.labelHwPhysicalMemory.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelHwPhysicalMemory.Name = "labelHwPhysicalMemory";
-            this.labelHwPhysicalMemory.Size = new System.Drawing.Size(122, 17);
+            this.labelHwPhysicalMemory.Size = new System.Drawing.Size(147, 20);
             this.labelHwPhysicalMemory.TabIndex = 22;
             this.labelHwPhysicalMemory.Text = "Physical Memory: ";
             // 
@@ -496,7 +508,7 @@
             this.labelHwComputerName.Location = new System.Drawing.Point(416, 21);
             this.labelHwComputerName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelHwComputerName.Name = "labelHwComputerName";
-            this.labelHwComputerName.Size = new System.Drawing.Size(118, 17);
+            this.labelHwComputerName.Size = new System.Drawing.Size(141, 20);
             this.labelHwComputerName.TabIndex = 21;
             this.labelHwComputerName.Text = "Computer Name: ";
             // 
@@ -528,7 +540,7 @@
             this.labelInstalledDotNet.Location = new System.Drawing.Point(23, 253);
             this.labelInstalledDotNet.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelInstalledDotNet.Name = "labelInstalledDotNet";
-            this.labelInstalledDotNet.Size = new System.Drawing.Size(153, 17);
+            this.labelInstalledDotNet.Size = new System.Drawing.Size(182, 20);
             this.labelInstalledDotNet.TabIndex = 18;
             this.labelInstalledDotNet.Text = "Installed .Net Versions:";
             // 
@@ -539,16 +551,16 @@
             this.labelCurrentDotNet.Location = new System.Drawing.Point(23, 169);
             this.labelCurrentDotNet.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelCurrentDotNet.Name = "labelCurrentDotNet";
-            this.labelCurrentDotNet.Size = new System.Drawing.Size(147, 17);
+            this.labelCurrentDotNet.Size = new System.Drawing.Size(174, 20);
             this.labelCurrentDotNet.TabIndex = 17;
             this.labelCurrentDotNet.Text = "Current .NET Version:";
             // 
             // tabFindUserExtensions
             // 
             this.tabFindUserExtensions.Controls.Add(this.panelFindSteps);
-            this.tabFindUserExtensions.Location = new System.Drawing.Point(4, 26);
+            this.tabFindUserExtensions.Location = new System.Drawing.Point(4, 29);
             this.tabFindUserExtensions.Name = "tabFindUserExtensions";
-            this.tabFindUserExtensions.Size = new System.Drawing.Size(1104, 691);
+            this.tabFindUserExtensions.Size = new System.Drawing.Size(1104, 688);
             this.tabFindUserExtensions.TabIndex = 2;
             this.tabFindUserExtensions.Text = "Find UserExtensions";
             this.tabFindUserExtensions.UseVisualStyleBackColor = true;
@@ -563,7 +575,7 @@
             this.panelFindSteps.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFindSteps.Location = new System.Drawing.Point(0, 0);
             this.panelFindSteps.Name = "panelFindSteps";
-            this.panelFindSteps.Size = new System.Drawing.Size(1104, 691);
+            this.panelFindSteps.Size = new System.Drawing.Size(1104, 688);
             this.panelFindSteps.TabIndex = 11;
             // 
             // textStepsAndAddIns
@@ -593,7 +605,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(15, 17);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(677, 17);
+            this.label3.Size = new System.Drawing.Size(811, 20);
             this.label3.TabIndex = 10;
             this.label3.Text = "Select a Simio Location and press to button to list the DLL files (and each file\'" +
     "s contained Simio Interfaces)";
@@ -603,7 +615,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(15, 71);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(143, 17);
+            this.label4.Size = new System.Drawing.Size(172, 20);
             this.label4.TabIndex = 8;
             this.label4.Text = "Select Simio Location";
             // 
@@ -614,16 +626,16 @@
             this.comboFindSimioExtensionLocations.FormattingEnabled = true;
             this.comboFindSimioExtensionLocations.Location = new System.Drawing.Point(230, 68);
             this.comboFindSimioExtensionLocations.Name = "comboFindSimioExtensionLocations";
-            this.comboFindSimioExtensionLocations.Size = new System.Drawing.Size(844, 25);
+            this.comboFindSimioExtensionLocations.Size = new System.Drawing.Size(844, 28);
             this.comboFindSimioExtensionLocations.TabIndex = 9;
             this.comboFindSimioExtensionLocations.SelectedIndexChanged += new System.EventHandler(this.comboFindSimioExtensionLocations_SelectedIndexChanged);
             // 
             // tabHeadlessHarvester
             // 
             this.tabHeadlessHarvester.Controls.Add(this.panel2);
-            this.tabHeadlessHarvester.Location = new System.Drawing.Point(4, 26);
+            this.tabHeadlessHarvester.Location = new System.Drawing.Point(4, 29);
             this.tabHeadlessHarvester.Name = "tabHeadlessHarvester";
-            this.tabHeadlessHarvester.Size = new System.Drawing.Size(1104, 691);
+            this.tabHeadlessHarvester.Size = new System.Drawing.Size(1104, 680);
             this.tabHeadlessHarvester.TabIndex = 6;
             this.tabHeadlessHarvester.Text = "Headless Harvester";
             this.tabHeadlessHarvester.UseVisualStyleBackColor = true;
@@ -637,7 +649,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1104, 691);
+            this.panel2.Size = new System.Drawing.Size(1104, 680);
             this.panel2.TabIndex = 29;
             // 
             // groupHeadlessBuild
@@ -651,7 +663,7 @@
             this.groupHeadlessBuild.Controls.Add(this.buttonBuildHeadlessSystem);
             this.groupHeadlessBuild.Location = new System.Drawing.Point(12, 339);
             this.groupHeadlessBuild.Name = "groupHeadlessBuild";
-            this.groupHeadlessBuild.Size = new System.Drawing.Size(1078, 332);
+            this.groupHeadlessBuild.Size = new System.Drawing.Size(1078, 321);
             this.groupHeadlessBuild.TabIndex = 38;
             this.groupHeadlessBuild.TabStop = false;
             this.groupHeadlessBuild.Text = "Select from the candidate Harvest source files";
@@ -676,7 +688,7 @@
             this.checklistSelectedFiles.FormattingEnabled = true;
             this.checklistSelectedFiles.Location = new System.Drawing.Point(12, 64);
             this.checklistSelectedFiles.Name = "checklistSelectedFiles";
-            this.checklistSelectedFiles.Size = new System.Drawing.Size(872, 166);
+            this.checklistSelectedFiles.Size = new System.Drawing.Size(872, 136);
             this.checklistSelectedFiles.TabIndex = 34;
             // 
             // label12
@@ -684,7 +696,7 @@
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(13, 32);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(465, 17);
+            this.label12.Size = new System.Drawing.Size(555, 20);
             this.label12.TabIndex = 33;
             this.label12.Text = "Candidate Simio \'Harvest\' files. Checked files will be harvested to Target.";
             // 
@@ -719,7 +731,7 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(7, 23);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(301, 17);
+            this.label10.Size = new System.Drawing.Size(357, 20);
             this.label10.TabIndex = 26;
             this.label10.Text = "Location of the Headless Executables (Target)";
             // 
@@ -730,7 +742,7 @@
             this.textHeadlessBuildLocation.Location = new System.Drawing.Point(11, 46);
             this.textHeadlessBuildLocation.Name = "textHeadlessBuildLocation";
             this.textHeadlessBuildLocation.ReadOnly = true;
-            this.textHeadlessBuildLocation.Size = new System.Drawing.Size(1067, 23);
+            this.textHeadlessBuildLocation.Size = new System.Drawing.Size(1067, 27);
             this.textHeadlessBuildLocation.TabIndex = 28;
             this.toolTip1.SetToolTip(this.textHeadlessBuildLocation, "The folder where all the DLLs will be placed");
             // 
@@ -766,7 +778,7 @@
             this.cbHeadlessBuildUsersFiles.AutoSize = true;
             this.cbHeadlessBuildUsersFiles.Location = new System.Drawing.Point(545, 89);
             this.cbHeadlessBuildUsersFiles.Name = "cbHeadlessBuildUsersFiles";
-            this.cbHeadlessBuildUsersFiles.Size = new System.Drawing.Size(215, 21);
+            this.cbHeadlessBuildUsersFiles.Size = new System.Drawing.Size(257, 24);
             this.cbHeadlessBuildUsersFiles.TabIndex = 32;
             this.cbHeadlessBuildUsersFiles.Text = "Include User\'s UserExtentions";
             this.toolTip1.SetToolTip(this.cbHeadlessBuildUsersFiles, "Include all UserExtensions DLLs from this user\'s MyDocuments folder");
@@ -777,7 +789,7 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(6, 23);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(299, 17);
+            this.label11.Size = new System.Drawing.Size(358, 20);
             this.label11.TabIndex = 29;
             this.label11.Text = "Location of the Simio Installation files (Source)";
             this.toolTip1.SetToolTip(this.label11, "Where are the files from the Simio Desktop installation?");
@@ -789,7 +801,7 @@
             this.textSimioInstallationFolder.Location = new System.Drawing.Point(10, 46);
             this.textSimioInstallationFolder.Name = "textSimioInstallationFolder";
             this.textSimioInstallationFolder.ReadOnly = true;
-            this.textSimioInstallationFolder.Size = new System.Drawing.Size(1068, 23);
+            this.textSimioInstallationFolder.Size = new System.Drawing.Size(1068, 27);
             this.textSimioInstallationFolder.TabIndex = 31;
             // 
             // buttonSelectSimioInstallationFolder
@@ -809,7 +821,7 @@
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(8, 14);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(720, 17);
+            this.label13.Size = new System.Drawing.Size(856, 20);
             this.label13.TabIndex = 35;
             this.label13.Text = "Help in building a headless version by harvesting Simio DLLs from the installatio" +
     "n folder(s) into your target folder ";
@@ -818,9 +830,9 @@
             // tabHeadlessRun
             // 
             this.tabHeadlessRun.Controls.Add(this.panelHeadlessRun);
-            this.tabHeadlessRun.Location = new System.Drawing.Point(4, 26);
+            this.tabHeadlessRun.Location = new System.Drawing.Point(4, 29);
             this.tabHeadlessRun.Name = "tabHeadlessRun";
-            this.tabHeadlessRun.Size = new System.Drawing.Size(1104, 691);
+            this.tabHeadlessRun.Size = new System.Drawing.Size(1104, 688);
             this.tabHeadlessRun.TabIndex = 4;
             this.tabHeadlessRun.Text = "Headless Run";
             this.tabHeadlessRun.UseVisualStyleBackColor = true;
@@ -833,7 +845,7 @@
             this.panelHeadlessRun.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelHeadlessRun.Location = new System.Drawing.Point(0, 0);
             this.panelHeadlessRun.Name = "panelHeadlessRun";
-            this.panelHeadlessRun.Size = new System.Drawing.Size(1104, 691);
+            this.panelHeadlessRun.Size = new System.Drawing.Size(1104, 688);
             this.panelHeadlessRun.TabIndex = 9;
             // 
             // groupBoxSelectSetExtensionsLocation
@@ -867,7 +879,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(6, 30);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(541, 17);
+            this.label5.Size = new System.Drawing.Size(645, 20);
             this.label5.TabIndex = 8;
             this.label5.Text = "Location of the \"SetExtensions\" Folder holding the Headless Executable(s) and DLL" +
     "s";
@@ -879,7 +891,7 @@
             this.textHeadlessRunFilesLocation.Location = new System.Drawing.Point(10, 53);
             this.textHeadlessRunFilesLocation.Name = "textHeadlessRunFilesLocation";
             this.textHeadlessRunFilesLocation.ReadOnly = true;
-            this.textHeadlessRunFilesLocation.Size = new System.Drawing.Size(749, 23);
+            this.textHeadlessRunFilesLocation.Size = new System.Drawing.Size(749, 27);
             this.textHeadlessRunFilesLocation.TabIndex = 25;
             this.toolTip1.SetToolTip(this.textHeadlessRunFilesLocation, "This is what the SetExtsnsionsPath should reference");
             // 
@@ -923,7 +935,7 @@
             this.label9.Location = new System.Drawing.Point(21, 23);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(489, 17);
+            this.label9.Size = new System.Drawing.Size(581, 20);
             this.label9.TabIndex = 26;
             this.label9.Text = "... Specify a Simio Project Name (.SPFX) and use the built-in Headless code.";
             // 
@@ -934,7 +946,7 @@
             this.textHeadlessRunProjectFile.Location = new System.Drawing.Point(6, 52);
             this.textHeadlessRunProjectFile.Name = "textHeadlessRunProjectFile";
             this.textHeadlessRunProjectFile.ReadOnly = true;
-            this.textHeadlessRunProjectFile.Size = new System.Drawing.Size(747, 23);
+            this.textHeadlessRunProjectFile.Size = new System.Drawing.Size(747, 27);
             this.textHeadlessRunProjectFile.TabIndex = 13;
             // 
             // buttonHeadlessRunRiskAnalysis
@@ -993,7 +1005,7 @@
             this.comboHeadlessRunExperiments.FormattingEnabled = true;
             this.comboHeadlessRunExperiments.Location = new System.Drawing.Point(190, 144);
             this.comboHeadlessRunExperiments.Name = "comboHeadlessRunExperiments";
-            this.comboHeadlessRunExperiments.Size = new System.Drawing.Size(338, 25);
+            this.comboHeadlessRunExperiments.Size = new System.Drawing.Size(338, 28);
             this.comboHeadlessRunExperiments.TabIndex = 32;
             this.comboHeadlessRunExperiments.SelectedIndexChanged += new System.EventHandler(this.comboHeadlessRunExperiments_SelectedIndexChanged);
             // 
@@ -1003,7 +1015,7 @@
             this.label7.Location = new System.Drawing.Point(2, 101);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(93, 17);
+            this.label7.Size = new System.Drawing.Size(111, 20);
             this.label7.TabIndex = 21;
             this.label7.Text = "Select Model:";
             // 
@@ -1014,7 +1026,7 @@
             this.comboHeadlessRunModels.FormattingEnabled = true;
             this.comboHeadlessRunModels.Location = new System.Drawing.Point(190, 101);
             this.comboHeadlessRunModels.Name = "comboHeadlessRunModels";
-            this.comboHeadlessRunModels.Size = new System.Drawing.Size(338, 25);
+            this.comboHeadlessRunModels.Size = new System.Drawing.Size(338, 28);
             this.comboHeadlessRunModels.TabIndex = 31;
             this.comboHeadlessRunModels.SelectedIndexChanged += new System.EventHandler(this.comboHeadlessRunModels_SelectedIndexChanged);
             this.comboHeadlessRunModels.SelectedValueChanged += new System.EventHandler(this.comboHeadlessRunModels_SelectedValueChanged);
@@ -1025,7 +1037,7 @@
             this.label6.Location = new System.Drawing.Point(2, 147);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(125, 17);
+            this.label6.Size = new System.Drawing.Size(150, 20);
             this.label6.TabIndex = 22;
             this.label6.Text = "Select Experiment:";
             // 
@@ -1050,7 +1062,7 @@
             this.comboHeadlessRunExecutableToRun.FormattingEnabled = true;
             this.comboHeadlessRunExecutableToRun.Location = new System.Drawing.Point(11, 51);
             this.comboHeadlessRunExecutableToRun.Name = "comboHeadlessRunExecutableToRun";
-            this.comboHeadlessRunExecutableToRun.Size = new System.Drawing.Size(742, 25);
+            this.comboHeadlessRunExecutableToRun.Size = new System.Drawing.Size(742, 28);
             this.comboHeadlessRunExecutableToRun.TabIndex = 27;
             this.comboHeadlessRunExecutableToRun.SelectedIndexChanged += new System.EventHandler(this.comboHeadlessRunExecutableToRun_SelectedIndexChanged);
             // 
@@ -1059,7 +1071,7 @@
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(7, 28);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(323, 17);
+            this.label14.Size = new System.Drawing.Size(382, 20);
             this.label14.TabIndex = 28;
             this.label14.Text = "Select the Executable within this folder to run, or...";
             // 
@@ -1078,10 +1090,10 @@
             // tabLogs
             // 
             this.tabLogs.Controls.Add(this.textLogs);
-            this.tabLogs.Location = new System.Drawing.Point(4, 26);
+            this.tabLogs.Location = new System.Drawing.Point(4, 29);
             this.tabLogs.Name = "tabLogs";
             this.tabLogs.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLogs.Size = new System.Drawing.Size(1104, 691);
+            this.tabLogs.Size = new System.Drawing.Size(1104, 688);
             this.tabLogs.TabIndex = 1;
             this.tabLogs.Text = "Logs";
             this.tabLogs.UseVisualStyleBackColor = true;
@@ -1094,7 +1106,7 @@
             this.textLogs.Name = "textLogs";
             this.textLogs.ReadOnly = true;
             this.textLogs.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textLogs.Size = new System.Drawing.Size(1098, 685);
+            this.textLogs.Size = new System.Drawing.Size(1098, 682);
             this.textLogs.TabIndex = 0;
             this.textLogs.Text = "(no logs yet...)";
             // 
@@ -1102,10 +1114,10 @@
             // 
             this.Settings.Controls.Add(this.propertyGrid1);
             this.Settings.Controls.Add(this.panel3);
-            this.Settings.Location = new System.Drawing.Point(4, 26);
+            this.Settings.Location = new System.Drawing.Point(4, 29);
             this.Settings.Name = "Settings";
             this.Settings.Padding = new System.Windows.Forms.Padding(3);
-            this.Settings.Size = new System.Drawing.Size(1104, 691);
+            this.Settings.Size = new System.Drawing.Size(1104, 688);
             this.Settings.TabIndex = 5;
             this.Settings.Text = "Settings";
             this.Settings.UseVisualStyleBackColor = true;
@@ -1115,7 +1127,7 @@
             this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertyGrid1.Location = new System.Drawing.Point(3, 81);
             this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(1098, 607);
+            this.propertyGrid1.Size = new System.Drawing.Size(1098, 604);
             this.propertyGrid1.TabIndex = 0;
             // 
             // panel3
@@ -1140,16 +1152,18 @@
             // tabUtilities
             // 
             this.tabUtilities.Controls.Add(this.groupBox1);
-            this.tabUtilities.Location = new System.Drawing.Point(4, 26);
+            this.tabUtilities.Location = new System.Drawing.Point(4, 29);
             this.tabUtilities.Name = "tabUtilities";
             this.tabUtilities.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUtilities.Size = new System.Drawing.Size(1067, 683);
+            this.tabUtilities.Size = new System.Drawing.Size(1104, 688);
             this.tabUtilities.TabIndex = 7;
             this.tabUtilities.Text = "Utilities";
             this.tabUtilities.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.label18);
             this.groupBox1.Controls.Add(this.buttonFilewatcherSelect);
             this.groupBox1.Controls.Add(this.cbFwPauseLogging);
@@ -1165,7 +1179,7 @@
             this.groupBox1.Controls.Add(this.buttonFileWatcherStart);
             this.groupBox1.Location = new System.Drawing.Point(8, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1198, 501);
+            this.groupBox1.Size = new System.Drawing.Size(1088, 501);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "File Watcher";
@@ -1175,7 +1189,7 @@
             this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(26, 36);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(670, 17);
+            this.label18.Size = new System.Drawing.Size(794, 20);
             this.label18.TabIndex = 12;
             this.label18.Text = "Select a folder and file filter and \"Start Watching\" to see all the file changes " +
     "in that folder and sub-folders ";
@@ -1183,7 +1197,7 @@
             // buttonFilewatcherSelect
             // 
             this.buttonFilewatcherSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonFilewatcherSelect.Location = new System.Drawing.Point(1053, 80);
+            this.buttonFilewatcherSelect.Location = new System.Drawing.Point(943, 80);
             this.buttonFilewatcherSelect.Name = "buttonFilewatcherSelect";
             this.buttonFilewatcherSelect.Size = new System.Drawing.Size(110, 29);
             this.buttonFilewatcherSelect.TabIndex = 11;
@@ -1196,7 +1210,7 @@
             this.cbFwPauseLogging.AutoSize = true;
             this.cbFwPauseLogging.Location = new System.Drawing.Point(26, 194);
             this.cbFwPauseLogging.Name = "cbFwPauseLogging";
-            this.cbFwPauseLogging.Size = new System.Drawing.Size(122, 21);
+            this.cbFwPauseLogging.Size = new System.Drawing.Size(142, 24);
             this.cbFwPauseLogging.TabIndex = 10;
             this.cbFwPauseLogging.Text = "Pause Logging";
             this.cbFwPauseLogging.UseVisualStyleBackColor = true;
@@ -1208,7 +1222,7 @@
             this.cbFwNotifyLastWrite.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbFwNotifyLastWrite.Location = new System.Drawing.Point(427, 155);
             this.cbFwNotifyLastWrite.Name = "cbFwNotifyLastWrite";
-            this.cbFwNotifyLastWrite.Size = new System.Drawing.Size(123, 21);
+            this.cbFwNotifyLastWrite.Size = new System.Drawing.Size(147, 24);
             this.cbFwNotifyLastWrite.TabIndex = 9;
             this.cbFwNotifyLastWrite.Text = "NotifyLastWrite";
             this.cbFwNotifyLastWrite.UseVisualStyleBackColor = true;
@@ -1220,7 +1234,7 @@
             this.cbFwNotifyLastAccess.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbFwNotifyLastAccess.Location = new System.Drawing.Point(234, 155);
             this.cbFwNotifyLastAccess.Name = "cbFwNotifyLastAccess";
-            this.cbFwNotifyLastAccess.Size = new System.Drawing.Size(135, 21);
+            this.cbFwNotifyLastAccess.Size = new System.Drawing.Size(163, 24);
             this.cbFwNotifyLastAccess.TabIndex = 8;
             this.cbFwNotifyLastAccess.Text = "NotifyLastAccess";
             this.cbFwNotifyLastAccess.UseVisualStyleBackColor = true;
@@ -1230,7 +1244,7 @@
             this.label17.AutoSize = true;
             this.label17.Location = new System.Drawing.Point(22, 152);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(106, 17);
+            this.label17.Size = new System.Drawing.Size(125, 20);
             this.label17.TabIndex = 7;
             this.label17.Text = "What To Watch";
             // 
@@ -1240,7 +1254,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textFilewatcherFilter.Location = new System.Drawing.Point(222, 115);
             this.textFilewatcherFilter.Name = "textFilewatcherFilter";
-            this.textFilewatcherFilter.Size = new System.Drawing.Size(941, 23);
+            this.textFilewatcherFilter.Size = new System.Drawing.Size(831, 27);
             this.textFilewatcherFilter.TabIndex = 6;
             this.textFilewatcherFilter.Text = "*.*";
             // 
@@ -1249,7 +1263,7 @@
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(22, 115);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(39, 17);
+            this.label16.Size = new System.Drawing.Size(47, 20);
             this.label16.TabIndex = 5;
             this.label16.Text = "Filter";
             // 
@@ -1261,7 +1275,7 @@
             this.textFileWatcherLog.Multiline = true;
             this.textFileWatcherLog.Name = "textFileWatcherLog";
             this.textFileWatcherLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textFileWatcherLog.Size = new System.Drawing.Size(957, 234);
+            this.textFileWatcherLog.Size = new System.Drawing.Size(847, 234);
             this.textFileWatcherLog.TabIndex = 4;
             this.textFileWatcherLog.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textFileWatcherLog_MouseDoubleClick);
             // 
@@ -1270,7 +1284,7 @@
             this.labelPath.AutoSize = true;
             this.labelPath.Location = new System.Drawing.Point(22, 82);
             this.labelPath.Name = "labelPath";
-            this.labelPath.Size = new System.Drawing.Size(37, 17);
+            this.labelPath.Size = new System.Drawing.Size(43, 20);
             this.labelPath.TabIndex = 3;
             this.labelPath.Text = "Path";
             // 
@@ -1280,7 +1294,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textFilewatcherPath.Location = new System.Drawing.Point(222, 79);
             this.textFilewatcherPath.Name = "textFilewatcherPath";
-            this.textFilewatcherPath.Size = new System.Drawing.Size(825, 23);
+            this.textFilewatcherPath.Size = new System.Drawing.Size(715, 27);
             this.textFilewatcherPath.TabIndex = 2;
             // 
             // buttonFileWatcherStop
@@ -1309,21 +1323,9 @@
             this.timerLogs.Interval = 1000;
             this.timerLogs.Tick += new System.EventHandler(this.timerLogs_Tick);
             // 
-            // buttonAddDependentsToHarvest
-            // 
-            this.buttonAddDependentsToHarvest.Location = new System.Drawing.Point(27, 460);
-            this.buttonAddDependentsToHarvest.Name = "buttonAddDependentsToHarvest";
-            this.buttonAddDependentsToHarvest.Size = new System.Drawing.Size(224, 50);
-            this.buttonAddDependentsToHarvest.TabIndex = 15;
-            this.buttonAddDependentsToHarvest.Text = "Add Dependencies to Harvest";
-            this.toolTip1.SetToolTip(this.buttonAddDependentsToHarvest, "Any DLLs that are dependents are added to the target folder (if not already there" +
-        ")");
-            this.buttonAddDependentsToHarvest.UseVisualStyleBackColor = true;
-            this.buttonAddDependentsToHarvest.Click += new System.EventHandler(this.buttonAddDependentsToHarvest_Click);
-            // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1112, 767);
             this.Controls.Add(this.tabControl1);
