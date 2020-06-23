@@ -14,27 +14,55 @@ namespace SimioApiHelper_Setup
     {
         static void Main()
         {
-            // This project type has been superseded with the EmbeddedUI based "WixSharp Managed Setup - Custom Dialog"
-            // project type. Which provides by far better final result and user experience.
-            // However due to the Burn limitations (see this discussion: https://wixsharp.codeplex.com/discussions/645838)
-            // currently "Custom CLR Dialog" is the only working option for having bootstrapper silent UI displaying
-            // individual MSI packages UI implemented in managed code.
+            Feature binaries = new Feature("ApiHelper Binaries");
+            Feature docs = new Feature("ApiHelper Documentation");
+            Feature serverInstall = new Feature("ApiHelper Installer");
+            Feature dataFiles = new Feature("ApiHelper Example Data");
+            Feature helpFiles = new Feature("ApiHelper Help");
 
-            var project = new Project("SimioApiHelper",
-                             new Dir(@"%ProgramFiles%\Simio LLC\SimioApiHelper",
-                                 new File("Program.cs")));
 
-            project.GUID = new Guid("6fe30b47-2577-43ad-9095-1861ba25889b");
+            var project = new ManagedProject("Simio Api Helper",
+                             new Dir(@"%ProgramFiles%\Simio LLC\Simio API Helper",
+                        new File(new Id("ApiHelperInstall_exe"), binaries, @"ApiHelperFiles\SimioApiHelper.exe",
+                            new FileShortcut(binaries, "ApiHelper", @"%ProgramMenu%\Simio LLC\SimioApiHelper"),
+                            new FileShortcut(binaries, "ApiHelper", @"%Desktop%")), // PortalManagerFile
+                        new File(binaries, @"ApiHelperFiles\SimioApiHelper.exe.config"),
+                        new File(binaries, @"ApiHelperFiles\HeadlessLibrary.dll"),
+                        new File(binaries, @"ApiHelperFiles\SimioAPI.dll"),
+                        new File(binaries, @"ApiHelperFiles\SimioAPI.Extensions.dll"),
+                        new File(binaries, @"ApiHelperFiles\SimioEnums.dll"),
+                        new File(binaries, @"ApiHelperFiles\SimioAPI.Graphics.dll"),
+                        new File(binaries, @"ApiHelperFiles\SimioTypes.dll"),
+                        new File(binaries, @"ApiHelperFiles\IconLib.dll"),
+                        new File(binaries, @"ApiHelperFiles\MathNet.Numerics.dll"),
+                        new File(binaries, @"ApiHelperFiles\NewtonSoft.Json.dll"),
+                        new File(binaries, @"ApiHelperFiles\QlmLicenseLib.dll"),
+                        new File(binaries, @"ApiHelperFiles\ServiceModelEx.dll"),
+                        new File(binaries, @"ApiHelperFiles\SimioDLL.dll")
+                        ),
 
-            //Schedule custom dialog between InsallDirDlg and VerifyReadyDlg standard MSI dialogs.
-            project.InjectClrDialog("ShowCustomDialog", NativeDialogs.InstallDirDlg, NativeDialogs.VerifyReadyDlg);
-            //remove LicenceDlg
-            project.RemoveDialogsBetween(NativeDialogs.WelcomeDlg, NativeDialogs.InstallDirDlg);
-            //reference assembly that is needed by the custom dialog
-            //project.DefaultRefAssemblies.Add(<External Asm Location>);
+                    new Dir(@"PersonalFolder\SimioApiHelper\",
+                        new File(dataFiles, @"DataFiles\ExperimentTest.spfx"),
+                        new File(dataFiles, @"DataFiles\SchedulingDiscretePartProduction.spfx")), // Samples
 
-            //project.SourceBaseDir = "<input dir path>";
-            project.OutDir = "bin";
+                    new Dir(@"PersonalFolder\SimioApiHelper\Help",
+                            new File(helpFiles, @"HelpFiles\Simio Api Note - Simio API Helper.pdf")),
+
+                    new Dir("%Startup%",
+                        new ExeFileShortcut(binaries, "SimioApiHelper", "[INSTALLDIR]SimioApiHelper.exe", "SimioApiHelperInstall.msi"))
+
+                    // new Dir(@"%ProgramMenu%\Simio LLC\SimioPortal",
+                    //    new ExeFileShortcut(binaries, "Uninstall PortalManager", "[System64Folder]msiexec.exe", "/x [ProductCode]"))
+
+                    ); // project
+
+
+            project.GUID = new Guid("40711452-172C-44E8-931F-BDD327C7242B");
+
+            project.BannerImage = @"Images\ApiHelperBanner.png";
+            project.LicenceFile = @"Resources\SimioEULA.rtf";
+            project.ControlPanelInfo.ProductIcon = @"Images\AddRemoveProgramsIcon.ico";
+            project.ControlPanelInfo.Readme = "Assistance with common Simio API situations.";
 
             project.BuildMsi();
         }

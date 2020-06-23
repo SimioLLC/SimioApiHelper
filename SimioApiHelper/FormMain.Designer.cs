@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -447,7 +448,7 @@
             this.tabNetVersions.Controls.Add(this.panel1);
             this.tabNetVersions.Location = new System.Drawing.Point(4, 29);
             this.tabNetVersions.Name = "tabNetVersions";
-            this.tabNetVersions.Size = new System.Drawing.Size(1104, 688);
+            this.tabNetVersions.Size = new System.Drawing.Size(1104, 680);
             this.tabNetVersions.TabIndex = 3;
             this.tabNetVersions.Text = ".NET Versions";
             this.tabNetVersions.UseVisualStyleBackColor = true;
@@ -465,7 +466,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1104, 688);
+            this.panel1.Size = new System.Drawing.Size(1104, 680);
             this.panel1.TabIndex = 20;
             // 
             // labelHwCpuSpeed
@@ -560,7 +561,7 @@
             this.tabFindUserExtensions.Controls.Add(this.panelFindSteps);
             this.tabFindUserExtensions.Location = new System.Drawing.Point(4, 29);
             this.tabFindUserExtensions.Name = "tabFindUserExtensions";
-            this.tabFindUserExtensions.Size = new System.Drawing.Size(1104, 688);
+            this.tabFindUserExtensions.Size = new System.Drawing.Size(1104, 680);
             this.tabFindUserExtensions.TabIndex = 2;
             this.tabFindUserExtensions.Text = "Find UserExtensions";
             this.tabFindUserExtensions.UseVisualStyleBackColor = true;
@@ -575,7 +576,7 @@
             this.panelFindSteps.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFindSteps.Location = new System.Drawing.Point(0, 0);
             this.panelFindSteps.Name = "panelFindSteps";
-            this.panelFindSteps.Size = new System.Drawing.Size(1104, 688);
+            this.panelFindSteps.Size = new System.Drawing.Size(1104, 680);
             this.panelFindSteps.TabIndex = 11;
             // 
             // textStepsAndAddIns
@@ -832,7 +833,7 @@
             this.tabHeadlessRun.Controls.Add(this.panelHeadlessRun);
             this.tabHeadlessRun.Location = new System.Drawing.Point(4, 29);
             this.tabHeadlessRun.Name = "tabHeadlessRun";
-            this.tabHeadlessRun.Size = new System.Drawing.Size(1104, 688);
+            this.tabHeadlessRun.Size = new System.Drawing.Size(1104, 680);
             this.tabHeadlessRun.TabIndex = 4;
             this.tabHeadlessRun.Text = "Headless Run";
             this.tabHeadlessRun.UseVisualStyleBackColor = true;
@@ -845,7 +846,7 @@
             this.panelHeadlessRun.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelHeadlessRun.Location = new System.Drawing.Point(0, 0);
             this.panelHeadlessRun.Name = "panelHeadlessRun";
-            this.panelHeadlessRun.Size = new System.Drawing.Size(1104, 688);
+            this.panelHeadlessRun.Size = new System.Drawing.Size(1104, 680);
             this.panelHeadlessRun.TabIndex = 9;
             // 
             // groupBoxSelectSetExtensionsLocation
@@ -1093,7 +1094,7 @@
             this.tabLogs.Location = new System.Drawing.Point(4, 29);
             this.tabLogs.Name = "tabLogs";
             this.tabLogs.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLogs.Size = new System.Drawing.Size(1104, 688);
+            this.tabLogs.Size = new System.Drawing.Size(1104, 680);
             this.tabLogs.TabIndex = 1;
             this.tabLogs.Text = "Logs";
             this.tabLogs.UseVisualStyleBackColor = true;
@@ -1106,7 +1107,7 @@
             this.textLogs.Name = "textLogs";
             this.textLogs.ReadOnly = true;
             this.textLogs.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textLogs.Size = new System.Drawing.Size(1098, 682);
+            this.textLogs.Size = new System.Drawing.Size(1098, 674);
             this.textLogs.TabIndex = 0;
             this.textLogs.Text = "(no logs yet...)";
             // 
@@ -1117,7 +1118,7 @@
             this.Settings.Location = new System.Drawing.Point(4, 29);
             this.Settings.Name = "Settings";
             this.Settings.Padding = new System.Windows.Forms.Padding(3);
-            this.Settings.Size = new System.Drawing.Size(1104, 688);
+            this.Settings.Size = new System.Drawing.Size(1104, 680);
             this.Settings.TabIndex = 5;
             this.Settings.Text = "Settings";
             this.Settings.UseVisualStyleBackColor = true;
@@ -1127,7 +1128,7 @@
             this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertyGrid1.Location = new System.Drawing.Point(3, 81);
             this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(1098, 604);
+            this.propertyGrid1.Size = new System.Drawing.Size(1098, 596);
             this.propertyGrid1.TabIndex = 0;
             // 
             // panel3
@@ -1155,7 +1156,7 @@
             this.tabUtilities.Location = new System.Drawing.Point(4, 29);
             this.tabUtilities.Name = "tabUtilities";
             this.tabUtilities.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUtilities.Size = new System.Drawing.Size(1104, 688);
+            this.tabUtilities.Size = new System.Drawing.Size(1104, 680);
             this.tabUtilities.TabIndex = 7;
             this.tabUtilities.Text = "Utilities";
             this.tabUtilities.UseVisualStyleBackColor = true;
@@ -1333,6 +1334,7 @@
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormMain";
             this.Text = "Simio API Helper";

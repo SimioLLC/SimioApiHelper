@@ -6,80 +6,257 @@
 </auto-generated>
 -->
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="6fe30b47-2577-43ad-9095-1861ca25889c" Name="SimioApiHelper" Language="1033" Codepage="Windows-1252" Version="1.0.0.0" UpgradeCode="6fe30b47-2577-43ad-9095-1861ba25889b" Manufacturer="dan_h">
+  <Product Id="40711452-172c-44e8-931f-bdd337c7242c" Name="Simio Api Helper" Language="1033" Codepage="Windows-1252" Version="1.0.0.0" UpgradeCode="40711452-172c-44e8-931f-bdd327c7242b" Manufacturer="dan_h">
     <Package InstallerVersion="200" Compressed="yes" SummaryCodepage="Windows-1252" Languages="1033" />
-    <Media Id="1" Cabinet="SimioApiHelper.cab" EmbedCab="yes" />
+    <Media Id="1" Cabinet="Simio_Api_Helper.cab" EmbedCab="yes" />
 
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder" Name="ProgramFilesFolder">
         <Directory Id="ProgramFilesFolder.Simio_LLC" Name="Simio LLC">
-          <Directory Id="INSTALLDIR" Name="SimioApiHelper">
+          <Directory Id="INSTALLDIR" Name="Simio API Helper">
 
-            <Component Id="Component.Program.cs_837712353" Guid="6fe30b47-2577-43ad-9095-1861e524b53a">
-              <File Id="Program.cs_837712353" Source="Program.cs" />
+            <Component Id="Component.ApiHelperInstall_exe" Guid="40711452-172c-44e8-931f-bdd33f8877fc">
+              <File Id="ApiHelperInstall_exe" Source="ApiHelperFiles\SimioApiHelper.exe">
+                <Shortcut Id="Shortcut.ApiHelperInstall_exe.ApiHelper" WorkingDirectory="INSTALLDIR" Directory="ProgramMenuFolder.Simio_LLC.SimioApiHelper" Name="ApiHelper.lnk" />
+                <Shortcut Id="Shortcut.ApiHelperInstall_exe.ApiHelper.1" WorkingDirectory="INSTALLDIR" Directory="DesktopFolder" Name="ApiHelper.lnk" />
+              </File>
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.SimioApiHelper.exe.config_756539689" Guid="40711452-172c-44e8-931f-bdd3e7260c40">
+              <File Id="SimioApiHelper.exe.config_756539689" Source="ApiHelperFiles\SimioApiHelper.exe.config" />
+            </Component>
+
+            <Component Id="Component.HeadlessLibrary.dll_293211251" Guid="40711452-172c-44e8-931f-bdd32ca7c791">
+              <File Id="HeadlessLibrary.dll_293211251" Source="ApiHelperFiles\HeadlessLibrary.dll" />
+            </Component>
+
+            <Component Id="Component.SimioAPI.dll_3730353040" Guid="40711452-172c-44e8-931f-bdd3150bf5a2">
+              <File Id="SimioAPI.dll_3730353040" Source="ApiHelperFiles\SimioAPI.dll" />
+            </Component>
+
+            <Component Id="Component.SimioAPI.Extensions.dll_564089" Guid="40711452-172c-44e8-931f-bdd3fdafae8b">
+              <File Id="SimioAPI.Extensions.dll_564089" Source="ApiHelperFiles\SimioAPI.Extensions.dll" />
+            </Component>
+
+            <Component Id="Component.SimioEnums.dll_1704955971" Guid="40711452-172c-44e8-931f-bdd3e127a563">
+              <File Id="SimioEnums.dll_1704955971" Source="ApiHelperFiles\SimioEnums.dll" />
+            </Component>
+
+            <Component Id="Component.SimioAPI.Graphics.dll_3358788522" Guid="40711452-172c-44e8-931f-bdd3e9240e22">
+              <File Id="SimioAPI.Graphics.dll_3358788522" Source="ApiHelperFiles\SimioAPI.Graphics.dll" />
+            </Component>
+
+            <Component Id="Component.SimioTypes.dll_1162665289" Guid="40711452-172c-44e8-931f-bdd3467b5cce">
+              <File Id="SimioTypes.dll_1162665289" Source="ApiHelperFiles\SimioTypes.dll" />
+            </Component>
+
+            <Component Id="Component.IconLib.dll_3612064876" Guid="40711452-172c-44e8-931f-bdd37032783e">
+              <File Id="IconLib.dll_3612064876" Source="ApiHelperFiles\IconLib.dll" />
+            </Component>
+
+            <Component Id="Component.MathNet.Numerics.dll_2637565069" Guid="40711452-172c-44e8-931f-bdd3a76bd86a">
+              <File Id="MathNet.Numerics.dll_2637565069" Source="ApiHelperFiles\MathNet.Numerics.dll" />
+            </Component>
+
+            <Component Id="Component.NewtonSoft.Json.dll_905547062" Guid="40711452-172c-44e8-931f-bdd3a9aced6f">
+              <File Id="NewtonSoft.Json.dll_905547062" Source="ApiHelperFiles\NewtonSoft.Json.dll" />
+            </Component>
+
+            <Component Id="Component.QlmLicenseLib.dll_3243138624" Guid="40711452-172c-44e8-931f-bdd3c6babcc4">
+              <File Id="QlmLicenseLib.dll_3243138624" Source="ApiHelperFiles\QlmLicenseLib.dll" />
+            </Component>
+
+            <Component Id="Component.ServiceModelEx.dll_2738986902" Guid="40711452-172c-44e8-931f-bdd323654826">
+              <File Id="ServiceModelEx.dll_2738986902" Source="ApiHelperFiles\ServiceModelEx.dll" />
+            </Component>
+
+            <Component Id="Component.SimioDLL.dll_127134428" Guid="40711452-172c-44e8-931f-bdd3cf22d9a0">
+              <File Id="SimioDLL.dll_127134428" Source="ApiHelperFiles\SimioDLL.dll" />
             </Component>
 
           </Directory>
         </Directory>
       </Directory>
+
+      <Directory Id="PersonalFolder" Name="PersonalFolder">
+        <Directory Id="SimioApiHelper" Name="SimioApiHelper">
+
+          <Component Id="Component.ExperimentTest.spfx_1854124901" Guid="40711452-172c-44e8-931f-bdd3392e6c12">
+            <File Id="ExperimentTest.spfx_1854124901" Source="DataFiles\ExperimentTest.spfx" />
+            <RemoveFolder Id="SimioApiHelper" On="uninstall" />
+
+            <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+              <RegistryValue Value="0" Type="string" KeyPath="yes" />
+            </RegistryKey>
+          </Component>
+
+          <Component Id="Component.SchedulingDiscretePartProduction.spfx_3781411696" Guid="40711452-172c-44e8-931f-bdd379a715d0">
+            <File Id="SchedulingDiscretePartProduction.spfx_3781411696" Source="DataFiles\SchedulingDiscretePartProduction.spfx" />
+
+            <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+              <RegistryValue Value="0" Type="string" KeyPath="yes" />
+            </RegistryKey>
+          </Component>
+
+        </Directory>
+      </Directory>
+
+      <Directory Id="PersonalFolder.1" Name="PersonalFolder">
+        <Directory Id="SimioApiHelper.1" Name="SimioApiHelper">
+          <Directory Id="Help" Name="Help">
+
+            <Component Id="Component.Simio_Api_Note___Simio_API_Helper.pdf_2292529992" Guid="40711452-172c-44e8-931f-bdd344ee5f36">
+              <File Id="Simio_Api_Note___Simio_API_Helper.pdf_2292529992" Source="HelpFiles\Simio Api Note - Simio API Helper.pdf" />
+              <RemoveFolder Id="Help" On="uninstall" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+          </Directory>
+
+          <Component Id="SimioApiHelper.1" Guid="40711452-172c-44e8-931f-bdd32b61099d">
+            <RemoveFolder Id="SimioApiHelper.1" On="uninstall" />
+
+            <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+              <RegistryValue Value="0" Type="string" KeyPath="yes" />
+            </RegistryKey>
+          </Component>
+
+        </Directory>
+      </Directory>
+
+      <Directory Id="StartupFolder" Name="StartupFolder">
+
+        <Component Id="Component.SimioApiHelper_" Guid="40711452-172c-44e8-931f-bdd3b06bc771">
+          <Shortcut Id="StartupFolder.SimioApiHelper_" WorkingDirectory="INSTALLDIR" Target="[INSTALLDIR]SimioApiHelper.exe" Arguments="SimioApiHelperInstall.msi" Name="SimioApiHelper.lnk" />
+
+          <CreateFolder />
+
+          <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+            <RegistryValue Value="0" Type="string" KeyPath="yes" />
+          </RegistryKey>
+        </Component>
+
+      </Directory>
+
+      <Directory Id="ProgramMenuFolder" Name="ProgramMenuFolder">
+
+        <Component Id="Component.ProgramMenuFolder" Guid="40711452-172c-44e8-931f-bdd34ebe8c17">
+          <CreateFolder />
+
+          <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+            <RegistryValue Value="0" Type="string" KeyPath="yes" />
+          </RegistryKey>
+        </Component>
+
+        <Directory Id="ProgramMenuFolder.Simio_LLC" Name="Simio LLC">
+
+          <Component Id="Component.ProgramMenuFolder.Simio_LLC" Guid="40711452-172c-44e8-931f-bdd31e380f2d">
+            <CreateFolder />
+            <RemoveFolder Id="ProgramMenuFolder.Simio_LLC" On="uninstall" />
+
+            <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+              <RegistryValue Value="0" Type="string" KeyPath="yes" />
+            </RegistryKey>
+          </Component>
+
+          <Directory Id="ProgramMenuFolder.Simio_LLC.SimioApiHelper" Name="SimioApiHelper">
+
+            <Component Id="Component.ProgramMenuFolder.Simio_LLC.SimioApiHelper.EmptyDirectory" Guid="40711452-172c-44e8-931f-bdd3ca1b7b96">
+              <CreateFolder />
+              <RemoveFolder Id="ProgramMenuFolder.Simio_LLC.SimioApiHelper" On="uninstall" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+          </Directory>
+        </Directory>
+      </Directory>
+
+      <Directory Id="DesktopFolder" Name="DesktopFolder">
+
+        <Component Id="Component.DesktopFolder.EmptyDirectory" Guid="40711452-172c-44e8-931f-bdd366e1c531">
+          <CreateFolder />
+
+          <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+            <RegistryValue Value="0" Type="string" KeyPath="yes" />
+          </RegistryKey>
+        </Component>
+
+      </Directory>
+
+      <Component Id="TARGETDIR" Guid="40711452-172c-44e8-931f-bdd39a97949e" KeyPath="yes">
+        <CreateFolder />
+        <RemoveFolder Id="TARGETDIR" On="uninstall" />
+      </Component>
+
     </Directory>
 
     <UI />
 
-    <UI>
-      <TextStyle Id="WixUI_Font_Normal" FaceName="Tahoma" Size="8" Bold="no" Italic="no" Strike="no" Underline="no" />
-      <TextStyle Id="WixUI_Font_Bigger" FaceName="Tahoma" Size="12" Bold="no" Italic="no" Strike="no" Underline="no" />
-      <TextStyle Id="WixUI_Font_Title" FaceName="Tahoma" Size="9" Bold="yes" Italic="no" Strike="no" Underline="no" />
+    <Icon Id="app_icon.ico" SourceFile="Images\AddRemoveProgramsIcon.ico" />
 
-      <Property Id="DefaultUIFont" Value="WixUI_Font_Normal" />
-      <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
-      <Property Id="PIDTemplate" Value="####-####-####-####" />
-      <Property Id="ARPNOMODIFY" Value="1" />
+    <WixVariable Id="WixUIBannerBmp" Value="Images\ApiHelperBanner.png" />
+    <WixVariable Id="WixUILicenseRtf" Value="Resources\SimioEULA.rtf" />
 
-      <DialogRef Id="BrowseDlg" />
-      <DialogRef Id="DiskCostDlg" />
-      <DialogRef Id="ErrorDlg" />
-      <DialogRef Id="FatalError" />
-      <DialogRef Id="FilesInUse" />
-      <DialogRef Id="MsiRMFilesInUse" />
-      <DialogRef Id="PrepareDlg" />
-      <DialogRef Id="ProgressDlg" />
-      <DialogRef Id="ResumeDlg" />
-      <DialogRef Id="UserExit" />
+    <CustomAction Id="WixSharp_InitRuntime_Action" BinaryKey="WixSharp_InitRuntime_Action_File" DllEntry="WixSharp_InitRuntime_Action" Return="check" Execute="immediate" />
 
-      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="LicenseAgreementDlg" Order="1">1</Publish>
-      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg" Order="5">1</Publish>
-      <Publish Dialog="LicenseAgreementDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg">1</Publish>
-      <Publish Dialog="LicenseAgreementDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg">1</Publish>
-      <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="LicenseAgreementDlg" Order="1">1</Publish>
-      <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="5">1</Publish>
-      <Publish Dialog="InstallDirDlg" Control="Next" Event="SetTargetPath" Value="[WIXUI_INSTALLDIR]" Order="1">1</Publish>
-      <Publish Dialog="InstallDirDlg" Control="Next" Event="DoAction" Value="ShowCustomDialog" Order="2">1</Publish>
-      <Publish Dialog="InstallDirDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Order="3"> Custom_UI_Command = "next" </Publish>
-      <Publish Dialog="InstallDirDlg" Control="Next" Event="EndDialog" Value="Exit" Order="2"> Custom_UI_Command = "abort" </Publish>
-      <Publish Dialog="InstallDirDlg" Control="ChangeFolder" Value="[WIXUI_INSTALLDIR]" Property="_BrowseProperty" Order="1">1</Publish>
-      <Publish Dialog="InstallDirDlg" Control="ChangeFolder" Event="SpawnDialog" Value="BrowseDlg" Order="2">1</Publish>
-      <Publish Dialog="CustomizeDlg" Control="Back" Event="NewDialog" Value="InstallDirDlg">1</Publish>
-      <Publish Dialog="CustomizeDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
-      <Publish Dialog="MaintenanceWelcomeDlg" Control="Next" Event="NewDialog" Value="MaintenanceTypeDlg">1</Publish>
-      <Publish Dialog="MaintenanceTypeDlg" Control="Back" Event="NewDialog" Value="MaintenanceWelcomeDlg">1</Publish>
-      <Publish Dialog="MaintenanceTypeDlg" Control="RepairButton" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
-      <Publish Dialog="MaintenanceTypeDlg" Control="RemoveButton" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
-      <Publish Dialog="ExitDialog" Control="Finish" Event="EndDialog" Value="Return" Order="9999">1</Publish>
-      <Publish Dialog="VerifyReadyDlg" Control="Back" Event="DoAction" Value="ShowCustomDialog" Order="1">1</Publish>
-      <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="InstallDirDlg" Order="2"> Custom_UI_Command = "back" </Publish>
-    </UI>
+    <Binary Id="WixSharp_InitRuntime_Action_File" SourceFile="WixSharp.CA.dll" />
 
-    <CustomAction Id="ShowCustomDialog" BinaryKey="ShowCustomDialog_File" DllEntry="ShowCustomDialog" Return="check" Execute="immediate" />
-
-    <Binary Id="ShowCustomDialog_File" SourceFile="bin\%this%.CA.dll" />
-
-    <UIRef Id="WixUI_Common" />
+    <UIRef Id="WixUI_Minimal" />
     <UIRef Id="WixUI_ErrorProgressText" />
 
-    <Feature Id="Complete" Title="Complete" Absent="allow" Level="1">
-      <ComponentRef Id="Component.Program.cs_837712353" />
+    <Property Id="ARPPRODUCTICON" Value="app_icon.ico" />
+    <Property Id="ARPREADME" Value="Assistance with common Simio API situations." />
+
+    <Feature Id="ApiHelper_Binaries" Title="ApiHelper Binaries" Absent="allow" Level="1">
+      <ComponentRef Id="Component.ApiHelperInstall_exe" />
+      <ComponentRef Id="Component.SimioApiHelper.exe.config_756539689" />
+      <ComponentRef Id="Component.HeadlessLibrary.dll_293211251" />
+      <ComponentRef Id="Component.SimioAPI.dll_3730353040" />
+      <ComponentRef Id="Component.SimioAPI.Extensions.dll_564089" />
+      <ComponentRef Id="Component.SimioEnums.dll_1704955971" />
+      <ComponentRef Id="Component.SimioAPI.Graphics.dll_3358788522" />
+      <ComponentRef Id="Component.SimioTypes.dll_1162665289" />
+      <ComponentRef Id="Component.IconLib.dll_3612064876" />
+      <ComponentRef Id="Component.MathNet.Numerics.dll_2637565069" />
+      <ComponentRef Id="Component.NewtonSoft.Json.dll_905547062" />
+      <ComponentRef Id="Component.QlmLicenseLib.dll_3243138624" />
+      <ComponentRef Id="Component.ServiceModelEx.dll_2738986902" />
+      <ComponentRef Id="Component.SimioDLL.dll_127134428" />
+      <ComponentRef Id="Component.SimioApiHelper_" />
+      <ComponentRef Id="Component.ProgramMenuFolder" />
+      <ComponentRef Id="Component.ProgramMenuFolder.Simio_LLC" />
+      <ComponentRef Id="Component.ProgramMenuFolder.Simio_LLC.SimioApiHelper.EmptyDirectory" />
+      <ComponentRef Id="Component.DesktopFolder.EmptyDirectory" />
+      <ComponentRef Id="TARGETDIR" />
+      <ComponentRef Id="SimioApiHelper.1" />
     </Feature>
+
+    <Feature Id="ApiHelper_Example_Data" Title="ApiHelper Example Data" Absent="allow" Level="1">
+      <ComponentRef Id="Component.ExperimentTest.spfx_1854124901" />
+      <ComponentRef Id="Component.SchedulingDiscretePartProduction.spfx_3781411696" />
+      <ComponentRef Id="TARGETDIR" />
+      <ComponentRef Id="SimioApiHelper.1" />
+    </Feature>
+
+    <Feature Id="ApiHelper_Help" Title="ApiHelper Help" Absent="allow" Level="1">
+      <ComponentRef Id="Component.Simio_Api_Note___Simio_API_Helper.pdf_2292529992" />
+      <ComponentRef Id="TARGETDIR" />
+      <ComponentRef Id="SimioApiHelper.1" />
+    </Feature>
+
+    <InstallExecuteSequence>
+      <Custom Action="WixSharp_InitRuntime_Action" Before="AppSearch"> (1) </Custom>
+    </InstallExecuteSequence>
 
   </Product>
 </Wix>

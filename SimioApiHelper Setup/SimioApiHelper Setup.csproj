@@ -67,6 +67,12 @@
       <DependentUpon>CustomDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="ApiHelperFiles\SimioApiHelper.exe.config" />
+    <None Include="DataFiles\ExperimentTest.spfx" />
+    <None Include="DataFiles\HealthCareClinic.spfx" />
+    <None Include="DataFiles\SchedulingBicycleAssembly.spfx" />
+    <None Include="DataFiles\SchedulingDiscretePartProduction.spfx" />
+    <None Include="HelpFiles\Simio API Note - Simio API Helper.pdf" />
     <None Include="packages.config" />
     <None Include="wix\$(ProjectName).g.wxs" />
   </ItemGroup>
@@ -77,6 +83,26 @@
     <EmbeddedResource Include="CustomDialog.resx">
       <DependentUpon>CustomDialog.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ApiHelperFiles\HeadlessLibrary.dll" />
+    <Content Include="ApiHelperFiles\IconLib.dll" />
+    <Content Include="ApiHelperFiles\MathNet.Numerics.dll" />
+    <Content Include="ApiHelperFiles\Newtonsoft.Json.dll" />
+    <Content Include="ApiHelperFiles\QlmLicenseLib.dll" />
+    <Content Include="ApiHelperFiles\ServiceModelEx.dll" />
+    <Content Include="ApiHelperFiles\SimioAPI.dll" />
+    <Content Include="ApiHelperFiles\SimioAPI.Extensions.dll" />
+    <Content Include="ApiHelperFiles\SimioApiHelper.exe" />
+    <Content Include="ApiHelperFiles\SimioDLL.dll" />
+    <Content Include="ApiHelperFiles\SimioEnums.dll" />
+    <Content Include="ApiHelperFiles\SimioServerAPI.dll" />
+    <Content Include="Images\ApiHelperBanner.png" />
+    <Content Include="Images\SimioApiHelper.ico" />
+    <Content Include="Images\SimioApiHelper.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\WixSharp.bin.1.14.6\build\WixSharp.bin.targets" Condition="Exists('..\packages\WixSharp.bin.1.14.6\build\WixSharp.bin.targets')" />

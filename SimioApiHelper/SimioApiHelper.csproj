@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>SimioApiHelper.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="IconLib">
       <HintPath>..\Library\IconLib.dll</HintPath>
@@ -129,6 +132,9 @@
       <Project>{ca2ab3a8-edbf-4d16-bb00-fb8c5f6cfeec}</Project>
       <Name>HeadlessLibrary</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SimioApiHelper.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
