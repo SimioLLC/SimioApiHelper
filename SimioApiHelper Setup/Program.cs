@@ -47,10 +47,11 @@ namespace SimioApiHelper_Setup
                         new File(dataFiles, @"DataFiles\SchedulingDiscretePartProduction.spfx")), // Samples
 
                     new Dir(@"PersonalFolder\SimioApiHelper\Help",
-                            new File(helpFiles, @"HelpFiles\Simio Api Note - Simio API Helper.pdf")),
+                            new File(helpFiles, @"HelpFiles\Simio Api Note - Simio API Helper.pdf"))
 
-                    new Dir("%Startup%",
-                        new ExeFileShortcut(binaries, "SimioApiHelper", "[INSTALLDIR]SimioApiHelper.exe", "SimioApiHelperInstall.msi"))
+                    // Uncomment this section (and add a comma to the previous new Dir()) if you wish the Simio API Helper to auto-start
+                    //new Dir("%Startup%",
+                    //    new ExeFileShortcut(binaries, "SimioApiHelper", "[INSTALLDIR]SimioApiHelper.exe", "SimioApiHelperInstall.msi"))
 
                     // new Dir(@"%ProgramMenu%\Simio LLC\SimioPortal",
                     //    new ExeFileShortcut(binaries, "Uninstall PortalManager", "[System64Folder]msiexec.exe", "/x [ProductCode]"))

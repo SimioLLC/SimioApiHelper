@@ -135,20 +135,6 @@
         </Directory>
       </Directory>
 
-      <Directory Id="StartupFolder" Name="StartupFolder">
-
-        <Component Id="Component.SimioApiHelper__" Guid="40711452-172c-44e8-931f-bdd3b09ec771">
-          <Shortcut Id="StartupFolder.SimioApiHelper__" WorkingDirectory="INSTALLDIR" Target="[INSTALLDIR]SimioApiHelper.exe" Arguments="SimioApiHelperInstall.msi" Name="SimioApiHelper.lnk" />
-
-          <CreateFolder />
-
-          <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
-            <RegistryValue Value="0" Type="string" KeyPath="yes" />
-          </RegistryKey>
-        </Component>
-
-      </Directory>
-
       <Directory Id="ProgramMenuFolder" Name="ProgramMenuFolder">
 
         <Component Id="Component.ProgramMenuFolder" Guid="40711452-172c-44e8-931f-bdd34ebe8c17">
@@ -237,7 +223,6 @@
       <ComponentRef Id="Component.QlmLicenseLib.dll_3243138624" />
       <ComponentRef Id="Component.ServiceModelEx.dll_2738986902" />
       <ComponentRef Id="Component.SimioDLL.dll_127134428" />
-      <ComponentRef Id="Component.SimioApiHelper__" />
       <ComponentRef Id="Component.ProgramMenuFolder" />
       <ComponentRef Id="Component.ProgramMenuFolder.Simio_LLC" />
       <ComponentRef Id="Component.ProgramMenuFolder.Simio_LLC.SimioApiHelper.EmptyDirectory" />
