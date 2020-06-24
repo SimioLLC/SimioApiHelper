@@ -41,6 +41,9 @@ namespace SimioApiHelper
             {
                 Logit(EnumLogFlags.Information, $"Begin Machine={Environment.MachineName}");
 
+                string headlessTestFolder = CheckHeadlessTestFolder();
+                Logit($"Info: Test Folder Location={headlessTestFolder}");
+
                 comboSimioLocation.DataSource = DLLHelpers.GetSimioApiLocations();
                 comboFindSimioExtensionLocations.DataSource = DLLHelpers.GetSimioApiLocations();
 
@@ -67,6 +70,7 @@ namespace SimioApiHelper
                 RefreshTabHeadlessBuilder(true);
                 RefreshTabHeadlessRun();
                 RefreshTabSettings();
+              
             }
             catch (Exception ex)
             {
@@ -889,26 +893,50 @@ namespace SimioApiHelper
 
         }
 
-        private void RefreshTabHeadlessRun()
+        /// <summary>
+        /// Check for the headless test folder.
+        /// If found (or created) return the path and add to Settings.
+        /// </summary>
+        /// <returns></returns>
+        private string CheckHeadlessTestFolder()
         {
+            string marker = "Begin";
             try
             {
-                string headlessSystemFolder = Properties.Settings.Default.HeadlessSystemFolder;
-                if ( !Directory.Exists(headlessSystemFolder))
+                string headlessTestFolder = Properties.Settings.Default.HeadlessSystemFolder;
+
+                // If there is no test folder, then try to create one under MyDocuments
+                if (!Directory.Exists(headlessTestFolder))
                 {
                     string myDocsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                    headlessSystemFolder = Path.Combine(myDocsFolder, "SimioAutomationTest");
-                    if (!Directory.Exists(headlessSystemFolder))
+                    headlessTestFolder = Path.Combine(myDocsFolder, "SimioAutomationTest");
+                    marker = $"Attempting to create Headless Test Folder at={headlessTestFolder}";
+                    if (!Directory.Exists(headlessTestFolder))
                     {
-                        Logit($"Info: Creating new HeadlessSystemFolder={headlessSystemFolder}");
-                        Directory.CreateDirectory(Path.Combine(myDocsFolder, "SimioAutomation"));
+                        Logit($"Info: Creating new HeadlessSystemFolder={headlessTestFolder}");
+                        Directory.CreateDirectory(Path.Combine(myDocsFolder, "SimioAutomationTest"));
                     }
 
-                    Properties.Settings.Default.HeadlessSystemFolder = headlessSystemFolder;
-                    Logit($"Info: Set HeadlessSystemFolder to={headlessSystemFolder}");
+                    Properties.Settings.Default.HeadlessSystemFolder = headlessTestFolder;
+                    Logit($"Info: Set HeadlessSystemFolder to={headlessTestFolder}");
                 }
+                return headlessTestFolder;
+            }
+            catch (Exception ex)
+            {
+                Logit($"Marker={marker} Err={ex.Message}");
+                return string.Empty;
+            }
+        }
 
-                textHeadlessRunFilesLocation.Text = Properties.Settings.Default.HeadlessSystemFolder;
+        private void RefreshTabHeadlessRun()
+        {
+            string marker = "Begin";
+            try
+            {
+                string headlessTestFolder = CheckHeadlessTestFolder();
+
+                textHeadlessRunFilesLocation.Text = headlessTestFolder;
 
                 comboHeadlessRunExecutableToRun.DataSource = Directory.GetFiles(textHeadlessRunFilesLocation.Text, "*.EXE").ToList();
 
@@ -923,7 +951,7 @@ namespace SimioApiHelper
             }
             catch (Exception ex)
             {
-                throw new ApplicationException($"Err={ex}");
+                throw new ApplicationException($"Marker={marker} Err={ex}");
             }
         }
 
@@ -969,18 +997,18 @@ namespace SimioApiHelper
         {
             try
             {
-                textHeadlessBuildLocation.Text = SimioApiHelper.Properties.Settings.Default.HeadlessSystemFolder;
-                textSimioInstallationFolder.Text = SimioApiHelper.Properties.Settings.Default.SimioInstallationFolder;
+                textHarvestTargetFolder.Text = SimioApiHelper.Properties.Settings.Default.HeadlessSystemFolder;
+                textHarvestSourceFolder.Text = SimioApiHelper.Properties.Settings.Default.SimioInstallationFolder;
 
                 buttonBuildHeadlessSystem.Enabled = false;
 
-                if ( Directory.Exists(textHeadlessBuildLocation.Text) 
-                    && Directory.Exists(textSimioInstallationFolder.Text))
+                if ( Directory.Exists(textHarvestTargetFolder.Text) 
+                    && Directory.Exists(textHarvestSourceFolder.Text))
                 {
                     buttonBuildHeadlessSystem.Enabled = true;
                 }
 
-                if ( Directory.Exists(textSimioInstallationFolder.Text))
+                if ( Directory.Exists(textHarvestSourceFolder.Text))
                 {
 
                     List<string> ignorePatterns = new List<string>
@@ -999,7 +1027,7 @@ namespace SimioApiHelper
                         "^PSTaskDialog"
                     };
 
-                    RefreshChecklistForTargets(textSimioInstallationFolder.Text, includeUserFiles, ignorePatterns);
+                    RefreshChecklistForTargets(textHarvestSourceFolder.Text, includeUserFiles, ignorePatterns);
                 }
 
             }
@@ -1385,7 +1413,7 @@ namespace SimioApiHelper
                     return;
                 }
 
-                textSimioInstallationFolder.Text = dialog.SelectedPath;
+                textHarvestSourceFolder.Text = dialog.SelectedPath;
                 Properties.Settings.Default.SimioInstallationFolder = dialog.SelectedPath;
                 Properties.Settings.Default.Save();
 
@@ -1418,7 +1446,7 @@ namespace SimioApiHelper
                     return;
                 }
 
-                textHeadlessBuildLocation.Text = dialog.SelectedPath;
+                textHarvestTargetFolder.Text = dialog.SelectedPath;
                 Properties.Settings.Default.HeadlessSystemFolder = dialog.SelectedPath;
                 Properties.Settings.Default.Save();
 
@@ -1441,8 +1469,8 @@ namespace SimioApiHelper
             int fileCount = 0;
             try
             {
-                string simioFolder = textSimioInstallationFolder.Text;
-                string buildFolder = textHeadlessBuildLocation.Text;
+                string simioFolder = textHarvestSourceFolder.Text;
+                string buildFolder = textHarvestTargetFolder.Text;
 
                 if (!Directory.Exists(simioFolder))
                 {
@@ -1897,7 +1925,7 @@ namespace SimioApiHelper
 
         private void buttonAddDependentsToHarvest_Click(object sender, EventArgs e)
         {
-            if (!AddDependenciesToHarvestTarget(DependencyList, textSimioInstallationFolder.Text, textHeadlessBuildLocation.Text, out string explanation))
+            if (!AddDependenciesToHarvestTarget(DependencyList, textHarvestSourceFolder.Text, textHarvestTargetFolder.Text, out string explanation))
                 Alert(explanation);
         }
     }

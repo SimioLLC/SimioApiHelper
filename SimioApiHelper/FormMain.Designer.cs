@@ -82,12 +82,12 @@
             this.buttonBuildHeadlessSystem = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.textHeadlessBuildLocation = new System.Windows.Forms.TextBox();
+            this.textHarvestTargetFolder = new System.Windows.Forms.TextBox();
             this.buttonSelectHeadlessFolder = new System.Windows.Forms.Button();
             this.groupFileSource = new System.Windows.Forms.GroupBox();
             this.cbHeadlessBuildUsersFiles = new System.Windows.Forms.CheckBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.textSimioInstallationFolder = new System.Windows.Forms.TextBox();
+            this.textHarvestSourceFolder = new System.Windows.Forms.TextBox();
             this.buttonSelectSimioInstallationFolder = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.tabHeadlessRun = new System.Windows.Forms.TabPage();
@@ -202,6 +202,7 @@
             this.createIconToolStripMenuItem.Name = "createIconToolStripMenuItem";
             this.createIconToolStripMenuItem.Size = new System.Drawing.Size(107, 24);
             this.createIconToolStripMenuItem.Text = "Create Icon...";
+            this.createIconToolStripMenuItem.Visible = false;
             this.createIconToolStripMenuItem.Click += new System.EventHandler(this.createIconToolStripMenuItem_Click);
             // 
             // refreshToolStripMenuItem
@@ -718,7 +719,7 @@
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Controls.Add(this.textHeadlessBuildLocation);
+            this.groupBox2.Controls.Add(this.textHarvestTargetFolder);
             this.groupBox2.Controls.Add(this.buttonSelectHeadlessFolder);
             this.groupBox2.Location = new System.Drawing.Point(12, 193);
             this.groupBox2.Name = "groupBox2";
@@ -736,16 +737,16 @@
             this.label10.TabIndex = 26;
             this.label10.Text = "Location of the Headless Executables (Target)";
             // 
-            // textHeadlessBuildLocation
+            // textHarvestTargetFolder
             // 
-            this.textHeadlessBuildLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textHarvestTargetFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textHeadlessBuildLocation.Location = new System.Drawing.Point(11, 46);
-            this.textHeadlessBuildLocation.Name = "textHeadlessBuildLocation";
-            this.textHeadlessBuildLocation.ReadOnly = true;
-            this.textHeadlessBuildLocation.Size = new System.Drawing.Size(1067, 27);
-            this.textHeadlessBuildLocation.TabIndex = 28;
-            this.toolTip1.SetToolTip(this.textHeadlessBuildLocation, "The folder where all the DLLs will be placed");
+            this.textHarvestTargetFolder.Location = new System.Drawing.Point(11, 46);
+            this.textHarvestTargetFolder.Name = "textHarvestTargetFolder";
+            this.textHarvestTargetFolder.ReadOnly = true;
+            this.textHarvestTargetFolder.Size = new System.Drawing.Size(1067, 27);
+            this.textHarvestTargetFolder.TabIndex = 28;
+            this.toolTip1.SetToolTip(this.textHarvestTargetFolder, "The folder where all the DLLs will be placed");
             // 
             // buttonSelectHeadlessFolder
             // 
@@ -765,7 +766,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupFileSource.Controls.Add(this.cbHeadlessBuildUsersFiles);
             this.groupFileSource.Controls.Add(this.label11);
-            this.groupFileSource.Controls.Add(this.textSimioInstallationFolder);
+            this.groupFileSource.Controls.Add(this.textHarvestSourceFolder);
             this.groupFileSource.Controls.Add(this.buttonSelectSimioInstallationFolder);
             this.groupFileSource.Location = new System.Drawing.Point(12, 52);
             this.groupFileSource.Name = "groupFileSource";
@@ -795,15 +796,15 @@
             this.label11.Text = "Location of the Simio Installation files (Source)";
             this.toolTip1.SetToolTip(this.label11, "Where are the files from the Simio Desktop installation?");
             // 
-            // textSimioInstallationFolder
+            // textHarvestSourceFolder
             // 
-            this.textSimioInstallationFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textHarvestSourceFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textSimioInstallationFolder.Location = new System.Drawing.Point(10, 46);
-            this.textSimioInstallationFolder.Name = "textSimioInstallationFolder";
-            this.textSimioInstallationFolder.ReadOnly = true;
-            this.textSimioInstallationFolder.Size = new System.Drawing.Size(1068, 27);
-            this.textSimioInstallationFolder.TabIndex = 31;
+            this.textHarvestSourceFolder.Location = new System.Drawing.Point(10, 46);
+            this.textHarvestSourceFolder.Name = "textHarvestSourceFolder";
+            this.textHarvestSourceFolder.ReadOnly = true;
+            this.textHarvestSourceFolder.Size = new System.Drawing.Size(1068, 27);
+            this.textHarvestSourceFolder.TabIndex = 31;
             // 
             // buttonSelectSimioInstallationFolder
             // 
@@ -1183,7 +1184,7 @@
             this.groupBox1.Size = new System.Drawing.Size(1088, 501);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "File Watcher";
+            this.groupBox1.Text = "File Watcher Utility";
             // 
             // label18
             // 
@@ -1443,12 +1444,12 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textHeadlessRunFilesLocation;
         private System.Windows.Forms.Button buttonHeadlessRunChangeLocation;
-        private System.Windows.Forms.TextBox textHeadlessBuildLocation;
+        private System.Windows.Forms.TextBox textHarvestTargetFolder;
         private System.Windows.Forms.Button buttonSelectHeadlessFolder;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button buttonBuildHeadlessSystem;
-        private System.Windows.Forms.TextBox textSimioInstallationFolder;
+        private System.Windows.Forms.TextBox textHarvestSourceFolder;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button buttonSelectSimioInstallationFolder;
         private System.Windows.Forms.CheckedListBox checklistSelectedFiles;

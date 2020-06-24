@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="HeadlessSystemFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)">c:\(test)\SimioHeadlessTest</Value>
+      <Value Profile="(Default)"></Value>
     </Setting>
     <Setting Name="SimioInstallationFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)">c:\program files (x86)\simio</Value>

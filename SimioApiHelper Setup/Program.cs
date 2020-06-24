@@ -23,15 +23,16 @@ namespace SimioApiHelper_Setup
 
             var project = new ManagedProject("Simio Api Helper",
                              new Dir(@"%ProgramFiles%\Simio LLC\Simio API Helper",
-                        new File(new Id("ApiHelperInstall_exe"), binaries, @"ApiHelperFiles\SimioApiHelper.exe",
-                            new FileShortcut(binaries, "ApiHelper", @"%ProgramMenu%\Simio LLC\SimioApiHelper"),
-                            new FileShortcut(binaries, "ApiHelper", @"%Desktop%")), // PortalManagerFile
+                        new File(new Id("SimioApiHelperInstall_exe"), binaries, @"ApiHelperFiles\SimioApiHelper.exe",
+                            new FileShortcut(binaries, "SimioApiHelper", @"%ProgramMenu%\Simio LLC\SimioApiHelper"),
+                            new FileShortcut(binaries, "SimioApiHelper", @"%Desktop%")), // PortalManagerFile
                         new File(binaries, @"ApiHelperFiles\SimioApiHelper.exe.config"),
                         new File(binaries, @"ApiHelperFiles\HeadlessLibrary.dll"),
                         new File(binaries, @"ApiHelperFiles\SimioAPI.dll"),
                         new File(binaries, @"ApiHelperFiles\SimioAPI.Extensions.dll"),
                         new File(binaries, @"ApiHelperFiles\SimioEnums.dll"),
                         new File(binaries, @"ApiHelperFiles\SimioAPI.Graphics.dll"),
+                        new File(binaries, @"ApiHelperFiles\SimioReplicationRunnerContracts.dll"),
                         new File(binaries, @"ApiHelperFiles\SimioTypes.dll"),
                         new File(binaries, @"ApiHelperFiles\IconLib.dll"),
                         new File(binaries, @"ApiHelperFiles\MathNet.Numerics.dll"),

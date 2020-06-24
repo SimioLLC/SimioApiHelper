@@ -15,10 +15,10 @@
         <Directory Id="ProgramFilesFolder.Simio_LLC" Name="Simio LLC">
           <Directory Id="INSTALLDIR" Name="Simio API Helper">
 
-            <Component Id="Component.ApiHelperInstall_exe" Guid="40711452-172c-44e8-931f-bdd33f8877fc">
-              <File Id="ApiHelperInstall_exe" Source="ApiHelperFiles\SimioApiHelper.exe">
-                <Shortcut Id="Shortcut.ApiHelperInstall_exe.ApiHelper" WorkingDirectory="INSTALLDIR" Directory="ProgramMenuFolder.Simio_LLC.SimioApiHelper" Name="ApiHelper.lnk" />
-                <Shortcut Id="Shortcut.ApiHelperInstall_exe.ApiHelper.1" WorkingDirectory="INSTALLDIR" Directory="DesktopFolder" Name="ApiHelper.lnk" />
+            <Component Id="Component.SimioApiHelperInstall_exe" Guid="40711452-172c-44e8-931f-bdd3fb8d34fc">
+              <File Id="SimioApiHelperInstall_exe" Source="ApiHelperFiles\SimioApiHelper.exe">
+                <Shortcut Id="Shortcut.SimioApiHelperInstall_exe.SimioApiHelper_" WorkingDirectory="INSTALLDIR" Directory="ProgramMenuFolder.Simio_LLC.SimioApiHelper" Name="SimioApiHelper.lnk" />
+                <Shortcut Id="Shortcut.SimioApiHelperInstall_exe.SimioApiHelper.1_" WorkingDirectory="INSTALLDIR" Directory="DesktopFolder" Name="SimioApiHelper.lnk" />
               </File>
 
               <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
@@ -48,6 +48,10 @@
 
             <Component Id="Component.SimioAPI.Graphics.dll_3358788522" Guid="40711452-172c-44e8-931f-bdd3e9240e22">
               <File Id="SimioAPI.Graphics.dll_3358788522" Source="ApiHelperFiles\SimioAPI.Graphics.dll" />
+            </Component>
+
+            <Component Id="Component.SimioReplicationRunnerContracts.dll_604387178" Guid="40711452-172c-44e8-931f-bdd30ed1f1a4">
+              <File Id="SimioReplicationRunnerContracts.dll_604387178" Source="ApiHelperFiles\SimioReplicationRunnerContracts.dll" />
             </Component>
 
             <Component Id="Component.SimioTypes.dll_1162665289" Guid="40711452-172c-44e8-931f-bdd3467b5cce">
@@ -133,8 +137,8 @@
 
       <Directory Id="StartupFolder" Name="StartupFolder">
 
-        <Component Id="Component.SimioApiHelper_" Guid="40711452-172c-44e8-931f-bdd3b06bc771">
-          <Shortcut Id="StartupFolder.SimioApiHelper_" WorkingDirectory="INSTALLDIR" Target="[INSTALLDIR]SimioApiHelper.exe" Arguments="SimioApiHelperInstall.msi" Name="SimioApiHelper.lnk" />
+        <Component Id="Component.SimioApiHelper__" Guid="40711452-172c-44e8-931f-bdd3b09ec771">
+          <Shortcut Id="StartupFolder.SimioApiHelper__" WorkingDirectory="INSTALLDIR" Target="[INSTALLDIR]SimioApiHelper.exe" Arguments="SimioApiHelperInstall.msi" Name="SimioApiHelper.lnk" />
 
           <CreateFolder />
 
@@ -218,13 +222,14 @@
     <Property Id="ARPREADME" Value="Assistance with common Simio API situations." />
 
     <Feature Id="ApiHelper_Binaries" Title="ApiHelper Binaries" Absent="allow" Level="1">
-      <ComponentRef Id="Component.ApiHelperInstall_exe" />
+      <ComponentRef Id="Component.SimioApiHelperInstall_exe" />
       <ComponentRef Id="Component.SimioApiHelper.exe.config_756539689" />
       <ComponentRef Id="Component.HeadlessLibrary.dll_293211251" />
       <ComponentRef Id="Component.SimioAPI.dll_3730353040" />
       <ComponentRef Id="Component.SimioAPI.Extensions.dll_564089" />
       <ComponentRef Id="Component.SimioEnums.dll_1704955971" />
       <ComponentRef Id="Component.SimioAPI.Graphics.dll_3358788522" />
+      <ComponentRef Id="Component.SimioReplicationRunnerContracts.dll_604387178" />
       <ComponentRef Id="Component.SimioTypes.dll_1162665289" />
       <ComponentRef Id="Component.IconLib.dll_3612064876" />
       <ComponentRef Id="Component.MathNet.Numerics.dll_2637565069" />
@@ -232,7 +237,7 @@
       <ComponentRef Id="Component.QlmLicenseLib.dll_3243138624" />
       <ComponentRef Id="Component.ServiceModelEx.dll_2738986902" />
       <ComponentRef Id="Component.SimioDLL.dll_127134428" />
-      <ComponentRef Id="Component.SimioApiHelper_" />
+      <ComponentRef Id="Component.SimioApiHelper__" />
       <ComponentRef Id="Component.ProgramMenuFolder" />
       <ComponentRef Id="Component.ProgramMenuFolder.Simio_LLC" />
       <ComponentRef Id="Component.ProgramMenuFolder.Simio_LLC.SimioApiHelper.EmptyDirectory" />
