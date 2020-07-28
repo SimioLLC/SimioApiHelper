@@ -195,6 +195,7 @@ namespace SimioApiHelper
         public static bool GetDependencies(AssemblyReference assemblyRef, Dictionary<string, AssemblyReference> dependentAssemblyDict, 
             Stack<AssemblyReference> stack, out string explanation)
         {
+            const int MAX_DEPENDENCIES = 550;
 
             string marker = "begin";
             explanation = "";
@@ -205,9 +206,9 @@ namespace SimioApiHelper
                 string xx = "";
             }
 
-            if ( stack.Count > 550 )
+            if ( stack.Count > MAX_DEPENDENCIES )
             {
-                LogIt($"Dependcies are too large (Count={stack.Count}. Exiting.");
+                LogIt($"Dependcies are too large (Count={stack.Count} Max={MAX_DEPENDENCIES}. Exiting...");
                 return false;
             }
 

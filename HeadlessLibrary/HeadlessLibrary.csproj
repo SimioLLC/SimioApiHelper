@@ -31,10 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SimioAPI">
-      <HintPath>C:\Program Files (x86)\Simio202\SimioAPI.dll</HintPath>
+    <Reference Include="SimioAPI, Version=11.202.19819.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Simio\SimioAPI.dll</HintPath>
     </Reference>
-    <Reference Include="SimioDLL">
+    <Reference Include="SimioDLL, Version=12.209.21002.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Simio\SimioDLL.dll</HintPath>
     </Reference>
     <Reference Include="System" />

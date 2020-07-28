@@ -313,7 +313,7 @@ namespace HeadlessLibrary
         }
 
         /// <summary>
-        /// Set the extensionpath, load a project, then the load the model, and run a plan for that model.
+        /// Set the extensionpath, load a project, then load the model, and run a plan for that model.
         /// </summary>
         /// <param name="extensionsPath">For DLL search. E.g. AppDomain.CurrentDomain.BaseDirectory</param>
         /// <param name="projectPathAndFile"></param>
@@ -370,7 +370,7 @@ namespace HeadlessLibrary
 
                 // Test to see if we can 'cheat'
                 IPlan plan = (IPlan)model;
-                plan.RunPlan();
+                plan.RunPlan(new RunPlanOptions() { AllowDesignErrors = true } );
 
                 // Check for Plan
                 if (model.Plan == null)
@@ -382,10 +382,10 @@ namespace HeadlessLibrary
                 // Start Plan
                 marker = "Starting Plan (model.Plan.RunPlan)";
                 LogIt($"Info: {marker}");
-                model.Plan.RunPlan();
+                model.Plan.RunPlan( new RunPlanOptions() { AllowDesignErrors = true } );
 
                 IPlan plan2 = (IPlan)model;
-                plan2.RunPlan();
+                plan2.RunPlan(new RunPlanOptions() { AllowDesignErrors = true });
 
                 if (runRiskAnalysis)
                 {
