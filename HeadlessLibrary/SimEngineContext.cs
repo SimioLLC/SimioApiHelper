@@ -1,16 +1,21 @@
-﻿using SimioAPI;
+﻿using LoggertonHelpers;
+using SimioAPI;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace HeadlessLibrary
 {
     /// <summary>
     /// A context object that is used by some of the HeadlessHelpers methods
     /// </summary>
-    public class HeadlessContext
+    public class SimEngineContext
     {
+
+        private Loggerton Logger { get; set; }
 
         public string ProjectPath { get; set; }
 
@@ -23,7 +28,12 @@ namespace HeadlessLibrary
         /// The currently loaded project.
         /// </summary>
         public ISimioProject CurrentProject { get; set; }
-        
+
+        /// <summary>
+        /// Results from Experiment's scenarios, keyed by scenario name
+        /// </summary>
+        public Dictionary<string, ExperimentResult> ExperimentResultsDict = new Dictionary<string, ExperimentResult>();
+
         /// <summary>
         /// The currently loaded model
         /// </summary>
@@ -49,11 +59,19 @@ namespace HeadlessLibrary
         /// </summary>
         public List<string> ProjectSaveErrorList { get; set; }
 
-        public HeadlessContext(string extensionsPath)
+        public SimEngineContext(string extensionsPath)
         {
             if (!Initialize(extensionsPath, out string explanation))
                 throw new ApplicationException($"Initializing Headless Context. Err-{explanation}");
 
+        }
+
+        private void LogIt(string msg)
+        {
+            if (Logger == null)
+                return;
+
+            Logger.LogIt(EnumLogFlags.All, $"{msg}");
         }
 
         /// <summary>
@@ -90,6 +108,23 @@ namespace HeadlessLibrary
                 explanation = $"Failed to initialize HeadlessContext. ExtensionsPath={extensionsPath} Err={ex.Message}";
                 return false;
             }
+
+        }
+
+        /// <summary>
+        /// Initialize, which means setting the ExtensionsPath and loading the project.
+        /// If there are warnings, they are placed in LoadWarningsList.
+        /// </summary>
+        /// <param name="extensionsPath"></param>
+        /// <param name="projectFullPath"></param>
+        /// <param name="explanation"></param>
+        /// <returns></returns>
+        public bool Initialize(string extensionsPath, Loggerton logger, out string explanation)
+        {
+            explanation = "";
+            this.Logger = logger;
+
+            return Initialize(extensionsPath, out explanation);
 
         }
 
@@ -151,8 +186,8 @@ namespace HeadlessLibrary
 
         /// <summary>
         /// Load the model from the given project.
-        /// Returns a Model object or a null if errors.
-        /// </summary>
+        /// Returns true of the model loads, or false and an error list if it doesn't
+        /// /// </summary>
         /// <param name="modelName"></param>
         public bool LoadModel(string modelName, out string explanation)
         {
@@ -173,15 +208,17 @@ namespace HeadlessLibrary
                 CurrentModel = CurrentProject.Models[modelName];
                 if (CurrentModel != null)
                 {
-                    ModelLoadErrorList.Clear();
                     if (CurrentModel.Errors.Count > 0 )
                     {
                         int errorCount = 0;
-                        // Log any model errors
+                        // Create a string from model errors
+                        StringBuilder sb = new StringBuilder();
                         foreach (IError err in CurrentModel.Errors)
                         {
-                            ModelLoadErrorList.Add($"  {++errorCount}. Error={err.ErrorText} Object={err.ObjectName} Type={err.ObjectType} Property: Name={err.PropertyName} Value={err.PropertyValue}");
+                            sb.AppendLine($" {++errorCount}. Error={err.ErrorText} Object={err.ObjectName} Type={err.ObjectType} Property: Name={err.PropertyName} Value={err.PropertyValue}");
                         }
+                        explanation = $"Model={modelName} LoadErrors:{sb}";
+                        return false;
                     }
                 }
                 else // model is null
@@ -234,7 +271,7 @@ namespace HeadlessLibrary
             try
             {
                 marker = "Starting Plan (model.Plan.RunPlan)";
-                CurrentModel.Plan.RunPlan();
+                CurrentModel.Plan.RunPlan(null);
 
                 marker = "End";
 
@@ -300,7 +337,7 @@ namespace HeadlessLibrary
         /// </summary>
         /// <param name="explanation"></param>
         /// <returns></returns>
-        public bool RunModelExperiment( out string explanation)
+        public bool RunModelExperiment( string resultFilepath, out string explanation)
         {
             explanation = "";
             string marker = "Begin";
@@ -326,10 +363,86 @@ namespace HeadlessLibrary
 
             try
             {
+                CurrentExperiment.ReplicationEnded += (s, e) =>
+                {
+                    int repNumber = e.ReplicationNumber;
+                    double runTime = e.ActualRuntimeInSeconds;
+                };
+
+                CurrentExperiment.ScenarioEnded += (s, e) =>
+                {
+                    LogIt($"ScenarioEnded: Results:");
+
+                    foreach (var result in e.Results)
+                    {
+                        // Log the results to get a feel for what is being returned.
+                        LogIt($"ScenarioEnded: ObjType='{result.ObjectType}', ObjName='{result.ObjectName}', DS='{result.DataSource}', " +
+                            $"Cat='{result.StatisticCategory}', DataItem='{result.DataItem}', Stat='{result.StatisticCategory}', " +
+                            $"Avg='{result.Average:0.00}', Min='{result.Minimum:f0.00}', Max='{result.Maximum:f0.00}");
+
+                        // Also, let's store in a dictionary, keyed by scenarioName:ObjectType:ObjectName
+                        string key = $"{e.Scenario.Name}:{result.ObjectType}:{result.ObjectName}:{result.DataItem}";
+                        ExperimentResult experimentResult = new ExperimentResult(e.Scenario, result);
+                        ExperimentResultsDict.Add(key, experimentResult);
+                    }
+
+
+                };
+
+                CurrentExperiment.RunCompleted += (s, e) =>
+                {
+                    LogIt($"RunCompleted:");
+                };
+
+                CurrentExperiment.RunProgressChanged += (s, e) =>
+                {
+                    LogIt($"ProgressChanged:");
+                    string ss = e.ToString();
+                };
+               
+
                 // Run the experiment. Events will be thrown when replications start and end,
                 // so you would have to handle those elsewhere.
                 marker = "Starting Experiment (Experiment.Run)";
+                CurrentExperiment.Reset();
+
+                ExperimentResultsDict.Clear();
                 CurrentExperiment.Run();
+
+                string folder = Path.GetDirectoryName(resultFilepath);
+                if ( Directory.Exists(folder))
+                {
+
+                    StringBuilder sb = new StringBuilder();
+                    // Build a tab-delimted file
+
+                    foreach (var kvp in ExperimentResultsDict
+                        .OrderBy(rr => rr.Value.Scenario.Name)
+                        .OrderBy(rr => rr.Value.Result.ObjectType))
+                    {
+                        var vv = kvp.Value;
+                        var res = vv.Result;
+                        string line = $"{vv.Scenario.Name}\t{res.ObjectType}\t{res.ObjectName}"
+                            + $"\t{res.Average:f0.00}\t{res.Minimum:f0.00}\t{res.Maximum:f0.00}";
+                        sb.AppendLine(line);
+                    }
+
+                    File.WriteAllText(resultFilepath, sb.ToString());
+                }
+
+
+
+                foreach ( var scenario in CurrentExperiment.Scenarios)
+                {
+                    IResponseValues respVals = scenario.ResponseValues;
+                    
+                    // scenario has ResponseValues
+                }
+
+                foreach ( var param in CurrentExperiment.Parameters)
+                {
+
+                }
 
                 marker = "End";
                 return true;

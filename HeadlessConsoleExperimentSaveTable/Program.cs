@@ -69,7 +69,7 @@ namespace RunSimioScheduleConsole
                     // Start Experiment
                     Console.WriteLine("Starting Experiment");
 
-                    if (!HeadlessHelpers.RunExperiment(extensionsPath, projectPathAndFile, modelName, experimentName, saveModelAfterRun,
+                    if (!SimEngineHelpers.RunExperiment(extensionsPath, projectPathAndFile, modelName, experimentName, saveModelAfterRun,
                             out string explanation))
                     {
                         throw new ApplicationException(explanation);

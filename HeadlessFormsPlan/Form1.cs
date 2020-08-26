@@ -38,7 +38,7 @@ namespace HeadlessFormsPlan
             try
             {
 
-                ISimioProject project = HeadlessHelpers.LoadProject(extensionsPath, projectPath, out explanation);
+                ISimioProject project = SimEngineHelpers.LoadProject(extensionsPath, projectPath, out explanation);
                 if (project == null)
                 {
                     explanation = $"Cannot load project={projectPath}. Reason={explanation}";
@@ -91,7 +91,7 @@ namespace HeadlessFormsPlan
 
         private void buttonHeadlessSelectModel_Click(object sender, EventArgs e)
         {
-            textHeadlessProjectFile.Text = HeadlessHelpers.GetProjectFile();
+            textHeadlessProjectFile.Text = SimEngineHelpers.GetProjectFile();
         }
 
         private void timerLogs_Tick(object sender, EventArgs e)
@@ -110,7 +110,7 @@ namespace HeadlessFormsPlan
                 string extensionsPath = textExtensionsPath.Text;
                 Logit($"Info: Running Model={modelName} Plan. ExtensionsPath={extensionsPath}");
 
-                if (!HeadlessHelpers.RunModelPlan(extensionsPath, projectPath, modelName, 
+                if (!SimEngineHelpers.RunModelPlan(extensionsPath, projectPath, modelName, 
                     cbHeadlessRunRiskAnalysis.Checked, 
                     cbHeadlessSaveModelAfterRun.Checked,
                     cbHeadlessRunPublishPlanAfterRun.Checked, out string explanation))
@@ -146,7 +146,7 @@ namespace HeadlessFormsPlan
 
         private void buttonSelectExtensionsPath_Click(object sender, EventArgs e)
         {
-            string extensionsPath = HeadlessHelpers.GetExtensionsFolder();
+            string extensionsPath = SimEngineHelpers.GetExtensionsFolder();
             textExtensionsPath.Text = extensionsPath;
         }
 

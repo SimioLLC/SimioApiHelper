@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimioApiHelper", "SimioApiH
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeadlessFormsExperiment", "HeadlessFormsExperiment\HeadlessFormsExperiment.csproj", "{B5E17444-07ED-4832-9883-FDC3E8BCBAFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeadlessLibrary", "HeadlessLibrary\HeadlessLibrary.csproj", "{CA2AB3A8-EDBF-4D16-BB00-FB8C5F6CFEEC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimEngineLibrary", "HeadlessLibrary\SimEngineLibrary.csproj", "{CA2AB3A8-EDBF-4D16-BB00-FB8C5F6CFEEC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeadlessFormsPlan", "HeadlessFormsPlan\HeadlessFormsPlan.csproj", "{9A929FED-8005-479D-96F9-3CD20B6F9CB1}"
 EndProject

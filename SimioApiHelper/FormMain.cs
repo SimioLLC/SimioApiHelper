@@ -21,7 +21,7 @@ namespace SimioApiHelper
     {
         private bool IsLoaded = false;
 
-        HeadlessContext HeadlessRunContext { get; set; }
+        SimEngineContext HeadlessRunContext { get; set; }
 
         FileSystemWatcher FileWatcher { get; set; }
 
@@ -945,7 +945,7 @@ namespace SimioApiHelper
                 comboHeadlessRunModels.Text = Properties.Settings.Default.HeadlessRunModel;
                 comboHeadlessRunExperiments.Text = Properties.Settings.Default.HeadlessRunExperiment;
 
-                HeadlessRunContext = new HeadlessContext(textHeadlessRunFilesLocation.Text);
+                HeadlessRunContext = new SimEngineContext(textHeadlessRunFilesLocation.Text);
 
 
             }
@@ -1251,7 +1251,7 @@ namespace SimioApiHelper
 
         private void SetStatusLabel(string msg)
         {
-            labelStatus.Text = msg;
+            StatusStripBottom.Text = msg;
         }
 
         private void timerLogs_Tick(object sender, EventArgs e)
@@ -1299,7 +1299,7 @@ namespace SimioApiHelper
 
             try
             {
-                string projectFile = HeadlessHelpers.GetProjectFile();
+                string projectFile = SimEngineHelpers.GetProjectFile();
                 textHeadlessRunProjectFile.Text = projectFile;
 
                 Cursor.Current = Cursors.WaitCursor;
@@ -1316,8 +1316,17 @@ namespace SimioApiHelper
                 comboHeadlessRunModels.DataSource = project.Models.ToList();
                 comboHeadlessRunModels.DisplayMember = "Name";
 
-                SetStateTabHeadlessRun("ProjectLoaded");
+                List<string> errorList = new List<string>();
+                foreach ( IModel model in project.Models)
+                {
+                    if ( !HeadlessRunContext.LoadModel(model.Name, out explanation))
+                    {
+                        Alert(explanation);
+                        return;
+                    }
+                }
 
+                SetStateTabHeadlessRun("ProjectLoaded");
             }
             catch (Exception ex)
             {
@@ -1361,8 +1370,9 @@ namespace SimioApiHelper
             try
             {
                 string extensionsPath = textHeadlessRunFilesLocation.Text;
+                string resultsPath = textResultsPath.Text;
 
-                if (!HeadlessRunContext.RunModelExperiment( out string explanation))
+                if (!HeadlessRunContext.RunModelExperiment( resultsPath, out string explanation))
                 {
                     Alert(explanation);
                 }
@@ -1548,7 +1558,7 @@ namespace SimioApiHelper
                         buttonHeadlessRunSelectProjectFile.Enabled = true;
                         comboHeadlessRunModels.Enabled = true;
                         comboHeadlessRunExperiments.Enabled = true;
-                        buttonHeadlessRunExperiment.Enabled = false;
+                        buttonHeadlessRunExperiment.Enabled = true;
                         buttonHeadlessRunPlan.Enabled = true;
                         buttonHeadlessRunRiskAnalysis.Enabled = true;
                     }
@@ -1597,7 +1607,7 @@ namespace SimioApiHelper
                     return;
                 }
 
-                HeadlessRunContext = new HeadlessContext(dialog.SelectedPath);
+                HeadlessRunContext = new SimEngineContext(dialog.SelectedPath);
                 if ( HeadlessRunContext == null )
                 {
                     Alert($"Cannot SetExtensions to={dialog.SelectedPath}");
@@ -1641,10 +1651,20 @@ namespace SimioApiHelper
             var model = (IModel)(sender as ComboBox).SelectedItem;
             if (model != null)
             {
-                //comboHeadlessRunExperiments.Items.Clear();
-                comboHeadlessRunExperiments.DataSource = model.Experiments.ToList();
-                comboHeadlessRunExperiments.DisplayMember = "Name";
+                if ( model.Experiments.Any())
+                {
+                    buttonHeadlessRunExperiment.Enabled = true;
+                    comboHeadlessRunExperiments.DataSource = model.Experiments.ToList();
+                    comboHeadlessRunExperiments.DisplayMember = "Name";
+                }
+                else
+                {
+                    buttonHeadlessRunExperiment.Enabled = false;
+                    comboHeadlessRunExperiments.DataSource = null;
+                    comboHeadlessRunExperiments.Text = "";
+                }
             }
+
             HeadlessRunContext.CurrentModel = model;
             SetStateTabHeadlessRun("ModelLoaded");
 
@@ -1927,6 +1947,51 @@ namespace SimioApiHelper
         {
             if (!AddDependenciesToHarvestTarget(DependencyList, textHarvestSourceFolder.Text, textHarvestTargetFolder.Text, out string explanation))
                 Alert(explanation);
+        }
+
+        private void buttonResultsPath_Click(object sender, EventArgs e)
+        {
+            string marker = "Select the path";
+            var project = HeadlessRunContext.CurrentProject;
+
+            if ( project == null )
+            {
+                Alert($"No Current Project file selected");
+            }
+
+            try
+            {
+                string projectFile = textHeadlessRunProjectFile.Text;
+                if (projectFile == null)
+                {
+                    Alert($"No Project file selected");
+                }
+
+                string name = Path.GetFileNameWithoutExtension(projectFile);
+                string folder = Path.GetDirectoryName(projectFile);
+
+                SaveFileDialog dialog = new SaveFileDialog();
+                dialog.OverwritePrompt = true;
+                dialog.FileName = Path.Combine(folder, name + ".csv");
+                dialog.Filter = "CSV File (*.csv)|*.csv";
+
+                DialogResult result = dialog.ShowDialog();
+
+                if ( result == DialogResult.OK)
+                {
+                    textResultsPath.Text = dialog.FileName;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException($"Cannot Get Results Path. Marker={marker} Err={ex.Message}");
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
+
         }
     }
 }

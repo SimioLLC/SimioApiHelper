@@ -72,9 +72,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HeadlessLibrary\HeadlessLibrary.csproj">
+    <ProjectReference Include="..\HeadlessLibrary\SimEngineLibrary.csproj">
       <Project>{CA2AB3A8-EDBF-4D16-BB00-FB8C5F6CFEEC}</Project>
-      <Name>HeadlessLibrary</Name>
+      <Name>SimEngineLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

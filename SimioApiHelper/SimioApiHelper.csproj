@@ -85,6 +85,8 @@
     <Compile Include="DialogCreateIcon.Designer.cs">
       <DependentUpon>DialogCreateIcon.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExperimentResult.cs" />
+    <Compile Include="MyExtensions.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,9 +130,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HeadlessLibrary\HeadlessLibrary.csproj">
+    <ProjectReference Include="..\HeadlessLibrary\SimEngineLibrary.csproj">
       <Project>{ca2ab3a8-edbf-4d16-bb00-fb8c5f6cfeec}</Project>
-      <Name>HeadlessLibrary</Name>
+      <Name>SimEngineLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

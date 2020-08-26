@@ -13,7 +13,7 @@ namespace HeadlessLibrary
     /// <summary>
     /// Helpers for running the Simio Model in a non-UI aka "headless" mode.
     /// </summary>
-    public static class HeadlessHelpers
+    public static class SimEngineHelpers
     {
 
         /// <summary>
@@ -55,16 +55,20 @@ namespace HeadlessLibrary
                     return false;
 
                 // Create some methods to handle experiment events
+
+                // Here the 'e' is ReplicationEndedEventArgs
                 experiment.ReplicationEnded += (s, e) =>
                 {
                     LogIt($"Info: Event=> Ended Replication={e.ReplicationNumber} of Scenario={e.Scenario.Name}.");
                 };
 
+                // Here the 'e' is ScenarioEndedEventArgs
                 experiment.ScenarioEnded += (s, e) =>
                 {
                     LogIt($"Info: Event=> Scenario={e.Scenario.Name} Ended.");
                 };
 
+                // Here the 'e' is RunCompletedEventArgs
                 experiment.RunCompleted += (s, e) =>
                 {
                     LogIt($"Info: Event=> Experiment={experiment.Name} Run Complete. ");
@@ -75,10 +79,15 @@ namespace HeadlessLibrary
                 experiment.Run();
                 //experiment.RunAsync(); // Another option
 
+                // Let's look at some results
+                var response = experiment.Responses;
+
                 if (saveModelAfterRun)
                 {
                     marker = $"Save Project After Experiment Run to= (SimioProjectFactory.SaveProject)";
                     LogIt($"Info: {marker}");
+
+                    
 
                     string[] warnings;
                     SimioProjectFactory.SaveProject(project, projectFullPath, out warnings);
@@ -101,7 +110,7 @@ namespace HeadlessLibrary
         /// </summary>
         /// <param name="project"></param>
         /// <param name="savePath"></param>
-        public static bool SaveProject(HeadlessContext context, string savePath, out string explanation)
+        public static bool SaveProject(SimEngineContext context, string savePath, out string explanation)
         {
             explanation = "";
             string marker = "Begin.";
@@ -155,13 +164,13 @@ namespace HeadlessLibrary
         /// Load the project file and return a SimioProject
         /// </summary>
         /// <param name="projectFullPath"></param>
-        public static HeadlessContext CreateContext(string extensionsPath, out string explanation)
+        public static SimEngineContext CreateContext(string extensionsPath, out string explanation)
         {
             explanation = "";
             
             try
             {
-                HeadlessContext context = new HeadlessContext(extensionsPath);
+                SimEngineContext context = new SimEngineContext(extensionsPath);
 
                 return context;
             }

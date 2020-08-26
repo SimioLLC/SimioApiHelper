@@ -82,7 +82,7 @@ namespace HeadlessFormsExperiment
             try
             {
 
-                ISimioProject project = HeadlessHelpers.LoadProject(extensionsPath, projectPath, out explanation);
+                ISimioProject project = SimEngineHelpers.LoadProject(extensionsPath, projectPath, out explanation);
                 if (project == null)
                 {
                     explanation = $"Cannot load project={projectPath}. Reason={explanation}";
@@ -126,7 +126,7 @@ namespace HeadlessFormsExperiment
             try
             {
                 bool saveModelAfterRun = cbHeadlessSaveModelAfterRun.Checked;
-                if (!HeadlessHelpers.RunExperiment(extensionsPath, simioProjectPath, modelName, experimentName, saveModelAfterRun,
+                if (!SimEngineHelpers.RunExperiment(extensionsPath, simioProjectPath, modelName, experimentName, saveModelAfterRun,
                     out string explanation))
                 {
                     Alert(explanation);
@@ -166,7 +166,7 @@ namespace HeadlessFormsExperiment
 
         private void buttonHeadlessSelectModel_Click(object sender, EventArgs e)
         {
-            textHeadlessProjectFile.Text = HeadlessHelpers.GetProjectFile();
+            textHeadlessProjectFile.Text = SimEngineHelpers.GetProjectFile();
         }
 
         private void timerLogs_Tick(object sender, EventArgs e)
