@@ -130,7 +130,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HeadlessLibrary\SimEngineLibrary.csproj">
+    <ProjectReference Include="..\SimEngineLibrary\SimEngineLibrary.csproj">
       <Project>{ca2ab3a8-edbf-4d16-bb00-fb8c5f6cfeec}</Project>
       <Name>SimEngineLibrary</Name>
     </ProjectReference>

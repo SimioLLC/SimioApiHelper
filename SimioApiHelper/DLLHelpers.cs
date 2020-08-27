@@ -203,7 +203,7 @@ namespace SimioApiHelper
 
             if ( assemblyRef.Name.StartsWith("System.Data.SqlXml"))
             {
-                string xx = "";
+//                string xx = "";
             }
 
             if ( stack.Count > MAX_DEPENDENCIES )
@@ -246,7 +246,7 @@ namespace SimioApiHelper
                         {
                             if (aName == assemblyRef.AssemblyName)
                             {
-                                string xx = ""; // looking for recursion
+                                //string xx = ""; // looking for recursion
                             }
 
                             if (!IsIgnoredAssembly(aName.Name))
@@ -369,7 +369,7 @@ namespace SimioApiHelper
             {
                 if ( Name == "System" )
                 {
-                    string xx = "";
+                    //string xx = "";
                 }
                 return $"Level={Level} FullName={AssemblyName.FullName} *No Path*";
             }

@@ -69,6 +69,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="ApiHelperFiles\SimioApiHelper.exe.config" />
     <None Include="DataFiles\ExperimentTest.spfx" />
+    <None Include="DataFiles\ExperimentTestIntro.spfx" />
     <None Include="DataFiles\HealthCareClinic.spfx" />
     <None Include="DataFiles\SchedulingBicycleAssembly.spfx" />
     <None Include="DataFiles\SchedulingDiscretePartProduction.spfx" />
