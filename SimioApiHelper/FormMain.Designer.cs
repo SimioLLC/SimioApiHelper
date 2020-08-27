@@ -97,6 +97,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.textHeadlessRunFilesLocation = new System.Windows.Forms.TextBox();
             this.groupBoxSelectModelAndRun = new System.Windows.Forms.GroupBox();
+            this.textResultsPath = new System.Windows.Forms.TextBox();
+            this.labelSaveResults = new System.Windows.Forms.Label();
+            this.buttonResultsPath = new System.Windows.Forms.Button();
             this.buttonHeadlessRunSaveProject = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.textHeadlessRunProjectFile = new System.Windows.Forms.TextBox();
@@ -135,9 +138,6 @@
             this.buttonFileWatcherStart = new System.Windows.Forms.Button();
             this.timerLogs = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.buttonResultsPath = new System.Windows.Forms.Button();
-            this.labelSaveResults = new System.Windows.Forms.Label();
-            this.textResultsPath = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.StatusStripBottom.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -642,7 +642,7 @@
             this.tabHeadlessHarvester.Name = "tabHeadlessHarvester";
             this.tabHeadlessHarvester.Size = new System.Drawing.Size(1104, 680);
             this.tabHeadlessHarvester.TabIndex = 6;
-            this.tabHeadlessHarvester.Text = "Headless Harvester";
+            this.tabHeadlessHarvester.Text = "SimEngine Harvester";
             this.tabHeadlessHarvester.UseVisualStyleBackColor = true;
             // 
             // panel2
@@ -736,9 +736,9 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(7, 23);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(357, 20);
+            this.label10.Size = new System.Drawing.Size(366, 20);
             this.label10.TabIndex = 26;
-            this.label10.Text = "Location of the Headless Executables (Target)";
+            this.label10.Text = "Location of the SimEngine Executables (Target)";
             // 
             // textHarvestTargetFolder
             // 
@@ -826,10 +826,10 @@
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(8, 14);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(856, 20);
+            this.label13.Size = new System.Drawing.Size(923, 20);
             this.label13.TabIndex = 35;
-            this.label13.Text = "Help in building a headless version by harvesting Simio DLLs from the installatio" +
-    "n folder(s) into your target folder ";
+            this.label13.Text = "Help in building a Simulation Engine version by harvesting Simio DLLs from the in" +
+    "stallation folder(s) into your target folder ";
             this.toolTip1.SetToolTip(this.label13, "Where are the files from the Simio Desktop installation?");
             // 
             // tabHeadlessRun
@@ -839,7 +839,7 @@
             this.tabHeadlessRun.Name = "tabHeadlessRun";
             this.tabHeadlessRun.Size = new System.Drawing.Size(1104, 680);
             this.tabHeadlessRun.TabIndex = 4;
-            this.tabHeadlessRun.Text = "Headless Run";
+            this.tabHeadlessRun.Text = "SimEngine Run";
             this.tabHeadlessRun.UseVisualStyleBackColor = true;
             // 
             // panelHeadlessRun
@@ -884,10 +884,10 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(6, 30);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(645, 20);
+            this.label5.Size = new System.Drawing.Size(654, 20);
             this.label5.TabIndex = 8;
-            this.label5.Text = "Location of the \"SetExtensions\" Folder holding the Headless Executable(s) and DLL" +
-    "s";
+            this.label5.Text = "Location of the \"SetExtensions\" Folder holding the SimEngine Executable(s) and DL" +
+    "Ls";
             // 
             // textHeadlessRunFilesLocation
             // 
@@ -925,6 +925,39 @@
             this.groupBoxSelectModelAndRun.TabStop = false;
             this.groupBoxSelectModelAndRun.Text = "Or (B) Specify a Simio project file (SPFX) and choose a Model/Experiment to Run";
             // 
+            // textResultsPath
+            // 
+            this.textResultsPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textResultsPath.Location = new System.Drawing.Point(190, 192);
+            this.textResultsPath.Name = "textResultsPath";
+            this.textResultsPath.ReadOnly = true;
+            this.textResultsPath.Size = new System.Drawing.Size(645, 27);
+            this.textResultsPath.TabIndex = 37;
+            this.toolTip1.SetToolTip(this.textResultsPath, "This is what the SetExtsnsionsPath should reference");
+            // 
+            // labelSaveResults
+            // 
+            this.labelSaveResults.AutoSize = true;
+            this.labelSaveResults.Location = new System.Drawing.Point(2, 199);
+            this.labelSaveResults.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelSaveResults.Name = "labelSaveResults";
+            this.labelSaveResults.Size = new System.Drawing.Size(117, 20);
+            this.labelSaveResults.TabIndex = 36;
+            this.labelSaveResults.Text = "Save Results?";
+            // 
+            // buttonResultsPath
+            // 
+            this.buttonResultsPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonResultsPath.Location = new System.Drawing.Point(847, 189);
+            this.buttonResultsPath.Name = "buttonResultsPath";
+            this.buttonResultsPath.Size = new System.Drawing.Size(240, 40);
+            this.buttonResultsPath.TabIndex = 35;
+            this.buttonResultsPath.Text = "ResultsPath...";
+            this.toolTip1.SetToolTip(this.buttonResultsPath, "Where results should be written to (a CSV file)");
+            this.buttonResultsPath.UseVisualStyleBackColor = true;
+            this.buttonResultsPath.Click += new System.EventHandler(this.buttonResultsPath_Click);
+            // 
             // buttonHeadlessRunSaveProject
             // 
             this.buttonHeadlessRunSaveProject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -943,9 +976,9 @@
             this.label9.Location = new System.Drawing.Point(21, 23);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(581, 20);
+            this.label9.Size = new System.Drawing.Size(590, 20);
             this.label9.TabIndex = 26;
-            this.label9.Text = "... Specify a Simio Project Name (.SPFX) and use the built-in Headless code.";
+            this.label9.Text = "... Specify a Simio Project Name (.SPFX) and use the built-in SimEngine code.";
             // 
             // textHeadlessRunProjectFile
             // 
@@ -1330,39 +1363,6 @@
             // 
             this.timerLogs.Interval = 1000;
             this.timerLogs.Tick += new System.EventHandler(this.timerLogs_Tick);
-            // 
-            // buttonResultsPath
-            // 
-            this.buttonResultsPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonResultsPath.Location = new System.Drawing.Point(847, 189);
-            this.buttonResultsPath.Name = "buttonResultsPath";
-            this.buttonResultsPath.Size = new System.Drawing.Size(240, 40);
-            this.buttonResultsPath.TabIndex = 35;
-            this.buttonResultsPath.Text = "ResultsPath...";
-            this.toolTip1.SetToolTip(this.buttonResultsPath, "Save the Project File");
-            this.buttonResultsPath.UseVisualStyleBackColor = true;
-            this.buttonResultsPath.Click += new System.EventHandler(this.buttonResultsPath_Click);
-            // 
-            // labelSaveResults
-            // 
-            this.labelSaveResults.AutoSize = true;
-            this.labelSaveResults.Location = new System.Drawing.Point(2, 199);
-            this.labelSaveResults.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelSaveResults.Name = "labelSaveResults";
-            this.labelSaveResults.Size = new System.Drawing.Size(117, 20);
-            this.labelSaveResults.TabIndex = 36;
-            this.labelSaveResults.Text = "Save Results?";
-            // 
-            // textResultsPath
-            // 
-            this.textResultsPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textResultsPath.Location = new System.Drawing.Point(190, 192);
-            this.textResultsPath.Name = "textResultsPath";
-            this.textResultsPath.ReadOnly = true;
-            this.textResultsPath.Size = new System.Drawing.Size(645, 27);
-            this.textResultsPath.TabIndex = 37;
-            this.toolTip1.SetToolTip(this.textResultsPath, "This is what the SetExtsnsionsPath should reference");
             // 
             // FormMain
             // 

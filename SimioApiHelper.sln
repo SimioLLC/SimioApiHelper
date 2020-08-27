@@ -5,15 +5,15 @@ VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimioApiHelper", "SimioApiHelper\SimioApiHelper.csproj", "{2762FF6D-665E-4161-B56D-EA377875A10E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeadlessFormsExperiment", "HeadlessFormsExperiment\HeadlessFormsExperiment.csproj", "{B5E17444-07ED-4832-9883-FDC3E8BCBAFC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimEngineFormsExperiment", "HeadlessFormsExperiment\SimEngineFormsExperiment.csproj", "{B5E17444-07ED-4832-9883-FDC3E8BCBAFC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimEngineLibrary", "HeadlessLibrary\SimEngineLibrary.csproj", "{CA2AB3A8-EDBF-4D16-BB00-FB8C5F6CFEEC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeadlessFormsPlan", "HeadlessFormsPlan\HeadlessFormsPlan.csproj", "{9A929FED-8005-479D-96F9-3CD20B6F9CB1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimEngineFormsPlan", "HeadlessFormsPlan\SimEngineFormsPlan.csproj", "{9A929FED-8005-479D-96F9-3CD20B6F9CB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeadlessConsolePlanPublish", "HeadlessConsolePlanPublish\HeadlessConsolePlanPublish.csproj", "{74A01328-FFD1-4DC0-88AA-CD77CA34E7D0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimEngineConsolePlanPublish", "HeadlessConsolePlanPublish\SimEngineConsolePlanPublish.csproj", "{74A01328-FFD1-4DC0-88AA-CD77CA34E7D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeadlessConsoleExperimentSaveTable", "HeadlessConsoleExperimentSaveTable\HeadlessConsoleExperimentSaveTable.csproj", "{B1E18896-9816-40E3-B260-E4E56A23CD72}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimEngineConsoleExperimentSaveTable", "HeadlessConsoleExperimentSaveTable\SimEngineConsoleExperimentSaveTable.csproj", "{B1E18896-9816-40E3-B260-E4E56A23CD72}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimioApiHelper Setup", "SimioApiHelper Setup\SimioApiHelper Setup.csproj", "{44555887-C439-470C-944D-8866EC3D7067}"
 EndProject

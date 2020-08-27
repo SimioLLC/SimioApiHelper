@@ -29,10 +29,6 @@ namespace HeadlessLibrary
         /// </summary>
         public ISimioProject CurrentProject { get; set; }
 
-        /// <summary>
-        /// Results from Experiment's scenarios, keyed by scenario name
-        /// </summary>
-        public Dictionary<string, ExperimentResult> ExperimentResultsDict = new Dictionary<string, ExperimentResult>();
 
         /// <summary>
         /// The currently loaded model
@@ -342,6 +338,8 @@ namespace HeadlessLibrary
             explanation = "";
             string marker = "Begin";
 
+            ExperimentResults experimentResults = new ExperimentResults();
+
             if (CurrentProject == null)
             {
                 explanation = $"Cannot run plan. No Project is currently loaded";
@@ -380,13 +378,8 @@ namespace HeadlessLibrary
                             $"Cat='{result.StatisticCategory}', DataItem='{result.DataItem}', Stat='{result.StatisticCategory}', " +
                             $"Avg='{result.Average:0.00}', Min='{result.Minimum:f0.00}', Max='{result.Maximum:f0.00}");
 
-                        // Also, let's store in a dictionary, keyed by scenarioName:ObjectType:ObjectName
-                        string key = $"{e.Scenario.Name}:{result.ObjectType}:{result.ObjectName}:{result.DataItem}";
-                        ExperimentResult experimentResult = new ExperimentResult(e.Scenario, result);
-                        ExperimentResultsDict.Add(key, experimentResult);
+                        experimentResults.AddScenarioResults(e.Scenario, e.Results);
                     }
-
-
                 };
 
                 CurrentExperiment.RunCompleted += (s, e) =>
@@ -406,7 +399,6 @@ namespace HeadlessLibrary
                 marker = "Starting Experiment (Experiment.Run)";
                 CurrentExperiment.Reset();
 
-                ExperimentResultsDict.Clear();
                 CurrentExperiment.Run();
 
                 string folder = Path.GetDirectoryName(resultFilepath);
@@ -414,34 +406,13 @@ namespace HeadlessLibrary
                 {
 
                     StringBuilder sb = new StringBuilder();
-                    // Build a tab-delimted file
+                    // Build a tab-delimited file
 
-                    foreach (var kvp in ExperimentResultsDict
-                        .OrderBy(rr => rr.Value.Scenario.Name)
-                        .OrderBy(rr => rr.Value.Result.ObjectType))
+                    if ( !experimentResults.OutputCsv( resultFilepath, out explanation))
                     {
-                        var vv = kvp.Value;
-                        var res = vv.Result;
-                        string line = $"{vv.Scenario.Name}\t{res.ObjectType}\t{res.ObjectName}"
-                            + $"\t{res.Average:f0.00}\t{res.Minimum:f0.00}\t{res.Maximum:f0.00}";
-                        sb.AppendLine(line);
+                        explanation = $"Cannot Write CSV results to={resultFilepath}";
+                        return false;
                     }
-
-                    File.WriteAllText(resultFilepath, sb.ToString());
-                }
-
-
-
-                foreach ( var scenario in CurrentExperiment.Scenarios)
-                {
-                    IResponseValues respVals = scenario.ResponseValues;
-                    
-                    // scenario has ResponseValues
-                }
-
-                foreach ( var param in CurrentExperiment.Parameters)
-                {
-
                 }
 
                 marker = "End";
