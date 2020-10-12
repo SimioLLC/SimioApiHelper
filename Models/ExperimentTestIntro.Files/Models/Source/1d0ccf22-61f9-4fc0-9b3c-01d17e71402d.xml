@@ -1,0 +1,766 @@
+<Fragment>
+  <ChangeDescriptions>
+    <ChangeDescription Version="36">Version 2.37: Updated the Source object to provide an 'Initial Number Entities' option for the 'On Event' arrival mode, for creating an initial number of entities at the beginning of the simulation run in addition to entities created by the specified Event Name. Also added a 'Rate Scale Factor' option for the 'Time Varying Arrival Rate' arrival mode, for scaling the arrival rate values specified in the rate table.</ChangeDescription>
+    <ChangeDescription Version="40">Version 2.39: Updated the Source object to provide a 'State Assignments' property category.</ChangeDescription>
+    <ChangeDescription Version="48">Version 2.40: Updated the Source object to provide a 'Table Reference Assignment' property category. In the object process logic, the 'Action' property for all Execute steps executing an 'add-on process' is now specified as 'WaitUntilCompleted'.</ChangeDescription>
+    <ChangeDescription Version="50">Version 2.41: Updated the Source object to provide a 'Stopping Conditions' property category. Updated the assignments repeat groups to take state units into account.</ChangeDescription>
+    <ChangeDescription Version="51">Version 3.42: Changes related to setting the 'Token Associated Object Destroyed Action' option for process logic in this object.</ChangeDescription>
+    <ChangeDescription Version="54">Version 3.47: Renamed 'Table Reference Assignment' property category to 'Table Reference Assignments'. Added new 'Appearance' property category.</ChangeDescription>
+    <ChangeDescription Version="58">Version 3.49: Specified the 'OnAssociatedObjectTransferRequested' property of some processes as 'EndProcess'.</ChangeDescription>
+    <ChangeDescription Version="67">Version 3.54: Conversion to 'OnRunInitialized' standard interface process. Added 'Run Ending' add-on process trigger. For the 'Arrival Table' arrival mode option, added new 'Arrival Time Deviation','No-Show Probability', and 'Repeat Arrival Pattern' features. Also, to support the 'Maximum Time' stopping condition, the Source object's logic now takes advantage of a new 'Maximum Time' feature in the Timer element rather than using a Delay step-based approach.</ChangeDescription>
+    <ChangeDescription Version="68">Version 3.56: For the 'Arrival Table' arrival mode option, added new 'Arrival Events Per Time Slot' feature.</ChangeDescription>
+    <ChangeDescription Version="70">Version 4.58: Added new 'Advanced Options' property category.</ChangeDescription>
+    <ChangeDescription Version="72">Version 4.61: Added new 'Financials' property category.</ChangeDescription>
+    <ChangeDescription Version="74">Version 4.62: Added new 'Financials-&gt;Buffer Costs' property category.</ChangeDescription>
+    <ChangeDescription Version="75">Version 4.63: Reordered the position of the 'Financials' property category.</ChangeDescription>
+    <ChangeDescription Version="77">Version 4.68: Renamed 'InitializedAddOnProcess' property to 'RunInitializedAddOnProcess'.</ChangeDescription>
+    <ChangeDescription Version="78">Version 4.73: Renamed 'EventName' property to 'TriggeringEventName'. Renamed 'EventCount' property to 'TriggeringEventCount'.</ChangeDescription>
+    <ChangeDescription Version="80">Version 4.78: Renamed 'Arrival Logic' property category to 'Entity Arrival Logic'.</ChangeDescription>
+    <ChangeDescription Version="81">Version 5.87: Process logic now uses new property 'HasValue' function instead of deprecated 'IsDefined'.</ChangeDescription>
+    <ChangeDescription Version="83">Version 5.90: 'Before Creating Entities' table reference assignments are now supported by the 'Initial Number Entities' feature if using the 'On Event' arrival mode.</ChangeDescription>
+    <ChangeDescription Version="86">Version 5.91: Version update to support TransferNode object update. Added information to indicate which properties to display if the new 'Show Commonly Used Properties Only' option is enabled.</ChangeDescription>
+    <ChangeDescription Version="87">Version 6.103: Some property description updates.</ChangeDescription>
+    <ChangeDescription Version="88">Version 6.106: Required update due to TransferNode object updates.</ChangeDescription>
+    <ChangeDescription Version="89">Version 7.122: Required update due to TransferNode object updates.</ChangeDescription>
+    <ChangeDescription Version="90">Version 7.123: Required update due to TransferNode object updates.</ChangeDescription>
+    <ChangeDescription Version="91">Version 7.130: Added new 'Entity Arrival Logic -&gt; Other Arrival Stream Options' property category.</ChangeDescription>
+    <ChangeDescription Version="92">Version 7.130: Required update due to TransferNode object updates.</ChangeDescription>
+    <ChangeDescription Version="96">Version 7.131: Required update due to TransferNode object updates.</ChangeDescription>
+    <ChangeDescription Version="97">Version 8.133: Required update due to TransferNode object updates.</ChangeDescription>
+    <ChangeDescription Version="98">Version 8.134: Required update due to TransferNode object updates.</ChangeDescription>
+    <ChangeDescription Version="99">Version 8.135: Hide the inherited 'ExpectedSetupTimeExpression' and 'ExpectedOperationTimeExpression' properties.</ChangeDescription>
+    <ChangeDescription Version="100">Version 8.137: Required update due to TransferNode object updates.</ChangeDescription>
+    <ChangeDescription Version="101">Version 8.139: Added new 'Buffer Capacities' property category.</ChangeDescription>
+    <ChangeDescription Version="102">Version 8.141: Required update due to TransferNode object updates.</ChangeDescription>
+    <ChangeDescription Version="104">Version 8.145: 'Redirect Location Type' property of OutputBuffer station specified as 'ParentExternalNode' with redirect external node name 'Output'. Created entities now first transferred into an infinite capacity 'Processing' station before transferring into the source's OutputBuffer station.</ChangeDescription>
+    <ChangeDescription Version="105">Version 8.146: Renamed 'Buffer Capacity' property category to 'Buffer Logic'. Added output buffer balking options.</ChangeDescription>
+    <ChangeDescription Version="106">Version 8.147: Renamed 'Table Reference Assignments' property category to 'Table Row Referencing'. Added ability to table row referencing options to either add a new table row (automatically setting a reference to the new row) or reference an existing row.</ChangeDescription>
+    <ChangeDescription Version="108">Version 9.149: Added Buffer Logic -&gt; Balking &amp; Reneging Options -&gt; Renege Triggers.</ChangeDescription>
+    <ChangeDescription Version="109">Version 9.156: OnRunInitialized process logic - Added an Exclusion Expression for the Decide step that checks whether to create initial entities if the Arrival Mode is 'On Event'.</ChangeDescription>
+    <ChangeDescription Version="110">Version 9.158: Required update due to TransferNode object update.</ChangeDescription>
+    <ChangeDescription Version="111">Version 9.161: Required update due to TransferNode object update.</ChangeDescription>
+    <ChangeDescription Version="112">Version 9.164: Required update due to TransferNode object update.</ChangeDescription>
+    <ChangeDescription Version="113">Version 9.170: Property description updates.</ChangeDescription>
+    <ChangeDescription Version="114">Version 10.174: Required update due to TransferNode object update.</ChangeDescription>
+    <ChangeDescription Version="115">Version 10.176: Required update due to TransferNode object update.</ChangeDescription>
+    <ChangeDescription Version="116">Version 10.180: Some property description updates.</ChangeDescription>
+    <ChangeDescription Version="117">Version 11.193: Required update due to TransferNode object update.</ChangeDescription>
+    <ChangeDescription Version="118">Version 12.203: Required update due to TransferNode object update.</ChangeDescription>
+  </ChangeDescriptions>
+  <ChangeStringReplacements>
+    <ChangeStringReplacement Version="77" RegularExpressionPattern="(^|[^\w_])(?i:InitializedAddOnProcess)([^\w_]|$)" ReplacementString="$1RunInitializedAddOnProcess$2" />
+  </ChangeStringReplacements>
+  <Lists>
+    <StringList Name="OnBalkingAssignConditionType">
+      <Items>
+        <Item Value="BalkingEnteringOutputBuffer" />
+        <Item Value="CustomCondition" />
+      </Items>
+    </StringList>
+    <StringList Name="OnRenegingAssignConditionType">
+      <Items>
+        <Item Value="RenegingFromOutputBuffer" />
+        <Item Value="CustomCondition" />
+      </Items>
+    </StringList>
+  </Lists>
+  <PropertyDefinitions>
+    <Categories>
+      <Category Name="Entity Arrival Logic" Description="Entity Arrival Logic" />
+      <Category Name="Entity Arrival Logic/Other Arrival Stream Options" Description="Entity Arrival Logic/Other Arrival Stream Options" InitiallyExpanded="False" />
+      <Category Name="Stopping Conditions" Description="Stopping Conditions" InitiallyExpanded="False" />
+      <Category Name="Buffer Logic" Description="Buffer Logic" InitiallyExpanded="False" />
+      <Category Name="Buffer Logic/Output Buffer" Description="Output Buffer Logic" />
+      <Category Name="Buffer Logic/Output Buffer/Balking &amp; Reneging Options" Description="Output Buffer Balking &amp; Reneging Options" InitiallyExpanded="False" />
+      <Category Name="Table Row Referencing" Description="Optional Table Row Reference Actions" InitiallyExpanded="False" />
+      <Category Name="Table Row Referencing/Before Creating Entities" Description="Table Row Reference Actions Before Creating Entities" InitiallyExpanded="False" />
+      <Category Name="Table Row Referencing/On Created Entity" Description="Table Row Reference Actions On Created Entity" InitiallyExpanded="False" />
+      <Category Name="State Assignments" Description="Optional State Assignments" InitiallyExpanded="False" />
+      <Category Name="Financials" Description="Financials" InitiallyExpanded="False" />
+      <Category Name="Financials/Buffer Costs" Description="Buffer Costs" InitiallyExpanded="False" />
+      <Category Name="Add-On Process Triggers" Description="Add-On Process Triggers" InitiallyExpanded="False" />
+      <Category Name="Advanced Options" Description="Advanced Options" InitiallyExpanded="False" />
+    </Categories>
+    <DynamicObjectInstanceProperty Name="EntityType" DisplayName="Entity Type" Description="The type of entities created by this Source object." Category="Entity Arrival Logic" DefaultValue="null" NullString="null" ValidObjectType="Agent" LocationType="Cartesian" />
+    <EnumProperty Name="ArrivalMode" DisplayName="Arrival Mode" Description="The method used by this Source object to generate a stream of entity arrivals." Category="Entity Arrival Logic" DefaultValue="Interarrival Time" NullString="null" EnumType="TimerIntervalType">
+      <Captions>
+        <Caption Value="Time" Display="Interarrival Time" />
+        <Caption Value="TimeInState" Display="" Visible="False" />
+        <Caption Value="RateTable" Display="Time Varying Arrival Rate" />
+        <Caption Value="EventCount" Display="On Event" />
+        <Caption Value="ArrivalTable" Display="Arrival Table" />
+      </Captions>
+    </EnumProperty>
+    <ExpressionProperty Name="TimeOffset" DisplayName="Time Offset" Description="Expression that is evaluated once at the beginning of the simulation run. Indicates the time offset until the first arrival at this Source object." Category="Entity Arrival Logic" DefaultValue="0.0" NullString="null" UnitType="Time" DefaultUnits="Minutes">
+      <Switch Property="ArrivalMode" Value="Time" />
+    </ExpressionProperty>
+    <ExpressionProperty Name="InterarrivalTime" DisplayName="Interarrival Time" Description="Expression that is evaluated whenever an arrival occurs at this Source object. Indicates the time until the next arrival. This property may be specified using a random sample from a distribution (typically the exponential distribution)." Category="Entity Arrival Logic" DefaultValue="Random.Exponential(.25)" NullString="null" UnitType="Time" DefaultUnits="Minutes">
+      <Switch Property="ArrivalMode" Value="Time" />
+    </ExpressionProperty>
+    <RateTableProperty Name="RateTable" DisplayName="Rate Table" Description="The rate table that defines how the rate of entity arrival events changes over time, the interarrival times following a non-stationary poisson process." Category="Entity Arrival Logic" NullString="null">
+      <Switch Property="ArrivalMode" Value="RateTable" />
+    </RateTableProperty>
+    <ExpressionProperty Name="RateScaleFactor" DisplayName="Rate Scale Factor" Description="The factor used to scale the arrival rate values specified in the rate table." Category="Entity Arrival Logic" DefaultValue="1.0" NullString="null">
+      <Switch Property="ArrivalMode" Value="RateTable" />
+    </ExpressionProperty>
+    <ExpressionProperty Name="InitialNumberEntities" DisplayName="Initial Number Entities" Description="An initial number of entities to be created by this Source object at the beginning of the simulation run, in addition to entities created by the 'On Event' arrival mode. Note that this initial entity creation is not included in (counted against) the arrival mode's Maximum Arrivals." Category="Entity Arrival Logic" DefaultValue="0" NullString="null">
+      <Switch Property="ArrivalMode" Value="EventCount" />
+    </ExpressionProperty>
+    <EventProperty Name="TriggeringEventName" DisplayName="Triggering Event Name" Description="The name of the event whose occurrences determine when the next entity arrival occurs at this Source object." Category="Entity Arrival Logic" NullString="null">
+      <Switch Property="ArrivalMode" Value="EventCount" />
+    </EventProperty>
+    <ExpressionProperty Name="TriggeringEventCount" DisplayName="Triggering Event Count" Description="The number of triggering event occurrences required to trigger the next entity arrival at this Source object." Category="Entity Arrival Logic" DefaultValue="1" NullString="null">
+      <Switch Property="ArrivalMode" Value="EventCount" />
+    </ExpressionProperty>
+    <TableAndColumnProperty Name="ArrivalTimeProperty" DisplayName="Arrival Time Property" Description="The name of the numeric table property (table column) that contains the discrete times when arrival events are expected to occur.&#xD;&#xA;&#xD;&#xA;When an arrival event occurs, a reference to the table row holding the arrival time will be automatically assigned to any individual entities created by the event." Category="Entity Arrival Logic" NullString="null">
+      <Switch Property="ArrivalMode" Value="ArrivalTable" />
+    </TableAndColumnProperty>
+    <ExpressionProperty Name="ArrivalEventsPerTimeSlot" DisplayName="Arrival Events Per Time Slot" Description="&#xD;&#xA;The number of arrival events expected to occur at each of the discrete times defined in the Arrival Time Property. When an arrival event occurs, the actual number of entities created (i.e., the arrival 'batch size') is then determined by the Entities Per Arrival property.&#xD;&#xA;&#xD;&#xA;To vary the number of arrival events for each time slot, add a numeric column that contains those values to the referenced arrival table. Then specify the name of that table column here." ComplexityLevel="Advanced" Category="Entity Arrival Logic/Other Arrival Stream Options" DefaultValue="1" NullString="null">
+      <Switch Property="ArrivalMode" Value="ArrivalTable" />
+    </ExpressionProperty>
+    <ExpressionProperty Name="ArrivalTimeDeviation" DisplayName="Arrival Time Deviation" Description="Expression used to model differences (typically random) between the scheduled times in the arrival table and the actual times during a simulation run that each arrival event occurs.&#xD;&#xA;&#xD;&#xA;The specified expression may return a negative or positive value. A negative value indicates that the actual arrival time will occur earlier than the scheduled time by that duration. A positive value indicates that the actual arrival time will occur later than the scheduled time by that duration.&#xD;&#xA;&#xD;&#xA;To vary the arrival time deviation for each time slot, add an expression column that contains those expressions to the referenced arrival table. Then specify the name of that table column here.&#xD;&#xA;&#xD;&#xA;NOTE: This feature is automatically disabled if random sampling in the simulation run is disabled." ComplexityLevel="Advanced" Category="Entity Arrival Logic/Other Arrival Stream Options" DefaultValue="0.0" NullString="null" UnitType="Time">
+      <Switch Property="ArrivalMode" Value="ArrivalTable" />
+    </ExpressionProperty>
+    <ExpressionProperty Name="ArrivalNoShowProbability" DisplayName="Arrival No-Show Probability" Description="The probability that a scheduled arrival in the arrival pattern will be a no-show and thus the timer's event not actually fired. Enter the chance of a no-show as a value between 0.0 (0%) and 1.0 (100%).&#xD;&#xA;&#xD;&#xA;To vary the no-show probability for each time slot, add a numeric column that contains those probabilities to the referenced arrival table. Then specify the name of that table column here.&#xD;&#xA;&#xD;&#xA;NOTE: This feature is automatically disabled if random sampling in the simulation run is disabled." ComplexityLevel="Advanced" Category="Entity Arrival Logic/Other Arrival Stream Options" DefaultValue="0.0" NullString="null">
+      <Switch Property="ArrivalMode" Value="ArrivalTable" />
+    </ExpressionProperty>
+    <ExpressionProperty Name="EntitiesPerArrival" DisplayName="Entities Per Arrival" Description="The number of entities that will be created by this Source object for each arrival event." Category="Entity Arrival Logic" DefaultValue="1" NullString="null" />
+    <EnumProperty Name="RepeatArrivalPattern" DisplayName="Repeat Arrival Pattern" Description="Indicates whether the arrival pattern in the table should be repeated when the end of the pattern is reached." Category="Entity Arrival Logic" DefaultValue="False" NullString="null" EnumType="BooleanType">
+      <Switch Property="ArrivalMode" Value="ArrivalTable" />
+    </EnumProperty>
+    <ExpressionProperty Name="EntityArrivalsRandomNumberStream" DisplayName="Entity Arrivals Random Number Stream" Description="The random number stream used to generate interarrival times (if rate table) or make probabilistic no-show decisions (if arrival table)." ComplexityLevel="Advanced" Category="Advanced Options" DefaultValue="0" NullString="null">
+      <Switch Property="ArrivalMode" Value="ArrivalTable, RateTable" />
+    </ExpressionProperty>
+    <ExpressionProperty Name="MaximumArrivals" DisplayName="Maximum Arrivals" Description="A limit on the total number of arrivals to be automatically generated by this Source object during the simulation run." Category="Stopping Conditions" DefaultValue="Infinity" NullString="null" />
+    <ExpressionProperty Name="MaximumTime" DisplayName="Maximum Time" Description="The maximum time from the beginning of the simulation run after which this Source object will stop generating arrivals." ComplexityLevel="Advanced" Category="Stopping Conditions" DefaultValue="Infinity" NullString="null" UnitType="Time" />
+    <EventProperty Name="StopEventName" DisplayName="Stop Event Name" Description="The name of an event whose occurrence will trigger this Source object to stop generating arrivals for the remainder of the simulation run." ComplexityLevel="Advanced" Category="Stopping Conditions" Required="False" NullString="null" />
+    <IntegerProperty Name="OutputBufferCapacity" DisplayName="Capacity" Description="The number of discrete entities that can be held in the buffer." ComplexityLevel="Advanced" Category="Buffer Logic/Output Buffer" DefaultValue="Infinity" NullString="null" />
+    <EnumProperty Name="OutputBufferBalkDecisionType" DisplayName="Balk Decision Type" Description="The method used by an entity to decide whether to balk at entering the buffer.&#xD;&#xA;&#xD;&#xA;If the decision type is ‘Blocked’, then an entity attempting to enter the buffer will balk if the buffer is full rather than be blocked. Or, if a zero capacity buffer, the entity will balk if its attempt to transfer directly into or out of the object is blocked." ComplexityLevel="Advanced" Category="Buffer Logic/Output Buffer/Balking &amp; Reneging Options" DefaultValue="Blocked" NullString="null" EnumType="BalkEnteringDecisionType" />
+    <ExpressionProperty Name="OutputBufferBalkConditionOrProbability" DisplayName="Balk Condition Or Probability" Description="The balk condition or probability specified as an expression. If a probability then enter the chance of balking as a value between 0.0 (0%) and 1.0 (100%)." ComplexityLevel="Advanced" Category="Buffer Logic/Output Buffer/Balking &amp; Reneging Options" DefaultValue="0.0" NullString="null">
+      <Switch Property="OutputBufferBalkDecisionType" Comparison="GreaterThan" Value="Blocked" />
+    </ExpressionProperty>
+    <NodeProperty Name="OutputBufferBalkNodeName" DisplayName="Balk Node Name" Description="Facility node location to send an entity that has balked at entering the buffer." ComplexityLevel="Advanced" Category="Buffer Logic/Output Buffer/Balking &amp; Reneging Options" DefaultValue="None (Destroy Entity)" Required="False" NullString="None (Destroy Entity)" ValidObjectType="Node" LocationType="Cartesian">
+      <Switch Property="OutputBufferBalkDecisionType" Comparison="NotEqual" Value="None" />
+    </NodeProperty>
+    <RepeatingProperty Name="OutputBufferRenegeTriggers" DisplayName="Renege Triggers" Description="Optional time or event-driven triggers that can cause entities to abandon waiting in the buffer." ComplexityLevel="Advanced" Category="Buffer Logic/Output Buffer/Balking &amp; Reneging Options" Required="False" NullString="null">
+      <PropertyDefinitions>
+        <Categories>
+          <Category Name="Renege Trigger" Description="Renege Trigger" />
+          <Category Name="Advanced Options" Description="Advanced Options" InitiallyExpanded="False" />
+        </Categories>
+        <EnumProperty Name="OutputBufferRenegeTriggerType" DisplayName="Trigger Type" Description="The type of trigger.&#xD;&#xA;&#xD;&#xA;A time based trigger can renege an entity from the buffer once a specified wait duration expires.&#xD;&#xA;&#xD;&#xA;An event based trigger can renege an entity from the buffer whenever a specified event occurs." Category="Renege Trigger" DefaultValue="Time Based" NullString="null" EnumType="RenegeTriggerType">
+          <Captions>
+            <Caption Value="TimeBased" Display="Time Based" />
+            <Caption Value="EventBased" Display="Event Based" />
+          </Captions>
+        </EnumProperty>
+        <ExpressionProperty Name="OutputBufferRenegeWaitDuration" DisplayName="Wait Duration" Description="The wait duration until deciding whether to renege an entity from the buffer." Category="Renege Trigger" DefaultValue="0.0" NullString="null" UnitType="Time">
+          <Switch Property="OutputBufferRenegeTriggerType" Value="TimeBased" />
+        </ExpressionProperty>
+        <EventProperty Name="OutputBufferRenegeTriggeringEventName" DisplayName="Triggering Event Name" Description="The name of the event whose occurrence will trigger a decision whether to renege an entity from the buffer." Category="Renege Trigger" Required="False" NullString="null">
+          <Switch Property="OutputBufferRenegeTriggerType" Value="EventBased" />
+        </EventProperty>
+        <EnumProperty Name="OutputBufferRenegeDecisionType" DisplayName="Renege Decision Type" Description="The method used when the trigger has fired to decide whether to renege an entity from the buffer." Category="Renege Trigger" DefaultValue="Always" NullString="null" EnumType="RenegeDecisionType" />
+        <ExpressionProperty Name="OutputBufferRenegeConditionOrProbability" DisplayName="Renege Condition Or Probability" Description="The renege condition or probability specified as an expression. If a probability then enter the chance of reneging as a value between 0.0 (0%) and 1.0 (100%).&#xD;&#xA;&#xD;&#xA;NOTE: If it is necessary to check in a conditional expression whether an entity is currently waiting for a specific type of constraint, the entity ‘Queuing’ namespace provides several functions for that purpose (e.g., Entity.Queuing.IsWaitingRidePickupQueue)." Category="Renege Trigger" DefaultValue="0.0" NullString="null">
+          <Switch Property="OutputBufferRenegeDecisionType" Comparison="NotEqual" Value="Always" />
+        </ExpressionProperty>
+        <NodeProperty Name="OutputBufferRenegeNodeName" DisplayName="Renege Node Name" Description="Facility node location to send a reneging entity." Category="Renege Trigger" DefaultValue="None (Destroy Entity)" Required="False" NullString="None (Destroy Entity)" ValidObjectType="Node" LocationType="Cartesian" />
+        <EnumProperty Name="OutputBufferRenegeTriggerStartBoundary" DisplayName="Trigger Start Boundary" Description="Indicates when the trigger becomes active for an entity occupying the buffer. Can be either immediately when the entity has entered the buffer or, alternatively, not until its transfer into the buffer has been ended (e.g., after a transfer-in time or any other entry related logic)." Category="Advanced Options" DefaultValue="Ended Transfer In" NullString="null" EnumType="RenegeTriggerStartBoundary">
+          <Captions>
+            <Caption Value="EndedTransferIn" Display="Ended Transfer In" />
+          </Captions>
+        </EnumProperty>
+        <Overrides />
+      </PropertyDefinitions>
+    </RepeatingProperty>
+    <RepeatingProperty Name="AssignmentsBeforeExiting" DisplayName="Before Exiting" Description="Optional state assignments when an entity is ready to exit the object." ComplexityLevel="Advanced" Category="State Assignments" Required="False" NullString="null">
+      <PropertyDefinitions>
+        <Categories>
+          <Category Name="Basic Logic" Description="State Assignments (Basic Logic)" />
+        </Categories>
+        <StateProperty Name="AssignmentsBeforeExitingStateVariableName" DisplayName="State Variable Name" Description="Name of the state variable that will be assigned a new value." Category="Basic Logic" Required="False" NullString="null" IsAssignable="True" />
+        <ExpressionProperty Name="AssignmentsBeforeExitingNewValue" DisplayName="New Value" Description="The new value to assign." Category="Basic Logic" DefaultValue="0.0" Required="False" NullString="null" UnitTypeProperty="AssignmentsBeforeExitingStateVariableName" />
+        <Overrides />
+      </PropertyDefinitions>
+    </RepeatingProperty>
+    <RepeatingProperty Name="AssignmentsOnBalking" DisplayName="On Balking" Description="Optional state assignments when an entity is balking at entering an input or output buffer of the object." ComplexityLevel="Advanced" Category="State Assignments" Required="False" NullString="null">
+      <PropertyDefinitions>
+        <Categories>
+          <Category Name="Basic Logic" Description="State Assignments (Basic Logic)" />
+        </Categories>
+        <ListProperty Name="AssignmentsOnBalkingAssignConditionType" DisplayName="Assign If" Description="Condition required to perform the assignment." Category="Basic Logic" DefaultValue="Balking Entering Output Buffer" NullString="null" List="OnBalkingAssignConditionType">
+          <Captions>
+            <Caption Value="BalkingEnteringOutputBuffer" Display="Balking Entering Output Buffer" />
+            <Caption Value="CustomCondition" Display="Custom Condition" />
+          </Captions>
+        </ListProperty>
+        <ExpressionProperty Name="AssignmentsOnBalkingAssignCondition" DisplayName="Condition" Description="The condition required to perform the assignment." Category="Basic Logic" DefaultValue="0.0" Parent="AssignmentsOnBalkingAssignConditionType" NullString="null">
+          <Switch Property="AssignmentsOnBalkingAssignConditionType" Value="CustomCondition" />
+        </ExpressionProperty>
+        <StateProperty Name="AssignmentsOnBalkingStateVariableName" DisplayName="State Variable Name" Description="Name of the state variable that will be assigned a new value." Category="Basic Logic" Required="False" NullString="null" IsAssignable="True" />
+        <ExpressionProperty Name="AssignmentsOnBalkingNewValue" DisplayName="New Value" Description="The new value to assign." Category="Basic Logic" DefaultValue="0.0" Required="False" NullString="null" UnitTypeProperty="AssignmentsOnBalkingStateVariableName" />
+        <Overrides />
+      </PropertyDefinitions>
+    </RepeatingProperty>
+    <RepeatingProperty Name="AssignmentsOnReneging" DisplayName="On Reneging" Description="Optional state assignments when an entity is reneging from an input or output buffer of the object." ComplexityLevel="Advanced" Category="State Assignments" Required="False" NullString="null">
+      <PropertyDefinitions>
+        <Categories>
+          <Category Name="Basic Logic" Description="State Assignments (Basic Logic)" />
+        </Categories>
+        <ListProperty Name="AssignmentsOnRenegingAssignConditionType" DisplayName="Assign If" Description="Condition required to perform the assignment." Category="Basic Logic" DefaultValue="Reneging From Output Buffer" NullString="null" List="OnRenegingAssignConditionType">
+          <Captions>
+            <Caption Value="RenegingFromOutputBuffer" Display="Reneging From Output Buffer" />
+            <Caption Value="CustomCondition" Display="Custom Condition" />
+          </Captions>
+        </ListProperty>
+        <ExpressionProperty Name="AssignmentsOnRenegingAssignCondition" DisplayName="Condition" Description="The condition required to perform the assignment." Category="Basic Logic" DefaultValue="0.0" Parent="AssignmentsOnRenegingAssignConditionType" NullString="null">
+          <Switch Property="AssignmentsOnRenegingAssignConditionType" Value="CustomCondition" />
+        </ExpressionProperty>
+        <StateProperty Name="AssignmentsOnRenegingStateVariableName" DisplayName="State Variable Name" Description="Name of the state variable that will be assigned a new value." Category="Basic Logic" Required="False" NullString="null" IsAssignable="True" />
+        <ExpressionProperty Name="AssignmentsOnRenegingNewValue" DisplayName="New Value" Description="The new value to assign." Category="Basic Logic" DefaultValue="0.0" Required="False" NullString="null" UnitTypeProperty="AssignmentsOnRenegingStateVariableName" />
+        <Overrides />
+      </PropertyDefinitions>
+    </RepeatingProperty>
+    <EnumProperty Name="TableRowReferenceBeforeCreatingEntitiesActionType" DisplayName="Action Type" Description="The type of table row reference action to perform.&#xD;&#xA;&#xD;&#xA;The ‘Reference Existing Row’ action type may be used to set a reference to an existing row in a data table or sequence table. The row index into the table is specified by the Row Number property.&#xD;&#xA;&#xD;&#xA;The ‘Add New Row’ action type may be used to add a new row to an output table. A reference will be automatically set to the newly added row." ComplexityLevel="Advanced" Category="Table Row Referencing/Before Creating Entities" DefaultValue="Reference Existing Row" NullString="null" EnumType="TableRowReferenceActionType">
+      <Captions>
+        <Caption Value="AddNewRow" Display="Add New Row" />
+        <Caption Value="ReferenceExistingRow" Display="Reference Existing Row" />
+      </Captions>
+    </EnumProperty>
+    <TableProperty Name="TableRowReferenceBeforeCreatingEntitiesTableName" DisplayName="Table Name" Description="The name of the table." ComplexityLevel="Advanced" Category="Table Row Referencing/Before Creating Entities" Required="False" NullString="null" />
+    <ExpressionProperty Name="TableRowReferenceBeforeCreatingEntitiesRowNumber" DisplayName="Row Number" Description="The one-based row index into the table." ComplexityLevel="Advanced" Category="Table Row Referencing/Before Creating Entities" Required="False" NullString="null">
+      <Switch Property="TableRowReferenceBeforeCreatingEntitiesActionType" Value="ReferenceExistingRow" />
+    </ExpressionProperty>
+    <EnumProperty Name="TableRowReferenceOnCreatedEntityActionType" DisplayName="Action Type" Description="The type of table row reference action to perform.&#xD;&#xA;&#xD;&#xA;The ‘Reference Existing Row’ action type may be used to set a reference to an existing row in a data table or sequence table. The row index into the table is specified by the Row Number property.&#xD;&#xA;&#xD;&#xA;The ‘Add New Row’ action type may be used to add a new row to an output table. A reference will be automatically set to the newly added row." ComplexityLevel="Advanced" Category="Table Row Referencing/On Created Entity" DefaultValue="Reference Existing Row" NullString="null" EnumType="TableRowReferenceActionType">
+      <Captions>
+        <Caption Value="AddNewRow" Display="Add New Row" />
+        <Caption Value="ReferenceExistingRow" Display="Reference Existing Row" />
+      </Captions>
+    </EnumProperty>
+    <TableProperty Name="TableRowReferenceOnCreatedEntityTableName" DisplayName="Table Name" Description="The name of the table." ComplexityLevel="Advanced" Category="Table Row Referencing/On Created Entity" Required="False" NullString="null" />
+    <ExpressionProperty Name="TableRowReferenceOnCreatedEntityRowNumber" DisplayName="Row Number" Description="The one-based row index into the table." ComplexityLevel="Advanced" Category="Table Row Referencing/On Created Entity" Required="False" NullString="null">
+      <Switch Property="TableRowReferenceOnCreatedEntityActionType" Value="ReferenceExistingRow" />
+    </ExpressionProperty>
+    <ElementProperty Name="RunInitializedAddOnProcess" DisplayName="Run Initialized" Description="Occurs when the simulation run is initialized." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="RunEndingAddOnProcess" DisplayName="Run Ending" Description="Occurs when the simulation run is ending." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="CreatingEntitiesAddOnProcess" DisplayName="Creating Entities" Description="Occurs when this Source object is about to create an arrival of one or more entities." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="CreatedEntityAddOnProcess" DisplayName="Created Entity" Description="Occurs when an entity has been created by this Source object." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="ExitedAddOnProcess" DisplayName="Exited" Description="Occurs when an entity has exited this object." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ExpressionProperty Name="CapitalCost" DisplayName="Capital Cost" Description="The initial one-time setup cost to add this object to the system." ComplexityLevel="Advanced" Category="Financials" DefaultValue="0.0" NullString="null" UnitType="Currency" />
+    <ExpressionProperty Name="OutputBufferCostPerUse" DisplayName="Cost Per Use" Description="The cost to hold an entity in this buffer irrespective of the waiting time." ComplexityLevel="Advanced" Category="Financials/Buffer Costs/Output Buffer" DefaultValue="0.0" NullString="null" UnitType="Currency" />
+    <ExpressionProperty Name="OutputBufferHoldingCostRate" DisplayName="Holding Cost Rate" Description="The cost per unit time to hold an entity in this buffer." ComplexityLevel="Advanced" Category="Financials/Buffer Costs/Output Buffer" DefaultValue="0.0" NullString="null" UnitType="CurrencyPerTimeUnit" />
+    <Overrides>
+      <Override Name="InitialCost" Visible="False" />
+      <Override Name="InitialCostRate" Visible="False" />
+      <Override Name="ResourceIdleCostRate" Visible="False" />
+      <Override Name="ResourceCostPerUse" Visible="False" />
+      <Override Name="ResourceUsageCostRate" Visible="False" />
+      <Override Name="LogResourceUsage" Visible="False" />
+      <Override Name="DisplayCategory" Visible="False" />
+      <Override Name="DisplayColor" Visible="False" />
+      <Override Name="IncludeInPlanResourceConstraints" Visible="False" />
+      <Override Name="CapacityType" Visible="False" />
+      <Override Name="WorkSchedule" Visible="False" />
+      <Override Name="WorkDayExceptions" Visible="False" />
+      <Override Name="WorkPeriodExceptions" Visible="False" />
+      <Override Name="InitialCapacity" Visible="False" />
+      <Override Name="RankingRule" Visible="False" />
+      <Override Name="RankingExpression" Visible="False" />
+      <Override Name="DynamicSelectionRule" Visible="False" />
+      <Override Name="TransferInConstraintsType" Visible="False" />
+      <Override Name="TransferInCondition" Visible="False" />
+      <Override Name="TransferOutConstraintsType" DefaultValue="Disable" />
+      <Override Name="ExpectedSetupTimeExpression" Visible="False" />
+      <Override Name="ExpectedOperationTimeExpression" Visible="False" />
+    </Overrides>
+    <PropertyReplacements>
+      <PropertyReplacement Version="76" OldPropertyName="InitializedAddOnProcess" NewPropertyName="RunInitializedAddOnProcess" />
+      <PropertyReplacement Version="78" OldPropertyName="EventName" NewPropertyName="TriggeringEventName" />
+      <PropertyReplacement Version="78" OldPropertyName="EventCount" NewPropertyName="TriggeringEventCount" />
+      <PropertyReplacement Version="106" OldPropertyName="AssignmentBeforeCreatingEntitiesTableName" NewPropertyName="TableRowReferenceBeforeCreatingEntitiesTableName" />
+      <PropertyReplacement Version="106" OldPropertyName="AssignmentBeforeCreatingEntitiesTableRow" NewPropertyName="TableRowReferenceBeforeCreatingEntitiesRowNumber" />
+      <PropertyReplacement Version="106" OldPropertyName="AssignmentOnCreatedEntityTableName" NewPropertyName="TableRowReferenceOnCreatedEntityTableName" />
+      <PropertyReplacement Version="106" OldPropertyName="AssignmentOnCreatedEntityTableRow" NewPropertyName="TableRowReferenceOnCreatedEntityRowNumber" />
+    </PropertyReplacements>
+  </PropertyDefinitions>
+  <States />
+  <Events />
+  <UsedObjects>
+    <UsedObject Name="TransferNode" />
+  </UsedObjects>
+  <Elements>
+    <Element Type="Station" Name="Processing" Scope="Public" Description="The location inside the source where created entities are initially located.">
+      <Properties>
+        <Property Name="EntryDynamicSelectionRule">
+          <Value>None</Value>
+        </Property>
+        <Property Name="CostPerUse" Units="USD">0.0</Property>
+        <Property Name="HoldingCostRate" Units="USD per Hour">0.0</Property>
+      </Properties>
+    </Element>
+    <Element Type="Station" Name="OutputBuffer" Scope="Public" Description="The location inside the source where entities wait to exit the object after being created.">
+      <Properties>
+        <Property Name="InitialCapacity">OutputBufferCapacity</Property>
+        <Property Name="EntryDynamicSelectionRule">
+          <Value>None</Value>
+        </Property>
+        <Property Name="BalkEnteringDecisionType">OutputBufferBalkDecisionType</Property>
+        <Property Name="BalkConditionOrProbability">OutputBufferBalkConditionOrProbability</Property>
+        <Property Name="OnBalkedEnteringProcess">
+          <Value>OnBalkedEnteringOutputBuffer</Value>
+        </Property>
+        <Property Name="RedirectLocationType">ParentExternalNode</Property>
+        <Property Name="RedirectExternalNodeName">Output</Property>
+        <Property Name="RenegeTriggers">
+          <Value>OutputBufferRenegeTriggers</Value>
+          <Rows>
+            <Properties>
+              <Property Name="RenegeTriggerType">OutputBufferRenegeTriggerType</Property>
+              <Property Name="RenegeWaitDuration">OutputBufferRenegeWaitDuration</Property>
+              <Property Name="RenegeTriggeringEventName">OutputBufferRenegeTriggeringEventName</Property>
+              <Property Name="RenegeDecisionType">OutputBufferRenegeDecisionType</Property>
+              <Property Name="RenegeConditionOrProbability">OutputBufferRenegeConditionOrProbability</Property>
+              <Property Name="OnRenegedProcess">
+                <Value>OnRenegedFromOutputBuffer</Value>
+              </Property>
+              <Property Name="RenegeTriggerStartBoundary">OutputBufferRenegeTriggerStartBoundary</Property>
+            </Properties>
+          </Rows>
+        </Property>
+        <Property Name="CostPerUse" Units="USD">OutputBufferCostPerUse</Property>
+        <Property Name="HoldingCostRate" Units="USD per Hour">OutputBufferHoldingCostRate</Property>
+      </Properties>
+    </Element>
+    <Element Type="Timer" Name="EntityArrivals" Scope="Public" Description="The stream of entity arrival events for this Source object.">
+      <Properties>
+        <Property Name="IntervalType">ArrivalMode</Property>
+        <Property Name="TimeOffset">TimeOffset</Property>
+        <Property Name="TimeInterval">InterarrivalTime</Property>
+        <Property Name="RateTable">RateTable</Property>
+        <Property Name="RateScaleFactor">RateScaleFactor</Property>
+        <Property Name="TriggeringEventName">TriggeringEventName</Property>
+        <Property Name="TriggeringEventCount">TriggeringEventCount</Property>
+        <Property Name="ArrivalTimeProperty">ArrivalTimeProperty</Property>
+        <Property Name="ArrivalEventsPerTimeSlot">ArrivalEventsPerTimeSlot</Property>
+        <Property Name="ArrivalTimeDeviation">ArrivalTimeDeviation</Property>
+        <Property Name="ArrivalNoShowProbability">ArrivalNoShowProbability</Property>
+        <Property Name="RepeatArrivalPattern">RepeatArrivalPattern</Property>
+        <Property Name="MaximumEvents">MaximumArrivals</Property>
+        <Property Name="MaximumTime">MaximumTime</Property>
+        <Property Name="RandomNumberStream">EntityArrivalsRandomNumberStream</Property>
+      </Properties>
+    </Element>
+    <Element Type="CostCenter" Name="CapitalCosts">
+      <Properties>
+        <Property Name="InitialCost" Units="USD">CapitalCost</Property>
+        <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="DataSource">[Object]</Property>
+        <Property Name="DataItem">"CapitalCost"</Property>
+      </Properties>
+    </Element>
+  </Elements>
+  <Processes>
+    <Process Name="OnRunInitialized" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Object.OnRunInitialized" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Subscribe" Name="ToStopEvent" ExclusionExpression="!StopEventName.HasValue" ID="2">
+          <Properties>
+            <Property Name="EventName">StopEventName</Property>
+            <Property Name="ProcessName">
+              <Value>OnStopEventOccurred</Value>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Execute" Name="RunInitializedAddOnProcess" ID="3">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>RunInitializedAddOnProcess</Value>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="Decide" Name="IfCreatingInitialEntities" ExclusionExpression="Math.If(ArrivalMode == Enum.TimerIntervalType.EventCount, 1, 2)" ID="4">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">ArrivalMode == Enum.TimerIntervalType.EventCount</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="5" />
+        </Step>
+        <Step Type="AddRow" Name="BeforeCreatingEntities" ID="5">
+          <Properties>
+            <Property Name="ObjectType">Token</Property>
+            <Property Name="TableName">TableRowReferenceBeforeCreatingEntitiesTableName</Property>
+            <Property Name="AddRowCondition">TableRowReferenceBeforeCreatingEntitiesActionType == Enum.TableRowReferenceActionType.AddNewRow</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="6" />
+        </Step>
+        <Step Type="SetRow" Name="BeforeCreatingEntities" ID="6">
+          <Properties>
+            <Property Name="ObjectType">Token</Property>
+            <Property Name="TableName">TableRowReferenceBeforeCreatingEntitiesTableName</Property>
+            <Property Name="RowNumber">TableRowReferenceBeforeCreatingEntitiesRowNumber</Property>
+            <Property Name="SetRowCondition">TableRowReferenceBeforeCreatingEntitiesActionType == Enum.TableRowReferenceActionType.ReferenceExistingRow</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="7" />
+        </Step>
+        <Step Type="Execute" Name="CreatingEntitiesAddOnProcess" ID="7">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>CreatingEntitiesAddOnProcess</Value>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="8" />
+        </Step>
+        <Step Type="Create" Name="Entities" ID="8">
+          <Properties>
+            <Property Name="EntityType">EntityType</Property>
+            <Property Name="NumberToCreate">InitialNumberEntities</Property>
+          </Properties>
+          <Exit Name="Created" Type="Alternate" NextID="9" />
+        </Step>
+        <Step Type="Transfer" Name="ToProcessing" ID="9">
+          <Properties>
+            <Property Name="ToType">Station</Property>
+            <Property Name="StationName">
+              <Value>Processing</Value>
+            </Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnRunEnding" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Object.OnRunEnding" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Execute" Name="RunEndingAddOnProcess" ID="2">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>RunEndingAddOnProcess</Value>
+            </Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnEntityArrival" BeginStepID="2">
+      <Properties>
+        <Property Name="TriggeringEventName">EntityArrivals.Event</Property>
+      </Properties>
+      <Steps>
+        <Step Type="AddRow" Name="BeforeCreatingEntities" ID="2">
+          <Properties>
+            <Property Name="ObjectType">Token</Property>
+            <Property Name="TableName">TableRowReferenceBeforeCreatingEntitiesTableName</Property>
+            <Property Name="AddRowCondition">TableRowReferenceBeforeCreatingEntitiesActionType == Enum.TableRowReferenceActionType.AddNewRow</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="SetRow" Name="BeforeCreatingEntities" ID="3">
+          <Properties>
+            <Property Name="ObjectType">Token</Property>
+            <Property Name="TableName">TableRowReferenceBeforeCreatingEntitiesTableName</Property>
+            <Property Name="RowNumber">TableRowReferenceBeforeCreatingEntitiesRowNumber</Property>
+            <Property Name="SetRowCondition">TableRowReferenceBeforeCreatingEntitiesActionType == Enum.TableRowReferenceActionType.ReferenceExistingRow</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="Execute" Name="CreatingEntitiesAddOnProcess" ID="4">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>CreatingEntitiesAddOnProcess</Value>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="5" />
+        </Step>
+        <Step Type="Create" Name="Entities" ID="5">
+          <Properties>
+            <Property Name="EntityType">EntityType</Property>
+            <Property Name="NumberToCreate">EntitiesPerArrival</Property>
+          </Properties>
+          <Exit Name="Created" Type="Alternate" NextID="6" />
+        </Step>
+        <Step Type="Transfer" Name="ToProcessing" ID="6">
+          <Properties>
+            <Property Name="ToType">Station</Property>
+            <Property Name="StationName">
+              <Value>Processing</Value>
+            </Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnEnteredProcessing" BeginStepID="2">
+      <Properties>
+        <Property Name="TriggeringEventName">Processing.Entered</Property>
+        <Property Name="TokenActionOnAssociatedObjectDestroyed">EndProcess</Property>
+        <Property Name="TokenActionOnAssociatedObjectTransferRequested">EndProcess</Property>
+      </Properties>
+      <Steps>
+        <Step Type="EndTransfer" Name="IntoProcessing" ID="2">
+          <Properties />
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="AddRow" Name="OnCreatedEntity" ID="3">
+          <Properties>
+            <Property Name="TableName">TableRowReferenceOnCreatedEntityTableName</Property>
+            <Property Name="AddRowCondition">TableRowReferenceOnCreatedEntityActionType == Enum.TableRowReferenceActionType.AddNewRow</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="SetRow" Name="OnCreatedEntity" ID="4">
+          <Properties>
+            <Property Name="TableName">TableRowReferenceOnCreatedEntityTableName</Property>
+            <Property Name="RowNumber">TableRowReferenceOnCreatedEntityRowNumber</Property>
+            <Property Name="SetRowCondition">TableRowReferenceOnCreatedEntityActionType == Enum.TableRowReferenceActionType.ReferenceExistingRow</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="5" />
+        </Step>
+        <Step Type="Execute" Name="CreatedEntityAddOnProcess" ID="5">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>CreatedEntityAddOnProcess</Value>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="6" />
+        </Step>
+        <Step Type="Assign" Name="BeforeExitingAssignments" ExclusionExpression="OutputBufferCapacity &gt; 0" ID="6">
+          <Properties>
+            <Property Name="Assignments">
+              <Value>AssignmentsBeforeExiting</Value>
+              <Rows>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>AssignmentsBeforeExitingStateVariableName</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">AssignmentsBeforeExitingNewValue</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="7" />
+        </Step>
+        <Step Type="Transfer" Name="ToOutputBuffer" ID="7">
+          <Properties>
+            <Property Name="FromType">CurrentStation</Property>
+            <Property Name="ToType">Station</Property>
+            <Property Name="StationName">
+              <Value>OutputBuffer</Value>
+            </Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnBalkedEnteringOutputBuffer" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Assign" Name="OnBalkingAssignments" ID="2">
+          <Properties>
+            <Property Name="Assignments">
+              <Value>AssignmentsOnBalking</Value>
+              <Rows>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>AssignmentsOnBalkingStateVariableName</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">AssignmentsOnBalkingNewValue</Property>
+                  <Property Name="AssignmentsSkipAssignmentCondition">Math.If(AssignmentsOnBalking.AssignmentsOnBalkingAssignConditionType==List.OnBalkingAssignConditionType.CustomCondition, AssignmentsOnBalking.AssignmentsOnBalkingAssignCondition&lt;=0.0, AssignmentsOnBalking.AssignmentsOnBalkingAssignConditionType!=List.OnBalkingAssignConditionType.BalkingEnteringOutputBuffer)</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Decide" Name="IfDestroyEntity" ID="3">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">!OutputBufferBalkNodeName.HasValue</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="7" />
+          <Exit Name="False" Type="Alternate" NextID="4" />
+        </Step>
+        <Step Type="Transfer" Name="ToFreeSpace" ID="4">
+          <Properties>
+            <Property Name="FromType">Any</Property>
+            <Property Name="ToType">FreeSpace</Property>
+          </Properties>
+          <Exit Name="OK" Type="Primary" NextID="5" />
+          <Exit Name="Failed" Type="Alternate" NextID="5" />
+        </Step>
+        <Step Type="SetNode" Name="BalkNodeName" ID="5">
+          <Properties>
+            <Property Name="NodeName">OutputBufferBalkNodeName</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="6" />
+        </Step>
+        <Step Type="Transfer" Name="ToBalkNodeName" ID="6">
+          <Properties>
+            <Property Name="FromType">Any</Property>
+            <Property Name="NodeName">OutputBufferBalkNodeName</Property>
+          </Properties>
+        </Step>
+        <Step Type="Destroy" Name="Entity" ID="7">
+          <Properties>
+            <Property Name="RecordEntityStatistics">False</Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnEnteredOutputBuffer" BeginStepID="2">
+      <Properties>
+        <Property Name="TriggeringEventName">OutputBuffer.Entered</Property>
+      </Properties>
+      <Steps>
+        <Step Type="EndTransfer" Name="IntoOutputBuffer" ID="2">
+          <Properties />
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Assign" Name="BeforeExitingAssignments" ID="3">
+          <Properties>
+            <Property Name="Assignments">
+              <Value>AssignmentsBeforeExiting</Value>
+              <Rows>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>AssignmentsBeforeExitingStateVariableName</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">AssignmentsBeforeExitingNewValue</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="Transfer" Name="ToOutputNode" ID="4">
+          <Properties>
+            <Property Name="FromType">CurrentStation</Property>
+            <Property Name="ToType">ParentExternalNode</Property>
+            <Property Name="ExternalNodeName">Output</Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnRenegedFromOutputBuffer" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Assign" Name="OnRenegingAssignments" ID="2">
+          <Properties>
+            <Property Name="Assignments">
+              <Value>AssignmentsOnReneging</Value>
+              <Rows>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>AssignmentsOnRenegingStateVariableName</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">AssignmentsOnRenegingNewValue</Property>
+                  <Property Name="AssignmentsSkipAssignmentCondition">Math.If(AssignmentsOnReneging.AssignmentsOnRenegingAssignConditionType==List.OnRenegingAssignConditionType.CustomCondition, AssignmentsOnReneging.AssignmentsOnRenegingAssignCondition&lt;=0.0, AssignmentsOnReneging.AssignmentsOnRenegingAssignConditionType!=List.OnRenegingAssignConditionType.RenegingFromOutputBuffer)</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Decide" Name="IfDestroyEntity" ID="3">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">!OutputBufferRenegeTriggers.OutputBufferRenegeNodeName.HasValue</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="7" />
+          <Exit Name="False" Type="Alternate" NextID="4" />
+        </Step>
+        <Step Type="Transfer" Name="ToFreeSpace" ID="4">
+          <Properties>
+            <Property Name="FromType">Any</Property>
+            <Property Name="ToType">FreeSpace</Property>
+          </Properties>
+          <Exit Name="OK" Type="Primary" NextID="5" />
+          <Exit Name="Failed" Type="Alternate" NextID="5" />
+        </Step>
+        <Step Type="SetNode" Name="RenegeNodeName" ID="5">
+          <Properties>
+            <Property Name="NodeName">OutputBufferRenegeTriggers.OutputBufferRenegeNodeName</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="6" />
+        </Step>
+        <Step Type="Transfer" Name="ToRenegeNodeName" ID="6">
+          <Properties>
+            <Property Name="FromType">Any</Property>
+            <Property Name="NodeName">OutputBufferRenegeTriggers.OutputBufferRenegeNodeName</Property>
+          </Properties>
+        </Step>
+        <Step Type="Destroy" Name="Entity" ID="7">
+          <Properties />
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnExitedProcessing" BeginStepID="2">
+      <Properties>
+        <Property Name="TriggeringEventName">Processing.Exited</Property>
+      </Properties>
+      <Steps>
+        <Step Type="Execute" Name="ExitedAddOnProcess" ExclusionExpression="OutputBufferCapacity &gt; 0" ID="2">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>ExitedAddOnProcess</Value>
+            </Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnExitedOutputBuffer" BeginStepID="2">
+      <Properties>
+        <Property Name="TriggeringEventName">OutputBuffer.Exited</Property>
+      </Properties>
+      <Steps>
+        <Step Type="Execute" Name="ExitedAddOnProcess" ID="2">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>ExitedAddOnProcess</Value>
+            </Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnStopEventOccurred" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Assign" Name="ToDisableEntityArrivals" ID="2">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>EntityArrivals.Enabled</Value>
+            </Property>
+            <Property Name="NewValue">False</Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+  </Processes>
+  <External>
+    <TransferPoints>
+      <ExternalNode Name="Output" Location="1.25,0,0" ID="Output">
+        <Properties>
+          <Property Name="NodeClassName">TransferNode</Property>
+        </Properties>
+      </ExternalNode>
+    </TransferPoints>
+    <Graphics>
+      <SymbolInstance Center="0 0 0" ExternallyVisible="True">
+        <SymbolRef Id="4253805c-d9dd-447f-b808-dc61ab3765de" />
+      </SymbolInstance>
+      <Queue Queue="OutputBuffer.Contents" ExternallyVisible="True">
+        <Points>
+          <Point Location="1 0 0.5" />
+          <Point Location="4 0 0.5" />
+        </Points>
+      </Queue>
+    </Graphics>
+  </External>
+  <Graphics>
+    <AnimationSetup MinimumNumberOfFramesToDisplayIdleAnimation="10" />
+  </Graphics>
+  <Dashboard>
+    <Graphics>
+      <StatusLabel Center="-5 0 0" Width="10" Height="1" ExternallyVisible="True" BackColor="00ffffff" TextColor="0000ff" Expression="&quot;OutputBuffer&quot;" />
+      <StatusLabel Center="1.875 0 0" Width="3.75" Height="1" ExternallyVisible="True" Expression="OutputBuffer.Contents" />
+    </Graphics>
+  </Dashboard>
+</Fragment>
+<!-- cMKYNzxIsaiewj5c52hb9s7pwRsbLjsH3H2opogs5d90yUKDhNEF2bV2wQNYYWdd6UiMXII3L8rRaG93H5ke1w== -->

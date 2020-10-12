@@ -26,12 +26,12 @@ namespace SimioApiHelper.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string HeadlessSystemFolder {
+        public string SimEngineSystemFolder {
             get {
-                return ((string)(this["HeadlessSystemFolder"]));
+                return ((string)(this["SimEngineSystemFolder"]));
             }
             set {
-                this["HeadlessSystemFolder"] = value;
+                this["SimEngineSystemFolder"] = value;
             }
         }
         
@@ -50,60 +50,72 @@ namespace SimioApiHelper.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string HeadlessRunModel {
+        public string SimEngineRunModel {
             get {
-                return ((string)(this["HeadlessRunModel"]));
+                return ((string)(this["SimEngineRunModel"]));
             }
             set {
-                this["HeadlessRunModel"] = value;
+                this["SimEngineRunModel"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string HeadlessRunExperiment {
+        public string SimEngineRunExperiment {
             get {
-                return ((string)(this["HeadlessRunExperiment"]));
+                return ((string)(this["SimEngineRunExperiment"]));
             }
             set {
-                this["HeadlessRunExperiment"] = value;
+                this["SimEngineRunExperiment"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string HeadlessBuilderTargetFolder {
+        public string SimEngineBuilderTargetFolder {
             get {
-                return ((string)(this["HeadlessBuilderTargetFolder"]));
+                return ((string)(this["SimEngineBuilderTargetFolder"]));
             }
             set {
-                this["HeadlessBuilderTargetFolder"] = value;
+                this["SimEngineBuilderTargetFolder"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string HeadlessRunSimioProjectFile {
+        public string SimEngineRunSimioProjectFile {
             get {
-                return ((string)(this["HeadlessRunSimioProjectFile"]));
+                return ((string)(this["SimEngineRunSimioProjectFile"]));
             }
             set {
-                this["HeadlessRunSimioProjectFile"] = value;
+                this["SimEngineRunSimioProjectFile"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string HeadlessRunSimioProjectsFolder {
+        public string SimEngineRunSimioProjectsFolder {
             get {
-                return ((string)(this["HeadlessRunSimioProjectsFolder"]));
+                return ((string)(this["SimEngineRunSimioProjectsFolder"]));
             }
             set {
-                this["HeadlessRunSimioProjectsFolder"] = value;
+                this["SimEngineRunSimioProjectsFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LogFolder {
+            get {
+                return ((string)(this["LogFolder"]));
+            }
+            set {
+                this["LogFolder"] = value;
             }
         }
     }

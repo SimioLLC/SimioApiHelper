@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ProductVersion="11.205.20185.0" FileVersion="213" WriteToMultipleFiles="True" Id="7dbdfcee-31b5-4e7e-a94b-7777d4e35cc2" xmlns="http://www.simio.com/projects/v1">
+  <DocumentInfo LicenseInfo="15:1" UserName="Simio Employee" Organization="Simio" SerialNumber="6947" SaveDate="2020-05-22T10:08:34" Sig="4PQ5xHP9p+f7MYqiBwDDxpKvxod/LjlrQWAZzrIf9wMBkg4ozkcTn/jzMrye53uy/JFV1IVuXWgzbZI4xs3cSg==" />
+  <Models>
+    <Model Definition="ModelEntity" Runnable="False">
+      <TargetSettings HighRiskThreshold="50" MediumRiskThreshold="80" HighRiskColor="ff0000" MediumRiskColor="ffff00" LowRiskColor="90ee90" />
+      <ViewInfo>
+        <Process DefaultCategoryExpanded="True" />
+      </ViewInfo>
+    </Model>
+    <Model Definition="Model">
+      <RunSetup AnimationInterval="1" ReplicationNumber="1" Latitude="40.539912" Longitude="-80.180157">
+        <StartDate>2020-01-20T00:00:00</StartDate>
+        <EndDate>2020-01-21T00:00:00</EndDate>
+        <CompatibilitySettings SearchStepUsesExplicitCopyOverTableRowReferences="False" AlwaysCheckSpecificRunSpaceContextWhenResolvingTableRowReferences="False" ExcludeEntitiesTransferringOutOfChildStationsFromResourceUtilization="False" MinimalAutomaticRouteRequestQueueChecking="False" AllChangeoverLogicExpressionEvaluationsAllowResourceReferences="False" />
+      </RunSetup>
+      <TargetSettings HighRiskThreshold="50" MediumRiskThreshold="80" HighRiskColor="ff0000" MediumRiskColor="ffff00" LowRiskColor="90ee90" />
+      <RunnableInstance>
+        <Properties>
+          <Property Name="InitialCost" Units="USD">0.0</Property>
+          <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+          <Property Name="ResourceIdleCostRate" Units="USD per Hour">0.0</Property>
+          <Property Name="ResourceCostPerUse" Units="USD">0.0</Property>
+          <Property Name="ResourceUsageCostRate" Units="USD per Hour">0.0</Property>
+          <Property Name="DynamicSelectionRule">
+            <Value>None</Value>
+          </Property>
+        </Properties>
+      </RunnableInstance>
+      <InteractiveStatistics ResultSetId="2a6dafee-5ae2-4a0d-b86b-4383aa1f5602" ResultSetTimeStampUtc="2020-05-21T19:04:55.8137554Z">
+        <FileRef Name="Results\Model\Interactive_Results.stats" />
+      </InteractiveStatistics>
+      <OperationalPlanningResults PlanResultsAreOutOfDate="True" RiskResultsAreOutOfDate="True">
+        <PlanStatistics ResultSetId="2aa7e8e4-7bad-4e1b-b8ea-2115e2c22d93" ResultSetTimeStampUtc="2020-01-31T13:18:47.1551610Z">
+          <FileRef Name="PlanResults\Model\Model_PlanResults.stats" />
+        </PlanStatistics>
+      </OperationalPlanningResults>
+      <Experiments>
+        <Experiment Name="Experiment1" ConfidenceLevel="Point95" LowerPercentile="25" UpperPercentile="75" DefaultReplications="10">
+          <Warmup Units="Hours">0</Warmup>
+          <Scenarios>
+            <Scenario Name="Scenario1" ReplicationsCompleted="10" LastRunCompleted="2020-05-21T19:05:50.6700841Z">
+              <Properties>
+                <Property Name="InitialCost" Units="Default Currency">0.0</Property>
+                <Property Name="InitialCostRate" Units="Default Currency per Hour">0.0</Property>
+                <Property Name="ResourceIdleCostRate" Units="Default Currency per Hour">0.0</Property>
+                <Property Name="ResourceCostPerUse" Units="Default Currency">0.0</Property>
+                <Property Name="ResourceUsageCostRate" Units="Default Currency per Hour">0.0</Property>
+                <Property Name="DynamicSelectionRule">
+                  <Value>None</Value>
+                </Property>
+              </Properties>
+            </Scenario>
+            <Scenario Name="Scenario2" ReplicationsCompleted="10" LastRunCompleted="2020-05-21T19:05:51.0660872Z">
+              <Properties>
+                <Property Name="InitialCost" Units="Default Currency">0.0</Property>
+                <Property Name="InitialCostRate" Units="Default Currency per Hour">0.0</Property>
+                <Property Name="ResourceIdleCostRate" Units="Default Currency per Hour">0.0</Property>
+                <Property Name="ResourceCostPerUse" Units="Default Currency">0.0</Property>
+                <Property Name="ResourceUsageCostRate" Units="Default Currency per Hour">0.0</Property>
+                <Property Name="DynamicSelectionRule">
+                  <Value>None</Value>
+                </Property>
+                <Property Name="TheCapacity">2</Property>
+              </Properties>
+            </Scenario>
+            <Scenario Name="Scenario3" ReplicationsCompleted="10" LastRunCompleted="2020-05-21T19:05:51.0731384Z">
+              <Properties>
+                <Property Name="InitialCost" Units="Default Currency">0.0</Property>
+                <Property Name="InitialCostRate" Units="Default Currency per Hour">0.0</Property>
+                <Property Name="ResourceIdleCostRate" Units="Default Currency per Hour">0.0</Property>
+                <Property Name="ResourceCostPerUse" Units="Default Currency">0.0</Property>
+                <Property Name="ResourceUsageCostRate" Units="Default Currency per Hour">0.0</Property>
+                <Property Name="DynamicSelectionRule">
+                  <Value>None</Value>
+                </Property>
+                <Property Name="TheCapacity">4</Property>
+              </Properties>
+            </Scenario>
+          </Scenarios>
+          <Controls>
+            <Control Name="TheCapacity" />
+          </Controls>
+          <Responses>
+            <Response Name="Response1" Expression="Output@Server1.Cost" Primary="True" />
+          </Responses>
+          <BinaryResults ResultSetId="bfab0ad3-5f13-424e-8297-392f155ced73" ResultSetTimeStampUtc="2020-05-21T19:05:33.2523007Z">
+            <FileRef Name="Results\Model\Experiment1 Results.stats" />
+          </BinaryResults>
+          <ResponseResults>
+            <FileRef Name="Results\Model\Experiment1 ResponseResults.xml" />
+          </ResponseResults>
+          <ViewInfo>
+            <ExperimentResponseView>
+              <ViewSettings ShowConfidenceIntervals="True" />
+            </ExperimentResponseView>
+            <ExperimentDesign>
+              <ScenarioTable FilterEnabled="True">
+                <Columns>
+                  <Column Name="Active" Width="23" VisibleIndex="0" />
+                  <Column Name="InstanceName" Width="56" VisibleIndex="1" />
+                  <Column Name="StatusWrapper" Width="51" VisibleIndex="2" />
+                  <Column Name="ScenarioEndedTimeStamp" Width="134" VisibleIndex="-1" />
+                  <Column Name="ReplicationsRequired" Width="63" VisibleIndex="3" />
+                  <Column Name="ReplicationsCompleted" Width="71" VisibleIndex="4" />
+                  <Column Name="TheCapacity_ExperimentControl" Width="80" VisibleIndex="5" />
+                  <Column Name="Response1_ExperimentResponse" Width="73" VisibleIndex="6" />
+                </Columns>
+              </ScenarioTable>
+            </ExperimentDesign>
+            <ExperimentPivotGrid>
+              <DevExpressIncantation Layout="&lt;XtraSerializer version=&quot;1.0&quot; application=&quot;PivotGrid&quot;&gt;&#xD;&#xA;  &lt;property name=&quot;#LayoutVersion&quot; /&gt;&#xD;&#xA;  &lt;property name=&quot;#LayoutScaleFactor&quot;&gt;@1,Width=1@1,Height=1&lt;/property&gt;&#xD;&#xA;  &lt;property name=&quot;Fields&quot; iskey=&quot;true&quot; value=&quot;12&quot;&gt;&#xD;&#xA;    &lt;property name=&quot;Item1&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;      &lt;property name=&quot;ImageIndex&quot;&gt;-1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ToolTips&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;HeaderText&quot; /&gt;&#xD;&#xA;        &lt;property name=&quot;ValueText&quot; /&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldEditName&quot; /&gt;&#xD;&#xA;      &lt;property name=&quot;Name&quot;&gt;fieldScenarioName&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Area&quot;&gt;ColumnArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AllowedAreas&quot;&gt;RowArea, ColumnArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldName&quot;&gt;ScenarioName&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Index&quot;&gt;0&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;TotalsVisibility&quot;&gt;None&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AreaIndex&quot;&gt;0&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;MinWidth&quot;&gt;20&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Width&quot;&gt;100&lt;/property&gt;&#xD;&#xA;    &lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;Item2&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;      &lt;property name=&quot;ImageIndex&quot;&gt;-1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ToolTips&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;HeaderText&quot; /&gt;&#xD;&#xA;        &lt;property name=&quot;ValueText&quot; /&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldEditName&quot; /&gt;&#xD;&#xA;      &lt;property name=&quot;Name&quot;&gt;fieldObjectType&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Area&quot;&gt;RowArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AllowedAreas&quot;&gt;RowArea, ColumnArea, FilterArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldName&quot;&gt;ObjectType&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Index&quot;&gt;1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;TotalsVisibility&quot;&gt;None&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AreaIndex&quot;&gt;0&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;MinWidth&quot;&gt;20&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Width&quot;&gt;110&lt;/property&gt;&#xD;&#xA;    &lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;Item3&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;      &lt;property name=&quot;ImageIndex&quot;&gt;-1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ToolTips&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;HeaderText&quot; /&gt;&#xD;&#xA;        &lt;property name=&quot;ValueText&quot; /&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldEditName&quot; /&gt;&#xD;&#xA;      &lt;property name=&quot;Name&quot;&gt;fieldObjectName&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Area&quot;&gt;RowArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AllowedAreas&quot;&gt;RowArea, ColumnArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldName&quot;&gt;ObjectName&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Index&quot;&gt;2&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;TotalsVisibility&quot;&gt;None&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AreaIndex&quot;&gt;1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;MinWidth&quot;&gt;20&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Width&quot;&gt;120&lt;/property&gt;&#xD;&#xA;    &lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;Item4&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;      &lt;property name=&quot;ImageIndex&quot;&gt;-1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ToolTips&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;HeaderText&quot; /&gt;&#xD;&#xA;        &lt;property name=&quot;ValueText&quot; /&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldEditName&quot; /&gt;&#xD;&#xA;      &lt;property name=&quot;Name&quot;&gt;fieldDataSource&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Area&quot;&gt;RowArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AllowedAreas&quot;&gt;RowArea, ColumnArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldName&quot;&gt;DataSource&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Index&quot;&gt;3&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;TotalsVisibility&quot;&gt;None&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AreaIndex&quot;&gt;2&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;MinWidth&quot;&gt;20&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Width&quot;&gt;120&lt;/property&gt;&#xD;&#xA;    &lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;Item5&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;      &lt;property name=&quot;ImageIndex&quot;&gt;-1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ToolTips&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;HeaderText&quot; /&gt;&#xD;&#xA;        &lt;property name=&quot;ValueText&quot; /&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldEditName&quot; /&gt;&#xD;&#xA;      &lt;property name=&quot;Name&quot;&gt;fieldStatisticCategory&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Area&quot;&gt;RowArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AllowedAreas&quot;&gt;RowArea, ColumnArea, FilterArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldName&quot;&gt;StatisticCategory&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Index&quot;&gt;4&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;TotalsVisibility&quot;&gt;None&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AreaIndex&quot;&gt;3&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;MinWidth&quot;&gt;20&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Width&quot;&gt;100&lt;/property&gt;&#xD;&#xA;    &lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;Item6&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;      &lt;property name=&quot;ImageIndex&quot;&gt;-1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ToolTips&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;HeaderText&quot; /&gt;&#xD;&#xA;        &lt;property name=&quot;ValueText&quot; /&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldEditName&quot; /&gt;&#xD;&#xA;      &lt;property name=&quot;Name&quot;&gt;fieldDataItem&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Area&quot;&gt;RowArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AllowedAreas&quot;&gt;RowArea, ColumnArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldName&quot;&gt;DataItem&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Index&quot;&gt;5&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;TotalsVisibility&quot;&gt;None&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AreaIndex&quot;&gt;4&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;MinWidth&quot;&gt;20&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Width&quot;&gt;115&lt;/property&gt;&#xD;&#xA;    &lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;Item7&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;      &lt;property name=&quot;ImageIndex&quot;&gt;-1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ToolTips&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;HeaderText&quot; /&gt;&#xD;&#xA;        &lt;property name=&quot;ValueText&quot; /&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldEditName&quot; /&gt;&#xD;&#xA;      &lt;property name=&quot;Name&quot;&gt;fieldStatisticType&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Area&quot;&gt;RowArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AllowedAreas&quot;&gt;RowArea, ColumnArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldName&quot;&gt;StatisticTypeForDisplay&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Index&quot;&gt;6&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;TotalsVisibility&quot;&gt;None&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FilterValues&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;ValuesCore&quot; iskey=&quot;true&quot; value=&quot;1&quot;&gt;&#xD;&#xA;          &lt;property name=&quot;Item1&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;            &lt;property name=&quot;Value&quot; type=&quot;System.String&quot;&gt;Minimum&lt;/property&gt;&#xD;&#xA;          &lt;/property&gt;&#xD;&#xA;        &lt;/property&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AreaIndex&quot;&gt;5&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;MinWidth&quot;&gt;20&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Width&quot;&gt;85&lt;/property&gt;&#xD;&#xA;    &lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;Item8&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;      &lt;property name=&quot;Options&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;ShowGrandTotal&quot;&gt;false&lt;/property&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ImageIndex&quot;&gt;-1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ToolTips&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;HeaderText&quot; /&gt;&#xD;&#xA;        &lt;property name=&quot;ValueText&quot; /&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldEditName&quot; /&gt;&#xD;&#xA;      &lt;property name=&quot;Name&quot;&gt;fieldValueAverage&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Area&quot;&gt;DataArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AllowedAreas&quot;&gt;DataArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldName&quot;&gt;AverageForDisplay&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Index&quot;&gt;7&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;CellFormat&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;FormatString&quot;&gt;N4&lt;/property&gt;&#xD;&#xA;        &lt;property name=&quot;FormatType&quot;&gt;Numeric&lt;/property&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AreaIndex&quot;&gt;0&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;MinWidth&quot;&gt;20&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Width&quot;&gt;100&lt;/property&gt;&#xD;&#xA;    &lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;Item9&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;      &lt;property name=&quot;Options&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;ShowGrandTotal&quot;&gt;false&lt;/property&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ImageIndex&quot;&gt;-1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ToolTips&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;HeaderText&quot; /&gt;&#xD;&#xA;        &lt;property name=&quot;ValueText&quot; /&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldEditName&quot; /&gt;&#xD;&#xA;      &lt;property name=&quot;Name&quot;&gt;fieldValueMinimum&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Area&quot;&gt;DataArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AllowedAreas&quot;&gt;DataArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldName&quot;&gt;MinimumForDisplay&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Index&quot;&gt;8&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;CellFormat&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;FormatString&quot;&gt;N4&lt;/property&gt;&#xD;&#xA;        &lt;property name=&quot;FormatType&quot;&gt;Numeric&lt;/property&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AreaIndex&quot;&gt;1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;MinWidth&quot;&gt;20&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Width&quot;&gt;49&lt;/property&gt;&#xD;&#xA;    &lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;Item10&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;      &lt;property name=&quot;Options&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;ShowGrandTotal&quot;&gt;false&lt;/property&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ImageIndex&quot;&gt;-1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ToolTips&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;HeaderText&quot; /&gt;&#xD;&#xA;        &lt;property name=&quot;ValueText&quot; /&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldEditName&quot; /&gt;&#xD;&#xA;      &lt;property name=&quot;Name&quot;&gt;fieldValueMaximum&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Area&quot;&gt;DataArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AllowedAreas&quot;&gt;DataArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldName&quot;&gt;MaximumForDisplay&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Index&quot;&gt;9&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;CellFormat&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;FormatString&quot;&gt;N4&lt;/property&gt;&#xD;&#xA;        &lt;property name=&quot;FormatType&quot;&gt;Numeric&lt;/property&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AreaIndex&quot;&gt;2&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;MinWidth&quot;&gt;20&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Width&quot;&gt;53&lt;/property&gt;&#xD;&#xA;    &lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;Item11&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;      &lt;property name=&quot;Options&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;ShowGrandTotal&quot;&gt;false&lt;/property&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ImageIndex&quot;&gt;-1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ToolTips&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;HeaderText&quot; /&gt;&#xD;&#xA;        &lt;property name=&quot;ValueText&quot; /&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldEditName&quot; /&gt;&#xD;&#xA;      &lt;property name=&quot;Name&quot;&gt;fieldValueHalfWidth&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Area&quot;&gt;DataArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AllowedAreas&quot;&gt;DataArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldName&quot;&gt;HalfWidthForDisplay&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Index&quot;&gt;10&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;CellFormat&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;FormatString&quot;&gt;N4&lt;/property&gt;&#xD;&#xA;        &lt;property name=&quot;FormatType&quot;&gt;Numeric&lt;/property&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AreaIndex&quot;&gt;3&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;MinWidth&quot;&gt;20&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Width&quot;&gt;63&lt;/property&gt;&#xD;&#xA;    &lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;Item12&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;      &lt;property name=&quot;Options&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;ShowGrandTotal&quot;&gt;false&lt;/property&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ImageIndex&quot;&gt;-1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ToolTips&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;HeaderText&quot; /&gt;&#xD;&#xA;        &lt;property name=&quot;ValueText&quot; /&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldEditName&quot; /&gt;&#xD;&#xA;      &lt;property name=&quot;Name&quot;&gt;fieldValueStandardDeviation&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Area&quot;&gt;DataArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AllowedAreas&quot;&gt;DataArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldName&quot;&gt;StandardDeviationForDisplay&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Index&quot;&gt;11&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;CellFormat&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;FormatString&quot;&gt;N4&lt;/property&gt;&#xD;&#xA;        &lt;property name=&quot;FormatType&quot;&gt;Numeric&lt;/property&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AreaIndex&quot;&gt;4&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;MinWidth&quot;&gt;20&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Width&quot;&gt;55&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Visible&quot;&gt;false&lt;/property&gt;&#xD;&#xA;    &lt;/property&gt;&#xD;&#xA;  &lt;/property&gt;&#xD;&#xA;  &lt;property name=&quot;Prefilter&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;    &lt;property name=&quot;Criteria&quot; isnull=&quot;true&quot; /&gt;&#xD;&#xA;    &lt;property name=&quot;ShowOperandTypeIcon&quot;&gt;false&lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;Enabled&quot;&gt;true&lt;/property&gt;&#xD;&#xA;  &lt;/property&gt;&#xD;&#xA;  &lt;property name=&quot;OptionsBehavior&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;    &lt;property name=&quot;ApplyBestFitOnFieldDragging&quot;&gt;true&lt;/property&gt;&#xD;&#xA;  &lt;/property&gt;&#xD;&#xA;  &lt;property name=&quot;OptionsFilterPopup&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;    &lt;property name=&quot;ToolbarButtons&quot;&gt;ShowOnlyAvailableItems, ShowNewValues, RadioMode, InvertFilter&lt;/property&gt;&#xD;&#xA;  &lt;/property&gt;&#xD;&#xA;  &lt;property name=&quot;OptionsCustomization&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;    &lt;property name=&quot;AllowExpand&quot;&gt;false&lt;/property&gt;&#xD;&#xA;  &lt;/property&gt;&#xD;&#xA;  &lt;property name=&quot;Groups&quot; iskey=&quot;true&quot; value=&quot;0&quot; /&gt;&#xD;&#xA;&lt;/XtraSerializer&gt;" />
+            </ExperimentPivotGrid>
+          </ViewInfo>
+        </Experiment>
+        <Experiment Name="Experiment2" ConfidenceLevel="Point95" LowerPercentile="25" UpperPercentile="75" DefaultReplications="10">
+          <Warmup Units="Hours">0</Warmup>
+          <Scenarios>
+            <Scenario Name="Scenario1">
+              <Properties>
+                <Property Name="InitialCost" Units="Default Currency">0.0</Property>
+                <Property Name="InitialCostRate" Units="Default Currency per Hour">0.0</Property>
+                <Property Name="ResourceIdleCostRate" Units="Default Currency per Hour">0.0</Property>
+                <Property Name="ResourceCostPerUse" Units="Default Currency">0.0</Property>
+                <Property Name="ResourceUsageCostRate" Units="Default Currency per Hour">0.0</Property>
+                <Property Name="DynamicSelectionRule">
+                  <Value>None</Value>
+                </Property>
+              </Properties>
+            </Scenario>
+          </Scenarios>
+          <Controls>
+            <Control Name="TheCapacity" />
+          </Controls>
+          <ViewInfo>
+            <ExperimentDesign>
+              <ScenarioTable FilterEnabled="True">
+                <Columns>
+                  <Column Name="Active" Width="23" VisibleIndex="0" />
+                  <Column Name="InstanceName" Width="56" VisibleIndex="1" />
+                  <Column Name="StatusWrapper" Width="51" VisibleIndex="2" />
+                  <Column Name="ScenarioEndedTimeStamp" Width="134" VisibleIndex="-1" />
+                  <Column Name="ReplicationsRequired" Width="63" VisibleIndex="3" />
+                  <Column Name="ReplicationsCompleted" Width="71" VisibleIndex="4" />
+                  <Column Name="TheCapacity_ExperimentControl" Width="80" VisibleIndex="5" />
+                </Columns>
+              </ScenarioTable>
+            </ExperimentDesign>
+          </ViewInfo>
+        </Experiment>
+      </Experiments>
+      <ViewInfo ActiveModel="True" ActiveView="Table">
+        <Facility FollowDistanceRatio="1">
+          <Camera Orientation="Top" Location="1.81898940354586E-12 12.5 -1.81898940354586E-12" Direction="0 -1 -2.22044604925031E-16" Zoom="12.5" />
+          <ObjectDisplay SnapToGrid="True" Background="ffffff" />
+          <Libraries Width="122">
+            <Library Name="Standard Library" Size="522" Expanded="True" />
+            <Library Name="Flow Library" Size="28" />
+          </Libraries>
+        </Facility>
+        <Process>
+          <Categories>
+            <Category Name="Input@Sink1 Add-On Processes" Expanded="True" />
+          </Categories>
+        </Process>
+        <StandardTables>
+          <DevExpressLayout>
+            <FileRef Name="Data\DevExpressLayout.xml" />
+          </DevExpressLayout>
+          <Tables SelectedTable="OutputTable1">
+            <Table Name="OutputTable1" FilterEnabled="True">
+              <Columns>
+                <Column Name="TimeEntered" Width="83" />
+                <Column Name="EntityName" Width="78" />
+              </Columns>
+            </Table>
+          </Tables>
+        </StandardTables>
+        <InteractivePivotGrid>
+          <DevExpressIncantation Layout="&lt;XtraSerializer version=&quot;1.0&quot; application=&quot;PivotGrid&quot;&gt;&#xD;&#xA;  &lt;property name=&quot;#LayoutVersion&quot; /&gt;&#xD;&#xA;  &lt;property name=&quot;#LayoutScaleFactor&quot;&gt;@1,Width=1@1,Height=1&lt;/property&gt;&#xD;&#xA;  &lt;property name=&quot;Fields&quot; iskey=&quot;true&quot; value=&quot;12&quot;&gt;&#xD;&#xA;    &lt;property name=&quot;Item1&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;      &lt;property name=&quot;ImageIndex&quot;&gt;-1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ToolTips&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;HeaderText&quot; /&gt;&#xD;&#xA;        &lt;property name=&quot;ValueText&quot; /&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldEditName&quot; /&gt;&#xD;&#xA;      &lt;property name=&quot;Name&quot;&gt;fieldScenarioName&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Area&quot;&gt;ColumnArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AllowedAreas&quot;&gt;RowArea, ColumnArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldName&quot;&gt;ScenarioName&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Index&quot;&gt;0&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;TotalsVisibility&quot;&gt;None&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AreaIndex&quot;&gt;0&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;MinWidth&quot;&gt;20&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Width&quot;&gt;100&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Visible&quot;&gt;false&lt;/property&gt;&#xD;&#xA;    &lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;Item2&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;      &lt;property name=&quot;ImageIndex&quot;&gt;-1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ToolTips&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;HeaderText&quot; /&gt;&#xD;&#xA;        &lt;property name=&quot;ValueText&quot; /&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldEditName&quot; /&gt;&#xD;&#xA;      &lt;property name=&quot;Name&quot;&gt;fieldObjectType&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Area&quot;&gt;RowArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AllowedAreas&quot;&gt;RowArea, ColumnArea, FilterArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldName&quot;&gt;ObjectType&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Index&quot;&gt;1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;TotalsVisibility&quot;&gt;None&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AreaIndex&quot;&gt;0&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;MinWidth&quot;&gt;20&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Width&quot;&gt;110&lt;/property&gt;&#xD;&#xA;    &lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;Item3&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;      &lt;property name=&quot;ImageIndex&quot;&gt;-1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ToolTips&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;HeaderText&quot; /&gt;&#xD;&#xA;        &lt;property name=&quot;ValueText&quot; /&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldEditName&quot; /&gt;&#xD;&#xA;      &lt;property name=&quot;Name&quot;&gt;fieldObjectName&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Area&quot;&gt;RowArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AllowedAreas&quot;&gt;RowArea, ColumnArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldName&quot;&gt;ObjectName&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Index&quot;&gt;2&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;TotalsVisibility&quot;&gt;None&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AreaIndex&quot;&gt;1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;MinWidth&quot;&gt;20&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Width&quot;&gt;120&lt;/property&gt;&#xD;&#xA;    &lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;Item4&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;      &lt;property name=&quot;ImageIndex&quot;&gt;-1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ToolTips&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;HeaderText&quot; /&gt;&#xD;&#xA;        &lt;property name=&quot;ValueText&quot; /&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldEditName&quot; /&gt;&#xD;&#xA;      &lt;property name=&quot;Name&quot;&gt;fieldDataSource&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Area&quot;&gt;RowArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AllowedAreas&quot;&gt;RowArea, ColumnArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldName&quot;&gt;DataSource&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Index&quot;&gt;3&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;TotalsVisibility&quot;&gt;None&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AreaIndex&quot;&gt;2&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;MinWidth&quot;&gt;20&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Width&quot;&gt;120&lt;/property&gt;&#xD;&#xA;    &lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;Item5&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;      &lt;property name=&quot;ImageIndex&quot;&gt;-1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ToolTips&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;HeaderText&quot; /&gt;&#xD;&#xA;        &lt;property name=&quot;ValueText&quot; /&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldEditName&quot; /&gt;&#xD;&#xA;      &lt;property name=&quot;Name&quot;&gt;fieldStatisticCategory&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Area&quot;&gt;RowArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AllowedAreas&quot;&gt;RowArea, ColumnArea, FilterArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldName&quot;&gt;StatisticCategory&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Index&quot;&gt;4&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;TotalsVisibility&quot;&gt;None&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AreaIndex&quot;&gt;3&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;MinWidth&quot;&gt;20&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Width&quot;&gt;100&lt;/property&gt;&#xD;&#xA;    &lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;Item6&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;      &lt;property name=&quot;ImageIndex&quot;&gt;-1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ToolTips&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;HeaderText&quot; /&gt;&#xD;&#xA;        &lt;property name=&quot;ValueText&quot; /&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldEditName&quot; /&gt;&#xD;&#xA;      &lt;property name=&quot;Name&quot;&gt;fieldDataItem&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Area&quot;&gt;RowArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AllowedAreas&quot;&gt;RowArea, ColumnArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldName&quot;&gt;DataItem&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Index&quot;&gt;5&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;TotalsVisibility&quot;&gt;None&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AreaIndex&quot;&gt;4&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;MinWidth&quot;&gt;20&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Width&quot;&gt;115&lt;/property&gt;&#xD;&#xA;    &lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;Item7&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;      &lt;property name=&quot;ImageIndex&quot;&gt;-1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ToolTips&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;HeaderText&quot; /&gt;&#xD;&#xA;        &lt;property name=&quot;ValueText&quot; /&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldEditName&quot; /&gt;&#xD;&#xA;      &lt;property name=&quot;Name&quot;&gt;fieldStatisticType&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Area&quot;&gt;RowArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AllowedAreas&quot;&gt;RowArea, ColumnArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldName&quot;&gt;StatisticTypeForDisplay&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Index&quot;&gt;6&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;TotalsVisibility&quot;&gt;None&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FilterValues&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;ValuesCore&quot; iskey=&quot;true&quot; value=&quot;1&quot;&gt;&#xD;&#xA;          &lt;property name=&quot;Item1&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;            &lt;property name=&quot;Value&quot; type=&quot;System.String&quot;&gt;Minimum&lt;/property&gt;&#xD;&#xA;          &lt;/property&gt;&#xD;&#xA;        &lt;/property&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AreaIndex&quot;&gt;5&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;MinWidth&quot;&gt;20&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Width&quot;&gt;85&lt;/property&gt;&#xD;&#xA;    &lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;Item8&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;      &lt;property name=&quot;Options&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;ShowGrandTotal&quot;&gt;false&lt;/property&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ImageIndex&quot;&gt;-1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ToolTips&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;HeaderText&quot; /&gt;&#xD;&#xA;        &lt;property name=&quot;ValueText&quot; /&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldEditName&quot; /&gt;&#xD;&#xA;      &lt;property name=&quot;Name&quot;&gt;fieldValueAverage&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Area&quot;&gt;DataArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AllowedAreas&quot;&gt;DataArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldName&quot;&gt;AverageForDisplay&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Index&quot;&gt;7&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;CellFormat&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;FormatString&quot;&gt;N4&lt;/property&gt;&#xD;&#xA;        &lt;property name=&quot;FormatType&quot;&gt;Numeric&lt;/property&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AreaIndex&quot;&gt;0&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;MinWidth&quot;&gt;20&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Width&quot;&gt;100&lt;/property&gt;&#xD;&#xA;    &lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;Item9&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;      &lt;property name=&quot;Options&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;ShowGrandTotal&quot;&gt;false&lt;/property&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ImageIndex&quot;&gt;-1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ToolTips&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;HeaderText&quot; /&gt;&#xD;&#xA;        &lt;property name=&quot;ValueText&quot; /&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldEditName&quot; /&gt;&#xD;&#xA;      &lt;property name=&quot;Name&quot;&gt;fieldValueMinimum&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Area&quot;&gt;DataArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AllowedAreas&quot;&gt;DataArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldName&quot;&gt;MinimumForDisplay&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Index&quot;&gt;8&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;CellFormat&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;FormatString&quot;&gt;N4&lt;/property&gt;&#xD;&#xA;        &lt;property name=&quot;FormatType&quot;&gt;Numeric&lt;/property&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AreaIndex&quot;&gt;1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;MinWidth&quot;&gt;20&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Width&quot;&gt;49&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Visible&quot;&gt;false&lt;/property&gt;&#xD;&#xA;    &lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;Item10&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;      &lt;property name=&quot;Options&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;ShowGrandTotal&quot;&gt;false&lt;/property&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ImageIndex&quot;&gt;-1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ToolTips&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;HeaderText&quot; /&gt;&#xD;&#xA;        &lt;property name=&quot;ValueText&quot; /&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldEditName&quot; /&gt;&#xD;&#xA;      &lt;property name=&quot;Name&quot;&gt;fieldValueMaximum&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Area&quot;&gt;DataArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AllowedAreas&quot;&gt;DataArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldName&quot;&gt;MaximumForDisplay&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Index&quot;&gt;9&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;CellFormat&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;FormatString&quot;&gt;N4&lt;/property&gt;&#xD;&#xA;        &lt;property name=&quot;FormatType&quot;&gt;Numeric&lt;/property&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AreaIndex&quot;&gt;2&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;MinWidth&quot;&gt;20&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Width&quot;&gt;53&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Visible&quot;&gt;false&lt;/property&gt;&#xD;&#xA;    &lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;Item11&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;      &lt;property name=&quot;Options&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;ShowGrandTotal&quot;&gt;false&lt;/property&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ImageIndex&quot;&gt;-1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ToolTips&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;HeaderText&quot; /&gt;&#xD;&#xA;        &lt;property name=&quot;ValueText&quot; /&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldEditName&quot; /&gt;&#xD;&#xA;      &lt;property name=&quot;Name&quot;&gt;fieldValueHalfWidth&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Area&quot;&gt;DataArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AllowedAreas&quot;&gt;DataArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldName&quot;&gt;HalfWidthForDisplay&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Index&quot;&gt;10&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;CellFormat&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;FormatString&quot;&gt;N4&lt;/property&gt;&#xD;&#xA;        &lt;property name=&quot;FormatType&quot;&gt;Numeric&lt;/property&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AreaIndex&quot;&gt;3&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;MinWidth&quot;&gt;20&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Width&quot;&gt;63&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Visible&quot;&gt;false&lt;/property&gt;&#xD;&#xA;    &lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;Item12&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;      &lt;property name=&quot;Options&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;ShowGrandTotal&quot;&gt;false&lt;/property&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ImageIndex&quot;&gt;-1&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;ToolTips&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;HeaderText&quot; /&gt;&#xD;&#xA;        &lt;property name=&quot;ValueText&quot; /&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldEditName&quot; /&gt;&#xD;&#xA;      &lt;property name=&quot;Name&quot;&gt;fieldValueStandardDeviation&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Area&quot;&gt;DataArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AllowedAreas&quot;&gt;DataArea&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;FieldName&quot;&gt;StandardDeviationForDisplay&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Index&quot;&gt;11&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;CellFormat&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;        &lt;property name=&quot;FormatString&quot;&gt;N4&lt;/property&gt;&#xD;&#xA;        &lt;property name=&quot;FormatType&quot;&gt;Numeric&lt;/property&gt;&#xD;&#xA;      &lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;AreaIndex&quot;&gt;4&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;MinWidth&quot;&gt;20&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Width&quot;&gt;55&lt;/property&gt;&#xD;&#xA;      &lt;property name=&quot;Visible&quot;&gt;false&lt;/property&gt;&#xD;&#xA;    &lt;/property&gt;&#xD;&#xA;  &lt;/property&gt;&#xD;&#xA;  &lt;property name=&quot;Prefilter&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;    &lt;property name=&quot;Criteria&quot; isnull=&quot;true&quot; /&gt;&#xD;&#xA;    &lt;property name=&quot;ShowOperandTypeIcon&quot;&gt;false&lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;Enabled&quot;&gt;true&lt;/property&gt;&#xD;&#xA;  &lt;/property&gt;&#xD;&#xA;  &lt;property name=&quot;OptionsBehavior&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;    &lt;property name=&quot;ApplyBestFitOnFieldDragging&quot;&gt;true&lt;/property&gt;&#xD;&#xA;  &lt;/property&gt;&#xD;&#xA;  &lt;property name=&quot;OptionsFilterPopup&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;    &lt;property name=&quot;ToolbarButtons&quot;&gt;ShowOnlyAvailableItems, ShowNewValues, RadioMode, InvertFilter&lt;/property&gt;&#xD;&#xA;  &lt;/property&gt;&#xD;&#xA;  &lt;property name=&quot;OptionsCustomization&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;    &lt;property name=&quot;AllowExpand&quot;&gt;false&lt;/property&gt;&#xD;&#xA;  &lt;/property&gt;&#xD;&#xA;  &lt;property name=&quot;Groups&quot; iskey=&quot;true&quot; value=&quot;0&quot; /&gt;&#xD;&#xA;&lt;/XtraSerializer&gt;" />
+        </InteractivePivotGrid>
+        <OperationalPlanningResourceGantt>
+          <FileRef Name="Data\ViewState\Model_OperationalPlanningResourceGantt.xml" />
+        </OperationalPlanningResourceGantt>
+        <OperationalPlanningOwnerGantt>
+          <FileRef Name="Data\ViewState\Model_OperationalPlanningOwnerGantt.xml" />
+        </OperationalPlanningOwnerGantt>
+        <OperationalPlanningResourceGantt>
+          <FileRef Name="Data\ViewState\Model_OperationalPlanningResourceGantt1.xml" />
+        </OperationalPlanningResourceGantt>
+        <OperationalPlanningOwnerGantt>
+          <FileRef Name="Data\ViewState\Model_OperationalPlanningOwnerGantt1.xml" />
+        </OperationalPlanningOwnerGantt>
+      </ViewInfo>
+    </Model>
+  </Models>
+  <CommonItems>
+    <Definitions>
+      <EntityDefinition Name="ModelEntity" Id="17261762-993d-4eb5-8671-c34ff6dcbf82" Revision="0" Author="Simio Employee" Description="The default entity definition for your project." CheckBaseForAdvancedProperties="True">
+        <FileRef Name="Models\ModelEntity\17261762-993d-4eb5-8671-c34ff6dcbf82.xml" />
+      </EntityDefinition>
+      <FixedDefinition Name="Model" Id="3b70d6e5-e8d9-4dd4-bf5f-a57094aa2990" Revision="3" Author="Simio Employee">
+        <FileRef Name="Models\Model\3b70d6e5-e8d9-4dd4-bf5f-a57094aa2990.xml" />
+      </FixedDefinition>
+    </Definitions>
+    <DefinitionRefs>
+      <DefinitionRef Name="ModelEntity">
+        <Id>17261762-993d-4eb5-8671-c34ff6dcbf82</Id>
+        <Revision>0</Revision>
+      </DefinitionRef>
+      <DefinitionRef Name="Model">
+        <Id>3b70d6e5-e8d9-4dd4-bf5f-a57094aa2990</Id>
+        <Revision>3</Revision>
+      </DefinitionRef>
+      <DefinitionRef Name="TransferNode">
+        <Id>0d40fbf0-8206-443f-b771-65f85633a2f6</Id>
+        <Revision>157</Revision>
+      </DefinitionRef>
+      <DefinitionRef Name="Server">
+        <Id>1bc342dc-9d96-49f2-ae4a-af8f05416564</Id>
+        <Revision>249</Revision>
+      </DefinitionRef>
+      <DefinitionRef Name="Source">
+        <Id>1d0ccf22-61f9-4fc0-9b3c-01d17e71402d</Id>
+        <Revision>117</Revision>
+      </DefinitionRef>
+      <DefinitionRef Name="BasicNode">
+        <Id>585953ca-c744-444b-92d9-8af032f3e9a1</Id>
+        <Revision>107</Revision>
+      </DefinitionRef>
+      <DefinitionRef Name="Sink">
+        <Id>5f44138f-a5f7-40d1-ab9a-eea7c5f0254e</Id>
+        <Revision>66</Revision>
+      </DefinitionRef>
+      <DefinitionRef Name="Path">
+        <Id>93d39da5-5ba1-4ae1-a526-15bdb27d48e4</Id>
+        <Revision>63</Revision>
+      </DefinitionRef>
+    </DefinitionRefs>
+    <Materials>
+      <ColorMaterial Id="83a1c883-42fa-4a1f-aab1-906b19077140" Color="008000" />
+    </Materials>
+    <Symbols>
+      <Symbol Id="26c327ab-e5ea-4675-be93-c41e67035da1">
+        <Graphics>
+          <Polygon Center="0 0 0" Color="008000" YHeight="0.25" ExternallyVisible="True">
+            <Points>
+              <Point Location="-0.25 0 0.25" />
+              <Point Location="-0.25 0 -0.25" />
+              <Point Location="0.25 0 0" />
+            </Points>
+          </Polygon>
+          <DefaultFlowMaterial>
+            <MaterialRef Id="83a1c883-42fa-4a1f-aab1-906b19077140" />
+          </DefaultFlowMaterial>
+        </Graphics>
+      </Symbol>
+      <Symbol Id="228afd22-0a68-4975-a0ca-9cf909cb339a">
+        <Graphics>
+          <Rectangle Center="0 0 0" Width="1" Height="1" ExternallyVisible="True" Color="808080" YHeight="1" />
+        </Graphics>
+      </Symbol>
+      <Symbol Id="82f2efb5-45ff-403b-887d-57adf87cc53d">
+        <Graphics>
+          <Rectangle Center="0 0 0" Width="1" Height="1" ExternallyVisible="True" Color="808080" YHeight="1" />
+        </Graphics>
+      </Symbol>
+      <Symbol Id="7944f047-0055-4053-a819-22c51876738f">
+        <Graphics>
+          <Rectangle Center="0 0 0" Width="1" Height="1" ExternallyVisible="True" Color="808080" YHeight="1" />
+        </Graphics>
+      </Symbol>
+    </Symbols>
+    <Definitions>
+      <NodeDefinition Name="BasicNode" Id="585953ca-c744-444b-92d9-8af032f3e9a1" Revision="107" Author="Simio Employee" Description="A BasicNode object may be used by an entity to transfer into or out of an object. This type of node may also be used to define an intersection point in a network of links." CheckBaseForAdvancedProperties="True" Color="808080">
+        <FileRef Name="Models\BasicNode\585953ca-c744-444b-92d9-8af032f3e9a1.xml" />
+      </NodeDefinition>
+      <LinkDefinition Name="Path" Id="93d39da5-5ba1-4ae1-a526-15bdb27d48e4" Revision="63" Author="Simio Employee" Description="A Path object may be used to define a pathway between two node locations where the travel time is determined by the path length and a traveling entity's speed. Passing may or may not be allowed." CheckBaseForAdvancedProperties="True" FlowConstraintMode="Default">
+        <FileRef Name="Models\Path\93d39da5-5ba1-4ae1-a526-15bdb27d48e4.xml" />
+      </LinkDefinition>
+      <FixedDefinition Name="Server" Id="1bc342dc-9d96-49f2-ae4a-af8f05416564" Revision="249" Author="Simio Employee" Description="A Server object may be used to model a capacity-constrained processing location. Operations performed at the server can be modeled as either a processing time or as a sequence of tasks. Secondary resources or material requirements may be optionally specified." ResourceLogic="True">
+        <FileRef Name="Models\Server\1bc342dc-9d96-49f2-ae4a-af8f05416564.xml" />
+      </FixedDefinition>
+      <FixedDefinition Name="Sink" Id="5f44138f-a5f7-40d1-ab9a-eea7c5f0254e" Revision="66" Author="Simio Employee" Description="A Sink object may be used to destroy entities that have finished processing in the model." CheckBaseForAdvancedProperties="True">
+        <FileRef Name="Models\Sink\5f44138f-a5f7-40d1-ab9a-eea7c5f0254e.xml" />
+      </FixedDefinition>
+      <FixedDefinition Name="Source" Id="1d0ccf22-61f9-4fc0-9b3c-01d17e71402d" Revision="117" Author="Simio Employee" Description="A Source object may be used to generate entities of a specified type." CheckBaseForAdvancedProperties="True">
+        <FileRef Name="Models\Source\1d0ccf22-61f9-4fc0-9b3c-01d17e71402d.xml" />
+      </FixedDefinition>
+      <NodeDefinition Name="TransferNode" Id="0d40fbf0-8206-443f-b771-65f85633a2f6" Revision="157" Author="Simio Employee" Description="A TransferNode object may be used by an entity to transfer into or out of an object. This type of node may also be used to define an intersection point in a network of links. Optional entity destination selection and transport logic is provided." CheckBaseForAdvancedProperties="True" Color="1e90ff">
+        <FileRef Name="Models\TransferNode\0d40fbf0-8206-443f-b771-65f85633a2f6.xml" />
+      </NodeDefinition>
+    </Definitions>
+  </CommonItems>
+</Project>
+<!-- MKSclML6qp3/Yn6xqjS2OOlXd0q4yQb2Ft9+kFathBzh4P4kSPYegoYU1MXgSA+XVUiSvVGYME4NuXVYO+ZTQw== -->

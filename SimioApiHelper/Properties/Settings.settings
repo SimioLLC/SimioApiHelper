@@ -2,25 +2,28 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SimioApiHelper.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="HeadlessSystemFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)"></Value>
+    <Setting Name="SimEngineSystemFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="SimioInstallationFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)">c:\program files (x86)\simio</Value>
     </Setting>
-    <Setting Name="HeadlessRunModel" Type="System.String" Scope="User">
+    <Setting Name="SimEngineRunModel" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="HeadlessRunExperiment" Type="System.String" Scope="User">
+    <Setting Name="SimEngineRunExperiment" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="HeadlessBuilderTargetFolder" Type="System.String" Scope="User">
+    <Setting Name="SimEngineBuilderTargetFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="HeadlessRunSimioProjectFile" Type="System.String" Scope="User">
+    <Setting Name="SimEngineRunSimioProjectFile" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="HeadlessRunSimioProjectsFolder" Type="System.String" Scope="User">
+    <Setting Name="SimEngineRunSimioProjectsFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="LogFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

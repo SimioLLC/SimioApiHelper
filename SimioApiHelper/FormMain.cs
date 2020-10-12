@@ -21,7 +21,7 @@ namespace SimioApiHelper
     {
         private bool IsLoaded = false;
 
-        SimEngineContext HeadlessRunContext { get; set; }
+        SimEngineContext SimEngineRunContext { get; set; }
 
         FileSystemWatcher FileWatcher { get; set; }
 
@@ -41,8 +41,8 @@ namespace SimioApiHelper
             {
                 Logit(EnumLogFlags.Information, $"Begin Machine={Environment.MachineName}");
 
-                string headlessTestFolder = CheckHeadlessTestFolder();
-                Logit($"Info: Test Folder Location={headlessTestFolder}");
+                string simEngineTestFolder = CheckSimEngineTestFolder();
+                Logit($"Info: Test Folder Location={simEngineTestFolder}");
 
                 comboSimioLocation.DataSource = DLLHelpers.GetSimioApiLocations();
                 comboFindSimioExtensionLocations.DataSource = DLLHelpers.GetSimioApiLocations();
@@ -67,8 +67,8 @@ namespace SimioApiHelper
             try
             {
                 RefreshTabDashboard();
-                RefreshTabHeadlessBuilder(true);
-                RefreshTabHeadlessRun();
+                RefreshTabSimEngineBuilder(true);
+                RefreshTabSimEngineRun();
                 RefreshTabSettings();
               
             }
@@ -894,33 +894,33 @@ namespace SimioApiHelper
         }
 
         /// <summary>
-        /// Check for the headless test folder.
+        /// Check for the simEngine test folder.
         /// If found (or created) return the path and add to Settings.
         /// </summary>
         /// <returns></returns>
-        private string CheckHeadlessTestFolder()
+        private string CheckSimEngineTestFolder()
         {
             string marker = "Begin";
             try
             {
-                string headlessTestFolder = Properties.Settings.Default.HeadlessSystemFolder;
+                string simEngineTestFolder = Properties.Settings.Default.SimEngineSystemFolder;
 
                 // If there is no test folder, then try to create one under MyDocuments
-                if (!Directory.Exists(headlessTestFolder))
+                if (!Directory.Exists(simEngineTestFolder))
                 {
                     string myDocsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                    headlessTestFolder = Path.Combine(myDocsFolder, "SimioAutomationTest");
-                    marker = $"Attempting to create Headless Test Folder at={headlessTestFolder}";
-                    if (!Directory.Exists(headlessTestFolder))
+                    simEngineTestFolder = Path.Combine(myDocsFolder, "SimioAutomationTest");
+                    marker = $"Attempting to create SimEngine Test Folder at={simEngineTestFolder}";
+                    if (!Directory.Exists(simEngineTestFolder))
                     {
-                        Logit($"Info: Creating new HeadlessSystemFolder={headlessTestFolder}");
+                        Logit($"Info: Creating new SimEngineSystemFolder={simEngineTestFolder}");
                         Directory.CreateDirectory(Path.Combine(myDocsFolder, "SimioAutomationTest"));
                     }
 
-                    Properties.Settings.Default.HeadlessSystemFolder = headlessTestFolder;
-                    Logit($"Info: Set HeadlessSystemFolder to={headlessTestFolder}");
+                    Properties.Settings.Default.SimEngineSystemFolder = simEngineTestFolder;
+                    Logit($"Info: Set SimEngineSystemFolder to={simEngineTestFolder}");
                 }
-                return headlessTestFolder;
+                return simEngineTestFolder;
             }
             catch (Exception ex)
             {
@@ -929,23 +929,23 @@ namespace SimioApiHelper
             }
         }
 
-        private void RefreshTabHeadlessRun()
+        private void RefreshTabSimEngineRun()
         {
             string marker = "Begin";
             try
             {
-                string headlessTestFolder = CheckHeadlessTestFolder();
+                string simEngineTestFolder = CheckSimEngineTestFolder();
 
-                textHeadlessRunFilesLocation.Text = headlessTestFolder;
+                textSimEngineRunFilesLocation.Text = simEngineTestFolder;
 
-                comboHeadlessRunExecutableToRun.DataSource = Directory.GetFiles(textHeadlessRunFilesLocation.Text, "*.EXE").ToList();
+                comboSimEngineRunExecutableToRun.DataSource = Directory.GetFiles(textSimEngineRunFilesLocation.Text, "*.EXE").ToList();
 
-                textHeadlessRunProjectFile.Text = Properties.Settings.Default.HeadlessRunSimioProjectFile;
+                textSimEngineRunProjectFile.Text = Properties.Settings.Default.SimEngineRunSimioProjectFile;
 
-                comboHeadlessRunModels.Text = Properties.Settings.Default.HeadlessRunModel;
-                comboHeadlessRunExperiments.Text = Properties.Settings.Default.HeadlessRunExperiment;
+                comboSimEngineRunModels.Text = Properties.Settings.Default.SimEngineRunModel;
+                comboSimEngineRunExperiments.Text = Properties.Settings.Default.SimEngineRunExperiment;
 
-                HeadlessRunContext = new SimEngineContext(textHeadlessRunFilesLocation.Text);
+                SimEngineRunContext = new SimEngineContext(textSimEngineRunFilesLocation.Text);
 
 
             }
@@ -955,18 +955,18 @@ namespace SimioApiHelper
             }
         }
 
-        private void SaveTabHeadlessRun()
+        private void SaveTabSimEngineRun()
         {
             try
             {
-                textHeadlessRunFilesLocation.Text = Properties.Settings.Default.HeadlessSystemFolder;
+                textSimEngineRunFilesLocation.Text = Properties.Settings.Default.SimEngineSystemFolder;
 
-                comboHeadlessRunExecutableToRun.DataSource = Directory.GetFiles(textHeadlessRunFilesLocation.Text, "*.EXE").ToList();
+                comboSimEngineRunExecutableToRun.DataSource = Directory.GetFiles(textSimEngineRunFilesLocation.Text, "*.EXE").ToList();
 
-                textHeadlessRunProjectFile.Text = Properties.Settings.Default.HeadlessRunSimioProjectFile;
+                textSimEngineRunProjectFile.Text = Properties.Settings.Default.SimEngineRunSimioProjectFile;
 
-                comboHeadlessRunModels.Text = Properties.Settings.Default.HeadlessRunModel;
-                comboHeadlessRunExperiments.Text = Properties.Settings.Default.HeadlessRunExperiment;
+                comboSimEngineRunModels.Text = Properties.Settings.Default.SimEngineRunModel;
+                comboSimEngineRunExperiments.Text = Properties.Settings.Default.SimEngineRunExperiment;
 
             }
             catch (Exception ex)
@@ -993,19 +993,19 @@ namespace SimioApiHelper
         /// Put the selected files (DLLs, etc) except for those ignored into the checkbox list.
         /// </summary>
         /// <param name="includeUserFiles"></param>
-        private void RefreshTabHeadlessBuilder( bool includeUserFiles )
+        private void RefreshTabSimEngineBuilder( bool includeUserFiles )
         {
             try
             {
-                textHarvestTargetFolder.Text = SimioApiHelper.Properties.Settings.Default.HeadlessSystemFolder;
+                textHarvestTargetFolder.Text = SimioApiHelper.Properties.Settings.Default.SimEngineSystemFolder;
                 textHarvestSourceFolder.Text = SimioApiHelper.Properties.Settings.Default.SimioInstallationFolder;
 
-                buttonBuildHeadlessSystem.Enabled = false;
+                buttonBuildSimEngineSystem.Enabled = false;
 
                 if ( Directory.Exists(textHarvestTargetFolder.Text) 
                     && Directory.Exists(textHarvestSourceFolder.Text))
                 {
-                    buttonBuildHeadlessSystem.Enabled = true;
+                    buttonBuildSimEngineSystem.Enabled = true;
                 }
 
                 if ( Directory.Exists(textHarvestSourceFolder.Text))
@@ -1286,47 +1286,47 @@ namespace SimioApiHelper
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonHeadlessRunSelectAndLoadProjectFile_Click(object sender, EventArgs e)
+        private void buttonSimEngineRunSelectAndLoadProjectFile_Click(object sender, EventArgs e)
         {
 
             string marker = "Select the project";
 
-            if ( HeadlessRunContext == null )
+            if ( SimEngineRunContext == null )
             {
-                Alert($"HeadlessContext is null.");
+                Alert($"SimEngineContext is null.");
                 return;
             }
 
             try
             {
                 string projectFile = SimEngineHelpers.GetProjectFile();
-                textHeadlessRunProjectFile.Text = projectFile;
+                textSimEngineRunProjectFile.Text = projectFile;
 
                 Cursor.Current = Cursors.WaitCursor;
-                if ( !HeadlessRunContext.LoadProject(projectFile, out string explanation))
+                if ( !SimEngineRunContext.LoadProject(projectFile, out string explanation))
                 {
                     Alert(explanation);
                     return;
                 }
 
-                var project = HeadlessRunContext.CurrentProject;
+                var project = SimEngineRunContext.CurrentProject;
                 marker = $"Selected and loaded Project={project.Name} with {project.Models.Count} models.";
                 Logit($"Info: {marker}");
 
-                comboHeadlessRunModels.DataSource = project.Models.ToList();
-                comboHeadlessRunModels.DisplayMember = "Name";
+                comboSimEngineRunModels.DataSource = project.Models.ToList();
+                comboSimEngineRunModels.DisplayMember = "Name";
 
                 List<string> errorList = new List<string>();
                 foreach ( IModel model in project.Models)
                 {
-                    if ( !HeadlessRunContext.LoadModel(model.Name, out explanation))
+                    if ( !SimEngineRunContext.LoadModel(model.Name, out explanation))
                     {
                         Alert(explanation);
                         return;
                     }
                 }
 
-                SetStateTabHeadlessRun("ProjectLoaded");
+                SetStateTabSimEngineRun("ProjectLoaded");
             }
             catch (Exception ex)
             {
@@ -1338,18 +1338,18 @@ namespace SimioApiHelper
             }
         }
 
-        private void buttonHeadlessRun_Click(object sender, EventArgs e)
+        private void buttonSimEngineRun_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
             try
             {
-                if (!HeadlessRunContext.RunModelPlan(out string explanation))
+                if (!SimEngineRunContext.RunModelPlan(out string explanation))
                 {
                     Alert(explanation);
                 }
                 else
                 {
-                    Alert(EnumLogFlags.Information, $"Model={textHeadlessRunProjectFile.Text} ran the Plan successfully. Check the logs for more information.");
+                    Alert(EnumLogFlags.Information, $"Model={textSimEngineRunProjectFile.Text} ran the Plan successfully. Check the logs for more information.");
                 }
             }
             catch (Exception ex)
@@ -1369,16 +1369,16 @@ namespace SimioApiHelper
             Cursor.Current = Cursors.WaitCursor;
             try
             {
-                string extensionsPath = textHeadlessRunFilesLocation.Text;
+                string extensionsPath = textSimEngineRunFilesLocation.Text;
                 string resultsPath = textResultsPath.Text;
 
-                if (!HeadlessRunContext.RunModelExperiment( resultsPath, out string explanation))
+                if (!SimEngineRunContext.RunModelExperiment( resultsPath, out string explanation))
                 {
                     Alert(explanation);
                 }
                 else
                 {
-                    Alert(EnumLogFlags.Information, $"Model={HeadlessRunContext.CurrentModel.Name} Experiment={HeadlessRunContext.CurrentExperiment.Name} was run. Check the logs for more information.");
+                    Alert(EnumLogFlags.Information, $"Model={SimEngineRunContext.CurrentModel.Name} Experiment={SimEngineRunContext.CurrentExperiment.Name} was run. Check the logs for more information.");
                 }
             }
             catch (Exception ex)
@@ -1428,7 +1428,7 @@ namespace SimioApiHelper
                 Properties.Settings.Default.Save();
 
                 // Actions upon selection
-                RefreshTabHeadlessBuilder( cbHeadlessBuildUsersFiles.Checked );
+                RefreshTabSimEngineBuilder( cbSimEngineBuildUsersFiles.Checked );
 
             }
             catch (Exception ex)
@@ -1438,12 +1438,12 @@ namespace SimioApiHelper
 
         }
 
-        private void buttonSelectHeadlessFolder_Click(object sender, EventArgs e)
+        private void buttonSelectSimEngineFolder_Click(object sender, EventArgs e)
         {
             try
             {
                 FolderBrowserDialog dialog = new FolderBrowserDialog();
-                dialog.SelectedPath = Properties.Settings.Default.HeadlessSystemFolder;
+                dialog.SelectedPath = Properties.Settings.Default.SimEngineSystemFolder;
                 dialog.ShowNewFolderButton = true;
 
                 DialogResult result = dialog.ShowDialog();
@@ -1457,7 +1457,7 @@ namespace SimioApiHelper
                 }
 
                 textHarvestTargetFolder.Text = dialog.SelectedPath;
-                Properties.Settings.Default.HeadlessSystemFolder = dialog.SelectedPath;
+                Properties.Settings.Default.SimEngineSystemFolder = dialog.SelectedPath;
                 Properties.Settings.Default.Save();
 
                 // Actions upon selection
@@ -1465,14 +1465,14 @@ namespace SimioApiHelper
             }
             catch (Exception ex)
             {
-                Alert($"Error Selecting Headless Folder={ex.Message}");
+                Alert($"Error Selecting SimEngine Folder={ex.Message}");
             }
 
         }
 
 
 
-        private void buttonBuildHeadlessSystem_Click(object sender, EventArgs e)
+        private void buttonBuildSimEngineSystem_Click(object sender, EventArgs e)
         {
 
             Cursor.Current = Cursors.WaitCursor;
@@ -1495,7 +1495,7 @@ namespace SimioApiHelper
                 }
 
 
-                // Copy minimal headless files
+                // Copy minimal simEngine files
                 List<string> filesToMove = new List<string>();
                 foreach ( var item in checklistSelectedFiles.CheckedItems)
                 {
@@ -1509,7 +1509,7 @@ namespace SimioApiHelper
             }
             catch (Exception ex)
             {
-                Alert($"Error Building Headless System={ex.Message}");
+                Alert($"Error Building SimEngine System={ex.Message}");
             }
             finally
             {
@@ -1518,59 +1518,59 @@ namespace SimioApiHelper
             }
         }
 
-        private void SetStateTabHeadlessRun(string state)
+        private void SetStateTabSimEngineRun(string state)
         {
 
             switch (state.ToUpper())
             {
                 case "NULL":
                     {
-                        comboHeadlessRunModels.Enabled = false;
-                        comboHeadlessRunExperiments.Enabled = false;
-                        buttonHeadlessRunExperiment.Enabled = false;
-                        buttonHeadlessRunPlan.Enabled = false;
-                        buttonHeadlessRunRiskAnalysis.Enabled = false;
-                        buttonHeadlessRunSelectProjectFile.Enabled = false;
+                        comboSimEngineRunModels.Enabled = false;
+                        comboSimEngineRunExperiments.Enabled = false;
+                        buttonSimEngineRunExperiment.Enabled = false;
+                        buttonSimEngineRunPlan.Enabled = false;
+                        buttonSimEngineRunRiskAnalysis.Enabled = false;
+                        buttonSimEngineRunSelectProjectFile.Enabled = false;
                     }
                     break;
                 case "SETEXTENSIONS":
                     {
-                        buttonHeadlessRunSelectProjectFile.Enabled = true;
-                        comboHeadlessRunModels.Enabled = false;
-                        comboHeadlessRunExperiments.Enabled = false;
-                        buttonHeadlessRunExperiment.Enabled = false;
-                        buttonHeadlessRunPlan.Enabled = false;
-                        buttonHeadlessRunRiskAnalysis.Enabled = false;
+                        buttonSimEngineRunSelectProjectFile.Enabled = true;
+                        comboSimEngineRunModels.Enabled = false;
+                        comboSimEngineRunExperiments.Enabled = false;
+                        buttonSimEngineRunExperiment.Enabled = false;
+                        buttonSimEngineRunPlan.Enabled = false;
+                        buttonSimEngineRunRiskAnalysis.Enabled = false;
                     }
                     break;
                 case "PROJECTLOADED":
                     {
-                        buttonHeadlessRunSelectProjectFile.Enabled = true;
-                        comboHeadlessRunModels.Enabled = true;
-                        comboHeadlessRunExperiments.Enabled = false;
-                        buttonHeadlessRunExperiment.Enabled = false;
-                        buttonHeadlessRunPlan.Enabled = false;
-                        buttonHeadlessRunRiskAnalysis.Enabled = false;
+                        buttonSimEngineRunSelectProjectFile.Enabled = true;
+                        comboSimEngineRunModels.Enabled = true;
+                        comboSimEngineRunExperiments.Enabled = false;
+                        buttonSimEngineRunExperiment.Enabled = false;
+                        buttonSimEngineRunPlan.Enabled = false;
+                        buttonSimEngineRunRiskAnalysis.Enabled = false;
                     }
                     break;
                 case "MODELLOADED":
                     {
-                        buttonHeadlessRunSelectProjectFile.Enabled = true;
-                        comboHeadlessRunModels.Enabled = true;
-                        comboHeadlessRunExperiments.Enabled = true;
-                        buttonHeadlessRunExperiment.Enabled = true;
-                        buttonHeadlessRunPlan.Enabled = true;
-                        buttonHeadlessRunRiskAnalysis.Enabled = true;
+                        buttonSimEngineRunSelectProjectFile.Enabled = true;
+                        comboSimEngineRunModels.Enabled = true;
+                        comboSimEngineRunExperiments.Enabled = true;
+                        buttonSimEngineRunExperiment.Enabled = true;
+                        buttonSimEngineRunPlan.Enabled = true;
+                        buttonSimEngineRunRiskAnalysis.Enabled = true;
                     }
                     break;
                 case "EXPERIMENTLOADED":
                     {
-                        buttonHeadlessRunSelectProjectFile.Enabled = true;
-                        comboHeadlessRunModels.Enabled = true;
-                        comboHeadlessRunExperiments.Enabled = true;
-                        buttonHeadlessRunExperiment.Enabled = true;
-                        buttonHeadlessRunPlan.Enabled = true;
-                        buttonHeadlessRunRiskAnalysis.Enabled = true;
+                        buttonSimEngineRunSelectProjectFile.Enabled = true;
+                        comboSimEngineRunModels.Enabled = true;
+                        comboSimEngineRunExperiments.Enabled = true;
+                        buttonSimEngineRunExperiment.Enabled = true;
+                        buttonSimEngineRunPlan.Enabled = true;
+                        buttonSimEngineRunRiskAnalysis.Enabled = true;
                     }
                     break;
                 default:
@@ -1587,19 +1587,19 @@ namespace SimioApiHelper
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonChangeHeadlessLocation_Click(object sender, EventArgs e)
+        private void buttonChangeSimEngineLocation_Click(object sender, EventArgs e)
         {
             try
             {
                 FolderBrowserDialog dialog = new FolderBrowserDialog();
-                dialog.SelectedPath = Properties.Settings.Default.HeadlessSystemFolder;
+                dialog.SelectedPath = Properties.Settings.Default.SimEngineSystemFolder;
                 dialog.ShowNewFolderButton = true;
 
                 DialogResult result = dialog.ShowDialog();
                 if (result != DialogResult.OK)
                     return;
 
-                SetStateTabHeadlessRun("Null");
+                SetStateTabSimEngineRun("Null");
 
                 if (!Directory.Exists(dialog.SelectedPath))
                 {
@@ -1607,31 +1607,31 @@ namespace SimioApiHelper
                     return;
                 }
 
-                HeadlessRunContext = new SimEngineContext(dialog.SelectedPath);
-                if ( HeadlessRunContext == null )
+                SimEngineRunContext = new SimEngineContext(dialog.SelectedPath);
+                if ( SimEngineRunContext == null )
                 {
                     Alert($"Cannot SetExtensions to={dialog.SelectedPath}");
                     return;
                 }
 
-                textHeadlessRunFilesLocation.Text = HeadlessRunContext.ExtensionsPath;
+                textSimEngineRunFilesLocation.Text = SimEngineRunContext.ExtensionsPath;
 
                 // Put the executables in the combo dropdown, and make the first one the default.
-                List<string> exeFiles = Directory.GetFiles(textHeadlessRunFilesLocation.Text, "*.exe").ToList();
-                comboHeadlessRunExecutableToRun.DataSource = exeFiles;
+                List<string> exeFiles = Directory.GetFiles(textSimEngineRunFilesLocation.Text, "*.exe").ToList();
+                comboSimEngineRunExecutableToRun.DataSource = exeFiles;
                 if (exeFiles.Any())
-                    comboHeadlessRunExecutableToRun.Text = Path.GetFileName(exeFiles[0]);
+                    comboSimEngineRunExecutableToRun.Text = Path.GetFileName(exeFiles[0]);
                 
-                Properties.Settings.Default.HeadlessSystemFolder = dialog.SelectedPath;
+                Properties.Settings.Default.SimEngineSystemFolder = dialog.SelectedPath;
                 Properties.Settings.Default.Save();
 
                 // Actions upon selection
-                SetStateTabHeadlessRun("SetExtensions");
+                SetStateTabSimEngineRun("SetExtensions");
 
             }
             catch (Exception ex)
             {
-                Alert($"Error Selecting Headless Folder={ex.Message}");
+                Alert($"Error Selecting SimEngine Folder={ex.Message}");
             }
 
             
@@ -1642,31 +1642,31 @@ namespace SimioApiHelper
             RefreshForm();
         }
 
-        private void comboHeadlessRunModels_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboSimEngineRunModels_SelectedIndexChanged(object sender, EventArgs e)
         {
         }
 
-        private void comboHeadlessRunModels_SelectedValueChanged(object sender, EventArgs e)
+        private void comboSimEngineRunModels_SelectedValueChanged(object sender, EventArgs e)
         {
             var model = (IModel)(sender as ComboBox).SelectedItem;
             if (model != null)
             {
                 if ( model.Experiments.Any())
                 {
-                    buttonHeadlessRunExperiment.Enabled = true;
-                    comboHeadlessRunExperiments.DataSource = model.Experiments.ToList();
-                    comboHeadlessRunExperiments.DisplayMember = "Name";
+                    buttonSimEngineRunExperiment.Enabled = true;
+                    comboSimEngineRunExperiments.DataSource = model.Experiments.ToList();
+                    comboSimEngineRunExperiments.DisplayMember = "Name";
                 }
                 else
                 {
-                    buttonHeadlessRunExperiment.Enabled = false;
-                    comboHeadlessRunExperiments.DataSource = null;
-                    comboHeadlessRunExperiments.Text = "";
+                    buttonSimEngineRunExperiment.Enabled = false;
+                    comboSimEngineRunExperiments.DataSource = null;
+                    comboSimEngineRunExperiments.Text = "";
                 }
             }
 
-            HeadlessRunContext.CurrentModel = model;
-            SetStateTabHeadlessRun("ModelLoaded");
+            SimEngineRunContext.CurrentModel = model;
+            SetStateTabSimEngineRun("ModelLoaded");
 
         }
 
@@ -1682,9 +1682,9 @@ namespace SimioApiHelper
             string marker = "Begin";
             try
             {
-                string projectPath = textHeadlessRunProjectFile.Text;
+                string projectPath = textSimEngineRunProjectFile.Text;
 
-                if ( !HeadlessRunContext.SaveProject( projectPath, out string explanation) )
+                if ( !SimEngineRunContext.SaveProject( projectPath, out string explanation) )
                 { 
                     Alert(explanation);
                     return;
@@ -1706,29 +1706,29 @@ namespace SimioApiHelper
 
         }
 
-        private void comboHeadlessRunExperiments_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboSimEngineRunExperiments_SelectedIndexChanged(object sender, EventArgs e)
         {
             var experiment = (sender as ComboBox).SelectedItem as IExperiment;
             if (experiment != null)
             {
-                HeadlessRunContext.CurrentExperiment = experiment;
-                SetStateTabHeadlessRun("ExperimentLoaded");
+                SimEngineRunContext.CurrentExperiment = experiment;
+                SetStateTabSimEngineRun("ExperimentLoaded");
             }
 
         }
 
-        private void buttonHeadlessRunRiskAnalysis_Click(object sender, EventArgs e)
+        private void buttonSimEngineRunRiskAnalysis_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
             try
             {
-                if (!HeadlessRunContext.RunModelRiskAnalysis(out string explanation))
+                if (!SimEngineRunContext.RunModelRiskAnalysis(out string explanation))
                 {
                     Alert(explanation);
                 }
                 else
                 {
-                    Alert(EnumLogFlags.Information, $"Model={textHeadlessRunProjectFile.Text} ran the RiskAnalysis successfully. Check the logs for more information.");
+                    Alert(EnumLogFlags.Information, $"Model={textSimEngineRunProjectFile.Text} ran the RiskAnalysis successfully. Check the logs for more information.");
                 }
             }
             catch (Exception ex)
@@ -1805,7 +1805,7 @@ namespace SimioApiHelper
             }
         }
 
-        private void buttonHeadlessBuildAddExe_Click(object sender, EventArgs e)
+        private void buttonSimEngineBuildAddExe_Click(object sender, EventArgs e)
         {
             string sourceFilepath = "";
             string targetFilepath = "";
@@ -1819,7 +1819,7 @@ namespace SimioApiHelper
                     return;
 
                 sourceFilepath = dialog.FileName;
-                targetFilepath = Path.Combine(textHeadlessRunFilesLocation.Text, Path.GetFileName(sourceFilepath));
+                targetFilepath = Path.Combine(textSimEngineRunFilesLocation.Text, Path.GetFileName(sourceFilepath));
 
                 if ( File.Exists(targetFilepath))
                 {
@@ -1846,18 +1846,18 @@ namespace SimioApiHelper
             this.RefreshForm();
         }
 
-        private void buttonHeadlessRunExecutable_Click(object sender, EventArgs e)
+        private void buttonSimEngineRunExecutable_Click(object sender, EventArgs e)
         {
             try
             {
-                if (string.IsNullOrEmpty(comboHeadlessRunExecutableToRun.Text))
+                if (string.IsNullOrEmpty(comboSimEngineRunExecutableToRun.Text))
                 {
                     Alert($"Please select an executable and try again.");
                     return;
                 }
 
-                string folder = textHeadlessRunFilesLocation.Text;
-                string exeName = comboHeadlessRunExecutableToRun.Text;
+                string folder = textSimEngineRunFilesLocation.Text;
+                string exeName = comboSimEngineRunExecutableToRun.Text;
                 string exePath = Path.Combine(folder, exeName);
                 if ( !File.Exists(exePath) )
                 {
@@ -1887,7 +1887,7 @@ namespace SimioApiHelper
 
         }
 
-        private void comboHeadlessRunExecutableToRun_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboSimEngineRunExecutableToRun_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
@@ -1952,7 +1952,7 @@ namespace SimioApiHelper
         private void buttonResultsPath_Click(object sender, EventArgs e)
         {
             string marker = "Select the path";
-            var project = HeadlessRunContext.CurrentProject;
+            var project = SimEngineRunContext.CurrentProject;
 
             if ( project == null )
             {
@@ -1961,7 +1961,7 @@ namespace SimioApiHelper
 
             try
             {
-                string projectFile = textHeadlessRunProjectFile.Text;
+                string projectFile = textSimEngineRunProjectFile.Text;
                 if (projectFile == null)
                 {
                     Alert($"No Project file selected");

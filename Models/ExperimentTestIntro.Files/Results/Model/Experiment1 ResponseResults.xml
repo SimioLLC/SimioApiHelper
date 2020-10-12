@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ResponseResults Model="Model" Experiment="Experiment1" FileVersion="217" xmlns="http://www.simio.com/projects/v1">
+  <Observations Scenario="ScenarioSmall" Response="TimeInSystem">
+    <Observation Value="0.0176114055426018" RepNum="1" />
+    <Observation Value="0.0181059707859954" RepNum="2" />
+    <Observation Value="0.0184491010708707" RepNum="4" />
+    <Observation Value="0.0200053114801034" RepNum="5" />
+    <Observation Value="0.0172774807440908" RepNum="6" />
+    <Observation Value="0.0175120917309864" RepNum="7" />
+    <Observation Value="0.0172530873685374" RepNum="3" />
+    <Observation Value="0.0190360887076402" RepNum="8" />
+    <Observation Value="0.0177363018477437" RepNum="9" />
+    <Observation Value="0.0183162542523164" RepNum="10" />
+  </Observations>
+  <Observations Scenario="ScenarioMedium" Response="TimeInSystem">
+    <Observation Value="0.0264677995727507" RepNum="1" />
+    <Observation Value="0.0276038118855617" RepNum="2" />
+    <Observation Value="0.0254890325117012" RepNum="3" />
+    <Observation Value="0.027184341845054" RepNum="4" />
+    <Observation Value="0.0336531010037753" RepNum="5" />
+    <Observation Value="0.0254305290131718" RepNum="6" />
+    <Observation Value="0.0383663620762239" RepNum="7" />
+    <Observation Value="0.0289360669565905" RepNum="8" />
+    <Observation Value="0.0323969486837533" RepNum="9" />
+    <Observation Value="0.0262028876829856" RepNum="10" />
+  </Observations>
+  <Observations Scenario="ScenarioLarge" Response="TimeInSystem">
+    <Observation Value="0.0627776176002035" RepNum="1" />
+    <Observation Value="0.0608193088493654" RepNum="3" />
+    <Observation Value="0.0624302070734944" RepNum="4" />
+    <Observation Value="0.0852279261776587" RepNum="2" />
+    <Observation Value="0.0450011037244894" RepNum="6" />
+    <Observation Value="0.0818255528718961" RepNum="5" />
+    <Observation Value="0.103890338277198" RepNum="7" />
+    <Observation Value="0.0815643037310154" RepNum="8" />
+    <Observation Value="0.0651218846647533" RepNum="9" />
+    <Observation Value="0.0658108720068941" RepNum="10" />
+  </Observations>
+</ResponseResults>

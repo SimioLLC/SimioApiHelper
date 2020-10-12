@@ -73,48 +73,48 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.comboFindSimioExtensionLocations = new System.Windows.Forms.ComboBox();
-            this.tabHeadlessHarvester = new System.Windows.Forms.TabPage();
+            this.tabSimEngineHarvester = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.groupHeadlessBuild = new System.Windows.Forms.GroupBox();
-            this.buttonHeadlessBuildAddExe = new System.Windows.Forms.Button();
+            this.groupSimEngineBuild = new System.Windows.Forms.GroupBox();
+            this.buttonSimEngineBuildAddExe = new System.Windows.Forms.Button();
             this.checklistSelectedFiles = new System.Windows.Forms.CheckedListBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.buttonBuildHeadlessSystem = new System.Windows.Forms.Button();
+            this.buttonBuildSimEngineSystem = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textHarvestTargetFolder = new System.Windows.Forms.TextBox();
-            this.buttonSelectHeadlessFolder = new System.Windows.Forms.Button();
+            this.buttonSelectSimEngineFolder = new System.Windows.Forms.Button();
             this.groupFileSource = new System.Windows.Forms.GroupBox();
-            this.cbHeadlessBuildUsersFiles = new System.Windows.Forms.CheckBox();
+            this.cbSimEngineBuildUsersFiles = new System.Windows.Forms.CheckBox();
             this.label11 = new System.Windows.Forms.Label();
             this.textHarvestSourceFolder = new System.Windows.Forms.TextBox();
             this.buttonSelectSimioInstallationFolder = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
-            this.tabHeadlessRun = new System.Windows.Forms.TabPage();
-            this.panelHeadlessRun = new System.Windows.Forms.Panel();
+            this.tabSimEngineRun = new System.Windows.Forms.TabPage();
+            this.panelSimEngineRun = new System.Windows.Forms.Panel();
             this.groupBoxSelectSetExtensionsLocation = new System.Windows.Forms.GroupBox();
-            this.buttonHeadlessRunChangeLocation = new System.Windows.Forms.Button();
+            this.buttonSimEngineRunChangeLocation = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.textHeadlessRunFilesLocation = new System.Windows.Forms.TextBox();
+            this.textSimEngineRunFilesLocation = new System.Windows.Forms.TextBox();
             this.groupBoxSelectModelAndRun = new System.Windows.Forms.GroupBox();
             this.textResultsPath = new System.Windows.Forms.TextBox();
             this.labelSaveResults = new System.Windows.Forms.Label();
             this.buttonResultsPath = new System.Windows.Forms.Button();
-            this.buttonHeadlessRunSaveProject = new System.Windows.Forms.Button();
+            this.buttonSimEngineRunSaveProject = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
-            this.textHeadlessRunProjectFile = new System.Windows.Forms.TextBox();
-            this.buttonHeadlessRunRiskAnalysis = new System.Windows.Forms.Button();
-            this.buttonHeadlessRunSelectProjectFile = new System.Windows.Forms.Button();
-            this.buttonHeadlessRunExperiment = new System.Windows.Forms.Button();
-            this.buttonHeadlessRunPlan = new System.Windows.Forms.Button();
-            this.comboHeadlessRunExperiments = new System.Windows.Forms.ComboBox();
+            this.textSimEngineRunProjectFile = new System.Windows.Forms.TextBox();
+            this.buttonSimEngineRunRiskAnalysis = new System.Windows.Forms.Button();
+            this.buttonSimEngineRunSelectProjectFile = new System.Windows.Forms.Button();
+            this.buttonSimEngineRunExperiment = new System.Windows.Forms.Button();
+            this.buttonSimEngineRunPlan = new System.Windows.Forms.Button();
+            this.comboSimEngineRunExperiments = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.comboHeadlessRunModels = new System.Windows.Forms.ComboBox();
+            this.comboSimEngineRunModels = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBoxSelectAndRun = new System.Windows.Forms.GroupBox();
-            this.comboHeadlessRunExecutableToRun = new System.Windows.Forms.ComboBox();
+            this.comboSimEngineRunExecutableToRun = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.buttonHeadlessRunExecutable = new System.Windows.Forms.Button();
+            this.buttonSimEngineRunExecutable = new System.Windows.Forms.Button();
             this.tabLogs = new System.Windows.Forms.TabPage();
             this.textLogs = new System.Windows.Forms.TextBox();
             this.Settings = new System.Windows.Forms.TabPage();
@@ -147,13 +147,13 @@
             this.panel1.SuspendLayout();
             this.tabFindUserExtensions.SuspendLayout();
             this.panelFindSteps.SuspendLayout();
-            this.tabHeadlessHarvester.SuspendLayout();
+            this.tabSimEngineHarvester.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.groupHeadlessBuild.SuspendLayout();
+            this.groupSimEngineBuild.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupFileSource.SuspendLayout();
-            this.tabHeadlessRun.SuspendLayout();
-            this.panelHeadlessRun.SuspendLayout();
+            this.tabSimEngineRun.SuspendLayout();
+            this.panelSimEngineRun.SuspendLayout();
             this.groupBoxSelectSetExtensionsLocation.SuspendLayout();
             this.groupBoxSelectModelAndRun.SuspendLayout();
             this.groupBoxSelectAndRun.SuspendLayout();
@@ -238,8 +238,8 @@
             this.tabControl1.Controls.Add(this.tabDllHelper);
             this.tabControl1.Controls.Add(this.tabNetVersions);
             this.tabControl1.Controls.Add(this.tabFindUserExtensions);
-            this.tabControl1.Controls.Add(this.tabHeadlessHarvester);
-            this.tabControl1.Controls.Add(this.tabHeadlessRun);
+            this.tabControl1.Controls.Add(this.tabSimEngineHarvester);
+            this.tabControl1.Controls.Add(this.tabSimEngineRun);
             this.tabControl1.Controls.Add(this.tabLogs);
             this.tabControl1.Controls.Add(this.Settings);
             this.tabControl1.Controls.Add(this.tabUtilities);
@@ -635,19 +635,19 @@
             this.comboFindSimioExtensionLocations.TabIndex = 9;
             this.comboFindSimioExtensionLocations.SelectedIndexChanged += new System.EventHandler(this.comboFindSimioExtensionLocations_SelectedIndexChanged);
             // 
-            // tabHeadlessHarvester
+            // tabSimEngineHarvester
             // 
-            this.tabHeadlessHarvester.Controls.Add(this.panel2);
-            this.tabHeadlessHarvester.Location = new System.Drawing.Point(4, 29);
-            this.tabHeadlessHarvester.Name = "tabHeadlessHarvester";
-            this.tabHeadlessHarvester.Size = new System.Drawing.Size(1104, 680);
-            this.tabHeadlessHarvester.TabIndex = 6;
-            this.tabHeadlessHarvester.Text = "SimEngine Harvester";
-            this.tabHeadlessHarvester.UseVisualStyleBackColor = true;
+            this.tabSimEngineHarvester.Controls.Add(this.panel2);
+            this.tabSimEngineHarvester.Location = new System.Drawing.Point(4, 29);
+            this.tabSimEngineHarvester.Name = "tabSimEngineHarvester";
+            this.tabSimEngineHarvester.Size = new System.Drawing.Size(1104, 680);
+            this.tabSimEngineHarvester.TabIndex = 6;
+            this.tabSimEngineHarvester.Text = "SimEngine Harvester";
+            this.tabSimEngineHarvester.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.groupHeadlessBuild);
+            this.panel2.Controls.Add(this.groupSimEngineBuild);
             this.panel2.Controls.Add(this.groupBox2);
             this.panel2.Controls.Add(this.groupFileSource);
             this.panel2.Controls.Add(this.label13);
@@ -657,33 +657,33 @@
             this.panel2.Size = new System.Drawing.Size(1104, 680);
             this.panel2.TabIndex = 29;
             // 
-            // groupHeadlessBuild
+            // groupSimEngineBuild
             // 
-            this.groupHeadlessBuild.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.groupSimEngineBuild.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupHeadlessBuild.Controls.Add(this.buttonHeadlessBuildAddExe);
-            this.groupHeadlessBuild.Controls.Add(this.checklistSelectedFiles);
-            this.groupHeadlessBuild.Controls.Add(this.label12);
-            this.groupHeadlessBuild.Controls.Add(this.buttonBuildHeadlessSystem);
-            this.groupHeadlessBuild.Location = new System.Drawing.Point(12, 339);
-            this.groupHeadlessBuild.Name = "groupHeadlessBuild";
-            this.groupHeadlessBuild.Size = new System.Drawing.Size(1078, 321);
-            this.groupHeadlessBuild.TabIndex = 38;
-            this.groupHeadlessBuild.TabStop = false;
-            this.groupHeadlessBuild.Text = "Select from the candidate Harvest source files";
+            this.groupSimEngineBuild.Controls.Add(this.buttonSimEngineBuildAddExe);
+            this.groupSimEngineBuild.Controls.Add(this.checklistSelectedFiles);
+            this.groupSimEngineBuild.Controls.Add(this.label12);
+            this.groupSimEngineBuild.Controls.Add(this.buttonBuildSimEngineSystem);
+            this.groupSimEngineBuild.Location = new System.Drawing.Point(12, 339);
+            this.groupSimEngineBuild.Name = "groupSimEngineBuild";
+            this.groupSimEngineBuild.Size = new System.Drawing.Size(1078, 321);
+            this.groupSimEngineBuild.TabIndex = 38;
+            this.groupSimEngineBuild.TabStop = false;
+            this.groupSimEngineBuild.Text = "Select from the candidate Harvest source files";
             // 
-            // buttonHeadlessBuildAddExe
+            // buttonSimEngineBuildAddExe
             // 
-            this.buttonHeadlessBuildAddExe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHeadlessBuildAddExe.Location = new System.Drawing.Point(890, 110);
-            this.buttonHeadlessBuildAddExe.Name = "buttonHeadlessBuildAddExe";
-            this.buttonHeadlessBuildAddExe.Size = new System.Drawing.Size(182, 40);
-            this.buttonHeadlessBuildAddExe.TabIndex = 35;
-            this.buttonHeadlessBuildAddExe.Text = "Add Executable...";
-            this.toolTip1.SetToolTip(this.buttonHeadlessBuildAddExe, "Optionally, add an executable to the Harvest destination");
-            this.buttonHeadlessBuildAddExe.UseVisualStyleBackColor = true;
-            this.buttonHeadlessBuildAddExe.Click += new System.EventHandler(this.buttonHeadlessBuildAddExe_Click);
+            this.buttonSimEngineBuildAddExe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSimEngineBuildAddExe.Location = new System.Drawing.Point(890, 110);
+            this.buttonSimEngineBuildAddExe.Name = "buttonSimEngineBuildAddExe";
+            this.buttonSimEngineBuildAddExe.Size = new System.Drawing.Size(182, 40);
+            this.buttonSimEngineBuildAddExe.TabIndex = 35;
+            this.buttonSimEngineBuildAddExe.Text = "Add Executable...";
+            this.toolTip1.SetToolTip(this.buttonSimEngineBuildAddExe, "Optionally, add an executable to the Harvest destination");
+            this.buttonSimEngineBuildAddExe.UseVisualStyleBackColor = true;
+            this.buttonSimEngineBuildAddExe.Click += new System.EventHandler(this.buttonSimEngineBuildAddExe_Click);
             // 
             // checklistSelectedFiles
             // 
@@ -705,17 +705,17 @@
             this.label12.TabIndex = 33;
             this.label12.Text = "Candidate Simio \'Harvest\' files. Checked files will be harvested to Target.";
             // 
-            // buttonBuildHeadlessSystem
+            // buttonBuildSimEngineSystem
             // 
-            this.buttonBuildHeadlessSystem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonBuildHeadlessSystem.Location = new System.Drawing.Point(890, 64);
-            this.buttonBuildHeadlessSystem.Name = "buttonBuildHeadlessSystem";
-            this.buttonBuildHeadlessSystem.Size = new System.Drawing.Size(182, 40);
-            this.buttonBuildHeadlessSystem.TabIndex = 32;
-            this.buttonBuildHeadlessSystem.Text = "Start Harvest...";
-            this.toolTip1.SetToolTip(this.buttonBuildHeadlessSystem, "Move the checked files in the checklist from the Target to the Source folder");
-            this.buttonBuildHeadlessSystem.UseVisualStyleBackColor = true;
-            this.buttonBuildHeadlessSystem.Click += new System.EventHandler(this.buttonBuildHeadlessSystem_Click);
+            this.buttonBuildSimEngineSystem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonBuildSimEngineSystem.Location = new System.Drawing.Point(890, 64);
+            this.buttonBuildSimEngineSystem.Name = "buttonBuildSimEngineSystem";
+            this.buttonBuildSimEngineSystem.Size = new System.Drawing.Size(182, 40);
+            this.buttonBuildSimEngineSystem.TabIndex = 32;
+            this.buttonBuildSimEngineSystem.Text = "Start Harvest...";
+            this.toolTip1.SetToolTip(this.buttonBuildSimEngineSystem, "Move the checked files in the checklist from the Target to the Source folder");
+            this.buttonBuildSimEngineSystem.UseVisualStyleBackColor = true;
+            this.buttonBuildSimEngineSystem.Click += new System.EventHandler(this.buttonBuildSimEngineSystem_Click);
             // 
             // groupBox2
             // 
@@ -723,7 +723,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.textHarvestTargetFolder);
-            this.groupBox2.Controls.Add(this.buttonSelectHeadlessFolder);
+            this.groupBox2.Controls.Add(this.buttonSelectSimEngineFolder);
             this.groupBox2.Location = new System.Drawing.Point(12, 193);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(1084, 128);
@@ -751,23 +751,23 @@
             this.textHarvestTargetFolder.TabIndex = 28;
             this.toolTip1.SetToolTip(this.textHarvestTargetFolder, "The folder where all the DLLs will be placed");
             // 
-            // buttonSelectHeadlessFolder
+            // buttonSelectSimEngineFolder
             // 
-            this.buttonSelectHeadlessFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSelectHeadlessFolder.Location = new System.Drawing.Point(896, 79);
-            this.buttonSelectHeadlessFolder.Name = "buttonSelectHeadlessFolder";
-            this.buttonSelectHeadlessFolder.Size = new System.Drawing.Size(182, 40);
-            this.buttonSelectHeadlessFolder.TabIndex = 27;
-            this.buttonSelectHeadlessFolder.Text = "Select Folder...";
-            this.toolTip1.SetToolTip(this.buttonSelectHeadlessFolder, "Select where to locate the headless executable files");
-            this.buttonSelectHeadlessFolder.UseVisualStyleBackColor = true;
-            this.buttonSelectHeadlessFolder.Click += new System.EventHandler(this.buttonSelectHeadlessFolder_Click);
+            this.buttonSelectSimEngineFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSelectSimEngineFolder.Location = new System.Drawing.Point(896, 79);
+            this.buttonSelectSimEngineFolder.Name = "buttonSelectSimEngineFolder";
+            this.buttonSelectSimEngineFolder.Size = new System.Drawing.Size(182, 40);
+            this.buttonSelectSimEngineFolder.TabIndex = 27;
+            this.buttonSelectSimEngineFolder.Text = "Select Folder...";
+            this.toolTip1.SetToolTip(this.buttonSelectSimEngineFolder, "Select where to locate the simEngine executable files");
+            this.buttonSelectSimEngineFolder.UseVisualStyleBackColor = true;
+            this.buttonSelectSimEngineFolder.Click += new System.EventHandler(this.buttonSelectSimEngineFolder_Click);
             // 
             // groupFileSource
             // 
             this.groupFileSource.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupFileSource.Controls.Add(this.cbHeadlessBuildUsersFiles);
+            this.groupFileSource.Controls.Add(this.cbSimEngineBuildUsersFiles);
             this.groupFileSource.Controls.Add(this.label11);
             this.groupFileSource.Controls.Add(this.textHarvestSourceFolder);
             this.groupFileSource.Controls.Add(this.buttonSelectSimioInstallationFolder);
@@ -778,16 +778,16 @@
             this.groupFileSource.TabStop = false;
             this.groupFileSource.Text = "Harvest Source Location";
             // 
-            // cbHeadlessBuildUsersFiles
+            // cbSimEngineBuildUsersFiles
             // 
-            this.cbHeadlessBuildUsersFiles.AutoSize = true;
-            this.cbHeadlessBuildUsersFiles.Location = new System.Drawing.Point(545, 89);
-            this.cbHeadlessBuildUsersFiles.Name = "cbHeadlessBuildUsersFiles";
-            this.cbHeadlessBuildUsersFiles.Size = new System.Drawing.Size(257, 24);
-            this.cbHeadlessBuildUsersFiles.TabIndex = 32;
-            this.cbHeadlessBuildUsersFiles.Text = "Include User\'s UserExtentions";
-            this.toolTip1.SetToolTip(this.cbHeadlessBuildUsersFiles, "Include all UserExtensions DLLs from this user\'s MyDocuments folder");
-            this.cbHeadlessBuildUsersFiles.UseVisualStyleBackColor = true;
+            this.cbSimEngineBuildUsersFiles.AutoSize = true;
+            this.cbSimEngineBuildUsersFiles.Location = new System.Drawing.Point(545, 89);
+            this.cbSimEngineBuildUsersFiles.Name = "cbSimEngineBuildUsersFiles";
+            this.cbSimEngineBuildUsersFiles.Size = new System.Drawing.Size(257, 24);
+            this.cbSimEngineBuildUsersFiles.TabIndex = 32;
+            this.cbSimEngineBuildUsersFiles.Text = "Include User\'s UserExtentions";
+            this.toolTip1.SetToolTip(this.cbSimEngineBuildUsersFiles, "Include all UserExtensions DLLs from this user\'s MyDocuments folder");
+            this.cbSimEngineBuildUsersFiles.UseVisualStyleBackColor = true;
             // 
             // label11
             // 
@@ -832,34 +832,34 @@
     "stallation folder(s) into your target folder ";
             this.toolTip1.SetToolTip(this.label13, "Where are the files from the Simio Desktop installation?");
             // 
-            // tabHeadlessRun
+            // tabSimEngineRun
             // 
-            this.tabHeadlessRun.Controls.Add(this.panelHeadlessRun);
-            this.tabHeadlessRun.Location = new System.Drawing.Point(4, 29);
-            this.tabHeadlessRun.Name = "tabHeadlessRun";
-            this.tabHeadlessRun.Size = new System.Drawing.Size(1104, 680);
-            this.tabHeadlessRun.TabIndex = 4;
-            this.tabHeadlessRun.Text = "SimEngine Run";
-            this.tabHeadlessRun.UseVisualStyleBackColor = true;
+            this.tabSimEngineRun.Controls.Add(this.panelSimEngineRun);
+            this.tabSimEngineRun.Location = new System.Drawing.Point(4, 29);
+            this.tabSimEngineRun.Name = "tabSimEngineRun";
+            this.tabSimEngineRun.Size = new System.Drawing.Size(1104, 680);
+            this.tabSimEngineRun.TabIndex = 4;
+            this.tabSimEngineRun.Text = "SimEngine Run";
+            this.tabSimEngineRun.UseVisualStyleBackColor = true;
             // 
-            // panelHeadlessRun
+            // panelSimEngineRun
             // 
-            this.panelHeadlessRun.Controls.Add(this.groupBoxSelectSetExtensionsLocation);
-            this.panelHeadlessRun.Controls.Add(this.groupBoxSelectModelAndRun);
-            this.panelHeadlessRun.Controls.Add(this.groupBoxSelectAndRun);
-            this.panelHeadlessRun.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelHeadlessRun.Location = new System.Drawing.Point(0, 0);
-            this.panelHeadlessRun.Name = "panelHeadlessRun";
-            this.panelHeadlessRun.Size = new System.Drawing.Size(1104, 680);
-            this.panelHeadlessRun.TabIndex = 9;
+            this.panelSimEngineRun.Controls.Add(this.groupBoxSelectSetExtensionsLocation);
+            this.panelSimEngineRun.Controls.Add(this.groupBoxSelectModelAndRun);
+            this.panelSimEngineRun.Controls.Add(this.groupBoxSelectAndRun);
+            this.panelSimEngineRun.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelSimEngineRun.Location = new System.Drawing.Point(0, 0);
+            this.panelSimEngineRun.Name = "panelSimEngineRun";
+            this.panelSimEngineRun.Size = new System.Drawing.Size(1104, 680);
+            this.panelSimEngineRun.TabIndex = 9;
             // 
             // groupBoxSelectSetExtensionsLocation
             // 
             this.groupBoxSelectSetExtensionsLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxSelectSetExtensionsLocation.Controls.Add(this.buttonHeadlessRunChangeLocation);
+            this.groupBoxSelectSetExtensionsLocation.Controls.Add(this.buttonSimEngineRunChangeLocation);
             this.groupBoxSelectSetExtensionsLocation.Controls.Add(this.label5);
-            this.groupBoxSelectSetExtensionsLocation.Controls.Add(this.textHeadlessRunFilesLocation);
+            this.groupBoxSelectSetExtensionsLocation.Controls.Add(this.textSimEngineRunFilesLocation);
             this.groupBoxSelectSetExtensionsLocation.Location = new System.Drawing.Point(12, 17);
             this.groupBoxSelectSetExtensionsLocation.Name = "groupBoxSelectSetExtensionsLocation";
             this.groupBoxSelectSetExtensionsLocation.Size = new System.Drawing.Size(1087, 101);
@@ -867,17 +867,17 @@
             this.groupBoxSelectSetExtensionsLocation.TabStop = false;
             this.groupBoxSelectSetExtensionsLocation.Text = "Select Folder for DLLs (where \'SetExtensions\' references)";
             // 
-            // buttonHeadlessRunChangeLocation
+            // buttonSimEngineRunChangeLocation
             // 
-            this.buttonHeadlessRunChangeLocation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHeadlessRunChangeLocation.Location = new System.Drawing.Point(840, 44);
-            this.buttonHeadlessRunChangeLocation.Name = "buttonHeadlessRunChangeLocation";
-            this.buttonHeadlessRunChangeLocation.Size = new System.Drawing.Size(240, 40);
-            this.buttonHeadlessRunChangeLocation.TabIndex = 24;
-            this.buttonHeadlessRunChangeLocation.Text = "Change Location...";
-            this.toolTip1.SetToolTip(this.buttonHeadlessRunChangeLocation, "Select where the headless executable files are located (SetExtensions)");
-            this.buttonHeadlessRunChangeLocation.UseVisualStyleBackColor = true;
-            this.buttonHeadlessRunChangeLocation.Click += new System.EventHandler(this.buttonChangeHeadlessLocation_Click);
+            this.buttonSimEngineRunChangeLocation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSimEngineRunChangeLocation.Location = new System.Drawing.Point(840, 44);
+            this.buttonSimEngineRunChangeLocation.Name = "buttonSimEngineRunChangeLocation";
+            this.buttonSimEngineRunChangeLocation.Size = new System.Drawing.Size(240, 40);
+            this.buttonSimEngineRunChangeLocation.TabIndex = 24;
+            this.buttonSimEngineRunChangeLocation.Text = "Change Location...";
+            this.toolTip1.SetToolTip(this.buttonSimEngineRunChangeLocation, "Select where the simEngine executable files are located (SetExtensions)");
+            this.buttonSimEngineRunChangeLocation.UseVisualStyleBackColor = true;
+            this.buttonSimEngineRunChangeLocation.Click += new System.EventHandler(this.buttonChangeSimEngineLocation_Click);
             // 
             // label5
             // 
@@ -889,16 +889,16 @@
             this.label5.Text = "Location of the \"SetExtensions\" Folder holding the SimEngine Executable(s) and DL" +
     "Ls";
             // 
-            // textHeadlessRunFilesLocation
+            // textSimEngineRunFilesLocation
             // 
-            this.textHeadlessRunFilesLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textSimEngineRunFilesLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textHeadlessRunFilesLocation.Location = new System.Drawing.Point(10, 53);
-            this.textHeadlessRunFilesLocation.Name = "textHeadlessRunFilesLocation";
-            this.textHeadlessRunFilesLocation.ReadOnly = true;
-            this.textHeadlessRunFilesLocation.Size = new System.Drawing.Size(748, 27);
-            this.textHeadlessRunFilesLocation.TabIndex = 25;
-            this.toolTip1.SetToolTip(this.textHeadlessRunFilesLocation, "This is what the SetExtsnsionsPath should reference");
+            this.textSimEngineRunFilesLocation.Location = new System.Drawing.Point(10, 53);
+            this.textSimEngineRunFilesLocation.Name = "textSimEngineRunFilesLocation";
+            this.textSimEngineRunFilesLocation.ReadOnly = true;
+            this.textSimEngineRunFilesLocation.Size = new System.Drawing.Size(748, 27);
+            this.textSimEngineRunFilesLocation.TabIndex = 25;
+            this.toolTip1.SetToolTip(this.textSimEngineRunFilesLocation, "This is what the SetExtsnsionsPath should reference");
             // 
             // groupBoxSelectModelAndRun
             // 
@@ -907,16 +907,16 @@
             this.groupBoxSelectModelAndRun.Controls.Add(this.textResultsPath);
             this.groupBoxSelectModelAndRun.Controls.Add(this.labelSaveResults);
             this.groupBoxSelectModelAndRun.Controls.Add(this.buttonResultsPath);
-            this.groupBoxSelectModelAndRun.Controls.Add(this.buttonHeadlessRunSaveProject);
+            this.groupBoxSelectModelAndRun.Controls.Add(this.buttonSimEngineRunSaveProject);
             this.groupBoxSelectModelAndRun.Controls.Add(this.label9);
-            this.groupBoxSelectModelAndRun.Controls.Add(this.textHeadlessRunProjectFile);
-            this.groupBoxSelectModelAndRun.Controls.Add(this.buttonHeadlessRunRiskAnalysis);
-            this.groupBoxSelectModelAndRun.Controls.Add(this.buttonHeadlessRunSelectProjectFile);
-            this.groupBoxSelectModelAndRun.Controls.Add(this.buttonHeadlessRunExperiment);
-            this.groupBoxSelectModelAndRun.Controls.Add(this.buttonHeadlessRunPlan);
-            this.groupBoxSelectModelAndRun.Controls.Add(this.comboHeadlessRunExperiments);
+            this.groupBoxSelectModelAndRun.Controls.Add(this.textSimEngineRunProjectFile);
+            this.groupBoxSelectModelAndRun.Controls.Add(this.buttonSimEngineRunRiskAnalysis);
+            this.groupBoxSelectModelAndRun.Controls.Add(this.buttonSimEngineRunSelectProjectFile);
+            this.groupBoxSelectModelAndRun.Controls.Add(this.buttonSimEngineRunExperiment);
+            this.groupBoxSelectModelAndRun.Controls.Add(this.buttonSimEngineRunPlan);
+            this.groupBoxSelectModelAndRun.Controls.Add(this.comboSimEngineRunExperiments);
             this.groupBoxSelectModelAndRun.Controls.Add(this.label7);
-            this.groupBoxSelectModelAndRun.Controls.Add(this.comboHeadlessRunModels);
+            this.groupBoxSelectModelAndRun.Controls.Add(this.comboSimEngineRunModels);
             this.groupBoxSelectModelAndRun.Controls.Add(this.label6);
             this.groupBoxSelectModelAndRun.Location = new System.Drawing.Point(12, 258);
             this.groupBoxSelectModelAndRun.Name = "groupBoxSelectModelAndRun";
@@ -958,17 +958,17 @@
             this.buttonResultsPath.UseVisualStyleBackColor = true;
             this.buttonResultsPath.Click += new System.EventHandler(this.buttonResultsPath_Click);
             // 
-            // buttonHeadlessRunSaveProject
+            // buttonSimEngineRunSaveProject
             // 
-            this.buttonHeadlessRunSaveProject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHeadlessRunSaveProject.Location = new System.Drawing.Point(519, 312);
-            this.buttonHeadlessRunSaveProject.Name = "buttonHeadlessRunSaveProject";
-            this.buttonHeadlessRunSaveProject.Size = new System.Drawing.Size(240, 40);
-            this.buttonHeadlessRunSaveProject.TabIndex = 33;
-            this.buttonHeadlessRunSaveProject.Text = "Save Project";
-            this.toolTip1.SetToolTip(this.buttonHeadlessRunSaveProject, "Save the Project File");
-            this.buttonHeadlessRunSaveProject.UseVisualStyleBackColor = true;
-            this.buttonHeadlessRunSaveProject.Click += new System.EventHandler(this.buttonSaveProject_Click);
+            this.buttonSimEngineRunSaveProject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSimEngineRunSaveProject.Location = new System.Drawing.Point(519, 312);
+            this.buttonSimEngineRunSaveProject.Name = "buttonSimEngineRunSaveProject";
+            this.buttonSimEngineRunSaveProject.Size = new System.Drawing.Size(240, 40);
+            this.buttonSimEngineRunSaveProject.TabIndex = 33;
+            this.buttonSimEngineRunSaveProject.Text = "Save Project";
+            this.toolTip1.SetToolTip(this.buttonSimEngineRunSaveProject, "Save the Project File");
+            this.buttonSimEngineRunSaveProject.UseVisualStyleBackColor = true;
+            this.buttonSimEngineRunSaveProject.Click += new System.EventHandler(this.buttonSaveProject_Click);
             // 
             // label9
             // 
@@ -980,75 +980,75 @@
             this.label9.TabIndex = 26;
             this.label9.Text = "... Specify a Simio Project Name (.SPFX) and use the built-in SimEngine code.";
             // 
-            // textHeadlessRunProjectFile
+            // textSimEngineRunProjectFile
             // 
-            this.textHeadlessRunProjectFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textSimEngineRunProjectFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textHeadlessRunProjectFile.Location = new System.Drawing.Point(6, 52);
-            this.textHeadlessRunProjectFile.Name = "textHeadlessRunProjectFile";
-            this.textHeadlessRunProjectFile.ReadOnly = true;
-            this.textHeadlessRunProjectFile.Size = new System.Drawing.Size(747, 27);
-            this.textHeadlessRunProjectFile.TabIndex = 13;
+            this.textSimEngineRunProjectFile.Location = new System.Drawing.Point(6, 52);
+            this.textSimEngineRunProjectFile.Name = "textSimEngineRunProjectFile";
+            this.textSimEngineRunProjectFile.ReadOnly = true;
+            this.textSimEngineRunProjectFile.Size = new System.Drawing.Size(747, 27);
+            this.textSimEngineRunProjectFile.TabIndex = 13;
             // 
-            // buttonHeadlessRunRiskAnalysis
+            // buttonSimEngineRunRiskAnalysis
             // 
-            this.buttonHeadlessRunRiskAnalysis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHeadlessRunRiskAnalysis.Location = new System.Drawing.Point(847, 257);
-            this.buttonHeadlessRunRiskAnalysis.Name = "buttonHeadlessRunRiskAnalysis";
-            this.buttonHeadlessRunRiskAnalysis.Size = new System.Drawing.Size(240, 40);
-            this.buttonHeadlessRunRiskAnalysis.TabIndex = 34;
-            this.buttonHeadlessRunRiskAnalysis.Text = "Run RiskAnalysis";
-            this.toolTip1.SetToolTip(this.buttonHeadlessRunRiskAnalysis, "Run the model RiskAnalysis on the selected Model ");
-            this.buttonHeadlessRunRiskAnalysis.UseVisualStyleBackColor = true;
-            this.buttonHeadlessRunRiskAnalysis.Click += new System.EventHandler(this.buttonHeadlessRunRiskAnalysis_Click);
+            this.buttonSimEngineRunRiskAnalysis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSimEngineRunRiskAnalysis.Location = new System.Drawing.Point(847, 257);
+            this.buttonSimEngineRunRiskAnalysis.Name = "buttonSimEngineRunRiskAnalysis";
+            this.buttonSimEngineRunRiskAnalysis.Size = new System.Drawing.Size(240, 40);
+            this.buttonSimEngineRunRiskAnalysis.TabIndex = 34;
+            this.buttonSimEngineRunRiskAnalysis.Text = "Run RiskAnalysis";
+            this.toolTip1.SetToolTip(this.buttonSimEngineRunRiskAnalysis, "Run the model RiskAnalysis on the selected Model ");
+            this.buttonSimEngineRunRiskAnalysis.UseVisualStyleBackColor = true;
+            this.buttonSimEngineRunRiskAnalysis.Click += new System.EventHandler(this.buttonSimEngineRunRiskAnalysis_Click);
             // 
-            // buttonHeadlessRunSelectProjectFile
+            // buttonSimEngineRunSelectProjectFile
             // 
-            this.buttonHeadlessRunSelectProjectFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHeadlessRunSelectProjectFile.Location = new System.Drawing.Point(841, 43);
-            this.buttonHeadlessRunSelectProjectFile.Name = "buttonHeadlessRunSelectProjectFile";
-            this.buttonHeadlessRunSelectProjectFile.Size = new System.Drawing.Size(240, 40);
-            this.buttonHeadlessRunSelectProjectFile.TabIndex = 12;
-            this.buttonHeadlessRunSelectProjectFile.Text = "Select and Load Project";
-            this.toolTip1.SetToolTip(this.buttonHeadlessRunSelectProjectFile, "Select and Load a Simio SPFX project file");
-            this.buttonHeadlessRunSelectProjectFile.UseVisualStyleBackColor = true;
-            this.buttonHeadlessRunSelectProjectFile.Click += new System.EventHandler(this.buttonHeadlessRunSelectAndLoadProjectFile_Click);
+            this.buttonSimEngineRunSelectProjectFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSimEngineRunSelectProjectFile.Location = new System.Drawing.Point(841, 43);
+            this.buttonSimEngineRunSelectProjectFile.Name = "buttonSimEngineRunSelectProjectFile";
+            this.buttonSimEngineRunSelectProjectFile.Size = new System.Drawing.Size(240, 40);
+            this.buttonSimEngineRunSelectProjectFile.TabIndex = 12;
+            this.buttonSimEngineRunSelectProjectFile.Text = "Select and Load Project";
+            this.toolTip1.SetToolTip(this.buttonSimEngineRunSelectProjectFile, "Select and Load a Simio SPFX project file");
+            this.buttonSimEngineRunSelectProjectFile.UseVisualStyleBackColor = true;
+            this.buttonSimEngineRunSelectProjectFile.Click += new System.EventHandler(this.buttonSimEngineRunSelectAndLoadProjectFile_Click);
             // 
-            // buttonHeadlessRunExperiment
+            // buttonSimEngineRunExperiment
             // 
-            this.buttonHeadlessRunExperiment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHeadlessRunExperiment.Location = new System.Drawing.Point(211, 257);
-            this.buttonHeadlessRunExperiment.Name = "buttonHeadlessRunExperiment";
-            this.buttonHeadlessRunExperiment.Size = new System.Drawing.Size(240, 40);
-            this.buttonHeadlessRunExperiment.TabIndex = 23;
-            this.buttonHeadlessRunExperiment.Text = "Run Experiment";
-            this.toolTip1.SetToolTip(this.buttonHeadlessRunExperiment, "Run the selected Experiment on the selected Model");
-            this.buttonHeadlessRunExperiment.UseVisualStyleBackColor = true;
-            this.buttonHeadlessRunExperiment.Click += new System.EventHandler(this.buttonRunExperiment_Click);
+            this.buttonSimEngineRunExperiment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSimEngineRunExperiment.Location = new System.Drawing.Point(211, 257);
+            this.buttonSimEngineRunExperiment.Name = "buttonSimEngineRunExperiment";
+            this.buttonSimEngineRunExperiment.Size = new System.Drawing.Size(240, 40);
+            this.buttonSimEngineRunExperiment.TabIndex = 23;
+            this.buttonSimEngineRunExperiment.Text = "Run Experiment";
+            this.toolTip1.SetToolTip(this.buttonSimEngineRunExperiment, "Run the selected Experiment on the selected Model");
+            this.buttonSimEngineRunExperiment.UseVisualStyleBackColor = true;
+            this.buttonSimEngineRunExperiment.Click += new System.EventHandler(this.buttonRunExperiment_Click);
             // 
-            // buttonHeadlessRunPlan
+            // buttonSimEngineRunPlan
             // 
-            this.buttonHeadlessRunPlan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHeadlessRunPlan.Location = new System.Drawing.Point(519, 257);
-            this.buttonHeadlessRunPlan.Name = "buttonHeadlessRunPlan";
-            this.buttonHeadlessRunPlan.Size = new System.Drawing.Size(240, 40);
-            this.buttonHeadlessRunPlan.TabIndex = 14;
-            this.buttonHeadlessRunPlan.Text = "Run Plan";
-            this.toolTip1.SetToolTip(this.buttonHeadlessRunPlan, "Run the model Plan on the selected Model");
-            this.buttonHeadlessRunPlan.UseVisualStyleBackColor = true;
-            this.buttonHeadlessRunPlan.Click += new System.EventHandler(this.buttonHeadlessRun_Click);
+            this.buttonSimEngineRunPlan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSimEngineRunPlan.Location = new System.Drawing.Point(519, 257);
+            this.buttonSimEngineRunPlan.Name = "buttonSimEngineRunPlan";
+            this.buttonSimEngineRunPlan.Size = new System.Drawing.Size(240, 40);
+            this.buttonSimEngineRunPlan.TabIndex = 14;
+            this.buttonSimEngineRunPlan.Text = "Run Plan";
+            this.toolTip1.SetToolTip(this.buttonSimEngineRunPlan, "Run the model Plan on the selected Model");
+            this.buttonSimEngineRunPlan.UseVisualStyleBackColor = true;
+            this.buttonSimEngineRunPlan.Click += new System.EventHandler(this.buttonSimEngineRun_Click);
             // 
-            // comboHeadlessRunExperiments
+            // comboSimEngineRunExperiments
             // 
-            this.comboHeadlessRunExperiments.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.comboSimEngineRunExperiments.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboHeadlessRunExperiments.Enabled = false;
-            this.comboHeadlessRunExperiments.FormattingEnabled = true;
-            this.comboHeadlessRunExperiments.Location = new System.Drawing.Point(190, 144);
-            this.comboHeadlessRunExperiments.Name = "comboHeadlessRunExperiments";
-            this.comboHeadlessRunExperiments.Size = new System.Drawing.Size(338, 28);
-            this.comboHeadlessRunExperiments.TabIndex = 32;
-            this.comboHeadlessRunExperiments.SelectedIndexChanged += new System.EventHandler(this.comboHeadlessRunExperiments_SelectedIndexChanged);
+            this.comboSimEngineRunExperiments.Enabled = false;
+            this.comboSimEngineRunExperiments.FormattingEnabled = true;
+            this.comboSimEngineRunExperiments.Location = new System.Drawing.Point(190, 144);
+            this.comboSimEngineRunExperiments.Name = "comboSimEngineRunExperiments";
+            this.comboSimEngineRunExperiments.Size = new System.Drawing.Size(338, 28);
+            this.comboSimEngineRunExperiments.TabIndex = 32;
+            this.comboSimEngineRunExperiments.SelectedIndexChanged += new System.EventHandler(this.comboSimEngineRunExperiments_SelectedIndexChanged);
             // 
             // label7
             // 
@@ -1060,17 +1060,17 @@
             this.label7.TabIndex = 21;
             this.label7.Text = "Select Model:";
             // 
-            // comboHeadlessRunModels
+            // comboSimEngineRunModels
             // 
-            this.comboHeadlessRunModels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.comboSimEngineRunModels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboHeadlessRunModels.FormattingEnabled = true;
-            this.comboHeadlessRunModels.Location = new System.Drawing.Point(190, 101);
-            this.comboHeadlessRunModels.Name = "comboHeadlessRunModels";
-            this.comboHeadlessRunModels.Size = new System.Drawing.Size(338, 28);
-            this.comboHeadlessRunModels.TabIndex = 31;
-            this.comboHeadlessRunModels.SelectedIndexChanged += new System.EventHandler(this.comboHeadlessRunModels_SelectedIndexChanged);
-            this.comboHeadlessRunModels.SelectedValueChanged += new System.EventHandler(this.comboHeadlessRunModels_SelectedValueChanged);
+            this.comboSimEngineRunModels.FormattingEnabled = true;
+            this.comboSimEngineRunModels.Location = new System.Drawing.Point(190, 101);
+            this.comboSimEngineRunModels.Name = "comboSimEngineRunModels";
+            this.comboSimEngineRunModels.Size = new System.Drawing.Size(338, 28);
+            this.comboSimEngineRunModels.TabIndex = 31;
+            this.comboSimEngineRunModels.SelectedIndexChanged += new System.EventHandler(this.comboSimEngineRunModels_SelectedIndexChanged);
+            this.comboSimEngineRunModels.SelectedValueChanged += new System.EventHandler(this.comboSimEngineRunModels_SelectedValueChanged);
             // 
             // label6
             // 
@@ -1086,9 +1086,9 @@
             // 
             this.groupBoxSelectAndRun.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxSelectAndRun.Controls.Add(this.comboHeadlessRunExecutableToRun);
+            this.groupBoxSelectAndRun.Controls.Add(this.comboSimEngineRunExecutableToRun);
             this.groupBoxSelectAndRun.Controls.Add(this.label14);
-            this.groupBoxSelectAndRun.Controls.Add(this.buttonHeadlessRunExecutable);
+            this.groupBoxSelectAndRun.Controls.Add(this.buttonSimEngineRunExecutable);
             this.groupBoxSelectAndRun.Location = new System.Drawing.Point(12, 124);
             this.groupBoxSelectAndRun.Name = "groupBoxSelectAndRun";
             this.groupBoxSelectAndRun.Size = new System.Drawing.Size(1075, 128);
@@ -1096,16 +1096,16 @@
             this.groupBoxSelectAndRun.TabStop = false;
             this.groupBoxSelectAndRun.Text = "And then Either (A) Select an Executable within this folder to run";
             // 
-            // comboHeadlessRunExecutableToRun
+            // comboSimEngineRunExecutableToRun
             // 
-            this.comboHeadlessRunExecutableToRun.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.comboSimEngineRunExecutableToRun.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboHeadlessRunExecutableToRun.FormattingEnabled = true;
-            this.comboHeadlessRunExecutableToRun.Location = new System.Drawing.Point(11, 51);
-            this.comboHeadlessRunExecutableToRun.Name = "comboHeadlessRunExecutableToRun";
-            this.comboHeadlessRunExecutableToRun.Size = new System.Drawing.Size(729, 28);
-            this.comboHeadlessRunExecutableToRun.TabIndex = 27;
-            this.comboHeadlessRunExecutableToRun.SelectedIndexChanged += new System.EventHandler(this.comboHeadlessRunExecutableToRun_SelectedIndexChanged);
+            this.comboSimEngineRunExecutableToRun.FormattingEnabled = true;
+            this.comboSimEngineRunExecutableToRun.Location = new System.Drawing.Point(11, 51);
+            this.comboSimEngineRunExecutableToRun.Name = "comboSimEngineRunExecutableToRun";
+            this.comboSimEngineRunExecutableToRun.Size = new System.Drawing.Size(729, 28);
+            this.comboSimEngineRunExecutableToRun.TabIndex = 27;
+            this.comboSimEngineRunExecutableToRun.SelectedIndexChanged += new System.EventHandler(this.comboSimEngineRunExecutableToRun_SelectedIndexChanged);
             // 
             // label14
             // 
@@ -1116,17 +1116,17 @@
             this.label14.TabIndex = 28;
             this.label14.Text = "Select the Executable within this folder to run, or...";
             // 
-            // buttonHeadlessRunExecutable
+            // buttonSimEngineRunExecutable
             // 
-            this.buttonHeadlessRunExecutable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHeadlessRunExecutable.Location = new System.Drawing.Point(828, 51);
-            this.buttonHeadlessRunExecutable.Name = "buttonHeadlessRunExecutable";
-            this.buttonHeadlessRunExecutable.Size = new System.Drawing.Size(240, 40);
-            this.buttonHeadlessRunExecutable.TabIndex = 30;
-            this.buttonHeadlessRunExecutable.Text = "Run the Executable";
-            this.toolTip1.SetToolTip(this.buttonHeadlessRunExecutable, "Run the selected executable from the given location folder");
-            this.buttonHeadlessRunExecutable.UseVisualStyleBackColor = true;
-            this.buttonHeadlessRunExecutable.Click += new System.EventHandler(this.buttonHeadlessRunExecutable_Click);
+            this.buttonSimEngineRunExecutable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSimEngineRunExecutable.Location = new System.Drawing.Point(828, 51);
+            this.buttonSimEngineRunExecutable.Name = "buttonSimEngineRunExecutable";
+            this.buttonSimEngineRunExecutable.Size = new System.Drawing.Size(240, 40);
+            this.buttonSimEngineRunExecutable.TabIndex = 30;
+            this.buttonSimEngineRunExecutable.Text = "Run the Executable";
+            this.toolTip1.SetToolTip(this.buttonSimEngineRunExecutable, "Run the selected executable from the given location folder");
+            this.buttonSimEngineRunExecutable.UseVisualStyleBackColor = true;
+            this.buttonSimEngineRunExecutable.Click += new System.EventHandler(this.buttonSimEngineRunExecutable_Click);
             // 
             // tabLogs
             // 
@@ -1318,6 +1318,7 @@
             this.textFileWatcherLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textFileWatcherLog.Size = new System.Drawing.Size(847, 234);
             this.textFileWatcherLog.TabIndex = 4;
+            this.textFileWatcherLog.WordWrap = false;
             this.textFileWatcherLog.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textFileWatcherLog_MouseDoubleClick);
             // 
             // labelPath
@@ -1393,17 +1394,17 @@
             this.tabFindUserExtensions.ResumeLayout(false);
             this.panelFindSteps.ResumeLayout(false);
             this.panelFindSteps.PerformLayout();
-            this.tabHeadlessHarvester.ResumeLayout(false);
+            this.tabSimEngineHarvester.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.groupHeadlessBuild.ResumeLayout(false);
-            this.groupHeadlessBuild.PerformLayout();
+            this.groupSimEngineBuild.ResumeLayout(false);
+            this.groupSimEngineBuild.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupFileSource.ResumeLayout(false);
             this.groupFileSource.PerformLayout();
-            this.tabHeadlessRun.ResumeLayout(false);
-            this.panelHeadlessRun.ResumeLayout(false);
+            this.tabSimEngineRun.ResumeLayout(false);
+            this.panelSimEngineRun.ResumeLayout(false);
             this.groupBoxSelectSetExtensionsLocation.ResumeLayout(false);
             this.groupBoxSelectSetExtensionsLocation.PerformLayout();
             this.groupBoxSelectModelAndRun.ResumeLayout(false);
@@ -1466,28 +1467,28 @@
         private System.Windows.Forms.Label labelInstalledDotNet;
         private System.Windows.Forms.Label labelCurrentDotNet;
         private System.Windows.Forms.ToolStripStatusLabel LabelStatus;
-        private System.Windows.Forms.TabPage tabHeadlessRun;
-        private System.Windows.Forms.Panel panelHeadlessRun;
-        private System.Windows.Forms.TextBox textHeadlessRunProjectFile;
-        private System.Windows.Forms.Button buttonHeadlessRunSelectProjectFile;
+        private System.Windows.Forms.TabPage tabSimEngineRun;
+        private System.Windows.Forms.Panel panelSimEngineRun;
+        private System.Windows.Forms.TextBox textSimEngineRunProjectFile;
+        private System.Windows.Forms.Button buttonSimEngineRunSelectProjectFile;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button buttonHeadlessRunPlan;
+        private System.Windows.Forms.Button buttonSimEngineRunPlan;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Button buttonHeadlessRunExperiment;
+        private System.Windows.Forms.Button buttonSimEngineRunExperiment;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textDllHelperExcludeFilter;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TabPage tabHeadlessHarvester;
+        private System.Windows.Forms.TabPage tabSimEngineHarvester;
         private System.Windows.Forms.TabPage Settings;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textHeadlessRunFilesLocation;
-        private System.Windows.Forms.Button buttonHeadlessRunChangeLocation;
+        private System.Windows.Forms.TextBox textSimEngineRunFilesLocation;
+        private System.Windows.Forms.Button buttonSimEngineRunChangeLocation;
         private System.Windows.Forms.TextBox textHarvestTargetFolder;
-        private System.Windows.Forms.Button buttonSelectHeadlessFolder;
+        private System.Windows.Forms.Button buttonSelectSimEngineFolder;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button buttonBuildHeadlessSystem;
+        private System.Windows.Forms.Button buttonBuildSimEngineSystem;
         private System.Windows.Forms.TextBox textHarvestSourceFolder;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button buttonSelectSimioInstallationFolder;
@@ -1495,13 +1496,13 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.ComboBox comboHeadlessRunExecutableToRun;
-        private System.Windows.Forms.Button buttonHeadlessRunExecutable;
-        private System.Windows.Forms.ComboBox comboHeadlessRunModels;
+        private System.Windows.Forms.ComboBox comboSimEngineRunExecutableToRun;
+        private System.Windows.Forms.Button buttonSimEngineRunExecutable;
+        private System.Windows.Forms.ComboBox comboSimEngineRunModels;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
-        private System.Windows.Forms.ComboBox comboHeadlessRunExperiments;
-        private System.Windows.Forms.Button buttonHeadlessRunSaveProject;
-        private System.Windows.Forms.Button buttonHeadlessRunRiskAnalysis;
+        private System.Windows.Forms.ComboBox comboSimEngineRunExperiments;
+        private System.Windows.Forms.Button buttonSimEngineRunSaveProject;
+        private System.Windows.Forms.Button buttonSimEngineRunRiskAnalysis;
         private System.Windows.Forms.TabPage tabUtilities;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label17;
@@ -1518,10 +1519,10 @@
         private System.Windows.Forms.Button buttonFilewatcherSelect;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.GroupBox groupFileSource;
-        private System.Windows.Forms.CheckBox cbHeadlessBuildUsersFiles;
+        private System.Windows.Forms.CheckBox cbSimEngineBuildUsersFiles;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.GroupBox groupHeadlessBuild;
-        private System.Windows.Forms.Button buttonHeadlessBuildAddExe;
+        private System.Windows.Forms.GroupBox groupSimEngineBuild;
+        private System.Windows.Forms.Button buttonSimEngineBuildAddExe;
         private System.Windows.Forms.PropertyGrid propertyGrid1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button buttonTabSettingsSave;

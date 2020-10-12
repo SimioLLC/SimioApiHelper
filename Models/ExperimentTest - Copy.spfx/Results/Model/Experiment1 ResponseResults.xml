@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ResponseResults Model="Model" Experiment="Experiment1" FileVersion="213" xmlns="http://www.simio.com/projects/v1">
+  <Observations Scenario="Scenario1" Response="Response1">
+    <Observation Value="0" RepNum="2" />
+    <Observation Value="0" RepNum="1" />
+    <Observation Value="0" RepNum="3" />
+    <Observation Value="0" RepNum="4" />
+    <Observation Value="0" RepNum="5" />
+    <Observation Value="0" RepNum="6" />
+    <Observation Value="0" RepNum="8" />
+    <Observation Value="0" RepNum="7" />
+    <Observation Value="0" RepNum="9" />
+    <Observation Value="0" RepNum="10" />
+  </Observations>
+  <Observations Scenario="Scenario2" Response="Response1">
+    <Observation Value="0" RepNum="3" />
+    <Observation Value="0" RepNum="1" />
+    <Observation Value="0" RepNum="2" />
+    <Observation Value="0" RepNum="4" />
+    <Observation Value="0" RepNum="5" />
+    <Observation Value="0" RepNum="6" />
+    <Observation Value="0" RepNum="7" />
+    <Observation Value="0" RepNum="8" />
+    <Observation Value="0" RepNum="9" />
+    <Observation Value="0" RepNum="10" />
+  </Observations>
+  <Observations Scenario="Scenario3" Response="Response1">
+    <Observation Value="0" RepNum="2" />
+    <Observation Value="0" RepNum="1" />
+    <Observation Value="0" RepNum="3" />
+    <Observation Value="0" RepNum="4" />
+    <Observation Value="0" RepNum="5" />
+    <Observation Value="0" RepNum="6" />
+    <Observation Value="0" RepNum="8" />
+    <Observation Value="0" RepNum="7" />
+    <Observation Value="0" RepNum="9" />
+    <Observation Value="0" RepNum="10" />
+  </Observations>
+</ResponseResults>
