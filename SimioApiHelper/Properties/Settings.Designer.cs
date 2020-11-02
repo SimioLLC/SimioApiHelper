@@ -118,5 +118,17 @@ namespace SimioApiHelper.Properties {
                 this["LogFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string FileWatcherPath {
+            get {
+                return ((string)(this["FileWatcherPath"]));
+            }
+            set {
+                this["FileWatcherPath"] = value;
+            }
+        }
     }
 }

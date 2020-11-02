@@ -25,6 +25,18 @@ namespace SimioApiHelper
 
         FileSystemWatcher FileWatcher { get; set; }
 
+
+        /// <summary>
+        /// The file watcher entries
+        /// </summary>
+        public WatcherEntries WatcherEntries { get; set; }
+
+        /// <summary>
+        /// Dictionary of all unique filepaths indicated by FileWatcher.
+        /// The key is the full path.
+        /// </summary>
+        public Dictionary<string, WatcherEntry> WatcherFileDict = new Dictionary<string, WatcherEntry>();
+
         /// <summary>
         /// A DLLs list of the assemblies it is dependent upon
         /// </summary>
@@ -70,6 +82,7 @@ namespace SimioApiHelper
                 RefreshTabSimEngineBuilder(true);
                 RefreshTabSimEngineRun();
                 RefreshTabSettings();
+                RefreshTabUtilities();
               
             }
             catch (Exception ex)
@@ -989,6 +1002,21 @@ namespace SimioApiHelper
             }
         }
 
+        private void RefreshTabUtilities()
+        {
+            try
+            {
+                string fwPath = Properties.Settings.Default.FileWatcherPath;
+                textFilewatcherPath.Text = fwPath;
+
+
+            }
+            catch (Exception ex)
+            {
+                Logit($"Err={ex}");
+            }
+        }
+
         /// <summary>
         /// Put the selected files (DLLs, etc) except for those ignored into the checkbox list.
         /// </summary>
@@ -1745,8 +1773,15 @@ namespace SimioApiHelper
 
         private void buttonFileWatcherStart_Click(object sender, EventArgs e)
         {
+            string fwPath = textFilewatcherPath.Text;
+            if ( !Directory.Exists(fwPath))
+            {
+                Alert($"Path=[{fwPath}] does not exist. Select path to watch.");
+                return;
+            }
+
             FileWatcher = new FileSystemWatcher();
-            FileWatcher.Path = textFilewatcherPath.Text;
+            FileWatcher.Path = fwPath;
             FileWatcher.Filter = textFilewatcherFilter.Text;
             FileWatcher.IncludeSubdirectories = true;
 
@@ -1755,20 +1790,66 @@ namespace SimioApiHelper
             if (cbFwNotifyLastWrite.Checked)
                 FileWatcher.NotifyFilter |= NotifyFilters.LastWrite;
 
+            WatcherEntries = new WatcherEntries(2);
+            WatcherFileDict = new Dictionary<string, WatcherEntry>();
+
             FileWatcher.Changed += OnChanged;
             FileWatcher.EnableRaisingEvents = true;
 
+            timerFileWatcher.Enabled = true;
+            timerFileChanges.Enabled = true;
             buttonFileWatcherStart.Enabled = false;
             buttonFileWatcherStop.Enabled = true;
         }
 
+        /// <summary>
+        /// Called by filewatcher
+        /// </summary>
+        /// <param name="fsw"></param>
+        /// <param name="fsea"></param>
         private void OnChanged(object fsw, FileSystemEventArgs fsea)
         {
-            string msg = $"{DateTime.Now.ToString("HH:mm:ss.ff")}: {fsea.ChangeType.ToString()} {fsea.FullPath}\n";
+            string msg = $"{DateTime.Now:HH:mm:ss.ff}: {fsea.ChangeType} {fsea.FullPath}";
+
             if (!cbFwPauseLogging.Checked)
             {
-                //textFileWatcherLog.Invoke((MethodInvoker)(() => textFileWatcherLog.Text = msg));
-                this.UIThread(() => this.textFileWatcherLog.AppendText(msg));
+                this.UIThread(() =>
+                {
+                    string fullPath = fsea.FullPath;
+
+                    this.WatcherEntries.AddOrEditWatcherEntry(DateTime.Now, fsea.ChangeType, fullPath);
+
+                    if (!WatcherFileDict.TryGetValue(fullPath, out WatcherEntry entry))
+                    {
+                        entry = new WatcherEntry(DateTime.Now, fullPath);
+                        WatcherFileDict.Add(fullPath, entry);
+                    }
+
+                    if (File.Exists(fullPath))
+                    {
+                        string ext = Path.GetExtension(fullPath).ToLower();
+                        if (ext.EndsWith(".zip") || ext.EndsWith(".backup") )
+                        {
+                            return;
+                        }
+
+
+                        FileInfo fi = new FileInfo(fullPath);
+                        if (fi.Length <= 10000000)
+                        {
+                            entry.UpdateFile(fsea);
+                            if (entry.HasContentsChanged)
+                            {
+
+                            }
+                        }
+                    }
+                    else if (Directory.Exists(fullPath))
+                    {
+                        Logit($"Info: Folder={fullPath}");
+                    }
+
+                });
             }
 
         }
@@ -1787,22 +1868,40 @@ namespace SimioApiHelper
             buttonFileWatcherStart.Enabled = true;
             buttonFileWatcherStop.Enabled = false;
 
+            timerFileWatcher.Enabled = false;
+            timerFileChanges.Enabled = false;
         }
 
         private void textFileWatcherLog_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            textFileWatcherLog.Clear();
+            ////textFileWatcherLog.Clear();
         }
 
         private void buttonFilewatcherSelect_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog dialog = new FolderBrowserDialog();
 
-            DialogResult result = dialog.ShowDialog();
-            if ( result == DialogResult.OK)
+            String fwPath = textFilewatcherPath.Text;
+            dialog.SelectedPath = fwPath;
+
+            try
             {
-                textFilewatcherPath.Text = dialog.SelectedPath;
+                DialogResult result = dialog.ShowDialog();
+
+                if (result == DialogResult.OK)
+                {
+                    fwPath = dialog.SelectedPath;
+                    textFilewatcherPath.Text = dialog.SelectedPath;
+
+                    Properties.Settings.Default.FileWatcherPath = fwPath;
+                    Properties.Settings.Default.Save();
+                }
             }
+            catch (Exception ex)
+            {
+                Alert($"Cannot Select folder to watch. Err={ex}");
+            }
+
         }
 
         private void buttonSimEngineBuildAddExe_Click(object sender, EventArgs e)
@@ -1992,6 +2091,102 @@ namespace SimioApiHelper
                 Cursor.Current = Cursors.Default;
             }
 
+        }
+
+        private void timerFileWatcher_Tick(object sender, EventArgs e)
+        {
+            if (cbFwPauseLogging.Checked)
+                return;
+
+            if ( WatcherEntries == null )
+            {
+                textFileWatcherLog.Text = "";
+                return;
+            }
+
+            if ( WatcherEntries.GroupDict.Count > 0 )
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach ( WatcherEntryGroup group in WatcherEntries.GroupDict.Values )
+                {
+                    sb.Append(group.CreateLineReport());
+                }
+                textFileWatcherLog.Text = sb.ToString();
+            }
+
+
+        }
+
+        private void textFileWatcherLog_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listUtilitiesAlteredFiles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void listUtilitiesAlteredFiles_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            listUtilitiesAlteredFiles.Items.Clear();
+        }
+
+        private void timerFileChanges_Tick(object sender, EventArgs e)
+        {
+            if (WatcherFileDict == null)
+                return;
+
+            if (cbUtilityPauseChangedFileUpdating.Checked)
+                return;
+
+            listUtilitiesAlteredFiles.Items.Clear();
+            listUtilitiesAlteredFiles.BeginUpdate();
+            foreach ( WatcherEntry entry in WatcherFileDict.Values)
+            {
+                if ( cbUtilitiesShowChangedFiles.Checked )
+                {
+                    if (entry.HasContentsChanged)
+                        listUtilitiesAlteredFiles.Items.Add(entry);
+                }
+                else
+                {
+                    listUtilitiesAlteredFiles.Items.Add(entry);
+                }
+            }
+            listUtilitiesAlteredFiles.EndUpdate();
+        }
+
+        /// <summary>
+        /// Set all the entries in WatcherFileDict as follows:
+        /// HasChanged is set to False
+        /// </summary>
+        private void ResetChangedFiles()
+        {
+            foreach (WatcherEntry entry in WatcherFileDict.Values)
+            {
+                entry.HasContentsChanged = false;
+            }
+        }
+
+        /// <summary>
+        /// Set all the entries in WatcherFileDict as follows:
+        /// HasChanged is set to False
+        /// </summary>
+        private void ClearWatcherHistory()
+        {
+            WatcherEntries.Clear();
+            textFileWatcherLog.Clear();
+        }
+
+        private void buttonUtilitiesResetChangedFiles_Click(object sender, EventArgs e)
+        {
+            ResetChangedFiles();
+        }
+
+        private void buttonUtilitiesClearWatcherHistory_Click(object sender, EventArgs e)
+        {
+
+            textFileWatcherLog.Clear();
         }
     }
 }

@@ -122,7 +122,10 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.buttonTabSettingsSave = new System.Windows.Forms.Button();
             this.tabUtilities = new System.Windows.Forms.TabPage();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabUtilityFileWatcher = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.buttonFilewatcherSelect = new System.Windows.Forms.Button();
             this.cbFwPauseLogging = new System.Windows.Forms.CheckBox();
@@ -136,8 +139,20 @@
             this.textFilewatcherPath = new System.Windows.Forms.TextBox();
             this.buttonFileWatcherStop = new System.Windows.Forms.Button();
             this.buttonFileWatcherStart = new System.Windows.Forms.Button();
+            this.tabUtilityFileChanged = new System.Windows.Forms.TabPage();
+            this.panelUtilityFilesChanged = new System.Windows.Forms.Panel();
+            this.labelUtilitiesResetFilesChangedList = new System.Windows.Forms.Label();
+            this.cbUtilitiesShowChangedFiles = new System.Windows.Forms.CheckBox();
+            this.listUtilitiesAlteredFiles = new System.Windows.Forms.ListBox();
+            this.cbUtilityPauseChangedFileUpdating = new System.Windows.Forms.CheckBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.panelUtilitiesTop = new System.Windows.Forms.Panel();
             this.timerLogs = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.timerFileWatcher = new System.Windows.Forms.Timer(this.components);
+            this.timerFileChanges = new System.Windows.Forms.Timer(this.components);
+            this.buttonUtilitiesResetChangedFiles = new System.Windows.Forms.Button();
+            this.buttonUtilitiesClearWatcherHistory = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.StatusStripBottom.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -161,7 +176,11 @@
             this.Settings.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tabUtilities.SuspendLayout();
+            this.tabControl2.SuspendLayout();
+            this.tabUtilityFileWatcher.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.tabUtilityFileChanged.SuspendLayout();
+            this.panelUtilityFilesChanged.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -174,7 +193,7 @@
             this.refreshToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1112, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1220, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -220,10 +239,10 @@
             this.StatusStripBottom.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.StatusStripBottom.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.LabelStatus});
-            this.StatusStripBottom.Location = new System.Drawing.Point(0, 741);
+            this.StatusStripBottom.Location = new System.Drawing.Point(0, 680);
             this.StatusStripBottom.Name = "StatusStripBottom";
             this.StatusStripBottom.Padding = new System.Windows.Forms.Padding(1, 0, 18, 0);
-            this.StatusStripBottom.Size = new System.Drawing.Size(1112, 26);
+            this.StatusStripBottom.Size = new System.Drawing.Size(1220, 26);
             this.StatusStripBottom.TabIndex = 1;
             this.StatusStripBottom.Text = "statusStrip1";
             // 
@@ -247,7 +266,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 28);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1112, 713);
+            this.tabControl1.Size = new System.Drawing.Size(1220, 652);
             this.tabControl1.TabIndex = 2;
             // 
             // tabDllHelper
@@ -256,7 +275,7 @@
             this.tabDllHelper.Location = new System.Drawing.Point(4, 29);
             this.tabDllHelper.Name = "tabDllHelper";
             this.tabDllHelper.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDllHelper.Size = new System.Drawing.Size(1104, 680);
+            this.tabDllHelper.Size = new System.Drawing.Size(1212, 619);
             this.tabDllHelper.TabIndex = 0;
             this.tabDllHelper.Text = "DLL Helper";
             this.tabDllHelper.UseVisualStyleBackColor = true;
@@ -281,7 +300,7 @@
             this.panelDll.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDll.Location = new System.Drawing.Point(3, 3);
             this.panelDll.Name = "panelDll";
-            this.panelDll.Size = new System.Drawing.Size(1098, 674);
+            this.panelDll.Size = new System.Drawing.Size(1206, 613);
             this.panelDll.TabIndex = 13;
             // 
             // buttonAddDependentsToHarvest
@@ -356,7 +375,7 @@
             this.textAssemblyLoadInfo.Name = "textAssemblyLoadInfo";
             this.textAssemblyLoadInfo.ReadOnly = true;
             this.textAssemblyLoadInfo.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textAssemblyLoadInfo.Size = new System.Drawing.Size(799, 204);
+            this.textAssemblyLoadInfo.Size = new System.Drawing.Size(907, 204);
             this.textAssemblyLoadInfo.TabIndex = 11;
             this.textAssemblyLoadInfo.WordWrap = false;
             // 
@@ -367,7 +386,7 @@
             this.comboDllFile.FormattingEnabled = true;
             this.comboDllFile.Location = new System.Drawing.Point(282, 170);
             this.comboDllFile.Name = "comboDllFile";
-            this.comboDllFile.Size = new System.Drawing.Size(799, 28);
+            this.comboDllFile.Size = new System.Drawing.Size(907, 28);
             this.comboDllFile.TabIndex = 2;
             this.comboDllFile.SelectedIndexChanged += new System.EventHandler(this.comboDllFile_SelectedIndexChanged);
             // 
@@ -394,12 +413,12 @@
             // 
             this.textExceptions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textExceptions.Location = new System.Drawing.Point(282, 576);
+            this.textExceptions.Location = new System.Drawing.Point(282, 515);
             this.textExceptions.Multiline = true;
             this.textExceptions.Name = "textExceptions";
             this.textExceptions.ReadOnly = true;
             this.textExceptions.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textExceptions.Size = new System.Drawing.Size(799, 80);
+            this.textExceptions.Size = new System.Drawing.Size(907, 80);
             this.textExceptions.TabIndex = 9;
             this.textExceptions.WordWrap = false;
             // 
@@ -410,7 +429,7 @@
             this.comboSimioLocation.FormattingEnabled = true;
             this.comboSimioLocation.Location = new System.Drawing.Point(282, 85);
             this.comboSimioLocation.Name = "comboSimioLocation";
-            this.comboSimioLocation.Size = new System.Drawing.Size(799, 28);
+            this.comboSimioLocation.Size = new System.Drawing.Size(907, 28);
             this.comboSimioLocation.TabIndex = 4;
             this.toolTip1.SetToolTip(this.comboSimioLocation, "Use the dropdown list to select one of the standard simio locations for DLLs");
             this.comboSimioLocation.SelectedIndexChanged += new System.EventHandler(this.comboSimioLocation_SelectedIndexChanged);
@@ -434,7 +453,7 @@
             this.textAssemblyName.Name = "textAssemblyName";
             this.textAssemblyName.ReadOnly = true;
             this.textAssemblyName.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textAssemblyName.Size = new System.Drawing.Size(799, 151);
+            this.textAssemblyName.Size = new System.Drawing.Size(907, 151);
             this.textAssemblyName.TabIndex = 5;
             this.textAssemblyName.WordWrap = false;
             // 
@@ -452,7 +471,7 @@
             this.tabNetVersions.Controls.Add(this.panel1);
             this.tabNetVersions.Location = new System.Drawing.Point(4, 29);
             this.tabNetVersions.Name = "tabNetVersions";
-            this.tabNetVersions.Size = new System.Drawing.Size(1104, 680);
+            this.tabNetVersions.Size = new System.Drawing.Size(1212, 619);
             this.tabNetVersions.TabIndex = 3;
             this.tabNetVersions.Text = ".NET Versions";
             this.tabNetVersions.UseVisualStyleBackColor = true;
@@ -470,7 +489,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1104, 680);
+            this.panel1.Size = new System.Drawing.Size(1212, 619);
             this.panel1.TabIndex = 20;
             // 
             // labelHwCpuSpeed
@@ -565,7 +584,7 @@
             this.tabFindUserExtensions.Controls.Add(this.panelFindSteps);
             this.tabFindUserExtensions.Location = new System.Drawing.Point(4, 29);
             this.tabFindUserExtensions.Name = "tabFindUserExtensions";
-            this.tabFindUserExtensions.Size = new System.Drawing.Size(1104, 680);
+            this.tabFindUserExtensions.Size = new System.Drawing.Size(1212, 619);
             this.tabFindUserExtensions.TabIndex = 2;
             this.tabFindUserExtensions.Text = "Find UserExtensions";
             this.tabFindUserExtensions.UseVisualStyleBackColor = true;
@@ -580,7 +599,7 @@
             this.panelFindSteps.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFindSteps.Location = new System.Drawing.Point(0, 0);
             this.panelFindSteps.Name = "panelFindSteps";
-            this.panelFindSteps.Size = new System.Drawing.Size(1104, 680);
+            this.panelFindSteps.Size = new System.Drawing.Size(1212, 619);
             this.panelFindSteps.TabIndex = 11;
             // 
             // textStepsAndAddIns
@@ -592,7 +611,7 @@
             this.textStepsAndAddIns.Name = "textStepsAndAddIns";
             this.textStepsAndAddIns.ReadOnly = true;
             this.textStepsAndAddIns.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textStepsAndAddIns.Size = new System.Drawing.Size(1055, 454);
+            this.textStepsAndAddIns.Size = new System.Drawing.Size(1163, 454);
             this.textStepsAndAddIns.TabIndex = 12;
             // 
             // buttonFindUserExtensions
@@ -631,7 +650,7 @@
             this.comboFindSimioExtensionLocations.FormattingEnabled = true;
             this.comboFindSimioExtensionLocations.Location = new System.Drawing.Point(230, 68);
             this.comboFindSimioExtensionLocations.Name = "comboFindSimioExtensionLocations";
-            this.comboFindSimioExtensionLocations.Size = new System.Drawing.Size(844, 28);
+            this.comboFindSimioExtensionLocations.Size = new System.Drawing.Size(952, 28);
             this.comboFindSimioExtensionLocations.TabIndex = 9;
             this.comboFindSimioExtensionLocations.SelectedIndexChanged += new System.EventHandler(this.comboFindSimioExtensionLocations_SelectedIndexChanged);
             // 
@@ -640,7 +659,7 @@
             this.tabSimEngineHarvester.Controls.Add(this.panel2);
             this.tabSimEngineHarvester.Location = new System.Drawing.Point(4, 29);
             this.tabSimEngineHarvester.Name = "tabSimEngineHarvester";
-            this.tabSimEngineHarvester.Size = new System.Drawing.Size(1104, 680);
+            this.tabSimEngineHarvester.Size = new System.Drawing.Size(1212, 619);
             this.tabSimEngineHarvester.TabIndex = 6;
             this.tabSimEngineHarvester.Text = "SimEngine Harvester";
             this.tabSimEngineHarvester.UseVisualStyleBackColor = true;
@@ -654,7 +673,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1104, 680);
+            this.panel2.Size = new System.Drawing.Size(1212, 619);
             this.panel2.TabIndex = 29;
             // 
             // groupSimEngineBuild
@@ -668,7 +687,7 @@
             this.groupSimEngineBuild.Controls.Add(this.buttonBuildSimEngineSystem);
             this.groupSimEngineBuild.Location = new System.Drawing.Point(12, 339);
             this.groupSimEngineBuild.Name = "groupSimEngineBuild";
-            this.groupSimEngineBuild.Size = new System.Drawing.Size(1078, 321);
+            this.groupSimEngineBuild.Size = new System.Drawing.Size(1186, 260);
             this.groupSimEngineBuild.TabIndex = 38;
             this.groupSimEngineBuild.TabStop = false;
             this.groupSimEngineBuild.Text = "Select from the candidate Harvest source files";
@@ -676,7 +695,7 @@
             // buttonSimEngineBuildAddExe
             // 
             this.buttonSimEngineBuildAddExe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSimEngineBuildAddExe.Location = new System.Drawing.Point(890, 110);
+            this.buttonSimEngineBuildAddExe.Location = new System.Drawing.Point(998, 110);
             this.buttonSimEngineBuildAddExe.Name = "buttonSimEngineBuildAddExe";
             this.buttonSimEngineBuildAddExe.Size = new System.Drawing.Size(182, 40);
             this.buttonSimEngineBuildAddExe.TabIndex = 35;
@@ -693,7 +712,7 @@
             this.checklistSelectedFiles.FormattingEnabled = true;
             this.checklistSelectedFiles.Location = new System.Drawing.Point(12, 64);
             this.checklistSelectedFiles.Name = "checklistSelectedFiles";
-            this.checklistSelectedFiles.Size = new System.Drawing.Size(872, 136);
+            this.checklistSelectedFiles.Size = new System.Drawing.Size(980, 70);
             this.checklistSelectedFiles.TabIndex = 34;
             // 
             // label12
@@ -708,7 +727,7 @@
             // buttonBuildSimEngineSystem
             // 
             this.buttonBuildSimEngineSystem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonBuildSimEngineSystem.Location = new System.Drawing.Point(890, 64);
+            this.buttonBuildSimEngineSystem.Location = new System.Drawing.Point(998, 64);
             this.buttonBuildSimEngineSystem.Name = "buttonBuildSimEngineSystem";
             this.buttonBuildSimEngineSystem.Size = new System.Drawing.Size(182, 40);
             this.buttonBuildSimEngineSystem.TabIndex = 32;
@@ -726,7 +745,7 @@
             this.groupBox2.Controls.Add(this.buttonSelectSimEngineFolder);
             this.groupBox2.Location = new System.Drawing.Point(12, 193);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1084, 128);
+            this.groupBox2.Size = new System.Drawing.Size(1192, 128);
             this.groupBox2.TabIndex = 37;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Harvest Target Location";
@@ -747,14 +766,14 @@
             this.textHarvestTargetFolder.Location = new System.Drawing.Point(11, 46);
             this.textHarvestTargetFolder.Name = "textHarvestTargetFolder";
             this.textHarvestTargetFolder.ReadOnly = true;
-            this.textHarvestTargetFolder.Size = new System.Drawing.Size(1067, 27);
+            this.textHarvestTargetFolder.Size = new System.Drawing.Size(1175, 27);
             this.textHarvestTargetFolder.TabIndex = 28;
             this.toolTip1.SetToolTip(this.textHarvestTargetFolder, "The folder where all the DLLs will be placed");
             // 
             // buttonSelectSimEngineFolder
             // 
             this.buttonSelectSimEngineFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSelectSimEngineFolder.Location = new System.Drawing.Point(896, 79);
+            this.buttonSelectSimEngineFolder.Location = new System.Drawing.Point(1004, 79);
             this.buttonSelectSimEngineFolder.Name = "buttonSelectSimEngineFolder";
             this.buttonSelectSimEngineFolder.Size = new System.Drawing.Size(182, 40);
             this.buttonSelectSimEngineFolder.TabIndex = 27;
@@ -773,7 +792,7 @@
             this.groupFileSource.Controls.Add(this.buttonSelectSimioInstallationFolder);
             this.groupFileSource.Location = new System.Drawing.Point(12, 52);
             this.groupFileSource.Name = "groupFileSource";
-            this.groupFileSource.Size = new System.Drawing.Size(1084, 135);
+            this.groupFileSource.Size = new System.Drawing.Size(1192, 135);
             this.groupFileSource.TabIndex = 36;
             this.groupFileSource.TabStop = false;
             this.groupFileSource.Text = "Harvest Source Location";
@@ -806,13 +825,13 @@
             this.textHarvestSourceFolder.Location = new System.Drawing.Point(10, 46);
             this.textHarvestSourceFolder.Name = "textHarvestSourceFolder";
             this.textHarvestSourceFolder.ReadOnly = true;
-            this.textHarvestSourceFolder.Size = new System.Drawing.Size(1068, 27);
+            this.textHarvestSourceFolder.Size = new System.Drawing.Size(1176, 27);
             this.textHarvestSourceFolder.TabIndex = 31;
             // 
             // buttonSelectSimioInstallationFolder
             // 
             this.buttonSelectSimioInstallationFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSelectSimioInstallationFolder.Location = new System.Drawing.Point(896, 79);
+            this.buttonSelectSimioInstallationFolder.Location = new System.Drawing.Point(1004, 79);
             this.buttonSelectSimioInstallationFolder.Name = "buttonSelectSimioInstallationFolder";
             this.buttonSelectSimioInstallationFolder.Size = new System.Drawing.Size(182, 40);
             this.buttonSelectSimioInstallationFolder.TabIndex = 30;
@@ -837,7 +856,7 @@
             this.tabSimEngineRun.Controls.Add(this.panelSimEngineRun);
             this.tabSimEngineRun.Location = new System.Drawing.Point(4, 29);
             this.tabSimEngineRun.Name = "tabSimEngineRun";
-            this.tabSimEngineRun.Size = new System.Drawing.Size(1104, 680);
+            this.tabSimEngineRun.Size = new System.Drawing.Size(1212, 619);
             this.tabSimEngineRun.TabIndex = 4;
             this.tabSimEngineRun.Text = "SimEngine Run";
             this.tabSimEngineRun.UseVisualStyleBackColor = true;
@@ -850,7 +869,7 @@
             this.panelSimEngineRun.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelSimEngineRun.Location = new System.Drawing.Point(0, 0);
             this.panelSimEngineRun.Name = "panelSimEngineRun";
-            this.panelSimEngineRun.Size = new System.Drawing.Size(1104, 680);
+            this.panelSimEngineRun.Size = new System.Drawing.Size(1212, 619);
             this.panelSimEngineRun.TabIndex = 9;
             // 
             // groupBoxSelectSetExtensionsLocation
@@ -862,7 +881,7 @@
             this.groupBoxSelectSetExtensionsLocation.Controls.Add(this.textSimEngineRunFilesLocation);
             this.groupBoxSelectSetExtensionsLocation.Location = new System.Drawing.Point(12, 17);
             this.groupBoxSelectSetExtensionsLocation.Name = "groupBoxSelectSetExtensionsLocation";
-            this.groupBoxSelectSetExtensionsLocation.Size = new System.Drawing.Size(1087, 101);
+            this.groupBoxSelectSetExtensionsLocation.Size = new System.Drawing.Size(1195, 101);
             this.groupBoxSelectSetExtensionsLocation.TabIndex = 37;
             this.groupBoxSelectSetExtensionsLocation.TabStop = false;
             this.groupBoxSelectSetExtensionsLocation.Text = "Select Folder for DLLs (where \'SetExtensions\' references)";
@@ -870,7 +889,7 @@
             // buttonSimEngineRunChangeLocation
             // 
             this.buttonSimEngineRunChangeLocation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSimEngineRunChangeLocation.Location = new System.Drawing.Point(840, 44);
+            this.buttonSimEngineRunChangeLocation.Location = new System.Drawing.Point(948, 44);
             this.buttonSimEngineRunChangeLocation.Name = "buttonSimEngineRunChangeLocation";
             this.buttonSimEngineRunChangeLocation.Size = new System.Drawing.Size(240, 40);
             this.buttonSimEngineRunChangeLocation.TabIndex = 24;
@@ -896,7 +915,7 @@
             this.textSimEngineRunFilesLocation.Location = new System.Drawing.Point(10, 53);
             this.textSimEngineRunFilesLocation.Name = "textSimEngineRunFilesLocation";
             this.textSimEngineRunFilesLocation.ReadOnly = true;
-            this.textSimEngineRunFilesLocation.Size = new System.Drawing.Size(748, 27);
+            this.textSimEngineRunFilesLocation.Size = new System.Drawing.Size(856, 27);
             this.textSimEngineRunFilesLocation.TabIndex = 25;
             this.toolTip1.SetToolTip(this.textSimEngineRunFilesLocation, "This is what the SetExtsnsionsPath should reference");
             // 
@@ -920,7 +939,7 @@
             this.groupBoxSelectModelAndRun.Controls.Add(this.label6);
             this.groupBoxSelectModelAndRun.Location = new System.Drawing.Point(12, 258);
             this.groupBoxSelectModelAndRun.Name = "groupBoxSelectModelAndRun";
-            this.groupBoxSelectModelAndRun.Size = new System.Drawing.Size(1088, 405);
+            this.groupBoxSelectModelAndRun.Size = new System.Drawing.Size(1196, 405);
             this.groupBoxSelectModelAndRun.TabIndex = 36;
             this.groupBoxSelectModelAndRun.TabStop = false;
             this.groupBoxSelectModelAndRun.Text = "Or (B) Specify a Simio project file (SPFX) and choose a Model/Experiment to Run";
@@ -932,7 +951,7 @@
             this.textResultsPath.Location = new System.Drawing.Point(190, 192);
             this.textResultsPath.Name = "textResultsPath";
             this.textResultsPath.ReadOnly = true;
-            this.textResultsPath.Size = new System.Drawing.Size(645, 27);
+            this.textResultsPath.Size = new System.Drawing.Size(753, 27);
             this.textResultsPath.TabIndex = 37;
             this.toolTip1.SetToolTip(this.textResultsPath, "This is what the SetExtsnsionsPath should reference");
             // 
@@ -949,7 +968,7 @@
             // buttonResultsPath
             // 
             this.buttonResultsPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonResultsPath.Location = new System.Drawing.Point(847, 189);
+            this.buttonResultsPath.Location = new System.Drawing.Point(955, 189);
             this.buttonResultsPath.Name = "buttonResultsPath";
             this.buttonResultsPath.Size = new System.Drawing.Size(240, 40);
             this.buttonResultsPath.TabIndex = 35;
@@ -961,7 +980,7 @@
             // buttonSimEngineRunSaveProject
             // 
             this.buttonSimEngineRunSaveProject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSimEngineRunSaveProject.Location = new System.Drawing.Point(519, 312);
+            this.buttonSimEngineRunSaveProject.Location = new System.Drawing.Point(627, 312);
             this.buttonSimEngineRunSaveProject.Name = "buttonSimEngineRunSaveProject";
             this.buttonSimEngineRunSaveProject.Size = new System.Drawing.Size(240, 40);
             this.buttonSimEngineRunSaveProject.TabIndex = 33;
@@ -987,13 +1006,13 @@
             this.textSimEngineRunProjectFile.Location = new System.Drawing.Point(6, 52);
             this.textSimEngineRunProjectFile.Name = "textSimEngineRunProjectFile";
             this.textSimEngineRunProjectFile.ReadOnly = true;
-            this.textSimEngineRunProjectFile.Size = new System.Drawing.Size(747, 27);
+            this.textSimEngineRunProjectFile.Size = new System.Drawing.Size(855, 27);
             this.textSimEngineRunProjectFile.TabIndex = 13;
             // 
             // buttonSimEngineRunRiskAnalysis
             // 
             this.buttonSimEngineRunRiskAnalysis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSimEngineRunRiskAnalysis.Location = new System.Drawing.Point(847, 257);
+            this.buttonSimEngineRunRiskAnalysis.Location = new System.Drawing.Point(955, 257);
             this.buttonSimEngineRunRiskAnalysis.Name = "buttonSimEngineRunRiskAnalysis";
             this.buttonSimEngineRunRiskAnalysis.Size = new System.Drawing.Size(240, 40);
             this.buttonSimEngineRunRiskAnalysis.TabIndex = 34;
@@ -1005,7 +1024,7 @@
             // buttonSimEngineRunSelectProjectFile
             // 
             this.buttonSimEngineRunSelectProjectFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSimEngineRunSelectProjectFile.Location = new System.Drawing.Point(841, 43);
+            this.buttonSimEngineRunSelectProjectFile.Location = new System.Drawing.Point(949, 43);
             this.buttonSimEngineRunSelectProjectFile.Name = "buttonSimEngineRunSelectProjectFile";
             this.buttonSimEngineRunSelectProjectFile.Size = new System.Drawing.Size(240, 40);
             this.buttonSimEngineRunSelectProjectFile.TabIndex = 12;
@@ -1017,7 +1036,7 @@
             // buttonSimEngineRunExperiment
             // 
             this.buttonSimEngineRunExperiment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSimEngineRunExperiment.Location = new System.Drawing.Point(211, 257);
+            this.buttonSimEngineRunExperiment.Location = new System.Drawing.Point(319, 257);
             this.buttonSimEngineRunExperiment.Name = "buttonSimEngineRunExperiment";
             this.buttonSimEngineRunExperiment.Size = new System.Drawing.Size(240, 40);
             this.buttonSimEngineRunExperiment.TabIndex = 23;
@@ -1029,7 +1048,7 @@
             // buttonSimEngineRunPlan
             // 
             this.buttonSimEngineRunPlan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSimEngineRunPlan.Location = new System.Drawing.Point(519, 257);
+            this.buttonSimEngineRunPlan.Location = new System.Drawing.Point(627, 257);
             this.buttonSimEngineRunPlan.Name = "buttonSimEngineRunPlan";
             this.buttonSimEngineRunPlan.Size = new System.Drawing.Size(240, 40);
             this.buttonSimEngineRunPlan.TabIndex = 14;
@@ -1046,7 +1065,7 @@
             this.comboSimEngineRunExperiments.FormattingEnabled = true;
             this.comboSimEngineRunExperiments.Location = new System.Drawing.Point(190, 144);
             this.comboSimEngineRunExperiments.Name = "comboSimEngineRunExperiments";
-            this.comboSimEngineRunExperiments.Size = new System.Drawing.Size(338, 28);
+            this.comboSimEngineRunExperiments.Size = new System.Drawing.Size(446, 28);
             this.comboSimEngineRunExperiments.TabIndex = 32;
             this.comboSimEngineRunExperiments.SelectedIndexChanged += new System.EventHandler(this.comboSimEngineRunExperiments_SelectedIndexChanged);
             // 
@@ -1067,7 +1086,7 @@
             this.comboSimEngineRunModels.FormattingEnabled = true;
             this.comboSimEngineRunModels.Location = new System.Drawing.Point(190, 101);
             this.comboSimEngineRunModels.Name = "comboSimEngineRunModels";
-            this.comboSimEngineRunModels.Size = new System.Drawing.Size(338, 28);
+            this.comboSimEngineRunModels.Size = new System.Drawing.Size(446, 28);
             this.comboSimEngineRunModels.TabIndex = 31;
             this.comboSimEngineRunModels.SelectedIndexChanged += new System.EventHandler(this.comboSimEngineRunModels_SelectedIndexChanged);
             this.comboSimEngineRunModels.SelectedValueChanged += new System.EventHandler(this.comboSimEngineRunModels_SelectedValueChanged);
@@ -1091,7 +1110,7 @@
             this.groupBoxSelectAndRun.Controls.Add(this.buttonSimEngineRunExecutable);
             this.groupBoxSelectAndRun.Location = new System.Drawing.Point(12, 124);
             this.groupBoxSelectAndRun.Name = "groupBoxSelectAndRun";
-            this.groupBoxSelectAndRun.Size = new System.Drawing.Size(1075, 128);
+            this.groupBoxSelectAndRun.Size = new System.Drawing.Size(1183, 128);
             this.groupBoxSelectAndRun.TabIndex = 35;
             this.groupBoxSelectAndRun.TabStop = false;
             this.groupBoxSelectAndRun.Text = "And then Either (A) Select an Executable within this folder to run";
@@ -1103,7 +1122,7 @@
             this.comboSimEngineRunExecutableToRun.FormattingEnabled = true;
             this.comboSimEngineRunExecutableToRun.Location = new System.Drawing.Point(11, 51);
             this.comboSimEngineRunExecutableToRun.Name = "comboSimEngineRunExecutableToRun";
-            this.comboSimEngineRunExecutableToRun.Size = new System.Drawing.Size(729, 28);
+            this.comboSimEngineRunExecutableToRun.Size = new System.Drawing.Size(837, 28);
             this.comboSimEngineRunExecutableToRun.TabIndex = 27;
             this.comboSimEngineRunExecutableToRun.SelectedIndexChanged += new System.EventHandler(this.comboSimEngineRunExecutableToRun_SelectedIndexChanged);
             // 
@@ -1119,7 +1138,7 @@
             // buttonSimEngineRunExecutable
             // 
             this.buttonSimEngineRunExecutable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSimEngineRunExecutable.Location = new System.Drawing.Point(828, 51);
+            this.buttonSimEngineRunExecutable.Location = new System.Drawing.Point(936, 51);
             this.buttonSimEngineRunExecutable.Name = "buttonSimEngineRunExecutable";
             this.buttonSimEngineRunExecutable.Size = new System.Drawing.Size(240, 40);
             this.buttonSimEngineRunExecutable.TabIndex = 30;
@@ -1134,7 +1153,7 @@
             this.tabLogs.Location = new System.Drawing.Point(4, 29);
             this.tabLogs.Name = "tabLogs";
             this.tabLogs.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLogs.Size = new System.Drawing.Size(1104, 680);
+            this.tabLogs.Size = new System.Drawing.Size(1212, 619);
             this.tabLogs.TabIndex = 1;
             this.tabLogs.Text = "Logs";
             this.tabLogs.UseVisualStyleBackColor = true;
@@ -1147,7 +1166,7 @@
             this.textLogs.Name = "textLogs";
             this.textLogs.ReadOnly = true;
             this.textLogs.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textLogs.Size = new System.Drawing.Size(1098, 674);
+            this.textLogs.Size = new System.Drawing.Size(1206, 613);
             this.textLogs.TabIndex = 0;
             this.textLogs.Text = "(no logs yet...)";
             // 
@@ -1158,7 +1177,7 @@
             this.Settings.Location = new System.Drawing.Point(4, 29);
             this.Settings.Name = "Settings";
             this.Settings.Padding = new System.Windows.Forms.Padding(3);
-            this.Settings.Size = new System.Drawing.Size(1104, 680);
+            this.Settings.Size = new System.Drawing.Size(1212, 619);
             this.Settings.TabIndex = 5;
             this.Settings.Text = "Settings";
             this.Settings.UseVisualStyleBackColor = true;
@@ -1168,7 +1187,7 @@
             this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertyGrid1.Location = new System.Drawing.Point(3, 81);
             this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(1098, 596);
+            this.propertyGrid1.Size = new System.Drawing.Size(1206, 535);
             this.propertyGrid1.TabIndex = 0;
             // 
             // panel3
@@ -1177,7 +1196,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(3, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1098, 78);
+            this.panel3.Size = new System.Drawing.Size(1206, 78);
             this.panel3.TabIndex = 1;
             // 
             // buttonTabSettingsSave
@@ -1192,19 +1211,44 @@
             // 
             // tabUtilities
             // 
-            this.tabUtilities.Controls.Add(this.groupBox1);
+            this.tabUtilities.Controls.Add(this.tabControl2);
+            this.tabUtilities.Controls.Add(this.panelUtilitiesTop);
             this.tabUtilities.Location = new System.Drawing.Point(4, 29);
             this.tabUtilities.Name = "tabUtilities";
             this.tabUtilities.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUtilities.Size = new System.Drawing.Size(1104, 680);
+            this.tabUtilities.Size = new System.Drawing.Size(1212, 619);
             this.tabUtilities.TabIndex = 7;
             this.tabUtilities.Text = "Utilities";
             this.tabUtilities.UseVisualStyleBackColor = true;
             // 
+            // tabControl2
+            // 
+            this.tabControl2.Controls.Add(this.tabUtilityFileWatcher);
+            this.tabControl2.Controls.Add(this.tabUtilityFileChanged);
+            this.tabControl2.Location = new System.Drawing.Point(6, 50);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(1203, 563);
+            this.tabControl2.TabIndex = 2;
+            // 
+            // tabUtilityFileWatcher
+            // 
+            this.tabUtilityFileWatcher.Controls.Add(this.groupBox1);
+            this.tabUtilityFileWatcher.Location = new System.Drawing.Point(4, 29);
+            this.tabUtilityFileWatcher.Name = "tabUtilityFileWatcher";
+            this.tabUtilityFileWatcher.Padding = new System.Windows.Forms.Padding(3);
+            this.tabUtilityFileWatcher.Size = new System.Drawing.Size(1195, 530);
+            this.tabUtilityFileWatcher.TabIndex = 0;
+            this.tabUtilityFileWatcher.Text = "File Watcher";
+            this.tabUtilityFileWatcher.UseVisualStyleBackColor = true;
+            // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.buttonUtilitiesClearWatcherHistory);
+            this.groupBox1.Controls.Add(this.label15);
             this.groupBox1.Controls.Add(this.label18);
             this.groupBox1.Controls.Add(this.buttonFilewatcherSelect);
             this.groupBox1.Controls.Add(this.cbFwPauseLogging);
@@ -1218,12 +1262,21 @@
             this.groupBox1.Controls.Add(this.textFilewatcherPath);
             this.groupBox1.Controls.Add(this.buttonFileWatcherStop);
             this.groupBox1.Controls.Add(this.buttonFileWatcherStart);
-            this.groupBox1.Location = new System.Drawing.Point(8, 6);
+            this.groupBox1.Location = new System.Drawing.Point(6, 16);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1088, 501);
+            this.groupBox1.Size = new System.Drawing.Size(1173, 507);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "File Watcher Utility";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(218, 212);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(203, 20);
+            this.label15.TabIndex = 13;
+            this.label15.Text = "FileWatcher Log (History)";
             // 
             // label18
             // 
@@ -1238,7 +1291,7 @@
             // buttonFilewatcherSelect
             // 
             this.buttonFilewatcherSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonFilewatcherSelect.Location = new System.Drawing.Point(943, 80);
+            this.buttonFilewatcherSelect.Location = new System.Drawing.Point(1028, 73);
             this.buttonFilewatcherSelect.Name = "buttonFilewatcherSelect";
             this.buttonFilewatcherSelect.Size = new System.Drawing.Size(110, 29);
             this.buttonFilewatcherSelect.TabIndex = 11;
@@ -1295,7 +1348,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textFilewatcherFilter.Location = new System.Drawing.Point(222, 115);
             this.textFilewatcherFilter.Name = "textFilewatcherFilter";
-            this.textFilewatcherFilter.Size = new System.Drawing.Size(831, 27);
+            this.textFilewatcherFilter.Size = new System.Drawing.Size(780, 27);
             this.textFilewatcherFilter.TabIndex = 6;
             this.textFilewatcherFilter.Text = "*.*";
             // 
@@ -1310,15 +1363,17 @@
             // 
             // textFileWatcherLog
             // 
-            this.textFileWatcherLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textFileWatcherLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textFileWatcherLog.Location = new System.Drawing.Point(222, 235);
+            this.textFileWatcherLog.Location = new System.Drawing.Point(222, 238);
             this.textFileWatcherLog.Multiline = true;
             this.textFileWatcherLog.Name = "textFileWatcherLog";
             this.textFileWatcherLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textFileWatcherLog.Size = new System.Drawing.Size(847, 234);
+            this.textFileWatcherLog.Size = new System.Drawing.Size(945, 263);
             this.textFileWatcherLog.TabIndex = 4;
             this.textFileWatcherLog.WordWrap = false;
+            this.textFileWatcherLog.TextChanged += new System.EventHandler(this.textFileWatcherLog_TextChanged);
             this.textFileWatcherLog.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textFileWatcherLog_MouseDoubleClick);
             // 
             // labelPath
@@ -1334,9 +1389,9 @@
             // 
             this.textFilewatcherPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textFilewatcherPath.Location = new System.Drawing.Point(222, 79);
+            this.textFilewatcherPath.Location = new System.Drawing.Point(222, 75);
             this.textFilewatcherPath.Name = "textFilewatcherPath";
-            this.textFilewatcherPath.Size = new System.Drawing.Size(715, 27);
+            this.textFilewatcherPath.Size = new System.Drawing.Size(780, 27);
             this.textFilewatcherPath.TabIndex = 2;
             // 
             // buttonFileWatcherStop
@@ -1360,16 +1415,139 @@
             this.buttonFileWatcherStart.UseVisualStyleBackColor = true;
             this.buttonFileWatcherStart.Click += new System.EventHandler(this.buttonFileWatcherStart_Click);
             // 
+            // tabUtilityFileChanged
+            // 
+            this.tabUtilityFileChanged.Controls.Add(this.panelUtilityFilesChanged);
+            this.tabUtilityFileChanged.Location = new System.Drawing.Point(4, 29);
+            this.tabUtilityFileChanged.Name = "tabUtilityFileChanged";
+            this.tabUtilityFileChanged.Padding = new System.Windows.Forms.Padding(3);
+            this.tabUtilityFileChanged.Size = new System.Drawing.Size(1195, 530);
+            this.tabUtilityFileChanged.TabIndex = 1;
+            this.tabUtilityFileChanged.Text = "Files Changed";
+            this.tabUtilityFileChanged.UseVisualStyleBackColor = true;
+            // 
+            // panelUtilityFilesChanged
+            // 
+            this.panelUtilityFilesChanged.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelUtilityFilesChanged.Controls.Add(this.buttonUtilitiesResetChangedFiles);
+            this.panelUtilityFilesChanged.Controls.Add(this.labelUtilitiesResetFilesChangedList);
+            this.panelUtilityFilesChanged.Controls.Add(this.cbUtilitiesShowChangedFiles);
+            this.panelUtilityFilesChanged.Controls.Add(this.listUtilitiesAlteredFiles);
+            this.panelUtilityFilesChanged.Controls.Add(this.cbUtilityPauseChangedFileUpdating);
+            this.panelUtilityFilesChanged.Controls.Add(this.label19);
+            this.panelUtilityFilesChanged.Location = new System.Drawing.Point(3, 3);
+            this.panelUtilityFilesChanged.Name = "panelUtilityFilesChanged";
+            this.panelUtilityFilesChanged.Size = new System.Drawing.Size(1134, 480);
+            this.panelUtilityFilesChanged.TabIndex = 14;
+            // 
+            // labelUtilitiesResetFilesChangedList
+            // 
+            this.labelUtilitiesResetFilesChangedList.AutoSize = true;
+            this.labelUtilitiesResetFilesChangedList.Location = new System.Drawing.Point(176, 108);
+            this.labelUtilitiesResetFilesChangedList.Name = "labelUtilitiesResetFilesChangedList";
+            this.labelUtilitiesResetFilesChangedList.Size = new System.Drawing.Size(315, 20);
+            this.labelUtilitiesResetFilesChangedList.TabIndex = 18;
+            this.labelUtilitiesResetFilesChangedList.Text = "Double-click to Reset Files Changed List";
+            // 
+            // cbUtilitiesShowChangedFiles
+            // 
+            this.cbUtilitiesShowChangedFiles.AutoSize = true;
+            this.cbUtilitiesShowChangedFiles.Checked = true;
+            this.cbUtilitiesShowChangedFiles.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbUtilitiesShowChangedFiles.Location = new System.Drawing.Point(331, 50);
+            this.cbUtilitiesShowChangedFiles.Name = "cbUtilitiesShowChangedFiles";
+            this.cbUtilitiesShowChangedFiles.Size = new System.Drawing.Size(223, 24);
+            this.cbUtilitiesShowChangedFiles.TabIndex = 17;
+            this.cbUtilitiesShowChangedFiles.Text = "Only Show Changed Files";
+            this.cbUtilitiesShowChangedFiles.UseVisualStyleBackColor = true;
+            // 
+            // listUtilitiesAlteredFiles
+            // 
+            this.listUtilitiesAlteredFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listUtilitiesAlteredFiles.FormattingEnabled = true;
+            this.listUtilitiesAlteredFiles.ItemHeight = 20;
+            this.listUtilitiesAlteredFiles.Location = new System.Drawing.Point(180, 131);
+            this.listUtilitiesAlteredFiles.Name = "listUtilitiesAlteredFiles";
+            this.listUtilitiesAlteredFiles.Size = new System.Drawing.Size(992, 324);
+            this.listUtilitiesAlteredFiles.TabIndex = 15;
+            this.listUtilitiesAlteredFiles.SelectedIndexChanged += new System.EventHandler(this.listUtilitiesAlteredFiles_SelectedIndexChanged);
+            this.listUtilitiesAlteredFiles.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listUtilitiesAlteredFiles_MouseDoubleClick);
+            // 
+            // cbUtilityPauseChangedFileUpdating
+            // 
+            this.cbUtilityPauseChangedFileUpdating.AutoSize = true;
+            this.cbUtilityPauseChangedFileUpdating.Location = new System.Drawing.Point(20, 50);
+            this.cbUtilityPauseChangedFileUpdating.Name = "cbUtilityPauseChangedFileUpdating";
+            this.cbUtilityPauseChangedFileUpdating.Size = new System.Drawing.Size(261, 24);
+            this.cbUtilityPauseChangedFileUpdating.TabIndex = 14;
+            this.cbUtilityPauseChangedFileUpdating.Text = "Pause Changed Files Updating";
+            this.cbUtilityPauseChangedFileUpdating.UseVisualStyleBackColor = true;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(16, 17);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(976, 20);
+            this.label19.TabIndex = 13;
+            this.label19.Text = "This works in concert with the FileWatcher tab. Check \"Monitor Changes\" and all f" +
+    "iles written will be checked for changed content.";
+            // 
+            // panelUtilitiesTop
+            // 
+            this.panelUtilitiesTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelUtilitiesTop.Location = new System.Drawing.Point(3, 3);
+            this.panelUtilitiesTop.Name = "panelUtilitiesTop";
+            this.panelUtilitiesTop.Size = new System.Drawing.Size(1206, 41);
+            this.panelUtilitiesTop.TabIndex = 1;
+            // 
             // timerLogs
             // 
             this.timerLogs.Interval = 1000;
             this.timerLogs.Tick += new System.EventHandler(this.timerLogs_Tick);
             // 
+            // timerFileWatcher
+            // 
+            this.timerFileWatcher.Interval = 1000;
+            this.timerFileWatcher.Tick += new System.EventHandler(this.timerFileWatcher_Tick);
+            // 
+            // timerFileChanges
+            // 
+            this.timerFileChanges.Interval = 1000;
+            this.timerFileChanges.Tick += new System.EventHandler(this.timerFileChanges_Tick);
+            // 
+            // buttonUtilitiesResetChangedFiles
+            // 
+            this.buttonUtilitiesResetChangedFiles.Location = new System.Drawing.Point(20, 131);
+            this.buttonUtilitiesResetChangedFiles.Name = "buttonUtilitiesResetChangedFiles";
+            this.buttonUtilitiesResetChangedFiles.Size = new System.Drawing.Size(139, 37);
+            this.buttonUtilitiesResetChangedFiles.TabIndex = 19;
+            this.buttonUtilitiesResetChangedFiles.Text = "Reset Files";
+            this.toolTip1.SetToolTip(this.buttonUtilitiesResetChangedFiles, "All file as set to HasChangedContents to False");
+            this.buttonUtilitiesResetChangedFiles.UseVisualStyleBackColor = true;
+            this.buttonUtilitiesResetChangedFiles.Click += new System.EventHandler(this.buttonUtilitiesResetChangedFiles_Click);
+            // 
+            // buttonUtilitiesClearWatcherHistory
+            // 
+            this.buttonUtilitiesClearWatcherHistory.Enabled = false;
+            this.buttonUtilitiesClearWatcherHistory.Location = new System.Drawing.Point(26, 374);
+            this.buttonUtilitiesClearWatcherHistory.Name = "buttonUtilitiesClearWatcherHistory";
+            this.buttonUtilitiesClearWatcherHistory.Size = new System.Drawing.Size(153, 43);
+            this.buttonUtilitiesClearWatcherHistory.TabIndex = 14;
+            this.buttonUtilitiesClearWatcherHistory.Text = "Clear History";
+            this.toolTip1.SetToolTip(this.buttonUtilitiesClearWatcherHistory, "Clear/Remove all Watcher History");
+            this.buttonUtilitiesClearWatcherHistory.UseVisualStyleBackColor = true;
+            this.buttonUtilitiesClearWatcherHistory.Click += new System.EventHandler(this.buttonUtilitiesClearWatcherHistory_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1112, 767);
+            this.ClientSize = new System.Drawing.Size(1220, 706);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.StatusStripBottom);
             this.Controls.Add(this.menuStrip1);
@@ -1416,8 +1594,13 @@
             this.Settings.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.tabUtilities.ResumeLayout(false);
+            this.tabControl2.ResumeLayout(false);
+            this.tabUtilityFileWatcher.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.tabUtilityFileChanged.ResumeLayout(false);
+            this.panelUtilityFilesChanged.ResumeLayout(false);
+            this.panelUtilityFilesChanged.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1533,6 +1716,21 @@
         private System.Windows.Forms.TextBox textResultsPath;
         private System.Windows.Forms.Label labelSaveResults;
         private System.Windows.Forms.Button buttonResultsPath;
+        private System.Windows.Forms.Timer timerFileWatcher;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabPage tabUtilityFileWatcher;
+        private System.Windows.Forms.TabPage tabUtilityFileChanged;
+        private System.Windows.Forms.Panel panelUtilityFilesChanged;
+        private System.Windows.Forms.Label labelUtilitiesResetFilesChangedList;
+        private System.Windows.Forms.CheckBox cbUtilitiesShowChangedFiles;
+        private System.Windows.Forms.ListBox listUtilitiesAlteredFiles;
+        private System.Windows.Forms.CheckBox cbUtilityPauseChangedFileUpdating;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Panel panelUtilitiesTop;
+        private System.Windows.Forms.Timer timerFileChanges;
+        private System.Windows.Forms.Button buttonUtilitiesResetChangedFiles;
+        private System.Windows.Forms.Button buttonUtilitiesClearWatcherHistory;
     }
 }
 
