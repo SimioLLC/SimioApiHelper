@@ -16,6 +16,7 @@ namespace RunSimioScheduleConsole
             try
             {
                 Console.WriteLine("Start");
+                // We'll assume our DLLs have been placed at the same location as this EXE
                 string extensionsPath = System.AppDomain.CurrentDomain.BaseDirectory;
                 SimioProjectFactory.SetExtensionsPath(extensionsPath);
 
@@ -74,10 +75,12 @@ namespace RunSimioScheduleConsole
                     if ( model.Plan == null )
                         throw new ApplicationException($"Model's Plan is null. Do you have the correct Simio licensing?");
 
-                    
                     // Start Plan
                     Console.WriteLine("Starting Plan");
-                    model.Plan.RunPlan();
+                    RunPlanOptions options = new RunPlanOptions();
+                    options.AllowDesignErrors = false;
+
+                    model.Plan.RunPlan(options);
                     if (runRiskAnalysis)
                     {
                         Console.WriteLine("Plan Finished...Starting Analyze Risk");

@@ -72,10 +72,6 @@ namespace SimioApiHelper
         {
             try
             {
-                if (FileName.StartsWith("b4578"))
-                {
-                    string xx = "";
-                }
 
                 // If it is too soon, then do not process this file.
                 if ( this.HasContentsChanged && (LastUpdateTime != DateTime.MinValue) )
@@ -101,6 +97,7 @@ namespace SimioApiHelper
                     }
                     catch (Exception ex)
                     {
+                        LogIt($"Threw exception={ex.Message}. Taking a quick nap...");
                         System.Threading.Thread.Sleep(50);
                     }
                     loopCount++;
@@ -110,7 +107,7 @@ namespace SimioApiHelper
             DoneWithReadLoop:
                 if (loopCount >= 5)
                 {
-                    LogIt($"Reading={FullPath} Could not read file.");
+                    LogIt($"Reading={FullPath} Could not read file. Perhaps it is locked by Simio?");
                     return;
                 }
 

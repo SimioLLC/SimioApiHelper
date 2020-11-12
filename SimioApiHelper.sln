@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimEngineConsoleExperimentS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimioApiHelper Setup", "SimioApiHelper Setup\SimioApiHelper Setup.csproj", "{44555887-C439-470C-944D-8866EC3D7067}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimEngineControllerHttpServer", "SimEngineControllerHttpServer\SimEngineControllerHttpServer.csproj", "{9F33AFC1-D619-45B4-ACDC-72BF048583D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimEngineRunner", "SimEngineRunner\SimEngineRunner.csproj", "{6BFCBE9C-04CE-45AA-BAD0-8A33FEA3B572}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{44555887-C439-470C-944D-8866EC3D7067}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44555887-C439-470C-944D-8866EC3D7067}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44555887-C439-470C-944D-8866EC3D7067}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F33AFC1-D619-45B4-ACDC-72BF048583D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F33AFC1-D619-45B4-ACDC-72BF048583D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F33AFC1-D619-45B4-ACDC-72BF048583D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F33AFC1-D619-45B4-ACDC-72BF048583D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BFCBE9C-04CE-45AA-BAD0-8A33FEA3B572}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BFCBE9C-04CE-45AA-BAD0-8A33FEA3B572}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BFCBE9C-04CE-45AA-BAD0-8A33FEA3B572}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BFCBE9C-04CE-45AA-BAD0-8A33FEA3B572}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

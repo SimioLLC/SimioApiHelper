@@ -17,33 +17,68 @@ namespace SimEngineLibrary
     {
 
         /// <summary>
-        /// Run an experiment
+        /// Run an experiment. The experiment is Reset prior to run.
         /// </summary>
         /// <param name="projectPathAndFile"></param>
         /// <param name="experimentName"></param>
         /// <param name="saveModelAfterRun"></param>
         /// <param name="explanation"></param>
         /// <returns></returns>
-        public static bool RunExperiment(string extensionsPath, string projectFullPath, string modelName, string experimentName, bool saveModelAfterRun, out string explanation)
+        public static bool RunModelExperiment(string extensionsPath, string sourceProjectPath, string saveProjectPath,
+            string modelName, string experimentName, 
+            out string explanation)
+        {
+            explanation = "";
+            string contextInfo = $"ExtensionsPath={extensionsPath}, ProjectPath={sourceProjectPath}:";
+            string marker = "Begin.";
+            try
+            {
+                // Set an extensions path to where we can locate User Extensions, etc.
+                if (string.IsNullOrEmpty(extensionsPath))
+                    extensionsPath = System.AppDomain.CurrentDomain.BaseDirectory;
+
+                marker = $"{contextInfo}. Setting Extensions Path...";
+                LogIt($"Info: {marker}");
+                SimioProjectFactory.SetExtensionsPath(extensionsPath);
+
+                marker = $"{contextInfo}. Loading Project...";
+                ISimioProject project = LoadProject(extensionsPath, sourceProjectPath, out explanation);
+                if (project == null)
+                    return false;
+
+                marker = $"{contextInfo}. Running Experiment...";
+                if ( RunModelExperiment(project, saveProjectPath, modelName, experimentName, out explanation))
+                    return true;
+                else 
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                explanation = $"Marker={marker} Err={ex.Message}";
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Run an experiment. The experiment is Reset prior to run.
+        /// If the saveProjectPath is present and exists, then the project will be
+        /// saved to that location. If there are Save warnings, then true is still
+        /// returned, but the warnings are in explanation.
+        /// </summary>
+        /// <param name="projectPathAndFile"></param>
+        /// <param name="experimentName"></param>
+        /// <param name="saveModelAfterRun"></param>
+        /// <param name="explanation"></param>
+        /// <returns></returns>
+        public static bool RunModelExperiment(ISimioProject project, string saveProjectPath,
+            string modelName, string experimentName,
+            out string explanation)
         {
             explanation = "";
             string marker = "Begin";
 
             try
             {
-                // Set an extensions path to where we can locate User Extensions, etc.
-                if ( string.IsNullOrEmpty(extensionsPath))
-                    extensionsPath = System.AppDomain.CurrentDomain.BaseDirectory;
-
-                marker = $"Setting Extensions Path to={extensionsPath}";
-                LogIt($"Info: {marker}");
-                SimioProjectFactory.SetExtensionsPath(extensionsPath);
-
-                marker = $"Loading Project from={projectFullPath}";
-                ISimioProject project = LoadProject(extensionsPath, projectFullPath, out explanation);
-                if (project == null)
-                    return false;
-
                 marker = $"Loading Model named={modelName}";
                 IModel model = LoadModel(project, modelName, out explanation);
                 if (model == null)
@@ -82,17 +117,18 @@ namespace SimEngineLibrary
                 // Let's look at some results
                 var response = experiment.Responses;
 
-                if (saveModelAfterRun)
+                if (File.Exists(saveProjectPath))
                 {
-                    marker = $"Save Project After Experiment Run to= (SimioProjectFactory.SaveProject)";
+                    marker = $"Save Project After Experiment Run to={saveProjectPath}";
                     LogIt($"Info: {marker}");
 
-                    
-
                     string[] warnings;
-                    SimioProjectFactory.SaveProject(project, projectFullPath, out warnings);
-                    foreach ( string warning in warnings)
+                    SimioProjectFactory.SaveProject(project, saveProjectPath, out warnings);
+                    explanation = "";
+                    int nn = 0;
+                    foreach (string warning in warnings)
                     {
+                        explanation += $"Save Warnings({warnings.Length}): Warning{++nn}:{warning}";
                         LogIt($"Warning: {warning}");
                     }
                 }
@@ -474,6 +510,84 @@ namespace SimEngineLibrary
             catch (Exception ex)
             {
                 throw new ApplicationException($"Cannot get project file. Err={ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Run an experiment and save.
+        /// </summary>
+        /// <param name="extensionsPath"></param>
+        /// <param name="projectPath"></param>
+        /// <param name="modelName"></param>
+        /// <param name="experimentName"></param>
+        /// <param name="explanation"></param>
+        /// <returns></returns>
+        public static bool RunProjectExperiment(string extensionsPath, string projectPath, string arguments,  
+            out string explanation)
+        {
+            explanation = "";
+
+            string info = "";
+
+            bool saveModelAfterRun = true;
+            string modelName = "Model";
+            
+            string experimentName = "Experiment1";
+
+            try
+            {
+                string[] tokens = arguments.Split(',');
+                if (tokens.Length > 0)
+                    modelName = tokens[0];
+
+                if (tokens.Length > 1)
+                    experimentName = tokens[1];
+
+                string[] warnings;
+
+                var _simioProject = SimioProjectFactory.LoadProject(projectPath, out warnings);
+                if (warnings.Length > 0)
+                {
+                    explanation = $"Cannot load Project={projectPath} as there were {warnings.Length} warnings";
+                    return false;
+                }
+
+                // Run schedule and save for existing events.
+                var model = _simioProject.Models[modelName];
+                if (model == null)
+                {
+                    explanation = "Model Not Found In Project";
+                    return false;
+                }
+                else
+                {
+                    if (model.Experiments == null)
+                    {
+                        explanation = $"Model's Experiments collection is null.";
+                        return false;
+                    }
+
+                    // Start Experiment
+                    Console.WriteLine("Starting Experiment");
+
+                    if (!SimEngineHelpers.RunModelExperiment(extensionsPath, projectPath, projectPath, 
+                            modelName, experimentName, 
+                            out explanation))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        info = $"Info: Model={modelName} Experiment={experimentName} performed the actions successfully. Check the logs for more information.";
+                    }
+
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                explanation = $"Project={projectPath}. Err={ex.Message}";
+                return false;
             }
         }
 
