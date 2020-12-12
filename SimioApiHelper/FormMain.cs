@@ -59,6 +59,15 @@ namespace SimioApiHelper
                 comboSimioLocation.DataSource = DLLHelpers.GetSimioApiLocations();
                 comboFindSimioExtensionLocations.DataSource = DLLHelpers.GetSimioApiLocations();
 
+                string simEnginePath = Path.Combine(Environment.CurrentDirectory, "SimioDLL.dll");
+                if ( File.Exists(simEnginePath))
+                {
+                    FileVersionInfo versionInfo = FileVersionInfo.GetVersionInfo(simEnginePath);
+
+                    this.Text = $"Simio API Helper. SimEngine Version={versionInfo.ProductVersion}";
+                }
+
+
                 RefreshForm();
 
             }

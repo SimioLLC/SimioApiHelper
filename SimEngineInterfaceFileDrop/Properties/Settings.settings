@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SimEngineInterfaceFileDrop.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="RequestsFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">c:\test\SimEngineRequests</Value>
+    </Setting>
+    <Setting Name="FileDropFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">c:\test\FileDropInstructions</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

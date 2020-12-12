@@ -69,7 +69,11 @@ namespace RunSimioScheduleConsole
                     // Start Experiment
                     Console.WriteLine("Starting Experiment");
 
-                    if (!SimEngineHelpers.RunExperiment(extensionsPath, projectPathAndFile, modelName, experimentName, saveModelAfterRun,
+                    string savePathAndFile = "";
+                    if (saveModelAfterRun)
+                        savePathAndFile = projectPathAndFile;
+
+                    if (!SimEngineHelpers.RunModelExperiment(extensionsPath, projectPathAndFile, savePathAndFile, modelName, experimentName, 
                             out string explanation))
                     {
                         throw new ApplicationException(explanation);

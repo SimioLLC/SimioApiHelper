@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SimEngineInterfaceHttpServer.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ProjectsFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">c:\test\projects</Value>
+    </Setting>
+    <Setting Name="ExtensionsPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">c:\test\HarvestedDLLs</Value>
+    </Setting>
+    <Setting Name="RequestsFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">c:\test\SimEngineRequests</Value>
+    </Setting>
+    <Setting Name="SitePort" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">8080</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

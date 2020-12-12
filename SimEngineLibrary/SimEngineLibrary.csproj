@@ -53,8 +53,8 @@
   <ItemGroup>
     <Compile Include="ExperimentResult.cs" />
     <Compile Include="JsonHelpers.cs" />
-    <Compile Include="ProjectRequest.cs" />
-    <Compile Include="ProjectRequestHelper.cs" />
+    <Compile Include="SimEngineRequest.cs" />
+    <Compile Include="SimEngineRequestHelper.cs" />
     <Compile Include="SimEngineContext.cs" />
     <Compile Include="SimEngineHelpers.cs" />
     <Compile Include="LoggertonHelpers.cs" />

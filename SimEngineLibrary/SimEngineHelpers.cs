@@ -16,6 +16,7 @@ namespace SimEngineLibrary
     public static class SimEngineHelpers
     {
 
+        
         /// <summary>
         /// Run an experiment. The experiment is Reset prior to run.
         /// </summary>
@@ -28,7 +29,6 @@ namespace SimEngineLibrary
             string modelName, string experimentName, 
             out string explanation)
         {
-            explanation = "";
             string contextInfo = $"ExtensionsPath={extensionsPath}, ProjectPath={sourceProjectPath}:";
             string marker = "Begin.";
             try
@@ -84,6 +84,7 @@ namespace SimEngineLibrary
                 if (model == null)
                     return false;
 
+                
                 marker = $"Loading Experiment named={experimentName}";
                 IExperiment experiment = LoadExperiment(model, experimentName, out explanation);
                 if (experiment == null)
@@ -107,6 +108,11 @@ namespace SimEngineLibrary
                 experiment.RunCompleted += (s, e) =>
                 {
                     LogIt($"Info: Event=> Experiment={experiment.Name} Run Complete. ");
+                    foreach (ITable table in model.Tables)
+                    {
+                        table.ExportForInteractive();
+                    }
+
                 };
 
                 // Now do the run.
@@ -463,6 +469,244 @@ namespace SimEngineLibrary
             }
         } // RunModel
 
+        public static Dictionary<string, KeyValuePair<string,string>> BuildKvpDictionary(string arguments, out string explanation)
+        {
+            explanation = "";
+            string marker = "Begin";
+            try
+            {
+                Dictionary<string, KeyValuePair<string, string>> argsDict = new Dictionary<string, KeyValuePair<string, string>>();
+                List<string> tokensList = arguments.Split(',').ToList();
+
+                foreach (string token in tokensList)
+                {
+                    marker = $"Token={token}";
+                    string[] pairs = token.Split('=');
+                    if (pairs.Length == 2)
+                    {
+                        KeyValuePair<string, string> kvp = new KeyValuePair<string, string>(pairs[0], pairs[1]);
+                        if ( !argsDict.ContainsKey(kvp.Key.ToLower()))
+                            argsDict.Add(kvp.Key.ToLower(), kvp);
+                    }
+                }
+                return argsDict;
+            }
+            catch (Exception ex)
+            {
+                explanation = $"Marker={marker} Err={ex}";
+                return null;
+            }
+
+        }
+
+
+        /// <summary>
+        /// Return the argument associated with the key.
+        /// If the key is not found, then return the default, 
+        /// If the default is null, then the argument is required, so
+        ///   if not found then null is returned and explanation is set.
+        /// </summary>
+        /// <param name="argList"></param>
+        /// <param name="key"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        private static string GetArgumentAsString(List<RequestArgument> argList, string key, string defaultValue, out string explanation)
+        {
+            explanation = "";
+
+            RequestArgument arg = argList.SingleOrDefault(rr => rr.Key == key);
+            if ( arg != null)
+            {
+                return arg.Value;
+            }    
+            else if ( defaultValue == null)
+            {
+                explanation = $"Key={key}. Null default and key not found.";
+                return null;
+            }
+            else
+            {
+                return defaultValue;
+            }
+        }
+
+        /// <summary>
+        /// Returns the argument or a default or null if invalid boolean decode.
+        /// If default is null, then the argument is required.
+        /// If explanation is not empty, then there is a problem.
+        /// </summary>
+        /// <param name="argDict"></param>
+        /// <param name="key"></param>
+        /// <param name="defaultBool"></param>
+        /// <returns></returns>
+        private static bool? GetArgumentAsBoolean( List<RequestArgument> argList, string key, 
+            bool? defaultBool, out string explanation )
+        {
+
+            string defaultString = defaultBool.ToString();
+            string vv = GetArgumentAsString(argList, key, defaultString, out explanation);
+            if (vv == null)
+                return null;
+            else
+            {
+                if (!bool.TryParse(vv, out bool boolValue))
+                {
+                    explanation = $"Key={key}. Expected boolean. Found={vv}";
+                    return null;
+                }
+                else
+                    return boolValue;
+            }
+
+        }
+        /// <summary>
+        /// Returns the argument or a default or null if invalid boolean decode.
+        /// </summary>
+        /// <param name="argDict"></param>
+        /// <param name="key"></param>
+        /// <param name="defaultBool"></param>
+        /// <returns></returns>
+        private static int? GetArgumentAsInteger( List<RequestArgument> argList, string key, 
+            int? defaultInt, out string explanation)
+        {
+            string defaultString = defaultInt.ToString();
+            string vv = GetArgumentAsString(argList, key, defaultString, out explanation);
+            if (vv == null)
+                return null;
+            else
+            {
+                if (!int.TryParse(vv, out int intValue))
+                    return null;
+                else
+                    return intValue;
+            }
+
+        }
+
+        /// <summary>
+        /// Set the extensionpath, load a project, then load the model, and run a plan for that model.
+        /// </summary>
+        /// <param name="extensionsPath">For DLL search. E.g. AppDomain.CurrentDomain.BaseDirectory</param>
+        /// <param name="projectPathAndFile"></param>
+        /// <param name="arguments">Comma delimited string of arguments</param>
+        /// <param name="runRiskAnalysis"></param>
+        /// <param name="explanation"></param>
+        /// <returns></returns>
+        public static bool RunProjectPlan(string extensionsPath, string projectFullPath, List<RequestArgument> argList, out string explanation)
+        {
+            explanation = "";
+            string marker = "Begin";
+
+            string[] warnings;
+
+            try
+            {
+                // Set an extensions path to where we can locate User Extensions, etc.
+                if (string.IsNullOrEmpty(extensionsPath))
+                {
+                    extensionsPath = System.AppDomain.CurrentDomain.BaseDirectory;
+                    LogIt($"Info: No ExtensionsPath supplied. Defaulting to={extensionsPath}");
+                }
+
+                marker = $"Setting Extensions Path to={extensionsPath}";
+                LogIt($"Info: {marker}");
+
+                string saveAs = GetArgumentAsString(argList, "saveAs", "", out explanation);
+                if ( saveAs != null && !Directory.Exists(saveAs))
+                {
+                    explanation = $"SaveAs path={saveAs} does not exist.";
+                    return false;
+                }
+
+                string modelName = GetArgumentAsString(argList, "model", "model", out explanation);
+                bool? runRiskAnalysis = GetArgumentAsBoolean(argList, "riskAnalysis", false, out explanation);
+                if ( runRiskAnalysis == null )
+                {
+                    explanation = $"{explanation}";
+                    return false;
+                }
+                bool? publishPlan = GetArgumentAsBoolean(argList, "publishPlan", false, out explanation);
+
+                // Load the Project
+                ISimioProject project = null;
+                try
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+                    SimioProjectFactory.SetExtensionsPath(extensionsPath);
+
+                    project = LoadProject(extensionsPath, projectFullPath, out explanation);
+                    if (project == null)
+                        return false;
+                }
+                catch (Exception ex)
+                {
+                    explanation = $"Cannot load from {projectFullPath}. Err={ex.Message}";
+                    return false;
+                }
+                finally
+                {
+                    Cursor.Current = Cursors.Default;
+                }
+
+                // Load the Model
+                IModel model = LoadModel(project, modelName, out explanation);
+                if (model == null)
+                    return false;
+
+                
+
+                // Test to see if we can 'cheat'
+                IPlan plan = (IPlan)model;
+                plan.RunPlan(new RunPlanOptions() { AllowDesignErrors = true });
+
+                // Check for Plan
+                if (model.Plan == null)
+                {
+                    explanation = $"Model={model.Name} has no Plan (you may not have a license for one)";
+                    return false;
+                }
+
+                // Start Plan
+                marker = "Starting Plan (model.Plan.RunPlan)";
+                LogIt($"Info: {marker}");
+                model.Plan.RunPlan(new RunPlanOptions() { AllowDesignErrors = true });
+
+                IPlan plan2 = (IPlan)model;
+                plan2.RunPlan(new RunPlanOptions() { AllowDesignErrors = true });
+
+                if ( runRiskAnalysis.Value )
+                {
+                    marker = "Plan Finished...Starting Analyze Risk (model.Plan.RunRiskAnalysis)";
+                    LogIt($"Info: {marker}");
+                    model.Plan.RunRiskAnalysis();
+                }
+
+                if ( saveAs != null )
+                {
+                    marker = $"Saving Project to={saveAs}";
+                    LogIt($"Info: {marker}");
+                    SimioProjectFactory.SaveProject(project, saveAs, out warnings);
+                }
+
+                if ( publishPlan.Value )
+                {
+                    marker = "PublishPlan";
+                    LogIt($"Info: {marker}");
+
+                    // Todo: Add publish plan code here
+                }
+                marker = "End";
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                explanation = $"Project={projectFullPath} Marker={marker} Err={ex.Message}";
+                Alert(explanation);
+                return false;
+            }
+        } // RunModel
+
 
         /// <summary>
         /// Prompt the user for a Simio project file.
@@ -522,27 +766,38 @@ namespace SimEngineLibrary
         /// <param name="experimentName"></param>
         /// <param name="explanation"></param>
         /// <returns></returns>
-        public static bool RunProjectExperiment(string extensionsPath, string projectPath, string arguments,  
+        public static bool RunProjectExperiment(string extensionsPath, string projectPath, List<RequestArgument> argList,  
             out string explanation)
         {
             explanation = "";
 
-            string info = "";
-
-            bool saveModelAfterRun = true;
-            string modelName = "Model";
-            
-            string experimentName = "Experiment1";
-
+            string marker = "Begin";
             try
             {
-                string[] tokens = arguments.Split(',');
-                if (tokens.Length > 0)
-                    modelName = tokens[0];
+                if ( !File.Exists(projectPath ))
+                {
+                    explanation = $"No such Project={projectPath}";
+                    return false;
+                }
 
-                if (tokens.Length > 1)
-                    experimentName = tokens[1];
+                string projectFolder = Path.GetDirectoryName(projectPath);
+                string projectFilename = Path.GetFileName(projectPath);
 
+
+                string saveFolder = GetArgumentAsString(argList, "saveFolder", projectFolder, out explanation);
+                if (saveFolder != null && !Directory.Exists(saveFolder))
+                {
+                    explanation = $"SaveFolder={saveFolder} does not exist.";
+                    return false;
+                }
+
+                string saveFilename = GetArgumentAsString(argList, "saveFilename", projectFilename, out explanation);
+                string savePath = Path.Combine(saveFolder, saveFilename);
+
+                string modelName = GetArgumentAsString(argList, "model", "model", out explanation);
+                string experimentName = GetArgumentAsString(argList, "experiment", "experiment1", out explanation);
+
+                marker = $"Loading Project from={projectPath}";
                 string[] warnings;
 
                 var _simioProject = SimioProjectFactory.LoadProject(projectPath, out warnings);
@@ -552,7 +807,7 @@ namespace SimEngineLibrary
                     return false;
                 }
 
-                // Run schedule and save for existing events.
+                marker = $"Access the model={modelName} and Experiment={experimentName}";
                 var model = _simioProject.Models[modelName];
                 if (model == null)
                 {
@@ -570,7 +825,7 @@ namespace SimEngineLibrary
                     // Start Experiment
                     Console.WriteLine("Starting Experiment");
 
-                    if (!SimEngineHelpers.RunModelExperiment(extensionsPath, projectPath, projectPath, 
+                    if (!SimEngineHelpers.RunModelExperiment(extensionsPath, projectPath, savePath, 
                             modelName, experimentName, 
                             out explanation))
                     {
@@ -578,7 +833,7 @@ namespace SimEngineLibrary
                     }
                     else
                     {
-                        info = $"Info: Model={modelName} Experiment={experimentName} performed the actions successfully. Check the logs for more information.";
+                        marker = $"Info: Model={modelName} Experiment={experimentName} performed the actions successfully. Check the logs for more information.";
                     }
 
                 }
@@ -586,7 +841,7 @@ namespace SimEngineLibrary
             }
             catch (Exception ex)
             {
-                explanation = $"Project={projectPath}. Err={ex.Message}";
+                explanation = $"Marker={marker} Project={projectPath}. Err={ex.Message}";
                 return false;
             }
         }

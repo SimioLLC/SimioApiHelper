@@ -125,6 +125,7 @@
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabUtilityFileWatcher = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonUtilitiesClearWatcherHistory = new System.Windows.Forms.Button();
             this.label15 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.buttonFilewatcherSelect = new System.Windows.Forms.Button();
@@ -141,6 +142,7 @@
             this.buttonFileWatcherStart = new System.Windows.Forms.Button();
             this.tabUtilityFileChanged = new System.Windows.Forms.TabPage();
             this.panelUtilityFilesChanged = new System.Windows.Forms.Panel();
+            this.buttonUtilitiesResetChangedFiles = new System.Windows.Forms.Button();
             this.labelUtilitiesResetFilesChangedList = new System.Windows.Forms.Label();
             this.cbUtilitiesShowChangedFiles = new System.Windows.Forms.CheckBox();
             this.listUtilitiesAlteredFiles = new System.Windows.Forms.ListBox();
@@ -151,8 +153,6 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.timerFileWatcher = new System.Windows.Forms.Timer(this.components);
             this.timerFileChanges = new System.Windows.Forms.Timer(this.components);
-            this.buttonUtilitiesResetChangedFiles = new System.Windows.Forms.Button();
-            this.buttonUtilitiesClearWatcherHistory = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.StatusStripBottom.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -239,7 +239,7 @@
             this.StatusStripBottom.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.StatusStripBottom.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.LabelStatus});
-            this.StatusStripBottom.Location = new System.Drawing.Point(0, 680);
+            this.StatusStripBottom.Location = new System.Drawing.Point(0, 759);
             this.StatusStripBottom.Name = "StatusStripBottom";
             this.StatusStripBottom.Padding = new System.Windows.Forms.Padding(1, 0, 18, 0);
             this.StatusStripBottom.Size = new System.Drawing.Size(1220, 26);
@@ -266,7 +266,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 28);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1220, 652);
+            this.tabControl1.Size = new System.Drawing.Size(1220, 731);
             this.tabControl1.TabIndex = 2;
             // 
             // tabDllHelper
@@ -275,7 +275,7 @@
             this.tabDllHelper.Location = new System.Drawing.Point(4, 29);
             this.tabDllHelper.Name = "tabDllHelper";
             this.tabDllHelper.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDllHelper.Size = new System.Drawing.Size(1212, 619);
+            this.tabDllHelper.Size = new System.Drawing.Size(1212, 698);
             this.tabDllHelper.TabIndex = 0;
             this.tabDllHelper.Text = "DLL Helper";
             this.tabDllHelper.UseVisualStyleBackColor = true;
@@ -300,7 +300,7 @@
             this.panelDll.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDll.Location = new System.Drawing.Point(3, 3);
             this.panelDll.Name = "panelDll";
-            this.panelDll.Size = new System.Drawing.Size(1206, 613);
+            this.panelDll.Size = new System.Drawing.Size(1206, 692);
             this.panelDll.TabIndex = 13;
             // 
             // buttonAddDependentsToHarvest
@@ -413,7 +413,7 @@
             // 
             this.textExceptions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textExceptions.Location = new System.Drawing.Point(282, 515);
+            this.textExceptions.Location = new System.Drawing.Point(282, 594);
             this.textExceptions.Multiline = true;
             this.textExceptions.Name = "textExceptions";
             this.textExceptions.ReadOnly = true;
@@ -1264,10 +1264,22 @@
             this.groupBox1.Controls.Add(this.buttonFileWatcherStart);
             this.groupBox1.Location = new System.Drawing.Point(6, 16);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1173, 507);
+            this.groupBox1.Size = new System.Drawing.Size(1173, 511);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "File Watcher Utility";
+            // 
+            // buttonUtilitiesClearWatcherHistory
+            // 
+            this.buttonUtilitiesClearWatcherHistory.Enabled = false;
+            this.buttonUtilitiesClearWatcherHistory.Location = new System.Drawing.Point(26, 374);
+            this.buttonUtilitiesClearWatcherHistory.Name = "buttonUtilitiesClearWatcherHistory";
+            this.buttonUtilitiesClearWatcherHistory.Size = new System.Drawing.Size(153, 43);
+            this.buttonUtilitiesClearWatcherHistory.TabIndex = 14;
+            this.buttonUtilitiesClearWatcherHistory.Text = "Clear History";
+            this.toolTip1.SetToolTip(this.buttonUtilitiesClearWatcherHistory, "Clear/Remove all Watcher History");
+            this.buttonUtilitiesClearWatcherHistory.UseVisualStyleBackColor = true;
+            this.buttonUtilitiesClearWatcherHistory.Click += new System.EventHandler(this.buttonUtilitiesClearWatcherHistory_Click);
             // 
             // label15
             // 
@@ -1370,7 +1382,7 @@
             this.textFileWatcherLog.Multiline = true;
             this.textFileWatcherLog.Name = "textFileWatcherLog";
             this.textFileWatcherLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textFileWatcherLog.Size = new System.Drawing.Size(945, 263);
+            this.textFileWatcherLog.Size = new System.Drawing.Size(945, 267);
             this.textFileWatcherLog.TabIndex = 4;
             this.textFileWatcherLog.WordWrap = false;
             this.textFileWatcherLog.TextChanged += new System.EventHandler(this.textFileWatcherLog_TextChanged);
@@ -1439,8 +1451,19 @@
             this.panelUtilityFilesChanged.Controls.Add(this.label19);
             this.panelUtilityFilesChanged.Location = new System.Drawing.Point(3, 3);
             this.panelUtilityFilesChanged.Name = "panelUtilityFilesChanged";
-            this.panelUtilityFilesChanged.Size = new System.Drawing.Size(1134, 480);
+            this.panelUtilityFilesChanged.Size = new System.Drawing.Size(1134, 484);
             this.panelUtilityFilesChanged.TabIndex = 14;
+            // 
+            // buttonUtilitiesResetChangedFiles
+            // 
+            this.buttonUtilitiesResetChangedFiles.Location = new System.Drawing.Point(20, 131);
+            this.buttonUtilitiesResetChangedFiles.Name = "buttonUtilitiesResetChangedFiles";
+            this.buttonUtilitiesResetChangedFiles.Size = new System.Drawing.Size(139, 37);
+            this.buttonUtilitiesResetChangedFiles.TabIndex = 19;
+            this.buttonUtilitiesResetChangedFiles.Text = "Reset Files";
+            this.toolTip1.SetToolTip(this.buttonUtilitiesResetChangedFiles, "All file as set to HasChangedContents to False");
+            this.buttonUtilitiesResetChangedFiles.UseVisualStyleBackColor = true;
+            this.buttonUtilitiesResetChangedFiles.Click += new System.EventHandler(this.buttonUtilitiesResetChangedFiles_Click);
             // 
             // labelUtilitiesResetFilesChangedList
             // 
@@ -1520,34 +1543,11 @@
             this.timerFileChanges.Interval = 1000;
             this.timerFileChanges.Tick += new System.EventHandler(this.timerFileChanges_Tick);
             // 
-            // buttonUtilitiesResetChangedFiles
-            // 
-            this.buttonUtilitiesResetChangedFiles.Location = new System.Drawing.Point(20, 131);
-            this.buttonUtilitiesResetChangedFiles.Name = "buttonUtilitiesResetChangedFiles";
-            this.buttonUtilitiesResetChangedFiles.Size = new System.Drawing.Size(139, 37);
-            this.buttonUtilitiesResetChangedFiles.TabIndex = 19;
-            this.buttonUtilitiesResetChangedFiles.Text = "Reset Files";
-            this.toolTip1.SetToolTip(this.buttonUtilitiesResetChangedFiles, "All file as set to HasChangedContents to False");
-            this.buttonUtilitiesResetChangedFiles.UseVisualStyleBackColor = true;
-            this.buttonUtilitiesResetChangedFiles.Click += new System.EventHandler(this.buttonUtilitiesResetChangedFiles_Click);
-            // 
-            // buttonUtilitiesClearWatcherHistory
-            // 
-            this.buttonUtilitiesClearWatcherHistory.Enabled = false;
-            this.buttonUtilitiesClearWatcherHistory.Location = new System.Drawing.Point(26, 374);
-            this.buttonUtilitiesClearWatcherHistory.Name = "buttonUtilitiesClearWatcherHistory";
-            this.buttonUtilitiesClearWatcherHistory.Size = new System.Drawing.Size(153, 43);
-            this.buttonUtilitiesClearWatcherHistory.TabIndex = 14;
-            this.buttonUtilitiesClearWatcherHistory.Text = "Clear History";
-            this.toolTip1.SetToolTip(this.buttonUtilitiesClearWatcherHistory, "Clear/Remove all Watcher History");
-            this.buttonUtilitiesClearWatcherHistory.UseVisualStyleBackColor = true;
-            this.buttonUtilitiesClearWatcherHistory.Click += new System.EventHandler(this.buttonUtilitiesClearWatcherHistory_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1220, 706);
+            this.ClientSize = new System.Drawing.Size(1220, 785);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.StatusStripBottom);
             this.Controls.Add(this.menuStrip1);

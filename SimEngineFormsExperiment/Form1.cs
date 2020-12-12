@@ -126,7 +126,12 @@ namespace SimEngineFormsExperiment
             try
             {
                 bool saveModelAfterRun = cbHeadlessSaveModelAfterRun.Checked;
-                if (!SimEngineHelpers.RunExperiment(extensionsPath, simioProjectPath, modelName, experimentName, saveModelAfterRun,
+
+                string saveProjectPath = "";
+                if (saveModelAfterRun)
+                    saveProjectPath = simioProjectPath;
+
+                if (!SimEngineHelpers.RunModelExperiment(extensionsPath, simioProjectPath, saveProjectPath, modelName, experimentName, 
                     out string explanation))
                 {
                     Alert(explanation);
