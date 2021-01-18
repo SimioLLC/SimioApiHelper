@@ -401,17 +401,24 @@ namespace SimEngineLibrary
 
                 CurrentExperiment.Run();
 
-                string folder = Path.GetDirectoryName(resultFilepath);
-                if ( Directory.Exists(folder))
+                if (string.IsNullOrEmpty(resultFilepath))
                 {
-
-                    StringBuilder sb = new StringBuilder();
-                    // Build a tab-delimited file
-
-                    if ( !experimentResults.OutputCsv( resultFilepath, out explanation))
+                    LogIt($"Info: No result Filepath specified. Results not written.");
+                }
+                else
+                {
+                    string folder = Path.GetDirectoryName(resultFilepath);
+                    if (Directory.Exists(folder))
                     {
-                        explanation = $"Cannot Write CSV results to={resultFilepath}";
-                        return false;
+
+                        StringBuilder sb = new StringBuilder();
+                        // Build a tab-delimited file
+
+                        if (!experimentResults.OutputCsv(resultFilepath, out explanation))
+                        {
+                            explanation = $"Cannot Write CSV results to={resultFilepath}";
+                            return false;
+                        }
                     }
                 }
 
