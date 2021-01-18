@@ -90,7 +90,18 @@ namespace SimEngineLibrary
                 if (experiment == null)
                     return false;
 
-                // Create some methods to handle experiment events
+                // Create some methods to handle experiment events. Events are:
+                // RunStarted, RunProgessChanged, RunCompleted
+                // ScenarioStarted, ScenarioEnded
+                // ReplicationStarted, ReplicationEnded
+                // 
+
+
+                // Here the 'e' is RunStartedEventArgs
+                experiment.RunStarted += (s, e) =>
+                {
+                    LogIt($"Info: Event=> Experiment={experiment.Name} Run Started. ");
+                };
 
                 // Here the 'e' is ReplicationEndedEventArgs
                 experiment.ReplicationEnded += (s, e) =>
@@ -98,11 +109,17 @@ namespace SimEngineLibrary
                     LogIt($"Info: Event=> Ended Replication={e.ReplicationNumber} of Scenario={e.Scenario.Name}.");
                 };
 
-                // Here the 'e' is ScenarioEndedEventArgs
+                // Here the 'e' is ScenarioStartedEventArgs
+                experiment.ScenarioStarted += (s, e) =>
+                {
+                    LogIt($"Info: Event=> Scenario={e.Scenario.Name} Started.");
+                    
+                };
                 experiment.ScenarioEnded += (s, e) =>
                 {
                     LogIt($"Info: Event=> Scenario={e.Scenario.Name} Ended.");
                 };
+
 
                 // Here the 'e' is RunCompletedEventArgs
                 experiment.RunCompleted += (s, e) =>

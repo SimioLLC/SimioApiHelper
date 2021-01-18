@@ -132,7 +132,7 @@
             // buttonSelectExtensionsPath
             // 
             this.buttonSelectExtensionsPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSelectExtensionsPath.Location = new System.Drawing.Point(955, 98);
+            this.buttonSelectExtensionsPath.Location = new System.Drawing.Point(952, 61);
             this.buttonSelectExtensionsPath.Name = "buttonSelectExtensionsPath";
             this.buttonSelectExtensionsPath.Size = new System.Drawing.Size(187, 40);
             this.buttonSelectExtensionsPath.TabIndex = 47;
@@ -161,7 +161,7 @@
             // buttonLoadSimioProject
             // 
             this.buttonLoadSimioProject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonLoadSimioProject.Location = new System.Drawing.Point(955, 160);
+            this.buttonLoadSimioProject.Location = new System.Drawing.Point(952, 123);
             this.buttonLoadSimioProject.Name = "buttonLoadSimioProject";
             this.buttonLoadSimioProject.Size = new System.Drawing.Size(187, 40);
             this.buttonLoadSimioProject.TabIndex = 44;
@@ -246,7 +246,7 @@
             // buttonRunExperiment
             // 
             this.buttonRunExperiment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRunExperiment.Location = new System.Drawing.Point(955, 223);
+            this.buttonRunExperiment.Location = new System.Drawing.Point(952, 186);
             this.buttonRunExperiment.Name = "buttonRunExperiment";
             this.buttonRunExperiment.Size = new System.Drawing.Size(187, 40);
             this.buttonRunExperiment.TabIndex = 31;
@@ -275,7 +275,7 @@
             // buttonHeadlessSelectModel
             // 
             this.buttonHeadlessSelectModel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHeadlessSelectModel.Location = new System.Drawing.Point(955, 52);
+            this.buttonHeadlessSelectModel.Location = new System.Drawing.Point(952, 15);
             this.buttonHeadlessSelectModel.Name = "buttonHeadlessSelectModel";
             this.buttonHeadlessSelectModel.Size = new System.Drawing.Size(187, 40);
             this.buttonHeadlessSelectModel.TabIndex = 27;
