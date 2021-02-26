@@ -1336,7 +1336,7 @@ namespace SimioApiHelper
 
             try
             {
-                string projectFile = SimEngineHelpers.GetProjectFile();
+                string projectFile = GetProjectFile();
                 textSimEngineRunProjectFile.Text = projectFile;
 
                 Cursor.Current = Cursors.WaitCursor;
@@ -2122,9 +2122,33 @@ namespace SimioApiHelper
                 }
                 textFileWatcherLog.Text = sb.ToString();
             }
-
-
         }
+
+        /// <summary>
+        /// Prompt the user for a Simio project file.
+        /// </summary>
+        /// <returns></returns>
+        public static string GetProjectFile()
+        {
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Multiselect = false;
+                dialog.Filter = "Simio Project|*.spfx";
+
+                DialogResult result = dialog.ShowDialog();
+
+                if (result != DialogResult.OK)
+                    return string.Empty;
+
+                return dialog.FileName;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException($"Cannot get project file. Err={ex.Message}");
+            }
+        }
+
 
         private void textFileWatcherLog_TextChanged(object sender, EventArgs e)
         {

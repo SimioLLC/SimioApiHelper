@@ -831,16 +831,16 @@ namespace SimEngineLibrary
             if (message.ToLower().StartsWith("info:"))
                 Loggerton.Instance.LogIt(EnumLogFlags.Information, message);
             else
+            {
                 Loggerton.Instance.LogIt(EnumLogFlags.Error, message);
+                System.Diagnostics.Trace.WriteLine(message, "Error");
+            }
         }
 
         public static void Alert(string message)
         {
             Loggerton.Instance.LogIt(EnumLogFlags.Error, message);
-        }
-        public static void Alert(EnumLogFlags flags, string message)
-        {
-            Loggerton.Instance.LogIt(flags, message);
+            System.Diagnostics.Trace.WriteLine(message, "Error");
         }
     }
 
