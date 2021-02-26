@@ -10,7 +10,7 @@ using System.Text;
 namespace SimEngineLibrary
 {
     /// <summary>
-    /// A context object that is used by some of the HeadlessHelpers methods
+    /// A context object that is used by some of the SimioEngine Helpers methods
     /// </summary>
     public class SimEngineContext
     {

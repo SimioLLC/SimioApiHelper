@@ -6,23 +6,24 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace SimEngineLibrary
 {
     /// <summary>
-    /// Helpers for running the Simio Model in a non-UI aka "headless" mode.
+    /// Helpers for automating the bare SimioEngine (aka "headless" mode).
     /// </summary>
     public static class SimEngineHelpers
     {
 
-        
+
         /// <summary>
         /// Run an experiment. The experiment is Reset prior to run.
         /// </summary>
-        /// <param name="projectPathAndFile"></param>
+        /// <param name="extensionsPath"></param>
+        /// <param name="sourceProjectPath"></param>
+        /// <param name="saveProjectPath"></param>
         /// <param name="experimentName"></param>
-        /// <param name="saveModelAfterRun"></param>
+        /// <param name="modelName"></param>
         /// <param name="explanation"></param>
         /// <returns></returns>
         public static bool RunModelExperiment(string extensionsPath, string sourceProjectPath, string saveProjectPath,
@@ -216,7 +217,7 @@ namespace SimEngineLibrary
         }
 
         /// <summary>
-        /// Create and return HeadlessContext with the given extensions path and
+        /// Create and return SimEngineContext with the given extensions path and
         /// a Simio Project at projectFullPath.
         /// Returns null if there is errors are encountered, along with an explanation.
         /// Note that the project can load with a warnings list, which is null if there are no errors.
@@ -384,14 +385,17 @@ namespace SimEngineLibrary
         /// Set the extensionpath, load a project, then load the model, and run a plan for that model.
         /// </summary>
         /// <param name="extensionsPath">For DLL search. E.g. AppDomain.CurrentDomain.BaseDirectory</param>
-        /// <param name="projectPathAndFile"></param>
+        /// <param name="projectFullPath"></param>
         /// <param name="modelName"></param>
         /// <param name="runRiskAnalysis"></param>
         /// <param name="saveModelAfterRun"></param>
         /// <param name="publishPlanAfterRun"></param>
         /// <param name="explanation"></param>
         /// <returns></returns>
-        public static bool RunModelPlan(string extensionsPath, string projectFullPath, string modelName, bool runRiskAnalysis, bool saveModelAfterRun, bool publishPlanAfterRun, out string explanation)
+        public static bool RunModelPlan(string extensionsPath, string projectFullPath, 
+                string modelName, 
+                bool runRiskAnalysis, bool saveModelAfterRun, bool publishPlanAfterRun, 
+                out string explanation)
         {
             explanation = "";
             string marker = "Begin";
@@ -414,7 +418,7 @@ namespace SimEngineLibrary
                 ISimioProject project = null;
                 try
                 {
-                    Cursor.Current = Cursors.WaitCursor;
+                    //Cursor.Current = Cursors.WaitCursor;
                     SimioProjectFactory.SetExtensionsPath(extensionsPath);
 
                     project = LoadProject(extensionsPath, projectFullPath, out explanation);
@@ -428,7 +432,7 @@ namespace SimEngineLibrary
                 }
                 finally
                 {
-                    Cursor.Current = Cursors.Default;
+                    //Cursor.Current = Cursors.Default;
                 }
 
                 // Load the Model
@@ -486,6 +490,13 @@ namespace SimEngineLibrary
             }
         } // RunModel
 
+        /// <summary>
+        /// Build a KVP dictionary from a comma-delimited string of key=value pairs.
+        /// The key is always low-cased.
+        /// </summary>
+        /// <param name="arguments"></param>
+        /// <param name="explanation"></param>
+        /// <returns></returns>
         public static Dictionary<string, KeyValuePair<string,string>> BuildKvpDictionary(string arguments, out string explanation)
         {
             explanation = "";
@@ -648,7 +659,7 @@ namespace SimEngineLibrary
                 ISimioProject project = null;
                 try
                 {
-                    Cursor.Current = Cursors.WaitCursor;
+                    //Cursor.Current = Cursors.WaitCursor;
                     SimioProjectFactory.SetExtensionsPath(extensionsPath);
 
                     project = LoadProject(extensionsPath, projectFullPath, out explanation);
@@ -662,7 +673,7 @@ namespace SimEngineLibrary
                 }
                 finally
                 {
-                    Cursor.Current = Cursors.Default;
+                    //Cursor.Current = Cursors.Default;
                 }
 
                 // Load the Model
@@ -725,54 +736,6 @@ namespace SimEngineLibrary
         } // RunModel
 
 
-        /// <summary>
-        /// Prompt the user for a Simio project file.
-        /// </summary>
-        /// <returns></returns>
-        public static string GetProjectFile()
-        {
-            try
-            {
-                OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Multiselect = false;
-                dialog.Filter = "Simio Project|*.spfx";
-
-                DialogResult result = dialog.ShowDialog();
-
-                if (result != DialogResult.OK)
-                    return string.Empty;
-
-                return dialog.FileName;
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException($"Cannot get project file. Err={ex.Message}");
-            }
-        }
-        /// <summary>
-        /// Prompt the user for a Simio project file.
-        /// </summary>
-        /// <returns></returns>
-        public static string GetExtensionsFolder()
-        {
-            try
-            {
-                FolderBrowserDialog dialog = new FolderBrowserDialog();
-                dialog.SelectedPath = "";
-                dialog.ShowNewFolderButton = false;
-
-                DialogResult result = dialog.ShowDialog();
-
-                if (result != DialogResult.OK)
-                    return string.Empty;
-
-                return dialog.SelectedPath;
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException($"Cannot get project file. Err={ex.Message}");
-            }
-        }
 
         /// <summary>
         /// Run an experiment and save.
@@ -874,12 +837,10 @@ namespace SimEngineLibrary
         public static void Alert(string message)
         {
             Loggerton.Instance.LogIt(EnumLogFlags.Error, message);
-            MessageBox.Show(message);
         }
         public static void Alert(EnumLogFlags flags, string message)
         {
             Loggerton.Instance.LogIt(flags, message);
-            MessageBox.Show(message);
         }
     }
 

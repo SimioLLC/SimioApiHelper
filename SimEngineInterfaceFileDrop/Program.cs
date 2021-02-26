@@ -66,7 +66,6 @@ namespace SimEngineInterfaceFileDrop
                     {
                         string action = "";
                         string projectFilename = "";
-                        string arguments = "";
                         List<RequestArgument> argList = new List<RequestArgument>();
                         if (!ParseRawRequestFile(filepath, out action, argList, out explanation))
                         {

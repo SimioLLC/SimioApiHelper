@@ -152,6 +152,31 @@ namespace SimEngineFormsExperiment
 
         }
 
+        /// <summary>
+        /// Prompt the user for a Simio project file.
+        /// </summary>
+        /// <returns></returns>
+        public static string GetProjectFile()
+        {
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Multiselect = false;
+                dialog.Filter = "Simio Project|*.spfx";
+
+                DialogResult result = dialog.ShowDialog();
+
+                if (result != DialogResult.OK)
+                    return string.Empty;
+
+                return dialog.FileName;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException($"Cannot get project file. Err={ex.Message}");
+            }
+        }
+
         private void Alert(string msg)
         {
             Loggerton.Instance.LogIt(EnumLogFlags.Error, msg);
@@ -171,7 +196,7 @@ namespace SimEngineFormsExperiment
 
         private void buttonHeadlessSelectModel_Click(object sender, EventArgs e)
         {
-            textHeadlessProjectFile.Text = SimEngineHelpers.GetProjectFile();
+            textHeadlessProjectFile.Text = GetProjectFile();
         }
 
         private void timerLogs_Tick(object sender, EventArgs e)

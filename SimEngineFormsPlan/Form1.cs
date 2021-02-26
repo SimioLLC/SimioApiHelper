@@ -91,7 +91,7 @@ namespace SimEngineFormsPlan
 
         private void buttonHeadlessSelectModel_Click(object sender, EventArgs e)
         {
-            textHeadlessProjectFile.Text = SimEngineHelpers.GetProjectFile();
+            textHeadlessProjectFile.Text = GetProjectFile();
         }
 
         private void timerLogs_Tick(object sender, EventArgs e)
@@ -146,7 +146,7 @@ namespace SimEngineFormsPlan
 
         private void buttonSelectExtensionsPath_Click(object sender, EventArgs e)
         {
-            string extensionsPath = SimEngineHelpers.GetExtensionsFolder();
+            string extensionsPath = GetExtensionsFolder();
             textExtensionsPath.Text = extensionsPath;
         }
 
@@ -160,5 +160,56 @@ namespace SimEngineFormsPlan
             this.Close();
             Application.Exit();
         }
+
+        /// <summary>
+        /// Prompt the user for a Simio project file.
+        /// </summary>
+        /// <returns></returns>
+        public static string GetProjectFile()
+        {
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Multiselect = false;
+                dialog.Filter = "Simio Project|*.spfx";
+
+                DialogResult result = dialog.ShowDialog();
+
+                if (result != DialogResult.OK)
+                    return string.Empty;
+
+                return dialog.FileName;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException($"Cannot get project file. Err={ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Prompt the user for a Simio project file.
+        /// </summary>
+        /// <returns></returns>
+        public static string GetExtensionsFolder()
+        {
+            try
+            {
+                FolderBrowserDialog dialog = new FolderBrowserDialog();
+                dialog.SelectedPath = "";
+                dialog.ShowNewFolderButton = false;
+
+                DialogResult result = dialog.ShowDialog();
+
+                if (result != DialogResult.OK)
+                    return string.Empty;
+
+                return dialog.SelectedPath;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException($"Cannot get Extensions folder. Err={ex.Message}");
+            }
+        }
+
     }
 }
