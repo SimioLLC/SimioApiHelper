@@ -146,14 +146,17 @@ namespace SimEngineLibrary
                     marker = $"Save Project After Experiment Run to={saveProjectPath}";
                     LogIt($"Info: {marker}");
 
-                    string[] warnings;
-                    SimioProjectFactory.SaveProject(project, saveProjectPath, out warnings);
+                    SimioProjectFactory.SaveProject(project, saveProjectPath, out string[] warnings);
                     explanation = "";
-                    int nn = 0;
-                    foreach (string warning in warnings)
+                    if (warnings.Any())
                     {
-                        explanation += $"Save Warnings({warnings.Length}): Warning{++nn}:{warning}";
-                        LogIt($"Warning: {warning}");
+                        LogIt($"Warning: 'SaveProject' had {warnings.Length} Warnings:");
+                        int nn = 0;
+                        foreach (string warning in warnings)
+                        {
+                            explanation += $"  Warning[{++nn}]:{warning}";
+                            LogIt($"  Warning: {warning}");
+                        }
                     }
                 }
 

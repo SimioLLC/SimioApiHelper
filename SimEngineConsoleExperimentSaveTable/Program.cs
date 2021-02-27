@@ -15,11 +15,11 @@ namespace RunSimioScheduleConsole
             string[] warnings;
             try
             {
-                Console.WriteLine("Start");
+                Logit("Start");
                 string extensionsPath = System.AppDomain.CurrentDomain.BaseDirectory;
                 SimioProjectFactory.SetExtensionsPath(extensionsPath);
 
-                Console.WriteLine("Read Command Line Settings");
+                Logit("Read Command Line Settings");
                 if (args.Length == 0)
                     throw new Exception("Project Path And File Must Be Specified In First Command Argument");
 
@@ -49,17 +49,17 @@ namespace RunSimioScheduleConsole
                 if (File.Exists(projectPathAndFile) == false)
                     throw new Exception("Project Not Found : " + projectPathAndFile);
 
-                Console.WriteLine("Project Name = " + projectPathAndFile);
+                Logit($"Project Name={projectPathAndFile} Model={modelName} Experiment={experimentName} SaveAfterRun={saveModelAfterRun}");
 
                 // Open project file.
-                Console.WriteLine($"Loading Model=[{modelName}]");
+                Logit($"Loading Model=[{modelName}]");
                 _simioProject = SimioProjectFactory.LoadProject(projectPathAndFile, out warnings);
 
                 // Run schedule and save for existing events.
                 var model = _simioProject.Models[modelName];
                 if (model == null)
                 {
-                    Console.WriteLine("Model Not Found In Project");
+                    Logit($"Model={modelName} Not Found In Project");
                 }
                 else
                 {
@@ -67,7 +67,7 @@ namespace RunSimioScheduleConsole
                         throw new ApplicationException($"Model's Experiments collection is null.");
 
                     // Start Experiment
-                    Console.WriteLine("Starting Experiment");
+                    Logit("Starting Experiment");
 
                     string savePathAndFile = "";
                     if (saveModelAfterRun)
@@ -80,24 +80,31 @@ namespace RunSimioScheduleConsole
                     }
                     else
                     {
-                        Console.WriteLine( $"Info: Model={modelName} Experiment={experimentName} performed the actions successfully. Check the logs for more information.");
+                        Logit( $"Info: Model={modelName} Experiment={experimentName} performed the actions successfully. Check the logs for more information.");
                     }
 
 
                     if (saveModelAfterRun)
                     {
-                        Console.WriteLine("Save Project After Experiment Run");
+                        Logit("Save Project After Experiment Run");
                         SimioProjectFactory.SaveProject(_simioProject, projectPathAndFile, out warnings);
                     }
 
-                    Console.WriteLine("End");
+                    Logit("End");
                     Console.ReadLine();
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"RunError={ex.Message}");
+                Logit($"RunError={ex.Message}");
             }
+        }
+
+        private static void Logit(string msg)
+        {
+            string fullMsg = $"{DateTime.Now.ToString("HH:mm:ss.ff")}: {msg}";
+            Console.WriteLine(fullMsg);
+            System.Diagnostics.Trace.WriteLine(fullMsg);
         }
 
 
