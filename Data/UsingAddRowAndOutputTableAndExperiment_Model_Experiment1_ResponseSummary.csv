@@ -1,0 +1,2 @@
+Scenario,Response,Mean,Median,Minimum,Maximum,HalfWidth,Mean Confidence Interval Start,Mean Confidence Interval End,Upper Percentile,Upper Percentile Confidence Interval Start,Upper Percentile Confidence Interval End,Lower Percentile,Lower Percentile Confidence Interval Start,Lower Percentile Confidence Interval End
+Scenario1,Response1,0,0,0,0,0,0,0,0,NaN,NaN,0,0,0

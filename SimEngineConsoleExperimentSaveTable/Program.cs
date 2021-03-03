@@ -17,7 +17,9 @@ namespace RunSimioScheduleConsole
             {
                 Logit("Start");
                 string extensionsPath = System.AppDomain.CurrentDomain.BaseDirectory;
+                Logit($"Info: ExtensionsPath={extensionsPath}.");
                 SimioProjectFactory.SetExtensionsPath(extensionsPath);
+                Logit($"Info: ExtensionsPath Set successfully.");
 
                 Logit("Read Command Line Settings");
                 if (args.Length == 0)

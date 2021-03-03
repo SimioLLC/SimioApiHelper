@@ -134,7 +134,9 @@ namespace SimEngineLibrary
                 };
 
                 // Now do the run.
+                LogIt($"Info: Resetting Experiment={experiment.Name}");
                 experiment.Reset();
+                LogIt($"Info: Running Experiment={experiment.Name}");
                 experiment.Run();
                 //experiment.RunAsync(); // Another option
 

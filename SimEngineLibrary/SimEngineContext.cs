@@ -58,7 +58,7 @@ namespace SimEngineLibrary
         public SimEngineContext(string extensionsPath)
         {
             if (!Initialize(extensionsPath, out string explanation))
-                throw new ApplicationException($"Initializing Headless Context. Err-{explanation}");
+                throw new ApplicationException($"Initializing SimioEngine Context. Err={explanation}");
 
         }
 
@@ -101,7 +101,7 @@ namespace SimEngineLibrary
             }
             catch (Exception ex)
             {
-                explanation = $"Failed to initialize HeadlessContext. ExtensionsPath={extensionsPath} Err={ex.Message}";
+                explanation = $"Marker={marker}. Failed to initialize SimioEngine Context. ExtensionsPath={extensionsPath} Err={ex.Message}";
                 return false;
             }
 
