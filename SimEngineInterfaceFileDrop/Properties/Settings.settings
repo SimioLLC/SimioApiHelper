@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="RequestsFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)">c:\test\SimEngineRequests</Value>
+      <Value Profile="(Default)">c:\test\ControllerTest\Requests</Value>
     </Setting>
     <Setting Name="FileDropFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)">c:\test\FileDropInstructions</Value>

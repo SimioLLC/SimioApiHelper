@@ -1,4 +1,5 @@
 ﻿using LoggertonHelpers;
+using SimEngineInterfaceHelpers;
 using SimioAPI;
 using System;
 using System.Collections.Generic;
@@ -48,7 +49,7 @@ namespace SimEngineLibrary
                     return false;
 
                 marker = $"{contextInfo}. Running Experiment...";
-                if ( RunModelExperiment(project, saveProjectPath, modelName, experimentName, out explanation))
+                if ( RunModelExperiment(project, "", modelName, experimentName, out explanation))
                     return true;
                 else 
                     return false;
@@ -62,6 +63,7 @@ namespace SimEngineLibrary
 
         /// <summary>
         /// Run an experiment. The experiment is Reset prior to run.
+        /// A loaded project is passed in that must contain the named Model and Experiment.
         /// If the saveProjectPath is present and exists, then the project will be
         /// saved to that location. If there are Save warnings, then true is still
         /// returned, but the warnings are in explanation.
@@ -86,6 +88,61 @@ namespace SimEngineLibrary
                     return false;
 
                 
+                marker = $"Loading Experiment named={experimentName}";
+                if ( !RunModelExperiment(model, experimentName, out explanation))
+                {
+                    throw new ApplicationException($"Cannot Run Experiment={experimentName}. Err={explanation}");
+                }
+
+                // Successful run. Save the project?
+                if (File.Exists(saveProjectPath))
+                {
+                    marker = $"Save Project After Experiment Run to={saveProjectPath}";
+                    LogIt($"Info: {marker}");
+
+                    SimioProjectFactory.SaveProject(project, saveProjectPath, out string[] warnings);
+                    explanation = "";
+                    if (warnings.Any())
+                    {
+                        LogIt($"Warning: 'SaveProject' had {warnings.Length} Warnings:");
+                        int nn = 0;
+                        foreach (string warning in warnings)
+                        {
+                            explanation += $"  Warning[{++nn}]:{warning}";
+                            LogIt($"  Warning: {warning}");
+                        }
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException($"Marker={marker} Err={ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Run an experiment. The experiment is Reset prior to run.
+        /// A loaded project is passed in that must contain the named Model and Experiment.
+        /// If the saveProjectPath is present and exists, then the project will be
+        /// saved to that location. If there are Save warnings, then true is still
+        /// returned, but the warnings are in explanation.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="experimentName"></param>
+        /// <param name="explanation"></param>
+        /// <returns></returns>
+        public static bool RunModelExperiment(IModel model, 
+            string experimentName,
+            out string explanation)
+        {
+            explanation = "";
+            string marker = "Begin";
+
+            try
+            {
+
                 marker = $"Loading Experiment named={experimentName}";
                 IExperiment experiment = LoadExperiment(model, experimentName, out explanation);
                 if (experiment == null)
@@ -114,7 +171,7 @@ namespace SimEngineLibrary
                 experiment.ScenarioStarted += (s, e) =>
                 {
                     LogIt($"Info: Event=> Scenario={e.Scenario.Name} Started.");
-                    
+
                 };
                 experiment.ScenarioEnded += (s, e) =>
                 {
@@ -143,24 +200,6 @@ namespace SimEngineLibrary
                 // Let's look at some results
                 var response = experiment.Responses;
 
-                if (File.Exists(saveProjectPath))
-                {
-                    marker = $"Save Project After Experiment Run to={saveProjectPath}";
-                    LogIt($"Info: {marker}");
-
-                    SimioProjectFactory.SaveProject(project, saveProjectPath, out string[] warnings);
-                    explanation = "";
-                    if (warnings.Any())
-                    {
-                        LogIt($"Warning: 'SaveProject' had {warnings.Length} Warnings:");
-                        int nn = 0;
-                        foreach (string warning in warnings)
-                        {
-                            explanation += $"  Warning[{++nn}]:{warning}";
-                            LogIt($"  Warning: {warning}");
-                        }
-                    }
-                }
 
                 return true;
             }
@@ -782,13 +821,21 @@ namespace SimEngineLibrary
                 string modelName = GetArgumentAsString(argList, "model", "model", out explanation);
                 string experimentName = GetArgumentAsString(argList, "experiment", "experiment1", out explanation);
 
+
+                marker = $"Setting ExtensionsPath={extensionsPath}";
+                SimioProjectFactory.SetExtensionsPath(extensionsPath);
+
                 marker = $"Loading Project from={projectPath}";
                 string[] warnings;
 
                 var _simioProject = SimioProjectFactory.LoadProject(projectPath, out warnings);
                 if (warnings.Length > 0)
                 {
-                    explanation = $"Cannot load Project={projectPath} as there were {warnings.Length} warnings";
+                    StringBuilder sbLog = new StringBuilder();
+                    foreach (var warning in warnings)
+                        sbLog.Append($" [{warning}]");
+
+                    explanation = $"Cannot load Project={projectPath} as there were {warnings.Length} warnings={sbLog}";
                     return false;
                 }
 

@@ -25,7 +25,7 @@ namespace SimEngineController.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("c:\\test\\SimEngineRequests")]
+        [global::System.Configuration.DefaultSettingValueAttribute("c:\\test\\controllerTest\\Requests")]
         public string RequestsPath {
             get {
                 return ((string)(this["RequestsPath"]));
@@ -37,7 +37,7 @@ namespace SimEngineController.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("c:\\test\\HarvestedDLLs")]
+        [global::System.Configuration.DefaultSettingValueAttribute("c:\\test\\controllerTest\\Extensions")]
         public string ExtensionsPath {
             get {
                 return ((string)(this["ExtensionsPath"]));
@@ -49,7 +49,7 @@ namespace SimEngineController.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("c:\\test\\SimEngineProjects")]
+        [global::System.Configuration.DefaultSettingValueAttribute("c:\\test\\controllerTest\\Projects")]
         public string ProjectsPath {
             get {
                 return ((string)(this["ProjectsPath"]));

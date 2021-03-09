@@ -1,17 +1,17 @@
-﻿using System;
+﻿using SimEngineInterfaceHelpers;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SimEngineLibrary;
 
 
 namespace SimEngineInterfaceFileDrop
 {
     /// <summary>
     /// This controller looks for *.txt files
-    /// That are formatted as follows:
+    /// The lines of the file are formatted as follows:
     /// 1. Lines beginning with '#' are comments
     /// 2. The data line is {projectName.extension},{argument,...}
     /// where arguments are comma-delimited and are key=value pairs
@@ -38,6 +38,7 @@ namespace SimEngineInterfaceFileDrop
                 Environment.Exit(1);
             }
 
+            Logit($"Starting FileDrop SimEngine Interface. DropFolder={dropFolder} RequestsFolder={requestsFolder}");
             StartFileDropServer(dropFolder, requestsFolder);
         }
 
@@ -61,23 +62,25 @@ namespace SimEngineInterfaceFileDrop
             {
                 foreach (string filepath in Directory.GetFiles(fileDropFolder, "*.txt"))
                 {
-
+                    Logit($"Info: processing file={filepath}");
                     try
                     {
-                        string action = "";
-                        string projectFilename = "";
-                        List<RequestArgument> argList = new List<RequestArgument>();
-                        if (!ParseRawRequestFile(filepath, out action, argList, out explanation))
+                        List<SimEngineRequest> requestList = new List<SimEngineRequest>();
+                        if (!ParseRawRequestFile(filepath, requestList, out explanation))
                         {
                             explanation = $"Bad Request. Err={explanation}";
                             goto DoneWithRequest;
                         }
 
-                        SimEngineRequest newRequest = new SimEngineRequest(projectFilename, action, argList);
-                        if (!SimEngineRequestHelper.PutRequest(requestsFolder, newRequest, out explanation))
+                        Logit($"Info: Found {requestList.Count} Requests.");
+                        foreach (SimEngineRequest request in requestList)
                         {
-                            explanation = $"Cannot Store Request. Err={explanation}";
-                            goto DoneWithRequest;
+                            Logit($"Info: Putting Request={request}");
+                            if (!SimEngineRequestHelper.PutRequest(requestsFolder, request, out explanation))
+                            {
+                                explanation = $"Cannot Store Request. Err={explanation}";
+                                goto DoneWithRequest;
+                            }
                         }
 
                     DoneWithRequest:;
@@ -85,13 +88,19 @@ namespace SimEngineInterfaceFileDrop
 
                         if ( string.IsNullOrEmpty(explanation) )
                         {
-                            Logit($"Success with File={filepath}");
-                            File.Move(filepath, Path.Combine(successPath, filename));
+                            Logit($"Info: Success with File={filepath}");
+                            string targetFile = Path.Combine(successPath, filename);
+                            if (File.Exists(targetFile))
+                                File.Delete(targetFile);
+                            File.Move(filepath, targetFile);
                         }
                         else
                         {
                             Logit($"Failure with File={filepath}. Err={explanation}");
-                            File.Move(filepath, Path.Combine(failurePath, filename));
+                            string targetFile = Path.Combine(failurePath, filename);
+                            if (File.Exists(targetFile))
+                                File.Delete(targetFile);
+                            File.Move(filepath, targetFile);
                         }
 
                     }
@@ -103,7 +112,7 @@ namespace SimEngineInterfaceFileDrop
                 } // foreach file
 
 
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(500);
 
             };
 
@@ -125,18 +134,18 @@ namespace SimEngineInterfaceFileDrop
         /// <param name="argsList"></param>
         /// <param name="explanation"></param>
         /// <returns></returns>
-        private static bool ParseRawRequestFile(string fileDropFolderPath, out string action, List<RequestArgument> argsList, out string explanation)
+        private static bool ParseRawRequestFile(string fileDropFolderPath, List<SimEngineRequest> requestsList, out string explanation)
         {
             explanation = "";
-            action = "";
 
-            if ( argsList == null )
+            if ( requestsList == null )
             {
-                explanation = $"ArgumentList cannot be null";
+                explanation = $"RequestsList cannot be null";
                 return false;
             }
 
-            argsList.Clear();
+            requestsList.Clear();
+            StringBuilder sbComments = new StringBuilder();
 
             try
             {
@@ -148,31 +157,63 @@ namespace SimEngineInterfaceFileDrop
                         goto GetNextLine;
 
                     if (trimmedLine.StartsWith("#"))
+                    {
+                        sbComments.AppendLine(trimmedLine);
                         goto GetNextLine;
+                    }
 
                     string[] argTokens = line.Trim().Split(',');
-                    int nn = 0;
+                    int lineNbr = 0;
+                    string action = "";
+                    string project = "";
+                    List<RequestArgument> argsList = new List<RequestArgument>();
+
                     foreach (string argToken in argTokens.ToList())
                     {
-                        nn++;
-                        if (nn == 1) // First one is an action
+                        lineNbr++;
+                        string[] pairTokens = argToken.Split('=');
+                        if (pairTokens.Length != 2)
                         {
-                            action = argToken;
+                            explanation = $"Line#={lineNbr} Pair={argToken} is missing '='";
+                            return false;
                         }
-                        else 
+
+                        string key = pairTokens[0].ToLower();
+
+                        switch (key)
                         {
-                            string[] pairTokens = argToken.Split('=');
-                            if (pairTokens.Length != 2)
-                            {
-                                explanation = $"Pair={argToken} is missing '='";
-                                return false;
-                            }
+                            case "action":
+                                {
+                                    action = pairTokens[1];
+                                }
+                                break;
+                            case "project":
+                                {
+                                    project = pairTokens[1];
+                                }
+                                break;
 
-                            RequestArgument arg = new RequestArgument(pairTokens[0], pairTokens[1]);
-                            argsList.Add(arg);
-
+                            default:
+                                {
+                                    RequestArgument arg = new RequestArgument(pairTokens[0], pairTokens[1]);
+                                    argsList.Add(arg);
+                                }
+                                break;
                         }
+
+
                     } // foreach argPair
+
+                    if ( !string.IsNullOrEmpty(action) && !string.IsNullOrEmpty(project) )
+                    {
+                        SimEngineRequest request = new SimEngineRequest(action, project, argsList);
+                        requestsList.Add(request);
+                    }
+                    else
+                    {
+                        explanation = $"Invalid Request at Line={lineNbr}. No Action or Project specified.";
+                        return false;
+                    }
 
 
                     GetNextLine:;
@@ -189,11 +230,11 @@ namespace SimEngineInterfaceFileDrop
 
         private static void Alert(string msg)
         {
-            Console.WriteLine(msg);
+            Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss.ff")}: {msg}");
         }
         private static void Logit(string msg)
         {
-            Console.WriteLine(msg);
+            Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss.ff")}: {msg}");
         }
     }
 }

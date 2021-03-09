@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimEngineController", "SimE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimEngineInterfaceFileDrop", "SimEngineInterfaceFileDrop\SimEngineInterfaceFileDrop.csproj", "{9B8989A1-D42D-4482-A55D-F2048E17F169}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimEngineInterfaceHelpers", "SimEngineInterfaceHelpers\SimEngineInterfaceHelpers.csproj", "{A82B37BF-C3B3-4AD4-90FF-70F441597513}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{9B8989A1-D42D-4482-A55D-F2048E17F169}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B8989A1-D42D-4482-A55D-F2048E17F169}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B8989A1-D42D-4482-A55D-F2048E17F169}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A82B37BF-C3B3-4AD4-90FF-70F441597513}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A82B37BF-C3B3-4AD4-90FF-70F441597513}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A82B37BF-C3B3-4AD4-90FF-70F441597513}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A82B37BF-C3B3-4AD4-90FF-70F441597513}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

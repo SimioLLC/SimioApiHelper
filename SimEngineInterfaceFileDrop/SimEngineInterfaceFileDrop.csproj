@@ -50,7 +50,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="RequestArgument.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -60,9 +59,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SimEngineLibrary\SimEngineLibrary.csproj">
-      <Project>{CA2AB3A8-EDBF-4D16-BB00-FB8C5F6CFEEC}</Project>
-      <Name>SimEngineLibrary</Name>
+    <ProjectReference Include="..\SimEngineInterfaceHelpers\SimEngineInterfaceHelpers.csproj">
+      <Project>{a82b37bf-c3b3-4ad4-90ff-70f441597513}</Project>
+      <Name>SimEngineInterfaceHelpers</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

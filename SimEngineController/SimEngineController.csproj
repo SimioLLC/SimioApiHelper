@@ -59,6 +59,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SimEngineInterfaceHelpers\SimEngineInterfaceHelpers.csproj">
+      <Project>{A82B37BF-C3B3-4AD4-90FF-70F441597513}</Project>
+      <Name>SimEngineInterfaceHelpers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SimEngineLibrary\SimEngineLibrary.csproj">
       <Project>{ca2ab3a8-edbf-4d16-bb00-fb8c5f6cfeec}</Project>
       <Name>SimEngineLibrary</Name>

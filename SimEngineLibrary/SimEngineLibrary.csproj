@@ -51,13 +51,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExperimentResult.cs" />
-    <Compile Include="JsonHelpers.cs" />
-    <Compile Include="SimEngineRequest.cs" />
-    <Compile Include="SimEngineRequestHelper.cs" />
     <Compile Include="SimEngineContext.cs" />
     <Compile Include="SimEngineHelpers.cs" />
     <Compile Include="LoggertonHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimEngineInterfaceHelpers\SimEngineInterfaceHelpers.csproj">
+      <Project>{a82b37bf-c3b3-4ad4-90ff-70f441597513}</Project>
+      <Name>SimEngineInterfaceHelpers</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

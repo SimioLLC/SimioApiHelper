@@ -15,9 +15,8 @@ namespace RunSimioScheduleConsole
             string[] warnings;
             try
             {
-                Logit("Start");
                 string extensionsPath = System.AppDomain.CurrentDomain.BaseDirectory;
-                Logit($"Info: ExtensionsPath={extensionsPath}.");
+                Logit($"Info: Starting. Default ExtensionsPath={extensionsPath}.");
                 SimioProjectFactory.SetExtensionsPath(extensionsPath);
                 Logit($"Info: ExtensionsPath Set successfully.");
 
@@ -51,17 +50,46 @@ namespace RunSimioScheduleConsole
                 if (File.Exists(projectPathAndFile) == false)
                     throw new Exception("Project Not Found : " + projectPathAndFile);
 
+                string projectFolder = Path.GetDirectoryName(projectPathAndFile);
+
                 Logit($"Project Name={projectPathAndFile} Model={modelName} Experiment={experimentName} SaveAfterRun={saveModelAfterRun}");
 
+                // Test if experiment can be done.
+                string simpleTestProjectFullpath = Path.Combine(projectFolder, "LicenseExperimentTest.spfx");
+                if ( File.Exists(simpleTestProjectFullpath))
+                {
+                    Logit($"Info: Testing license with Project=[{simpleTestProjectFullpath}]");
+
+                    try
+                    {
+                        Logit($"Info: Loading License Project=[{simpleTestProjectFullpath}]");
+                        ISimioProject simioProject = SimioProjectFactory.LoadProject(simpleTestProjectFullpath, out warnings);
+
+                        if (!SimEngineHelpers.RunModelExperiment(simioProject, "", "Model", "Experiment1",
+                            out string explanation))
+                        {
+
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new ApplicationException($"LicenseTest: Cannot Run Simple Experiment. Err={ex.Message}");
+                    }
+
+
+                }
+
                 // Open project file.
-                Logit($"Loading Model=[{modelName}]");
+                Logit($"Loading Project=[{projectPathAndFile}]");
                 _simioProject = SimioProjectFactory.LoadProject(projectPathAndFile, out warnings);
 
                 // Run schedule and save for existing events.
                 var model = _simioProject.Models[modelName];
                 if (model == null)
                 {
-                    Logit($"Model={modelName} Not Found In Project");
+                    throw new ApplicationException($"Model={modelName} Not Found In Project={projectPathAndFile}");
+
                 }
                 else
                 {

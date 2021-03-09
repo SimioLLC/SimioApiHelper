@@ -1,0 +1,3 @@
+Time(Hours),EntityID,ObjectName,ProcessID,StepName,Action
+0.0048807389990978,DefaultEntity.16,Model,3.Input_Sink1_Entered,[Assign] Assign1,The value 'OutputTable1.TimeEntered' for property 'Assign.StateVariableName' is a null or undefined reference.
+
