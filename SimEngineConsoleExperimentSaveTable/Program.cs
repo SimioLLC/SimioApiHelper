@@ -3,6 +3,7 @@ using System.IO;
 using SimioAPI;
 using System.Threading.Tasks;
 using SimEngineLibrary;
+using System.Collections.Generic;
 
 namespace RunSimioScheduleConsole
 {
@@ -103,7 +104,9 @@ namespace RunSimioScheduleConsole
                     if (saveModelAfterRun)
                         savePathAndFile = projectPathAndFile;
 
-                    if (!SimEngineHelpers.RunModelExperiment(extensionsPath, projectPathAndFile, savePathAndFile, modelName, experimentName, 
+                    List<string> warningList = new List<string>();
+
+                    if (!SimEngineHelpers.RunModelExperiment(extensionsPath, projectPathAndFile, savePathAndFile, modelName,  experimentName, warningList,
                             out string explanation))
                     {
                         throw new ApplicationException(explanation);

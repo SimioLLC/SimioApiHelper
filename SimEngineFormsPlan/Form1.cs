@@ -37,8 +37,8 @@ namespace SimEngineFormsPlan
             Cursor.Current = Cursors.WaitCursor;
             try
             {
-
-                ISimioProject project = SimEngineHelpers.LoadProject(extensionsPath, projectPath, out explanation);
+                List<string> warningList = new List<string>();
+                ISimioProject project = SimEngineHelpers.LoadProject(extensionsPath, projectPath, warningList, out explanation);
                 if (project == null)
                 {
                     explanation = $"Cannot load project={projectPath}. Reason={explanation}";
@@ -109,11 +109,13 @@ namespace SimEngineFormsPlan
                 string projectPath = textHeadlessProjectFile.Text;
                 string extensionsPath = textExtensionsPath.Text;
                 Logit($"Info: Running Model={modelName} Plan. ExtensionsPath={extensionsPath}");
+                List<string> warningList = new List<string>();
 
                 if (!SimEngineHelpers.RunModelPlan(extensionsPath, projectPath, modelName, 
                     cbHeadlessRunRiskAnalysis.Checked, 
                     cbHeadlessSaveModelAfterRun.Checked,
-                    cbHeadlessRunPublishPlanAfterRun.Checked, out string explanation))
+                    cbHeadlessRunPublishPlanAfterRun.Checked, 
+                    warningList, out string explanation))
                 {
                     Alert(explanation);
                 }

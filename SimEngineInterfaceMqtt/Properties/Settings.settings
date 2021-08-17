@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SimEngineInterfaceMqtt.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MqttBroker" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="RequestTopic" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SimEngine\Request</Value>
+    </Setting>
+    <Setting Name="StatusTopic" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SimEngine\Status</Value>
+    </Setting>
+    <Setting Name="LogFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">c:\logs\SimEngine</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

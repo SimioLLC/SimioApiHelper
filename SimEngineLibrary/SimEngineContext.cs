@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using SimEngineInterfaceHelpers;
 
 namespace SimEngineLibrary
 {
@@ -16,6 +17,7 @@ namespace SimEngineLibrary
     {
 
         private Loggerton Logger { get; set; }
+
 
         public string ProjectPath { get; set; }
 
@@ -34,6 +36,11 @@ namespace SimEngineLibrary
         /// The currently loaded model
         /// </summary>
         public IModel CurrentModel { get; set; }
+
+        /// <summary>
+        /// The currently loaded Plan
+        /// </summary>
+        public IPlan CurrentPlan { get; set; }
 
         /// <summary>
         /// The currently loaded experiment
@@ -136,7 +143,7 @@ namespace SimEngineLibrary
             explanation = "";
             string marker = "Checking extension and project paths.";
 
-            if ( ExtensionsPath == null )
+            if (ExtensionsPath == null)
             {
                 explanation = $"Cannot LoadProject with null ExtensionsPath";
                 return false;
@@ -190,7 +197,7 @@ namespace SimEngineLibrary
             explanation = "";
             string marker = "Begin.";
 
-            if ( CurrentProject == null  )
+            if (CurrentProject == null)
             {
                 explanation = $"No Current Project to load model from";
                 return false;
@@ -204,7 +211,7 @@ namespace SimEngineLibrary
                 CurrentModel = CurrentProject.Models[modelName];
                 if (CurrentModel != null)
                 {
-                    if (CurrentModel.Errors.Count > 0 )
+                    if (CurrentModel.Errors.Count > 0)
                     {
                         int errorCount = 0;
                         // Create a string from model errors
@@ -233,41 +240,76 @@ namespace SimEngineLibrary
             }
         }
 
+
         /// <summary>
-        /// Assumes a Model is loaded, this initiates a RunPlan.
-        /// The running of a Plan creates about dozen Simio logs, such as ResourceCapacityLog.
+        /// Make sure a plan is present.
+        /// If so, then set CurrentPlan to Model.Plan
         /// </summary>
-        /// <param name="options"></param>
         /// <param name="explanation"></param>
         /// <returns></returns>
-        public bool RunModelPlan(out string explanation)
+        private bool PreparePlan(out string explanation)
+        {
+            explanation = "";
+            string marker = "Begin.";
+            try
+            {
+                marker = "Begin";
+
+                if (CurrentProject == null)
+                {
+                    explanation = $"Cannot run plan. No Project is currently loaded";
+                    return false;
+                }
+
+                if (CurrentModel == null)
+                {
+                    explanation = $"Cannot run plan. No Model is currently loaded";
+                    return false;
+                }
+
+                // Check for Plan
+                if (CurrentModel.Plan == null)
+                {
+                    explanation = $"Model={CurrentModel.Name} has no Plan.";
+                    return false;
+                }
+
+                CurrentPlan = CurrentModel.Plan;
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                explanation = $"Project={CurrentProject.Name} Model={CurrentModel.Name} Marker={marker} Err={ex.Message}";
+                return false;
+            }
+
+}
+
+/// <summary>
+/// Assumes a Model is loaded, this initiates a RunPlan.
+/// The running of a Plan creates about dozen Simio logs, such as ResourceCapacityLog.
+/// </summary>
+/// <param name="options"></param>
+/// <param name="explanation"></param>
+/// <returns></returns>
+public bool RunModelPlan(out string explanation)
         {
             explanation = "";
             string marker = "Begin";
 
-            if (CurrentProject == null)
-            {
-                explanation = $"Cannot run plan. No Project is currently loaded";
+            if (!PreparePlan(out explanation))
                 return false;
-            }
-
-            if (CurrentModel == null)
-            {
-                explanation = $"Cannot run plan. No Model is currently loaded";
-                return false;
-            }
-
-            // Check for Plan
-            if (CurrentModel.Plan == null)
-            {
-                explanation = $"Model={CurrentModel.Name} has no Plan.";
-                return false;
-            }
 
             try
             {
-                marker = "Starting Plan (model.Plan.RunPlan)";
-                CurrentModel.Plan.RunPlan(null);
+
+                marker = $"Starting Plan for Model={CurrentModel.Name} (Model.Plan.RunPlan)";
+                CurrentPlan.RunPlan(null);
+
+                // Decipher the results
+                var log = CurrentPlan.MaterialUsageLog;
+                
 
                 marker = "End";
 
@@ -291,24 +333,8 @@ namespace SimEngineLibrary
             explanation = "";
             string marker = "Begin";
 
-            if (CurrentProject == null)
-            {
-                explanation = $"Cannot run plan. No Project is currently loaded";
+            if (!PreparePlan(out explanation))
                 return false;
-            }
-
-            if (CurrentModel == null)
-            {
-                explanation = $"Cannot run plan. No Model is currently loaded";
-                return false;
-            }
-
-            // Check for Plan
-            if (CurrentModel.Plan == null)
-            {
-                explanation = $"Model={CurrentModel.Name} has no Plan.";
-                return false;
-            }
 
             try
             {
@@ -333,7 +359,7 @@ namespace SimEngineLibrary
         /// </summary>
         /// <param name="explanation"></param>
         /// <returns></returns>
-        public bool RunModelExperiment( string resultFilepath, out string explanation)
+        public bool RunModelExperiment(string resultFilepath, out string explanation)
         {
             explanation = "";
             string marker = "Begin";
@@ -392,7 +418,7 @@ namespace SimEngineLibrary
                     LogIt($"ProgressChanged:");
                     string ss = e.ToString();
                 };
-               
+
 
                 // Run the experiment. Events will be thrown when replications start and end,
                 // so you would have to handle those elsewhere.
@@ -445,7 +471,7 @@ namespace SimEngineLibrary
             string[] warnings;
 
             // If project not loaded, return error
-            if ( CurrentProject == null)
+            if (CurrentProject == null)
             {
                 explanation = $"No project is loaded (Project is null).";
                 return false;
@@ -485,4 +511,5 @@ namespace SimEngineLibrary
         }
 
     }
+
 }

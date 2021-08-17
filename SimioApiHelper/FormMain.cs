@@ -56,8 +56,8 @@ namespace SimioApiHelper
                 string simEngineTestFolder = CheckSimEngineTestFolder();
                 Logit($"Info: Test Folder Location={simEngineTestFolder}");
 
-                comboSimioLocation.DataSource = DLLHelpers.GetSimioApiLocations();
-                comboFindSimioExtensionLocations.DataSource = DLLHelpers.GetSimioApiLocations();
+                comboSimioLocation.DataSource = DLLHelpers.GetSimioExtensionsLocations();
+                comboFindSimioExtensionLocations.DataSource = DLLHelpers.GetSimioExtensionsLocations();
 
                 string simEnginePath = Path.Combine(Environment.CurrentDirectory, "SimioDLL.dll");
                 if ( File.Exists(simEnginePath))

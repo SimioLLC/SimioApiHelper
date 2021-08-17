@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FDE7844B-BD10-44FA-9409-030DC0ADBCC2}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>SimEngineControllerInstall</RootNamespace>
+    <AssemblyName>SimEngineControllerInstall</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BootstrapperCore, Version=3.0.0.0, Culture=neutral, PublicKeyToken=ce35f76fcda82bad, processorArchitecture=MSIL">
+      <HintPath>..\packages\WixSharp.bin.1.16.2\lib\BootstrapperCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Deployment.WindowsInstaller, Version=3.0.0.0, Culture=neutral, PublicKeyToken=ce35f76fcda82bad, processorArchitecture=MSIL">
+      <HintPath>..\packages\WixSharp.bin.1.16.2\lib\Microsoft.Deployment.WindowsInstaller.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WixSharp, Version=1.16.2.0, Culture=neutral, PublicKeyToken=3775edd25acc43c2, processorArchitecture=MSIL">
+      <HintPath>..\packages\WixSharp.bin.1.16.2\lib\WixSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="WixSharp.Msi, Version=1.16.2.0, Culture=neutral, PublicKeyToken=3775edd25acc43c2, processorArchitecture=MSIL">
+      <HintPath>..\packages\WixSharp.bin.1.16.2\lib\WixSharp.Msi.dll</HintPath>
+    </Reference>
+    <Reference Include="WixSharp.UI, Version=1.16.2.0, Culture=neutral, PublicKeyToken=3775edd25acc43c2, processorArchitecture=MSIL">
+      <HintPath>..\packages\WixSharp.bin.1.16.2\lib\WixSharp.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="wix\$(ProjectName).g.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <None Include="Resources\SimioEULA.rtf" />
+    <None Include="SimEngineControllerFiles\SimEngineController.exe.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataFiles\" />
+    <Folder Include="HelpFiles\" />
+    <Folder Include="TestFiles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\AddRemoveProgramsIcon.ico" />
+    <Content Include="Images\SimEngineBanner.png" />
+    <Content Include="Images\SimEngineNoun2895679.png" />
+    <Content Include="Images\SimEngineNoun2895679.svg" />
+    <Content Include="SimEngineControllerFiles\MathNet.Numerics.dll" />
+    <Content Include="SimEngineControllerFiles\QlmLicenseLib.dll" />
+    <Content Include="SimEngineControllerFiles\ServiceModelEx.dll" />
+    <Content Include="SimEngineControllerFiles\SimEngineController.exe" />
+    <Content Include="SimEngineControllerFiles\SimEngineInterfaceHelpers.dll" />
+    <Content Include="SimEngineControllerFiles\SimEngineLibrary.dll" />
+    <Content Include="SimEngineControllerFiles\SimioAPI.dll" />
+    <Content Include="SimEngineControllerFiles\SimioAPI.Extensions.dll" />
+    <Content Include="SimEngineControllerFiles\SimioAPI.Graphics.dll" />
+    <Content Include="SimEngineControllerFiles\SimioDLL.dll" />
+    <Content Include="SimEngineControllerFiles\SimioEnums.dll" />
+    <Content Include="SimEngineControllerFiles\SimioReplicationRunnerContracts.dll" />
+    <Content Include="SimEngineControllerFiles\SimioTypes.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\WixSharp.bin.1.16.2\build\WixSharp.bin.targets" Condition="Exists('..\packages\WixSharp.bin.1.16.2\build\WixSharp.bin.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\WixSharp.bin.1.16.2\build\WixSharp.bin.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WixSharp.bin.1.16.2\build\WixSharp.bin.targets'))" />
+  </Target>
+</Project>

@@ -3,13 +3,16 @@
   <Profiles />
   <Settings>
     <Setting Name="RequestsPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">c:\test\controllerTest\Requests</Value>
+      <Value Profile="(Default)">&lt;ApplicationData&gt;\SimioEngineController\Requests</Value>
     </Setting>
     <Setting Name="ExtensionsPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">c:\test\controllerTest\Extensions</Value>
+      <Value Profile="(Default)">&lt;ApplicationData&gt;SimioEngineController\DLLs</Value>
     </Setting>
     <Setting Name="ProjectsPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">c:\test\controllerTest\Projects</Value>
+      <Value Profile="(Default)">&lt;ApplicationData&gt;\SimioEngineController\Projects</Value>
+    </Setting>
+    <Setting Name="Logs" Type="System.String" Scope="User">
+      <Value Profile="(Default)">&lt;ApplicationData&gt;\SimioEngineController\Logs</Value>
     </Setting>
   </Settings>
 </SettingsFile>

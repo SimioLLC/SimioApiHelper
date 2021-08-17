@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace SimEngineInterfaceHelpers
 {
     /// <summary>
@@ -15,10 +16,10 @@ namespace SimEngineInterfaceHelpers
         /// A sortable key, where time is the time the request is created
         /// down to a millisecond.
         /// </summary>
-        public string ID { get { return RequestTime.ToString("yyyy-MMM-dd HH:mm:ss.fff"); } }
+        public Guid ID { get { return new Guid(); } }
 
         /// <summary>
-        /// When the request was made
+        /// When the request was made. 
         /// </summary>
         public DateTimeOffset RequestTime { get; set; }
 
@@ -32,7 +33,7 @@ namespace SimEngineInterfaceHelpers
         public string ProjectFilename { get; set; }
 
         /// <summary>
-        /// Arguments that accompany the action.
+        /// Case-insentive arguments that help define the Action.
         /// </summary>
         public List<RequestArgument> ActionArguments { get; set; }
 
@@ -47,7 +48,7 @@ namespace SimEngineInterfaceHelpers
         public string RunNotes { get; set; }
 
         /// <summary>
-        /// Results of the run, added by the SimEngine Runner.
+        /// Results of the run, added by the SimEngine Controller/Runner.
         /// </summary>
         public string RunResults { get; set; }
 
@@ -57,7 +58,7 @@ namespace SimEngineInterfaceHelpers
         public string RequestPath { get; set; }
 
         /// <summary>
-        /// If the run fails, this includes reason
+        /// If the run fails, this string contains the reason(s)
         /// </summary>
         public string RunErrors { get; set; }
 
@@ -90,26 +91,4 @@ namespace SimEngineInterfaceHelpers
 
     }
 
-    /// <summary>
-    /// A keyvalue pair that holds a request argument.
-    /// </summary>
-    public class RequestArgument
-    {
-        public string Key { get; set; }
-        public string Value { get; set; }
-
-        public RequestArgument(string key, string value)
-        {
-            Key = key.Trim().ToLower();
-            Value = value.Trim();
-        }
-
-        /// <summary>
-        /// Argument-free method needed for deserialize
-        /// </summary>
-        public RequestArgument()
-        {
-
-        }
-    }
 }

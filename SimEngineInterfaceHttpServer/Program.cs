@@ -8,6 +8,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using SimEngineInterfaceHelpers;
 using SimEngineLibrary;
 using SimpleHttpServer;
 using SimpleHttpServer.Models;

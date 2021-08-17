@@ -81,8 +81,8 @@ namespace SimEngineFormsExperiment
             Cursor.Current = Cursors.WaitCursor;
             try
             {
-
-                ISimioProject project = SimEngineHelpers.LoadProject(extensionsPath, projectPath, out explanation);
+                List<string> warningList = new List<string>();
+                ISimioProject project = SimEngineHelpers.LoadProject(extensionsPath, projectPath, warningList, out explanation);
                 if (project == null)
                 {
                     explanation = $"Cannot load project={projectPath}. Reason={explanation}";
@@ -131,7 +131,9 @@ namespace SimEngineFormsExperiment
                 if (saveModelAfterRun)
                     saveProjectPath = simioProjectPath;
 
-                if (!SimEngineHelpers.RunModelExperiment(extensionsPath, simioProjectPath, saveProjectPath, modelName, experimentName, 
+                List<string> warningList = new List<string>();
+
+                if (!SimEngineHelpers.RunModelExperiment(extensionsPath, simioProjectPath, saveProjectPath, modelName, experimentName, warningList, 
                     out string explanation))
                 {
                     Alert(explanation);

@@ -41,12 +41,13 @@ namespace SimioApiHelper
         }
 
         /// <summary>
-        /// Round up the usual folders for Simio DLLs,
+        /// Round up the usual suspects as folders for Simio DLLs,
         /// and return them as a list of paths to those folders.
         /// </summary>
         /// <returns></returns>
-        public static List<string> GetSimioApiLocations()
+        public static List<string> GetSimioExtensionsLocations()
         {
+            string marker = "Begin.";
             try
             {
                 List<string> locations = new List<string>();
@@ -55,6 +56,7 @@ namespace SimioApiHelper
                 {
                     string myDocs = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                     string fullPath = Path.Combine(myDocs, "SimioUserExtensions");
+                    marker = $"UserExtensions={fullPath}";
 
                     if (Directory.Exists(fullPath))
                         locations.Add(fullPath);
@@ -64,10 +66,12 @@ namespace SimioApiHelper
                     locations.Add(fullPath);
                 }
 
+
                 // public extensions
                 {
                     string myDocs = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
                     string fullPath = Path.Combine(myDocs, "Simio", "Examples", "UserExtensions");
+                    marker = $"Public Extensions={fullPath}";
 
                     if (!Directory.Exists(fullPath))
                         throw new ApplicationException($"Cannot find Path={fullPath}. Check if Simio is installed.");
@@ -79,6 +83,8 @@ namespace SimioApiHelper
                 {
                     string simioProgramsx86 = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
                     string fullPath = Path.Combine(simioProgramsx86, "Simio");
+                    marker = $"(x86) Install={fullPath}";
+
                     locations.Add(fullPath);
                     // Simio UserExtensions underneath Program Files (x86)
                     fullPath = Path.Combine(fullPath, "UserExtensions");
@@ -89,6 +95,8 @@ namespace SimioApiHelper
                 {
                     string simioPrograms = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
                     string fullPath = Path.Combine(simioPrograms, "Simio");
+                    marker = $"ProgramFiles Install={fullPath}";
+
                     if ( Directory.Exists(fullPath) && !locations.Contains(fullPath))
                     {
                         locations.Add(fullPath);
@@ -97,7 +105,6 @@ namespace SimioApiHelper
                         locations.Add(fullPath);
                     }
                 }
-
 
                 return locations;
             }
@@ -208,7 +215,7 @@ namespace SimioApiHelper
 
             if ( stack.Count > MAX_DEPENDENCIES )
             {
-                LogIt($"Dependcies are too large (Count={stack.Count} Max={MAX_DEPENDENCIES}. Exiting...");
+                LogIt($"Dependencies are too large (Count={stack.Count} Max={MAX_DEPENDENCIES}. Exiting...");
                 return false;
             }
 
@@ -360,7 +367,7 @@ namespace SimioApiHelper
         public override string ToString()
         {
             if (Level > 100)
-                return $"Level too high={Level}";
+                return $"Level too deep={Level}";
 
 
             if (AssemblyPath != null)

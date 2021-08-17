@@ -22,15 +22,22 @@ namespace SimEngineLibrary
         /// </summary>
         /// <param name="extensionsPath"></param>
         /// <param name="sourceProjectPath"></param>
-        /// <param name="saveProjectPath"></param>
+        /// <param name="saveProjectPath">Full path to where to save project</param>
         /// <param name="experimentName"></param>
         /// <param name="modelName"></param>
         /// <param name="explanation"></param>
         /// <returns></returns>
         public static bool RunModelExperiment(string extensionsPath, string sourceProjectPath, string saveProjectPath,
             string modelName, string experimentName, 
+            List<string> warningList,
             out string explanation)
         {
+            if ( warningList == null )
+            {
+                explanation = $"WarningList cannot be null.";
+                return false;
+            }
+
             string contextInfo = $"ExtensionsPath={extensionsPath}, ProjectPath={sourceProjectPath}:";
             string marker = "Begin.";
             try
@@ -44,12 +51,13 @@ namespace SimEngineLibrary
                 SimioProjectFactory.SetExtensionsPath(extensionsPath);
 
                 marker = $"{contextInfo}. Loading Project...";
-                ISimioProject project = LoadProject(extensionsPath, sourceProjectPath, out explanation);
+                warningList.Clear();
+                ISimioProject project = LoadProject(extensionsPath, sourceProjectPath, warningList, out explanation);
                 if (project == null)
                     return false;
 
                 marker = $"{contextInfo}. Running Experiment...";
-                if ( RunModelExperiment(project, "", modelName, experimentName, out explanation))
+                if ( RunModelExperiment(project, saveProjectPath, modelName, experimentName, out explanation))
                     return true;
                 else 
                     return false;
@@ -214,11 +222,17 @@ namespace SimEngineLibrary
         /// </summary>
         /// <param name="project"></param>
         /// <param name="savePath"></param>
-        public static bool SaveProject(SimEngineContext context, string savePath, out string explanation)
+        public static bool SaveProject(SimEngineContext context, string savePath, List<string> warningList, out string explanation)
         {
             explanation = "";
             string marker = "Begin.";
-            string[] warnings;
+
+            if ( warningList == null )
+            {
+                explanation = $"WarningList cannot be null.";
+                return false;
+            }
+
 
             // If project not loaded, return error
             if (context == null || context.CurrentProject == null)
@@ -241,6 +255,8 @@ namespace SimEngineLibrary
                 // Open project file.
                 marker = $"Saving Project={context.CurrentProject.Name} to {savePath}.";
                 LogIt($"Info: {marker}");
+
+                string[] warnings;
                 if (!SimioProjectFactory.SaveProject(context.CurrentProject, savePath, out warnings))
                     LogIt($"SaveProject failed.");
 
@@ -248,6 +264,7 @@ namespace SimEngineLibrary
                 int ii = 1;
                 foreach (string warning in warnings)
                 {
+                    warningList.Add($"Warning[{++ii}]:OnSave: {warning}");
                     LogIt($"Warning: {ii++}{warning}");
                 }
 
@@ -261,43 +278,92 @@ namespace SimEngineLibrary
         }
 
         /// <summary>
-        /// Create and return SimEngineContext with the given extensions path and
-        /// a Simio Project at projectFullPath.
-        /// Returns null if there is errors are encountered, along with an explanation.
-        /// Note that the project can load with a warnings list, which is null if there are no errors.
-        /// Load the project file and return a SimioProject
+        /// Save the given project to the 'savePath'.
         /// </summary>
-        /// <param name="projectFullPath"></param>
-        public static SimEngineContext CreateContext(string extensionsPath, out string explanation)
+        /// <param name="project"></param>
+        /// <param name="saveFolderPath"></param>
+        /// <param name="warningList">warnings and errors from saving go here</param>
+        public static bool SaveProject(ISimioProject project, string saveFolderPath, List<string> warningList, out string explanation)
         {
             explanation = "";
-            
+            string marker = "Begin.";
+
+            if (warningList == null)
+            {
+                explanation = $"WarningList cannot be null.";
+                return false;
+            }
+
+
+            // If project not loaded, return error
+            if ( project == null)
+            {
+                explanation = $"Project is null.";
+                return false;
+            }
+
+            string folderPath = Path.GetDirectoryName(saveFolderPath);
+
+            if (Directory.Exists(folderPath) == false)
+            {
+                explanation = $"FolderPath={folderPath} not found.";
+                return false;
+            }
+
             try
             {
-                SimEngineContext context = new SimEngineContext(extensionsPath);
 
-                return context;
+                // Open project file.
+                marker = $"Saving Project={project.Name} to {saveFolderPath}.";
+                LogIt($"Info: {marker}");
+
+                bool canSave = SimioProjectFactory.SaveProject(project, saveFolderPath, out string[] warnings);
+
+                marker = $"Saved Project={saveFolderPath} with {warnings.Count()} warnings.";
+                int ii = 0;
+                foreach (string warning in warnings)
+                {
+                    ++ii;
+                    warningList.Add($"Warning[{ii}]:OnSave: {warning}");
+                    LogIt($"Warning: {ii}{warning}");
+                }
+
+                if ( !canSave )
+                {
+                    explanation = $"Save for Project={project.Name} failed.";
+                    return false;
+                }
+
+                return true;
             }
             catch (Exception ex)
             {
-                explanation = $"Cannot Create Context with ExtensionsPath={extensionsPath} Err={ex.Message}";
-                return null;
+                explanation = $"Cannot Save Simio Project={project.Name} to {saveFolderPath} Err={ex.Message}";
+                return false;
             }
         }
 
 
+
         /// <summary>
         /// Set the extensions path and then Load the project file and return a SimioProject.
+        /// Warnings are added to the warningList
         /// </summary>
         /// <param name="projectFullPath"></param>
-        public static ISimioProject LoadProject(string extensionsPath, string projectFullPath, out string explanation)
+        public static ISimioProject LoadProject(string extensionsPath, string projectFullPath, List<string> warningList, out string explanation)
         {
             explanation = "";
             string marker = "Begin.";
-            string[] warnings;
+
+            if ( warningList == null )
+            {
+                explanation = $"WarningList cannot be null.";
+                return null;
+            }
 
             try
             {
+
                 // If File Not Exist, Throw Exeption
                 if (File.Exists(projectFullPath) == false)
                 {
@@ -317,13 +383,17 @@ namespace SimEngineLibrary
 
                 // Open project file.
                 marker = $"Loading Project={projectFullPath}.";
+                string[] warnings;
+
                 LogIt($"Info: {marker}");
                 ISimioProject simioProject = SimioProjectFactory.LoadProject(projectFullPath, out warnings);
 
                 marker = $"Loaded Project={projectFullPath} with {warnings.Count()} warnings.";
                 int ii = 1;
+                warningList.Clear();
                 foreach (string warning in warnings)
                 {
+                    warningList.Add($"Warning[{ii++}]:OnLoad: {warning}");
                     LogIt($"Warning: {ii++}{warning}");
                 }
 
@@ -439,13 +509,19 @@ namespace SimEngineLibrary
         public static bool RunModelPlan(string extensionsPath, string projectFullPath, 
                 string modelName, 
                 bool runRiskAnalysis, bool saveModelAfterRun, bool publishPlanAfterRun, 
+                List<string> warningList,
                 out string explanation)
         {
             explanation = "";
             string marker = "Begin";
 
-            string[] warnings;
+            if ( warningList == null )
+            {
+                explanation = $"WarningList cannot be null.";
+                return false;
+            }
 
+            warningList.Clear();
             try
             {
                 // Set an extensions path to where we can locate User Extensions, etc.
@@ -465,7 +541,7 @@ namespace SimEngineLibrary
                     //Cursor.Current = Cursors.WaitCursor;
                     SimioProjectFactory.SetExtensionsPath(extensionsPath);
 
-                    project = LoadProject(extensionsPath, projectFullPath, out explanation);
+                    project = LoadProject(extensionsPath, projectFullPath, warningList, out explanation);
                     if (project == null)
                         return false;
                 }
@@ -513,7 +589,8 @@ namespace SimEngineLibrary
                 {
                     marker = "Save Project After Schedule Run (SimioProjectFactory.SaveProject)";
                     LogIt($"Info: {marker}");
-                    SimioProjectFactory.SaveProject(project, projectFullPath, out warnings);
+                    SaveProject(project, projectFullPath, warningList, out explanation);
+                    
                 }
                 if (publishPlanAfterRun)
                 {
@@ -664,12 +741,18 @@ namespace SimEngineLibrary
         /// <param name="runRiskAnalysis"></param>
         /// <param name="explanation"></param>
         /// <returns></returns>
-        public static bool RunProjectPlan(string extensionsPath, string projectFullPath, List<RequestArgument> argList, out string explanation)
+        public static bool RunProjectPlan(string extensionsPath, string projectFullPath, List<RequestArgument> argList, List<string> warningList, 
+            out string explanation)
         {
             explanation = "";
             string marker = "Begin";
 
-            string[] warnings;
+            if ( warningList == null)
+            {
+                explanation = $"WarningList cannot be null.";
+                return false;
+            }
+
 
             try
             {
@@ -706,7 +789,7 @@ namespace SimEngineLibrary
                     //Cursor.Current = Cursors.WaitCursor;
                     SimioProjectFactory.SetExtensionsPath(extensionsPath);
 
-                    project = LoadProject(extensionsPath, projectFullPath, out explanation);
+                    project = LoadProject(extensionsPath, projectFullPath, warningList,  out explanation);
                     if (project == null)
                         return false;
                 }
@@ -757,7 +840,13 @@ namespace SimEngineLibrary
                 {
                     marker = $"Saving Project to={saveAs}";
                     LogIt($"Info: {marker}");
-                    SimioProjectFactory.SaveProject(project, saveAs, out warnings);
+
+                    bool canSave = SaveProject(project, saveAs, warningList, out explanation);
+                    if ( !canSave )
+                    {
+                        explanation = $"Cannot Save Project";
+                        return false;
+                    }
                 }
 
                 if ( publishPlan.Value )
@@ -790,10 +879,17 @@ namespace SimEngineLibrary
         /// <param name="experimentName"></param>
         /// <param name="explanation"></param>
         /// <returns></returns>
-        public static bool RunProjectExperiment(string extensionsPath, string projectPath, List<RequestArgument> argList,  
+        public static bool RunProjectExperiment(string extensionsPath, string projectPath, List<RequestArgument> argList, 
+            List<string> warningList,
             out string explanation)
         {
             explanation = "";
+
+            if ( warningList == null )
+            {
+                explanation = $"WarningList cannot be null.";
+                return false;
+            }
 
             string marker = "Begin";
             try
@@ -826,16 +922,12 @@ namespace SimEngineLibrary
                 SimioProjectFactory.SetExtensionsPath(extensionsPath);
 
                 marker = $"Loading Project from={projectPath}";
-                string[] warnings;
 
-                var _simioProject = SimioProjectFactory.LoadProject(projectPath, out warnings);
-                if (warnings.Length > 0)
+                warningList.Clear();
+                var _simioProject = LoadProject(extensionsPath, projectPath, warningList, out explanation);
+                if (_simioProject == null)
                 {
-                    StringBuilder sbLog = new StringBuilder();
-                    foreach (var warning in warnings)
-                        sbLog.Append($" [{warning}]");
-
-                    explanation = $"Cannot load Project={projectPath} as there were {warnings.Length} warnings={sbLog}";
+                    explanation = $"Cannot load Project={projectPath} as there were {warningList.Count}";
                     return false;
                 }
 
@@ -843,7 +935,7 @@ namespace SimEngineLibrary
                 var model = _simioProject.Models[modelName];
                 if (model == null)
                 {
-                    explanation = "Model Not Found In Project";
+                    explanation = $"Model={modelName} Not Found In Project";
                     return false;
                 }
                 else
@@ -859,6 +951,7 @@ namespace SimEngineLibrary
 
                     if (!SimEngineHelpers.RunModelExperiment(extensionsPath, projectPath, savePath, 
                             modelName, experimentName, 
+                            warningList,
                             out explanation))
                     {
                         return false;
@@ -905,4 +998,5 @@ namespace SimEngineLibrary
         SaveProjectAfterRun = 2,
         PublicPlanAfterRun = 4
     }
+
 }

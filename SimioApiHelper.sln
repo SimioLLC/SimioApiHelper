@@ -19,11 +19,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimioApiHelper Setup", "Sim
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimEngineInterfaceHttp", "SimEngineInterfaceHttpServer\SimEngineInterfaceHttp.csproj", "{9F33AFC1-D619-45B4-ACDC-72BF048583D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimEngineController", "SimEngineController\SimEngineController.csproj", "{6BFCBE9C-04CE-45AA-BAD0-8A33FEA3B572}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimEngineInterfaceFileDrop", "SimEngineInterfaceFileDrop\SimEngineInterfaceFileDrop.csproj", "{9B8989A1-D42D-4482-A55D-F2048E17F169}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimEngineInterfaceHelpers", "SimEngineInterfaceHelpers\SimEngineInterfaceHelpers.csproj", "{A82B37BF-C3B3-4AD4-90FF-70F441597513}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimEngineControllerInstall", "SimEngineControllerInstall\SimEngineControllerInstall.csproj", "{FDE7844B-BD10-44FA-9409-030DC0ADBCC2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimEngineInterfaceMqtt", "SimEngineInterfaceMqtt\SimEngineInterfaceMqtt.csproj", "{72BB8720-77DC-4691-9741-798A8FD96131}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,10 +65,6 @@ Global
 		{9F33AFC1-D619-45B4-ACDC-72BF048583D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F33AFC1-D619-45B4-ACDC-72BF048583D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F33AFC1-D619-45B4-ACDC-72BF048583D1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6BFCBE9C-04CE-45AA-BAD0-8A33FEA3B572}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6BFCBE9C-04CE-45AA-BAD0-8A33FEA3B572}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6BFCBE9C-04CE-45AA-BAD0-8A33FEA3B572}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6BFCBE9C-04CE-45AA-BAD0-8A33FEA3B572}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9B8989A1-D42D-4482-A55D-F2048E17F169}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9B8989A1-D42D-4482-A55D-F2048E17F169}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B8989A1-D42D-4482-A55D-F2048E17F169}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -75,6 +73,14 @@ Global
 		{A82B37BF-C3B3-4AD4-90FF-70F441597513}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A82B37BF-C3B3-4AD4-90FF-70F441597513}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A82B37BF-C3B3-4AD4-90FF-70F441597513}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDE7844B-BD10-44FA-9409-030DC0ADBCC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDE7844B-BD10-44FA-9409-030DC0ADBCC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDE7844B-BD10-44FA-9409-030DC0ADBCC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDE7844B-BD10-44FA-9409-030DC0ADBCC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72BB8720-77DC-4691-9741-798A8FD96131}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72BB8720-77DC-4691-9741-798A8FD96131}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72BB8720-77DC-4691-9741-798A8FD96131}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72BB8720-77DC-4691-9741-798A8FD96131}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -12,7 +12,7 @@ namespace SimEngineController.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.6.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.8.1.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -25,7 +25,7 @@ namespace SimEngineController.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("c:\\test\\controllerTest\\Requests")]
+        [global::System.Configuration.DefaultSettingValueAttribute("<ApplicationData>\\SimioEngineController\\Requests")]
         public string RequestsPath {
             get {
                 return ((string)(this["RequestsPath"]));
@@ -37,7 +37,7 @@ namespace SimEngineController.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("c:\\test\\controllerTest\\Extensions")]
+        [global::System.Configuration.DefaultSettingValueAttribute("<ApplicationData>SimioEngineController\\DLLs")]
         public string ExtensionsPath {
             get {
                 return ((string)(this["ExtensionsPath"]));
@@ -49,13 +49,25 @@ namespace SimEngineController.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("c:\\test\\controllerTest\\Projects")]
+        [global::System.Configuration.DefaultSettingValueAttribute("<ApplicationData>\\SimioEngineController\\Projects")]
         public string ProjectsPath {
             get {
                 return ((string)(this["ProjectsPath"]));
             }
             set {
                 this["ProjectsPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("<ApplicationData>\\SimioEngineController\\Logs")]
+        public string Logs {
+            get {
+                return ((string)(this["Logs"]));
+            }
+            set {
+                this["Logs"] = value;
             }
         }
     }
