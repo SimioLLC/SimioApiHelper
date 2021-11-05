@@ -974,7 +974,9 @@ namespace SimEngineLibrary
         public static void LogIt(string message)
         {
             if (message.ToLower().StartsWith("info:"))
+            {
                 Loggerton.Instance.LogIt(EnumLogFlags.Information, message);
+            }
             else
             {
                 Loggerton.Instance.LogIt(EnumLogFlags.Error, message);

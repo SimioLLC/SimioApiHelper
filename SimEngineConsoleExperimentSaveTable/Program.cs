@@ -53,7 +53,7 @@ namespace RunSimioScheduleConsole
 
                 string projectFolder = Path.GetDirectoryName(projectPathAndFile);
 
-                Logit($"Project Name={projectPathAndFile} Model={modelName} Experiment={experimentName} SaveAfterRun={saveModelAfterRun}");
+                Logit($"Info: Project Name={projectPathAndFile} Model={modelName} Experiment={experimentName} SaveAfterRun={saveModelAfterRun}");
 
                 // Test if experiment can be done.
                 string simpleTestProjectFullpath = Path.Combine(projectFolder, "LicenseExperimentTest.spfx");
@@ -66,16 +66,19 @@ namespace RunSimioScheduleConsole
                         Logit($"Info: Loading License Project=[{simpleTestProjectFullpath}]");
                         ISimioProject simioProject = SimioProjectFactory.LoadProject(simpleTestProjectFullpath, out warnings);
 
-                        if (!SimEngineHelpers.RunModelExperiment(simioProject, "", "Model", "Experiment1",
+                        Logit($"Info: Loaded Project={simpleTestProjectFullpath}");
+
+                        if (!SimEngineHelpers.RunModelExperiment(simioProject, "", modelName, experimentName,
                             out string explanation))
                         {
-
+                            Logit($"Error: Cannot Run Model={modelName} Experiment={experimentName}");
                         }
+                        Logit($"Info: Run Ended for Project={simpleTestProjectFullpath}");
 
                     }
                     catch (Exception ex)
                     {
-                        throw new ApplicationException($"LicenseTest: Cannot Run Simple Experiment. Err={ex.Message}");
+                        Logit($"LicenseTest: Cannot Run Simple Experiment. Err={ex.Message}");
                     }
 
 
@@ -106,8 +109,7 @@ namespace RunSimioScheduleConsole
 
                     List<string> warningList = new List<string>();
 
-                    if (!SimEngineHelpers.RunModelExperiment(extensionsPath, projectPathAndFile, savePathAndFile, modelName,  experimentName, warningList,
-                            out string explanation))
+                    if (!SimEngineHelpers.RunModelExperiment( model, experimentName, out string explanation))
                     {
                         throw new ApplicationException(explanation);
                     }
