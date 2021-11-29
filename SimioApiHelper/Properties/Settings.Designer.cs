@@ -37,18 +37,6 @@ namespace SimioApiHelper.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("c:\\program files (x86)\\simio")]
-        public string SimioInstallationFolder {
-            get {
-                return ((string)(this["SimioInstallationFolder"]));
-            }
-            set {
-                this["SimioInstallationFolder"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string SimEngineRunModel {
             get {

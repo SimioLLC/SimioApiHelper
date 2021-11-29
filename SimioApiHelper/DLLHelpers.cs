@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Reflection;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -63,54 +62,72 @@ namespace SimioApiHelper
                     else
                         LogIt($"Info: Cannot find Path={fullPath} (there may not be any personal UserExtensions)");
 
-                    locations.Add(fullPath);
                 }
 
 
                 // public extensions
                 {
-                    string myDocs = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
-                    string fullPath = Path.Combine(myDocs, "Simio", "Examples", "UserExtensions");
-                    marker = $"Public Extensions={fullPath}";
+                    string simioDesktop = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+                    string installPath = Path.Combine(simioDesktop, "Simio LLC", "Simio");
 
-                    if (!Directory.Exists(fullPath))
-                        throw new ApplicationException($"Cannot find Path={fullPath}. Check if Simio is installed.");
 
-                    locations.Add(fullPath);
+                    marker = $"Public Desktop Extensions={installPath}";
+
+                    if (Directory.Exists(installPath) == false)
+                    {
+                        LogIt($"Cannot find Path={installPath}. Check if Simio is installed.");
+                    }
+                    else
+                    {
+                        string userExtensionsPath = Path.Combine(installPath, "UserExtensions");
+                        if (Directory.Exists(userExtensionsPath))
+                            locations.Add(userExtensionsPath);
+                        else
+                            LogIt($"Cannot find Path={userExtensionsPath}");
+                    }
                 }
 
-                // Simio installation (Program Files (x86))
+                // Simio installation (Program Files (x86)) - This options is deprecated as of version 14.229. See Program Files instead
                 {
                     string simioProgramsx86 = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
-                    string fullPath = Path.Combine(simioProgramsx86, "Simio");
-                    marker = $"(x86) Install={fullPath}";
+                    string installPath = Path.Combine(simioProgramsx86, "Simio" );
+                    marker = $"Public Desktop (x86) Install={installPath}";
 
-                    locations.Add(fullPath);
-                    // Simio UserExtensions underneath Program Files (x86)
-                    fullPath = Path.Combine(fullPath, "UserExtensions");
-                    locations.Add(fullPath);
+                    if ( Directory.Exists(installPath) == false)
+                    {
+                        LogIt($"Cannot find Path={installPath}. Check if Simio is installed.");
+                    }
+                    else
+                    {
+                        string userExtensionsPath = Path.Combine(installPath, "UserExtensions");
+                        if (Directory.Exists(userExtensionsPath))
+                            locations.Add(userExtensionsPath);
+                        else
+                            LogIt($"Cannot find Path={userExtensionsPath}");
+                    }
+
                 }
 
                 // Simio installation (Program Files)
-                {
-                    string simioPrograms = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
-                    string fullPath = Path.Combine(simioPrograms, "Simio");
-                    marker = $"ProgramFiles Install={fullPath}";
+                ////{
+                ////    string simioPrograms = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+                ////    string fullPath = Path.Combine(simioPrograms, "Simio LLC", "Simio");
+                ////    marker = $"ProgramFiles Install={fullPath}";
 
-                    if ( Directory.Exists(fullPath) && !locations.Contains(fullPath))
-                    {
-                        locations.Add(fullPath);
-                        // Simio UserExtensions underneath Program Files
-                        fullPath = Path.Combine(fullPath, "UserExtensions");
-                        locations.Add(fullPath);
-                    }
-                }
+                ////    if ( Directory.Exists(fullPath) && !locations.Contains(fullPath))
+                ////    {
+                ////        locations.Add(fullPath);
+                ////        // Simio UserExtensions underneath Program Files
+                ////        fullPath = SimEngineLibrary.SimEngineHelpers.BuildSimioDesktopExtensionsPath(fullPath, false);
+                ////        locations.Add(fullPath);
+                ////    }
+                ////}
 
                 return locations;
             }
             catch (Exception ex)
             {
-                throw new ApplicationException($"Err={ex}");
+                throw new ApplicationException($"Marker={marker} Err={ex.Message}");
             }
         }
 

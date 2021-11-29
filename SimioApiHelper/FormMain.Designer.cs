@@ -88,7 +88,7 @@
             this.cbSimEngineBuildUsersFiles = new System.Windows.Forms.CheckBox();
             this.label11 = new System.Windows.Forms.Label();
             this.textHarvestSourceFolder = new System.Windows.Forms.TextBox();
-            this.buttonSelectSimioInstallationFolder = new System.Windows.Forms.Button();
+            this.buttonSelectHarvestSourceFolder = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.tabSimEngineRun = new System.Windows.Forms.TabPage();
             this.panelSimEngineRun = new System.Windows.Forms.Panel();
@@ -193,7 +193,7 @@
             this.refreshToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1525, 38);
+            this.menuStrip1.Size = new System.Drawing.Size(1220, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -202,27 +202,27 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 34);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(116, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(73, 34);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.aboutToolStripMenuItem.Text = "&About...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // createIconToolStripMenuItem
             // 
             this.createIconToolStripMenuItem.Name = "createIconToolStripMenuItem";
-            this.createIconToolStripMenuItem.Size = new System.Drawing.Size(107, 24);
+            this.createIconToolStripMenuItem.Size = new System.Drawing.Size(88, 20);
             this.createIconToolStripMenuItem.Text = "Create Icon...";
             this.createIconToolStripMenuItem.Visible = false;
             this.createIconToolStripMenuItem.Click += new System.EventHandler(this.createIconToolStripMenuItem_Click);
@@ -230,7 +230,7 @@
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(72, 34);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
             this.refreshToolStripMenuItem.Text = "&Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
@@ -239,17 +239,17 @@
             this.StatusStripBottom.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.StatusStripBottom.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.LabelStatus});
-            this.StatusStripBottom.Location = new System.Drawing.Point(0, 759);
+            this.StatusStripBottom.Location = new System.Drawing.Point(0, 763);
             this.StatusStripBottom.Name = "StatusStripBottom";
             this.StatusStripBottom.Padding = new System.Windows.Forms.Padding(1, 0, 18, 0);
-            this.StatusStripBottom.Size = new System.Drawing.Size(1220, 26);
+            this.StatusStripBottom.Size = new System.Drawing.Size(1220, 22);
             this.StatusStripBottom.TabIndex = 1;
             this.StatusStripBottom.Text = "statusStrip1";
             // 
             // LabelStatus
             // 
             this.LabelStatus.Name = "LabelStatus";
-            this.LabelStatus.Size = new System.Drawing.Size(18, 20);
+            this.LabelStatus.Size = new System.Drawing.Size(16, 17);
             this.LabelStatus.Text = "...";
             // 
             // tabControl1
@@ -263,19 +263,19 @@
             this.tabControl1.Controls.Add(this.Settings);
             this.tabControl1.Controls.Add(this.tabUtilities);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 48);
+            this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1525, 901);
+            this.tabControl1.Size = new System.Drawing.Size(1220, 739);
             this.tabControl1.TabIndex = 2;
             // 
             // tabDllHelper
             // 
             this.tabDllHelper.Controls.Add(this.panelDll);
-            this.tabDllHelper.Location = new System.Drawing.Point(4, 29);
+            this.tabDllHelper.Location = new System.Drawing.Point(4, 26);
             this.tabDllHelper.Name = "tabDllHelper";
             this.tabDllHelper.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDllHelper.Size = new System.Drawing.Size(1212, 698);
+            this.tabDllHelper.Size = new System.Drawing.Size(1212, 709);
             this.tabDllHelper.TabIndex = 0;
             this.tabDllHelper.Text = "DLL Helper";
             this.tabDllHelper.UseVisualStyleBackColor = true;
@@ -300,7 +300,7 @@
             this.panelDll.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDll.Location = new System.Drawing.Point(3, 3);
             this.panelDll.Name = "panelDll";
-            this.panelDll.Size = new System.Drawing.Size(1206, 692);
+            this.panelDll.Size = new System.Drawing.Size(1206, 703);
             this.panelDll.TabIndex = 13;
             // 
             // buttonAddDependentsToHarvest
@@ -319,7 +319,7 @@
             // 
             this.textDllHelperExcludeFilter.Location = new System.Drawing.Point(465, 135);
             this.textDllHelperExcludeFilter.Name = "textDllHelperExcludeFilter";
-            this.textDllHelperExcludeFilter.Size = new System.Drawing.Size(535, 27);
+            this.textDllHelperExcludeFilter.Size = new System.Drawing.Size(535, 23);
             this.textDllHelperExcludeFilter.TabIndex = 14;
             this.textDllHelperExcludeFilter.Text = "^DevExpress|^System";
             this.toolTip1.SetToolTip(this.textDllHelperExcludeFilter, "Use this case-insensitive pipe-delimite regex filter on file names to exclude DLL" +
@@ -330,7 +330,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(278, 138);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(169, 20);
+            this.label8.Size = new System.Drawing.Size(141, 17);
             this.label8.TabIndex = 13;
             this.label8.Text = "Exclude Filter (regex)";
             // 
@@ -339,7 +339,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(21, 31);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(828, 20);
+            this.label2.Size = new System.Drawing.Size(690, 17);
             this.label2.TabIndex = 7;
             this.label2.Text = "Select a Simio Location, which will fetch the DLL files there. Then select a DLL " +
     "file to get information about it.";
@@ -351,7 +351,7 @@
             this.checkSimioOnly.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkSimioOnly.Location = new System.Drawing.Point(27, 433);
             this.checkSimioOnly.Name = "checkSimioOnly";
-            this.checkSimioOnly.Size = new System.Drawing.Size(112, 24);
+            this.checkSimioOnly.Size = new System.Drawing.Size(94, 21);
             this.checkSimioOnly.TabIndex = 12;
             this.checkSimioOnly.Text = "Simio Only";
             this.toolTip1.SetToolTip(this.checkSimioOnly, "Only show Simio types");
@@ -362,7 +362,7 @@
             this.labelSelectSimioLocation.AutoSize = true;
             this.labelSelectSimioLocation.Location = new System.Drawing.Point(21, 85);
             this.labelSelectSimioLocation.Name = "labelSelectSimioLocation";
-            this.labelSelectSimioLocation.Size = new System.Drawing.Size(172, 20);
+            this.labelSelectSimioLocation.Size = new System.Drawing.Size(143, 17);
             this.labelSelectSimioLocation.TabIndex = 0;
             this.labelSelectSimioLocation.Text = "Select Simio Location";
             // 
@@ -386,7 +386,7 @@
             this.comboDllFile.FormattingEnabled = true;
             this.comboDllFile.Location = new System.Drawing.Point(282, 170);
             this.comboDllFile.Name = "comboDllFile";
-            this.comboDllFile.Size = new System.Drawing.Size(907, 28);
+            this.comboDllFile.Size = new System.Drawing.Size(907, 25);
             this.comboDllFile.TabIndex = 2;
             this.comboDllFile.SelectedIndexChanged += new System.EventHandler(this.comboDllFile_SelectedIndexChanged);
             // 
@@ -405,7 +405,7 @@
             this.labelDLLFiles.AutoSize = true;
             this.labelDLLFiles.Location = new System.Drawing.Point(21, 173);
             this.labelDLLFiles.Name = "labelDLLFiles";
-            this.labelDLLFiles.Size = new System.Drawing.Size(126, 20);
+            this.labelDLLFiles.Size = new System.Drawing.Size(103, 17);
             this.labelDLLFiles.TabIndex = 3;
             this.labelDLLFiles.Text = "Select DLL File";
             // 
@@ -413,7 +413,7 @@
             // 
             this.textExceptions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textExceptions.Location = new System.Drawing.Point(282, 594);
+            this.textExceptions.Location = new System.Drawing.Point(282, 605);
             this.textExceptions.Multiline = true;
             this.textExceptions.Name = "textExceptions";
             this.textExceptions.ReadOnly = true;
@@ -429,7 +429,7 @@
             this.comboSimioLocation.FormattingEnabled = true;
             this.comboSimioLocation.Location = new System.Drawing.Point(282, 85);
             this.comboSimioLocation.Name = "comboSimioLocation";
-            this.comboSimioLocation.Size = new System.Drawing.Size(907, 28);
+            this.comboSimioLocation.Size = new System.Drawing.Size(907, 25);
             this.comboSimioLocation.TabIndex = 4;
             this.toolTip1.SetToolTip(this.comboSimioLocation, "Use the dropdown list to select one of the standard simio locations for DLLs");
             this.comboSimioLocation.SelectedIndexChanged += new System.EventHandler(this.comboSimioLocation_SelectedIndexChanged);
@@ -440,7 +440,7 @@
             this.labelExceptions.AutoSize = true;
             this.labelExceptions.Location = new System.Drawing.Point(24, 590);
             this.labelExceptions.Name = "labelExceptions";
-            this.labelExceptions.Size = new System.Drawing.Size(215, 20);
+            this.labelExceptions.Size = new System.Drawing.Size(183, 17);
             this.labelExceptions.TabIndex = 8;
             this.labelExceptions.Text = "Exceptions (hopefully none)";
             // 
@@ -462,16 +462,16 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(21, 221);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(114, 20);
+            this.label1.Size = new System.Drawing.Size(95, 17);
             this.label1.TabIndex = 6;
             this.label1.Text = "Assembly Info";
             // 
             // tabNetVersions
             // 
             this.tabNetVersions.Controls.Add(this.panel1);
-            this.tabNetVersions.Location = new System.Drawing.Point(4, 29);
+            this.tabNetVersions.Location = new System.Drawing.Point(4, 26);
             this.tabNetVersions.Name = "tabNetVersions";
-            this.tabNetVersions.Size = new System.Drawing.Size(1212, 698);
+            this.tabNetVersions.Size = new System.Drawing.Size(1212, 709);
             this.tabNetVersions.TabIndex = 3;
             this.tabNetVersions.Text = ".NET Versions";
             this.tabNetVersions.UseVisualStyleBackColor = true;
@@ -489,7 +489,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1212, 698);
+            this.panel1.Size = new System.Drawing.Size(1212, 709);
             this.panel1.TabIndex = 20;
             // 
             // labelHwCpuSpeed
@@ -499,7 +499,7 @@
             this.labelHwCpuSpeed.Location = new System.Drawing.Point(416, 111);
             this.labelHwCpuSpeed.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelHwCpuSpeed.Name = "labelHwCpuSpeed";
-            this.labelHwCpuSpeed.Size = new System.Drawing.Size(106, 20);
+            this.labelHwCpuSpeed.Size = new System.Drawing.Size(89, 17);
             this.labelHwCpuSpeed.TabIndex = 24;
             this.labelHwCpuSpeed.Text = "CPU Speed: ";
             // 
@@ -510,7 +510,7 @@
             this.labelHwCpuMaker.Location = new System.Drawing.Point(416, 81);
             this.labelHwCpuMaker.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelHwCpuMaker.Name = "labelHwCpuMaker";
-            this.labelHwCpuMaker.Size = new System.Drawing.Size(105, 20);
+            this.labelHwCpuMaker.Size = new System.Drawing.Size(87, 17);
             this.labelHwCpuMaker.TabIndex = 23;
             this.labelHwCpuMaker.Text = "CPU Maker: ";
             // 
@@ -521,7 +521,7 @@
             this.labelHwPhysicalMemory.Location = new System.Drawing.Point(416, 51);
             this.labelHwPhysicalMemory.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelHwPhysicalMemory.Name = "labelHwPhysicalMemory";
-            this.labelHwPhysicalMemory.Size = new System.Drawing.Size(147, 20);
+            this.labelHwPhysicalMemory.Size = new System.Drawing.Size(122, 17);
             this.labelHwPhysicalMemory.TabIndex = 22;
             this.labelHwPhysicalMemory.Text = "Physical Memory: ";
             // 
@@ -532,7 +532,7 @@
             this.labelHwComputerName.Location = new System.Drawing.Point(416, 21);
             this.labelHwComputerName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelHwComputerName.Name = "labelHwComputerName";
-            this.labelHwComputerName.Size = new System.Drawing.Size(141, 20);
+            this.labelHwComputerName.Size = new System.Drawing.Size(118, 17);
             this.labelHwComputerName.TabIndex = 21;
             this.labelHwComputerName.Text = "Computer Name: ";
             // 
@@ -564,7 +564,7 @@
             this.labelInstalledDotNet.Location = new System.Drawing.Point(23, 253);
             this.labelInstalledDotNet.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelInstalledDotNet.Name = "labelInstalledDotNet";
-            this.labelInstalledDotNet.Size = new System.Drawing.Size(182, 20);
+            this.labelInstalledDotNet.Size = new System.Drawing.Size(153, 17);
             this.labelInstalledDotNet.TabIndex = 18;
             this.labelInstalledDotNet.Text = "Installed .Net Versions:";
             // 
@@ -575,16 +575,16 @@
             this.labelCurrentDotNet.Location = new System.Drawing.Point(23, 169);
             this.labelCurrentDotNet.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelCurrentDotNet.Name = "labelCurrentDotNet";
-            this.labelCurrentDotNet.Size = new System.Drawing.Size(174, 20);
+            this.labelCurrentDotNet.Size = new System.Drawing.Size(147, 17);
             this.labelCurrentDotNet.TabIndex = 17;
             this.labelCurrentDotNet.Text = "Current .NET Version:";
             // 
             // tabFindUserExtensions
             // 
             this.tabFindUserExtensions.Controls.Add(this.panelFindSteps);
-            this.tabFindUserExtensions.Location = new System.Drawing.Point(4, 29);
+            this.tabFindUserExtensions.Location = new System.Drawing.Point(4, 26);
             this.tabFindUserExtensions.Name = "tabFindUserExtensions";
-            this.tabFindUserExtensions.Size = new System.Drawing.Size(1212, 698);
+            this.tabFindUserExtensions.Size = new System.Drawing.Size(1212, 709);
             this.tabFindUserExtensions.TabIndex = 2;
             this.tabFindUserExtensions.Text = "Find UserExtensions";
             this.tabFindUserExtensions.UseVisualStyleBackColor = true;
@@ -599,7 +599,7 @@
             this.panelFindSteps.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFindSteps.Location = new System.Drawing.Point(0, 0);
             this.panelFindSteps.Name = "panelFindSteps";
-            this.panelFindSteps.Size = new System.Drawing.Size(1212, 698);
+            this.panelFindSteps.Size = new System.Drawing.Size(1212, 709);
             this.panelFindSteps.TabIndex = 11;
             // 
             // textStepsAndAddIns
@@ -629,7 +629,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(15, 17);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(811, 20);
+            this.label3.Size = new System.Drawing.Size(677, 17);
             this.label3.TabIndex = 10;
             this.label3.Text = "Select a Simio Location and press to button to list the DLL files (and each file\'" +
     "s contained Simio Interfaces)";
@@ -639,7 +639,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(15, 71);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(172, 20);
+            this.label4.Size = new System.Drawing.Size(143, 17);
             this.label4.TabIndex = 8;
             this.label4.Text = "Select Simio Location";
             // 
@@ -650,16 +650,16 @@
             this.comboFindSimioExtensionLocations.FormattingEnabled = true;
             this.comboFindSimioExtensionLocations.Location = new System.Drawing.Point(230, 68);
             this.comboFindSimioExtensionLocations.Name = "comboFindSimioExtensionLocations";
-            this.comboFindSimioExtensionLocations.Size = new System.Drawing.Size(952, 28);
+            this.comboFindSimioExtensionLocations.Size = new System.Drawing.Size(952, 25);
             this.comboFindSimioExtensionLocations.TabIndex = 9;
             this.comboFindSimioExtensionLocations.SelectedIndexChanged += new System.EventHandler(this.comboFindSimioExtensionLocations_SelectedIndexChanged);
             // 
             // tabSimEngineHarvester
             // 
             this.tabSimEngineHarvester.Controls.Add(this.panel2);
-            this.tabSimEngineHarvester.Location = new System.Drawing.Point(4, 29);
+            this.tabSimEngineHarvester.Location = new System.Drawing.Point(4, 26);
             this.tabSimEngineHarvester.Name = "tabSimEngineHarvester";
-            this.tabSimEngineHarvester.Size = new System.Drawing.Size(1517, 868);
+            this.tabSimEngineHarvester.Size = new System.Drawing.Size(1212, 709);
             this.tabSimEngineHarvester.TabIndex = 6;
             this.tabSimEngineHarvester.Text = "SimEngine Harvester";
             this.tabSimEngineHarvester.UseVisualStyleBackColor = true;
@@ -673,7 +673,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1517, 868);
+            this.panel2.Size = new System.Drawing.Size(1212, 709);
             this.panel2.TabIndex = 29;
             // 
             // groupSimEngineBuild
@@ -687,7 +687,7 @@
             this.groupSimEngineBuild.Controls.Add(this.buttonBuildSimEngineSystem);
             this.groupSimEngineBuild.Location = new System.Drawing.Point(12, 339);
             this.groupSimEngineBuild.Name = "groupSimEngineBuild";
-            this.groupSimEngineBuild.Size = new System.Drawing.Size(1491, 509);
+            this.groupSimEngineBuild.Size = new System.Drawing.Size(1186, 350);
             this.groupSimEngineBuild.TabIndex = 38;
             this.groupSimEngineBuild.TabStop = false;
             this.groupSimEngineBuild.Text = "Select from the candidate Harvest source files";
@@ -695,7 +695,7 @@
             // buttonSimEngineBuildAddExe
             // 
             this.buttonSimEngineBuildAddExe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSimEngineBuildAddExe.Location = new System.Drawing.Point(1303, 110);
+            this.buttonSimEngineBuildAddExe.Location = new System.Drawing.Point(998, 110);
             this.buttonSimEngineBuildAddExe.Name = "buttonSimEngineBuildAddExe";
             this.buttonSimEngineBuildAddExe.Size = new System.Drawing.Size(182, 40);
             this.buttonSimEngineBuildAddExe.TabIndex = 35;
@@ -712,7 +712,7 @@
             this.checklistSelectedFiles.FormattingEnabled = true;
             this.checklistSelectedFiles.Location = new System.Drawing.Point(12, 64);
             this.checklistSelectedFiles.Name = "checklistSelectedFiles";
-            this.checklistSelectedFiles.Size = new System.Drawing.Size(1285, 400);
+            this.checklistSelectedFiles.Size = new System.Drawing.Size(980, 238);
             this.checklistSelectedFiles.TabIndex = 34;
             // 
             // label12
@@ -720,14 +720,14 @@
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(13, 32);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(555, 20);
+            this.label12.Size = new System.Drawing.Size(465, 17);
             this.label12.TabIndex = 33;
             this.label12.Text = "Candidate Simio \'Harvest\' files. Checked files will be harvested to Target.";
             // 
             // buttonBuildSimEngineSystem
             // 
             this.buttonBuildSimEngineSystem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonBuildSimEngineSystem.Location = new System.Drawing.Point(1303, 64);
+            this.buttonBuildSimEngineSystem.Location = new System.Drawing.Point(998, 64);
             this.buttonBuildSimEngineSystem.Name = "buttonBuildSimEngineSystem";
             this.buttonBuildSimEngineSystem.Size = new System.Drawing.Size(182, 40);
             this.buttonBuildSimEngineSystem.TabIndex = 32;
@@ -745,7 +745,7 @@
             this.groupBox2.Controls.Add(this.buttonSelectSimEngineFolder);
             this.groupBox2.Location = new System.Drawing.Point(12, 193);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1497, 128);
+            this.groupBox2.Size = new System.Drawing.Size(1192, 128);
             this.groupBox2.TabIndex = 37;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Harvest Target Location";
@@ -755,7 +755,7 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(7, 23);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(366, 20);
+            this.label10.Size = new System.Drawing.Size(309, 17);
             this.label10.TabIndex = 26;
             this.label10.Text = "Location of the SimEngine Executables (Target)";
             // 
@@ -766,14 +766,14 @@
             this.textHarvestTargetFolder.Location = new System.Drawing.Point(11, 46);
             this.textHarvestTargetFolder.Name = "textHarvestTargetFolder";
             this.textHarvestTargetFolder.ReadOnly = true;
-            this.textHarvestTargetFolder.Size = new System.Drawing.Size(1480, 27);
+            this.textHarvestTargetFolder.Size = new System.Drawing.Size(1175, 23);
             this.textHarvestTargetFolder.TabIndex = 28;
             this.toolTip1.SetToolTip(this.textHarvestTargetFolder, "The folder where all the DLLs will be placed");
             // 
             // buttonSelectSimEngineFolder
             // 
             this.buttonSelectSimEngineFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSelectSimEngineFolder.Location = new System.Drawing.Point(1309, 79);
+            this.buttonSelectSimEngineFolder.Location = new System.Drawing.Point(1004, 79);
             this.buttonSelectSimEngineFolder.Name = "buttonSelectSimEngineFolder";
             this.buttonSelectSimEngineFolder.Size = new System.Drawing.Size(182, 40);
             this.buttonSelectSimEngineFolder.TabIndex = 27;
@@ -789,10 +789,10 @@
             this.groupFileSource.Controls.Add(this.cbSimEngineBuildUsersFiles);
             this.groupFileSource.Controls.Add(this.label11);
             this.groupFileSource.Controls.Add(this.textHarvestSourceFolder);
-            this.groupFileSource.Controls.Add(this.buttonSelectSimioInstallationFolder);
+            this.groupFileSource.Controls.Add(this.buttonSelectHarvestSourceFolder);
             this.groupFileSource.Location = new System.Drawing.Point(12, 52);
             this.groupFileSource.Name = "groupFileSource";
-            this.groupFileSource.Size = new System.Drawing.Size(1497, 135);
+            this.groupFileSource.Size = new System.Drawing.Size(1192, 135);
             this.groupFileSource.TabIndex = 36;
             this.groupFileSource.TabStop = false;
             this.groupFileSource.Text = "Harvest Source Location";
@@ -802,7 +802,7 @@
             this.cbSimEngineBuildUsersFiles.AutoSize = true;
             this.cbSimEngineBuildUsersFiles.Location = new System.Drawing.Point(545, 89);
             this.cbSimEngineBuildUsersFiles.Name = "cbSimEngineBuildUsersFiles";
-            this.cbSimEngineBuildUsersFiles.Size = new System.Drawing.Size(257, 24);
+            this.cbSimEngineBuildUsersFiles.Size = new System.Drawing.Size(215, 21);
             this.cbSimEngineBuildUsersFiles.TabIndex = 32;
             this.cbSimEngineBuildUsersFiles.Text = "Include User\'s UserExtentions";
             this.toolTip1.SetToolTip(this.cbSimEngineBuildUsersFiles, "Include all UserExtensions DLLs from this user\'s MyDocuments folder");
@@ -813,10 +813,12 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(6, 23);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(358, 20);
+            this.label11.Size = new System.Drawing.Size(615, 17);
             this.label11.TabIndex = 29;
-            this.label11.Text = "Location of the Simio Installation files (Source)";
-            this.toolTip1.SetToolTip(this.label11, "Where are the files from the Simio Desktop installation?");
+            this.label11.Text = "Simio Desktop Installation folder (here and in subfolders is where Engine DLL fil" +
+    "es can be found)";
+            this.toolTip1.SetToolTip(this.label11, "Folders (and subfolders) holding UserExtension files (from the Simio Desktop inst" +
+        "allation)");
             // 
             // textHarvestSourceFolder
             // 
@@ -825,27 +827,27 @@
             this.textHarvestSourceFolder.Location = new System.Drawing.Point(10, 46);
             this.textHarvestSourceFolder.Name = "textHarvestSourceFolder";
             this.textHarvestSourceFolder.ReadOnly = true;
-            this.textHarvestSourceFolder.Size = new System.Drawing.Size(1481, 27);
+            this.textHarvestSourceFolder.Size = new System.Drawing.Size(1176, 23);
             this.textHarvestSourceFolder.TabIndex = 31;
             // 
-            // buttonSelectSimioInstallationFolder
+            // buttonSelectHarvestSourceFolder
             // 
-            this.buttonSelectSimioInstallationFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSelectSimioInstallationFolder.Location = new System.Drawing.Point(1309, 79);
-            this.buttonSelectSimioInstallationFolder.Name = "buttonSelectSimioInstallationFolder";
-            this.buttonSelectSimioInstallationFolder.Size = new System.Drawing.Size(182, 40);
-            this.buttonSelectSimioInstallationFolder.TabIndex = 30;
-            this.buttonSelectSimioInstallationFolder.Text = "Select Folder...";
-            this.toolTip1.SetToolTip(this.buttonSelectSimioInstallationFolder, "Select where the Simio desktop software was installed");
-            this.buttonSelectSimioInstallationFolder.UseVisualStyleBackColor = true;
-            this.buttonSelectSimioInstallationFolder.Click += new System.EventHandler(this.buttonSelectSimioInstallationFolder_Click);
+            this.buttonSelectHarvestSourceFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSelectHarvestSourceFolder.Location = new System.Drawing.Point(1004, 79);
+            this.buttonSelectHarvestSourceFolder.Name = "buttonSelectHarvestSourceFolder";
+            this.buttonSelectHarvestSourceFolder.Size = new System.Drawing.Size(182, 40);
+            this.buttonSelectHarvestSourceFolder.TabIndex = 30;
+            this.buttonSelectHarvestSourceFolder.Text = "Select Folder...";
+            this.toolTip1.SetToolTip(this.buttonSelectHarvestSourceFolder, "Select where the Simio desktop software UserExtensions were installed");
+            this.buttonSelectHarvestSourceFolder.UseVisualStyleBackColor = true;
+            this.buttonSelectHarvestSourceFolder.Click += new System.EventHandler(this.buttonSelectHarvestSourceFolder_Click);
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(8, 14);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(923, 20);
+            this.label13.Size = new System.Drawing.Size(776, 17);
             this.label13.TabIndex = 35;
             this.label13.Text = "Help in building a Simulation Engine version by harvesting Simio DLLs from the in" +
     "stallation folder(s) into your target folder ";
@@ -854,9 +856,9 @@
             // tabSimEngineRun
             // 
             this.tabSimEngineRun.Controls.Add(this.panelSimEngineRun);
-            this.tabSimEngineRun.Location = new System.Drawing.Point(4, 29);
+            this.tabSimEngineRun.Location = new System.Drawing.Point(4, 26);
             this.tabSimEngineRun.Name = "tabSimEngineRun";
-            this.tabSimEngineRun.Size = new System.Drawing.Size(1212, 698);
+            this.tabSimEngineRun.Size = new System.Drawing.Size(1212, 709);
             this.tabSimEngineRun.TabIndex = 4;
             this.tabSimEngineRun.Text = "SimEngine Run";
             this.tabSimEngineRun.UseVisualStyleBackColor = true;
@@ -869,7 +871,7 @@
             this.panelSimEngineRun.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelSimEngineRun.Location = new System.Drawing.Point(0, 0);
             this.panelSimEngineRun.Name = "panelSimEngineRun";
-            this.panelSimEngineRun.Size = new System.Drawing.Size(1212, 698);
+            this.panelSimEngineRun.Size = new System.Drawing.Size(1212, 709);
             this.panelSimEngineRun.TabIndex = 9;
             // 
             // groupBoxSelectSetExtensionsLocation
@@ -903,7 +905,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(6, 30);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(654, 20);
+            this.label5.Size = new System.Drawing.Size(549, 17);
             this.label5.TabIndex = 8;
             this.label5.Text = "Location of the \"SetExtensions\" Folder holding the SimEngine Executable(s) and DL" +
     "Ls";
@@ -915,7 +917,7 @@
             this.textSimEngineRunFilesLocation.Location = new System.Drawing.Point(10, 53);
             this.textSimEngineRunFilesLocation.Name = "textSimEngineRunFilesLocation";
             this.textSimEngineRunFilesLocation.ReadOnly = true;
-            this.textSimEngineRunFilesLocation.Size = new System.Drawing.Size(856, 27);
+            this.textSimEngineRunFilesLocation.Size = new System.Drawing.Size(856, 23);
             this.textSimEngineRunFilesLocation.TabIndex = 25;
             this.toolTip1.SetToolTip(this.textSimEngineRunFilesLocation, "This is what the SetExtsnsionsPath should reference");
             // 
@@ -951,7 +953,7 @@
             this.textResultsPath.Location = new System.Drawing.Point(190, 192);
             this.textResultsPath.Name = "textResultsPath";
             this.textResultsPath.ReadOnly = true;
-            this.textResultsPath.Size = new System.Drawing.Size(753, 27);
+            this.textResultsPath.Size = new System.Drawing.Size(753, 23);
             this.textResultsPath.TabIndex = 37;
             this.toolTip1.SetToolTip(this.textResultsPath, "This is what the SetExtsnsionsPath should reference");
             // 
@@ -961,7 +963,7 @@
             this.labelSaveResults.Location = new System.Drawing.Point(2, 199);
             this.labelSaveResults.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelSaveResults.Name = "labelSaveResults";
-            this.labelSaveResults.Size = new System.Drawing.Size(117, 20);
+            this.labelSaveResults.Size = new System.Drawing.Size(99, 17);
             this.labelSaveResults.TabIndex = 36;
             this.labelSaveResults.Text = "Save Results?";
             // 
@@ -995,7 +997,7 @@
             this.label9.Location = new System.Drawing.Point(21, 23);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(590, 20);
+            this.label9.Size = new System.Drawing.Size(497, 17);
             this.label9.TabIndex = 26;
             this.label9.Text = "... Specify a Simio Project Name (.SPFX) and use the built-in SimEngine code.";
             // 
@@ -1006,7 +1008,7 @@
             this.textSimEngineRunProjectFile.Location = new System.Drawing.Point(6, 52);
             this.textSimEngineRunProjectFile.Name = "textSimEngineRunProjectFile";
             this.textSimEngineRunProjectFile.ReadOnly = true;
-            this.textSimEngineRunProjectFile.Size = new System.Drawing.Size(855, 27);
+            this.textSimEngineRunProjectFile.Size = new System.Drawing.Size(855, 23);
             this.textSimEngineRunProjectFile.TabIndex = 13;
             // 
             // buttonSimEngineRunRiskAnalysis
@@ -1065,7 +1067,7 @@
             this.comboSimEngineRunExperiments.FormattingEnabled = true;
             this.comboSimEngineRunExperiments.Location = new System.Drawing.Point(190, 144);
             this.comboSimEngineRunExperiments.Name = "comboSimEngineRunExperiments";
-            this.comboSimEngineRunExperiments.Size = new System.Drawing.Size(446, 28);
+            this.comboSimEngineRunExperiments.Size = new System.Drawing.Size(446, 25);
             this.comboSimEngineRunExperiments.TabIndex = 32;
             this.comboSimEngineRunExperiments.SelectedIndexChanged += new System.EventHandler(this.comboSimEngineRunExperiments_SelectedIndexChanged);
             // 
@@ -1075,7 +1077,7 @@
             this.label7.Location = new System.Drawing.Point(2, 101);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(111, 20);
+            this.label7.Size = new System.Drawing.Size(93, 17);
             this.label7.TabIndex = 21;
             this.label7.Text = "Select Model:";
             // 
@@ -1086,7 +1088,7 @@
             this.comboSimEngineRunModels.FormattingEnabled = true;
             this.comboSimEngineRunModels.Location = new System.Drawing.Point(190, 101);
             this.comboSimEngineRunModels.Name = "comboSimEngineRunModels";
-            this.comboSimEngineRunModels.Size = new System.Drawing.Size(446, 28);
+            this.comboSimEngineRunModels.Size = new System.Drawing.Size(446, 25);
             this.comboSimEngineRunModels.TabIndex = 31;
             this.comboSimEngineRunModels.SelectedIndexChanged += new System.EventHandler(this.comboSimEngineRunModels_SelectedIndexChanged);
             this.comboSimEngineRunModels.SelectedValueChanged += new System.EventHandler(this.comboSimEngineRunModels_SelectedValueChanged);
@@ -1097,7 +1099,7 @@
             this.label6.Location = new System.Drawing.Point(2, 147);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(150, 20);
+            this.label6.Size = new System.Drawing.Size(125, 17);
             this.label6.TabIndex = 22;
             this.label6.Text = "Select Experiment:";
             // 
@@ -1110,7 +1112,7 @@
             this.groupBoxSelectAndRun.Controls.Add(this.buttonSimEngineRunExecutable);
             this.groupBoxSelectAndRun.Location = new System.Drawing.Point(12, 124);
             this.groupBoxSelectAndRun.Name = "groupBoxSelectAndRun";
-            this.groupBoxSelectAndRun.Size = new System.Drawing.Size(1183, 128);
+            this.groupBoxSelectAndRun.Size = new System.Drawing.Size(1195, 128);
             this.groupBoxSelectAndRun.TabIndex = 35;
             this.groupBoxSelectAndRun.TabStop = false;
             this.groupBoxSelectAndRun.Text = "And then Either (A) Select an Executable within this folder to run";
@@ -1122,7 +1124,7 @@
             this.comboSimEngineRunExecutableToRun.FormattingEnabled = true;
             this.comboSimEngineRunExecutableToRun.Location = new System.Drawing.Point(11, 51);
             this.comboSimEngineRunExecutableToRun.Name = "comboSimEngineRunExecutableToRun";
-            this.comboSimEngineRunExecutableToRun.Size = new System.Drawing.Size(837, 28);
+            this.comboSimEngineRunExecutableToRun.Size = new System.Drawing.Size(849, 25);
             this.comboSimEngineRunExecutableToRun.TabIndex = 27;
             this.comboSimEngineRunExecutableToRun.SelectedIndexChanged += new System.EventHandler(this.comboSimEngineRunExecutableToRun_SelectedIndexChanged);
             // 
@@ -1131,14 +1133,14 @@
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(7, 28);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(382, 20);
+            this.label14.Size = new System.Drawing.Size(323, 17);
             this.label14.TabIndex = 28;
             this.label14.Text = "Select the Executable within this folder to run, or...";
             // 
             // buttonSimEngineRunExecutable
             // 
             this.buttonSimEngineRunExecutable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSimEngineRunExecutable.Location = new System.Drawing.Point(936, 51);
+            this.buttonSimEngineRunExecutable.Location = new System.Drawing.Point(949, 51);
             this.buttonSimEngineRunExecutable.Name = "buttonSimEngineRunExecutable";
             this.buttonSimEngineRunExecutable.Size = new System.Drawing.Size(240, 40);
             this.buttonSimEngineRunExecutable.TabIndex = 30;
@@ -1150,10 +1152,10 @@
             // tabLogs
             // 
             this.tabLogs.Controls.Add(this.textLogs);
-            this.tabLogs.Location = new System.Drawing.Point(4, 29);
+            this.tabLogs.Location = new System.Drawing.Point(4, 26);
             this.tabLogs.Name = "tabLogs";
             this.tabLogs.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLogs.Size = new System.Drawing.Size(1212, 698);
+            this.tabLogs.Size = new System.Drawing.Size(1212, 709);
             this.tabLogs.TabIndex = 1;
             this.tabLogs.Text = "Logs";
             this.tabLogs.UseVisualStyleBackColor = true;
@@ -1166,7 +1168,7 @@
             this.textLogs.Name = "textLogs";
             this.textLogs.ReadOnly = true;
             this.textLogs.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textLogs.Size = new System.Drawing.Size(1206, 692);
+            this.textLogs.Size = new System.Drawing.Size(1206, 703);
             this.textLogs.TabIndex = 0;
             this.textLogs.Text = "(no logs yet...)";
             // 
@@ -1174,10 +1176,10 @@
             // 
             this.Settings.Controls.Add(this.propertyGrid1);
             this.Settings.Controls.Add(this.panel3);
-            this.Settings.Location = new System.Drawing.Point(4, 29);
+            this.Settings.Location = new System.Drawing.Point(4, 26);
             this.Settings.Name = "Settings";
             this.Settings.Padding = new System.Windows.Forms.Padding(3);
-            this.Settings.Size = new System.Drawing.Size(1212, 698);
+            this.Settings.Size = new System.Drawing.Size(1212, 709);
             this.Settings.TabIndex = 5;
             this.Settings.Text = "Settings";
             this.Settings.UseVisualStyleBackColor = true;
@@ -1187,7 +1189,7 @@
             this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertyGrid1.Location = new System.Drawing.Point(3, 81);
             this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(1206, 614);
+            this.propertyGrid1.Size = new System.Drawing.Size(1206, 625);
             this.propertyGrid1.TabIndex = 0;
             // 
             // panel3
@@ -1213,10 +1215,10 @@
             // 
             this.tabUtilities.Controls.Add(this.tabControl2);
             this.tabUtilities.Controls.Add(this.panelUtilitiesTop);
-            this.tabUtilities.Location = new System.Drawing.Point(4, 29);
+            this.tabUtilities.Location = new System.Drawing.Point(4, 26);
             this.tabUtilities.Name = "tabUtilities";
             this.tabUtilities.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUtilities.Size = new System.Drawing.Size(1212, 698);
+            this.tabUtilities.Size = new System.Drawing.Size(1212, 709);
             this.tabUtilities.TabIndex = 7;
             this.tabUtilities.Text = "Utilities";
             this.tabUtilities.UseVisualStyleBackColor = true;
@@ -1234,10 +1236,10 @@
             // tabUtilityFileWatcher
             // 
             this.tabUtilityFileWatcher.Controls.Add(this.groupBox1);
-            this.tabUtilityFileWatcher.Location = new System.Drawing.Point(4, 29);
+            this.tabUtilityFileWatcher.Location = new System.Drawing.Point(4, 26);
             this.tabUtilityFileWatcher.Name = "tabUtilityFileWatcher";
             this.tabUtilityFileWatcher.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUtilityFileWatcher.Size = new System.Drawing.Size(1195, 530);
+            this.tabUtilityFileWatcher.Size = new System.Drawing.Size(1195, 533);
             this.tabUtilityFileWatcher.TabIndex = 0;
             this.tabUtilityFileWatcher.Text = "File Watcher";
             this.tabUtilityFileWatcher.UseVisualStyleBackColor = true;
@@ -1264,7 +1266,7 @@
             this.groupBox1.Controls.Add(this.buttonFileWatcherStart);
             this.groupBox1.Location = new System.Drawing.Point(6, 16);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1173, 515);
+            this.groupBox1.Size = new System.Drawing.Size(1173, 530);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "File Watcher Utility";
@@ -1286,7 +1288,7 @@
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(218, 212);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(203, 20);
+            this.label15.Size = new System.Drawing.Size(169, 17);
             this.label15.TabIndex = 13;
             this.label15.Text = "FileWatcher Log (History)";
             // 
@@ -1295,7 +1297,7 @@
             this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(26, 36);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(794, 20);
+            this.label18.Size = new System.Drawing.Size(670, 17);
             this.label18.TabIndex = 12;
             this.label18.Text = "Select a folder and file filter and \"Start Watching\" to see all the file changes " +
     "in that folder and sub-folders ";
@@ -1316,7 +1318,7 @@
             this.cbFwPauseLogging.AutoSize = true;
             this.cbFwPauseLogging.Location = new System.Drawing.Point(26, 194);
             this.cbFwPauseLogging.Name = "cbFwPauseLogging";
-            this.cbFwPauseLogging.Size = new System.Drawing.Size(142, 24);
+            this.cbFwPauseLogging.Size = new System.Drawing.Size(122, 21);
             this.cbFwPauseLogging.TabIndex = 10;
             this.cbFwPauseLogging.Text = "Pause Logging";
             this.cbFwPauseLogging.UseVisualStyleBackColor = true;
@@ -1328,7 +1330,7 @@
             this.cbFwNotifyLastWrite.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbFwNotifyLastWrite.Location = new System.Drawing.Point(427, 155);
             this.cbFwNotifyLastWrite.Name = "cbFwNotifyLastWrite";
-            this.cbFwNotifyLastWrite.Size = new System.Drawing.Size(147, 24);
+            this.cbFwNotifyLastWrite.Size = new System.Drawing.Size(123, 21);
             this.cbFwNotifyLastWrite.TabIndex = 9;
             this.cbFwNotifyLastWrite.Text = "NotifyLastWrite";
             this.cbFwNotifyLastWrite.UseVisualStyleBackColor = true;
@@ -1340,7 +1342,7 @@
             this.cbFwNotifyLastAccess.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbFwNotifyLastAccess.Location = new System.Drawing.Point(234, 155);
             this.cbFwNotifyLastAccess.Name = "cbFwNotifyLastAccess";
-            this.cbFwNotifyLastAccess.Size = new System.Drawing.Size(163, 24);
+            this.cbFwNotifyLastAccess.Size = new System.Drawing.Size(135, 21);
             this.cbFwNotifyLastAccess.TabIndex = 8;
             this.cbFwNotifyLastAccess.Text = "NotifyLastAccess";
             this.cbFwNotifyLastAccess.UseVisualStyleBackColor = true;
@@ -1350,7 +1352,7 @@
             this.label17.AutoSize = true;
             this.label17.Location = new System.Drawing.Point(22, 152);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(125, 20);
+            this.label17.Size = new System.Drawing.Size(106, 17);
             this.label17.TabIndex = 7;
             this.label17.Text = "What To Watch";
             // 
@@ -1360,7 +1362,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textFilewatcherFilter.Location = new System.Drawing.Point(222, 115);
             this.textFilewatcherFilter.Name = "textFilewatcherFilter";
-            this.textFilewatcherFilter.Size = new System.Drawing.Size(780, 27);
+            this.textFilewatcherFilter.Size = new System.Drawing.Size(780, 23);
             this.textFilewatcherFilter.TabIndex = 6;
             this.textFilewatcherFilter.Text = "*.*";
             // 
@@ -1369,7 +1371,7 @@
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(22, 115);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(47, 20);
+            this.label16.Size = new System.Drawing.Size(39, 17);
             this.label16.TabIndex = 5;
             this.label16.Text = "Filter";
             // 
@@ -1382,7 +1384,7 @@
             this.textFileWatcherLog.Multiline = true;
             this.textFileWatcherLog.Name = "textFileWatcherLog";
             this.textFileWatcherLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textFileWatcherLog.Size = new System.Drawing.Size(945, 271);
+            this.textFileWatcherLog.Size = new System.Drawing.Size(945, 286);
             this.textFileWatcherLog.TabIndex = 4;
             this.textFileWatcherLog.WordWrap = false;
             this.textFileWatcherLog.TextChanged += new System.EventHandler(this.textFileWatcherLog_TextChanged);
@@ -1393,7 +1395,7 @@
             this.labelPath.AutoSize = true;
             this.labelPath.Location = new System.Drawing.Point(22, 82);
             this.labelPath.Name = "labelPath";
-            this.labelPath.Size = new System.Drawing.Size(43, 20);
+            this.labelPath.Size = new System.Drawing.Size(37, 17);
             this.labelPath.TabIndex = 3;
             this.labelPath.Text = "Path";
             // 
@@ -1403,7 +1405,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textFilewatcherPath.Location = new System.Drawing.Point(222, 75);
             this.textFilewatcherPath.Name = "textFilewatcherPath";
-            this.textFilewatcherPath.Size = new System.Drawing.Size(780, 27);
+            this.textFilewatcherPath.Size = new System.Drawing.Size(780, 23);
             this.textFilewatcherPath.TabIndex = 2;
             // 
             // buttonFileWatcherStop
@@ -1430,10 +1432,10 @@
             // tabUtilityFileChanged
             // 
             this.tabUtilityFileChanged.Controls.Add(this.panelUtilityFilesChanged);
-            this.tabUtilityFileChanged.Location = new System.Drawing.Point(4, 29);
+            this.tabUtilityFileChanged.Location = new System.Drawing.Point(4, 26);
             this.tabUtilityFileChanged.Name = "tabUtilityFileChanged";
             this.tabUtilityFileChanged.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUtilityFileChanged.Size = new System.Drawing.Size(1195, 530);
+            this.tabUtilityFileChanged.Size = new System.Drawing.Size(1195, 533);
             this.tabUtilityFileChanged.TabIndex = 1;
             this.tabUtilityFileChanged.Text = "Files Changed";
             this.tabUtilityFileChanged.UseVisualStyleBackColor = true;
@@ -1451,7 +1453,7 @@
             this.panelUtilityFilesChanged.Controls.Add(this.label19);
             this.panelUtilityFilesChanged.Location = new System.Drawing.Point(3, 3);
             this.panelUtilityFilesChanged.Name = "panelUtilityFilesChanged";
-            this.panelUtilityFilesChanged.Size = new System.Drawing.Size(1134, 488);
+            this.panelUtilityFilesChanged.Size = new System.Drawing.Size(1134, 503);
             this.panelUtilityFilesChanged.TabIndex = 14;
             // 
             // buttonUtilitiesResetChangedFiles
@@ -1470,7 +1472,7 @@
             this.labelUtilitiesResetFilesChangedList.AutoSize = true;
             this.labelUtilitiesResetFilesChangedList.Location = new System.Drawing.Point(176, 108);
             this.labelUtilitiesResetFilesChangedList.Name = "labelUtilitiesResetFilesChangedList";
-            this.labelUtilitiesResetFilesChangedList.Size = new System.Drawing.Size(315, 20);
+            this.labelUtilitiesResetFilesChangedList.Size = new System.Drawing.Size(262, 17);
             this.labelUtilitiesResetFilesChangedList.TabIndex = 18;
             this.labelUtilitiesResetFilesChangedList.Text = "Double-click to Reset Files Changed List";
             // 
@@ -1481,7 +1483,7 @@
             this.cbUtilitiesShowChangedFiles.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbUtilitiesShowChangedFiles.Location = new System.Drawing.Point(331, 50);
             this.cbUtilitiesShowChangedFiles.Name = "cbUtilitiesShowChangedFiles";
-            this.cbUtilitiesShowChangedFiles.Size = new System.Drawing.Size(223, 24);
+            this.cbUtilitiesShowChangedFiles.Size = new System.Drawing.Size(188, 21);
             this.cbUtilitiesShowChangedFiles.TabIndex = 17;
             this.cbUtilitiesShowChangedFiles.Text = "Only Show Changed Files";
             this.cbUtilitiesShowChangedFiles.UseVisualStyleBackColor = true;
@@ -1492,10 +1494,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listUtilitiesAlteredFiles.FormattingEnabled = true;
-            this.listUtilitiesAlteredFiles.ItemHeight = 20;
+            this.listUtilitiesAlteredFiles.ItemHeight = 17;
             this.listUtilitiesAlteredFiles.Location = new System.Drawing.Point(180, 131);
             this.listUtilitiesAlteredFiles.Name = "listUtilitiesAlteredFiles";
-            this.listUtilitiesAlteredFiles.Size = new System.Drawing.Size(992, 324);
+            this.listUtilitiesAlteredFiles.Size = new System.Drawing.Size(992, 327);
             this.listUtilitiesAlteredFiles.TabIndex = 15;
             this.listUtilitiesAlteredFiles.SelectedIndexChanged += new System.EventHandler(this.listUtilitiesAlteredFiles_SelectedIndexChanged);
             this.listUtilitiesAlteredFiles.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listUtilitiesAlteredFiles_MouseDoubleClick);
@@ -1505,7 +1507,7 @@
             this.cbUtilityPauseChangedFileUpdating.AutoSize = true;
             this.cbUtilityPauseChangedFileUpdating.Location = new System.Drawing.Point(20, 50);
             this.cbUtilityPauseChangedFileUpdating.Name = "cbUtilityPauseChangedFileUpdating";
-            this.cbUtilityPauseChangedFileUpdating.Size = new System.Drawing.Size(261, 24);
+            this.cbUtilityPauseChangedFileUpdating.Size = new System.Drawing.Size(222, 21);
             this.cbUtilityPauseChangedFileUpdating.TabIndex = 14;
             this.cbUtilityPauseChangedFileUpdating.Text = "Pause Changed Files Updating";
             this.cbUtilityPauseChangedFileUpdating.UseVisualStyleBackColor = true;
@@ -1515,7 +1517,7 @@
             this.label19.AutoSize = true;
             this.label19.Location = new System.Drawing.Point(16, 17);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(976, 20);
+            this.label19.Size = new System.Drawing.Size(818, 17);
             this.label19.TabIndex = 13;
             this.label19.Text = "This works in concert with the FileWatcher tab. Check \"Monitor Changes\" and all f" +
     "iles written will be checked for changed content.";
@@ -1545,7 +1547,7 @@
             // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1220, 785);
             this.Controls.Add(this.tabControl1);
@@ -1674,7 +1676,7 @@
         private System.Windows.Forms.Button buttonBuildSimEngineSystem;
         private System.Windows.Forms.TextBox textHarvestSourceFolder;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Button buttonSelectSimioInstallationFolder;
+        private System.Windows.Forms.Button buttonSelectHarvestSourceFolder;
         private System.Windows.Forms.CheckedListBox checklistSelectedFiles;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;

@@ -259,3 +259,5 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/Models/C130Inventory20211105c.backup
+/Models/C130Inventory20211105c.spfx

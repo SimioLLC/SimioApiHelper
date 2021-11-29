@@ -1034,8 +1034,8 @@ namespace SimioApiHelper
         {
             try
             {
+                textHarvestSourceFolder.Text = SimEngineHelpers.FindNormalSimioInstallPath();
                 textHarvestTargetFolder.Text = SimioApiHelper.Properties.Settings.Default.SimEngineSystemFolder;
-                textHarvestSourceFolder.Text = SimioApiHelper.Properties.Settings.Default.SimioInstallationFolder;
 
                 buttonBuildSimEngineSystem.Enabled = false;
 
@@ -1102,6 +1102,8 @@ namespace SimioApiHelper
 
         }
 
+        
+
         /// <summary>
         /// Rebuild the checklist for files to be included in the target folder.
         /// This includes 
@@ -1136,11 +1138,13 @@ namespace SimioApiHelper
                     includedFiles.Add(file);
                 }
 
-                string dllPath = Path.Combine(simioInstallPath, "UserExtensions");
-                marker = $"Getting files from UserExternsions folder={dllPath}";
+                string dllPath = SimEngineHelpers.BuildSimioDesktopExtensionsPath(simioInstallPath, true);
+                marker = $"Getting files from UserExtensions folders under={dllPath}";
+
                 string[] folders = Directory.GetDirectories(dllPath);
                 foreach ( string folder in folders)
                 {
+                    marker = $"Getting files from UserExtensions folder={folder}";
                     foreach ( string dllFile in Directory.GetFiles(folder, "*.dll", SearchOption.TopDirectoryOnly))
                     {
                         includedFiles.Add(dllFile);
@@ -1319,7 +1323,7 @@ namespace SimioApiHelper
 
         /// <summary>
         /// Select and load a Simio Project.
-        /// Done showing a 'wait' cursor, as the load can take a while.
+        /// Shows a 'wait' cursor, as the load can take a while.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -1436,18 +1440,22 @@ namespace SimioApiHelper
 
         /// <summary>
         /// Choose a folder for the source of DLLs (e.g. ProgramFiles) and gather up
-        /// all the files (except those in the exclude list). This includes the
-        /// DLLs in the UserExtension folders. Optionally also gather up the
-        /// DLLs in the user's SimioUserExtensions folder that lives under MyDocuments.
+        /// all the files (except those in the exclude list). 
+        /// This includes DLLs in the UserExtension folders,
+        /// which previously (Jul2021) under the Simio Installation folder (e.g. c:\program files (x86)\simio\userExtensions
+        /// but is now underc:\program files\simio llc\simio\UserExtensions
+        /// Optionally also gather DLLs in the user's SimioUserExtensions folder that lives under MyDocuments.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonSelectSimioInstallationFolder_Click(object sender, EventArgs e)
+        private void buttonSelectHarvestSourceFolder_Click(object sender, EventArgs e)
         {
             try
             {
                 FolderBrowserDialog dialog = new FolderBrowserDialog();
-                dialog.SelectedPath = Properties.Settings.Default.SimioInstallationFolder;
+
+                string installPath = SimEngineHelpers.FindNormalSimioInstallPath();
+                dialog.SelectedPath = installPath;
                 dialog.ShowNewFolderButton = false;
 
                 DialogResult result = dialog.ShowDialog();
@@ -1461,8 +1469,6 @@ namespace SimioApiHelper
                 }
 
                 textHarvestSourceFolder.Text = dialog.SelectedPath;
-                Properties.Settings.Default.SimioInstallationFolder = dialog.SelectedPath;
-                Properties.Settings.Default.Save();
 
                 // Actions upon selection
                 RefreshTabSimEngineBuilder( cbSimEngineBuildUsersFiles.Checked );
