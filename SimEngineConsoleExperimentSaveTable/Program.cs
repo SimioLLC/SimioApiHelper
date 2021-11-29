@@ -2,14 +2,22 @@
 using System.IO;
 using SimioAPI;
 using System.Threading.Tasks;
-using SimEngineLibrary;
 using System.Collections.Generic;
 
-namespace RunSimioScheduleConsole
+namespace SimEngineConsoleExperimentSaveTable
 {
+    /// <summary>
+    /// This project demonstrates how the Experiment API can be interacted with to 
+    /// create a tab-delimited CSV file of the results.
+    /// Look particularly at the end-of-scenario events to see how the response results are treated.
+    /// It also does a Save project at the end, assuming the user has the license to do so.
+    /// 
+    /// </summary>
     class Program
     {
         static ISimioProject _simioProject;
+        static string marker = "Begin.";
+
         static void Main(string[] args)
         {
             // Open project
@@ -17,13 +25,19 @@ namespace RunSimioScheduleConsole
             try
             {
                 string extensionsPath = System.AppDomain.CurrentDomain.BaseDirectory;
-                Logit($"Info: Starting. Default ExtensionsPath={extensionsPath}.");
+                string programFolder = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+
+                extensionsPath = Path.Combine(programFolder, "Simio LLC", "Simio", "UserExtensions");
+                Logit($"Starting. Default ExtensionsPath={extensionsPath}.");
                 SimioProjectFactory.SetExtensionsPath(extensionsPath);
                 Logit($"Info: ExtensionsPath Set successfully.");
 
                 Logit("Read Command Line Settings");
                 if (args.Length == 0)
-                    throw new Exception("Project Path And File Must Be Specified In First Command Argument");
+                {
+                    Logit("Project Path And File Must Be Specified In First Command Argument");
+                    throw new Exception(marker);
+                }
 
                 // set parameters
                 string projectPathAndFile = args[0];
@@ -31,8 +45,11 @@ namespace RunSimioScheduleConsole
                 string modelName = "Model";
                 string experimentName = "";
 
-                if ( !File.Exists(projectPathAndFile))
-                    throw new ApplicationException($"Cannot find SimioProject file at={projectPathAndFile}");
+                if (!File.Exists(projectPathAndFile))
+                {
+                    Logit($"Cannot find SimioProject file at={projectPathAndFile}");
+                    throw new ApplicationException(marker);
+                }
 
                 if (args.Length >= 2)
                 {
@@ -49,40 +66,15 @@ namespace RunSimioScheduleConsole
 
                 // If File Not Exist, Throw Exeption
                 if (File.Exists(projectPathAndFile) == false)
-                    throw new Exception("Project Not Found : " + projectPathAndFile);
+                {
+                    Logit("Project Not Found : " + projectPathAndFile);
+                    throw new Exception("Looking for Simio Project");
+                }
 
                 string projectFolder = Path.GetDirectoryName(projectPathAndFile);
 
                 Logit($"Info: Project Name={projectPathAndFile} Model={modelName} Experiment={experimentName} SaveAfterRun={saveModelAfterRun}");
 
-                // Test if experiment can be done.
-                string simpleTestProjectFullpath = Path.Combine(projectFolder, "LicenseExperimentTest.spfx");
-                if ( File.Exists(simpleTestProjectFullpath))
-                {
-                    Logit($"Info: Testing license with Project=[{simpleTestProjectFullpath}]");
-
-                    try
-                    {
-                        Logit($"Info: Loading License Project=[{simpleTestProjectFullpath}]");
-                        ISimioProject simioProject = SimioProjectFactory.LoadProject(simpleTestProjectFullpath, out warnings);
-
-                        Logit($"Info: Loaded Project={simpleTestProjectFullpath}");
-
-                        if (!SimEngineHelpers.RunModelExperiment(simioProject, "", modelName, experimentName,
-                            out string explanation))
-                        {
-                            Logit($"Error: Cannot Run Model={modelName} Experiment={experimentName}");
-                        }
-                        Logit($"Info: Run Ended for Project={simpleTestProjectFullpath}");
-
-                    }
-                    catch (Exception ex)
-                    {
-                        Logit($"LicenseTest: Cannot Run Simple Experiment. Err={ex.Message}");
-                    }
-
-
-                }
 
                 // Open project file.
                 Logit($"Loading Project=[{projectPathAndFile}]");
@@ -101,7 +93,7 @@ namespace RunSimioScheduleConsole
                         throw new ApplicationException($"Model's Experiments collection is null.");
 
                     // Start Experiment
-                    Logit("Starting Experiment");
+                    Logit("Info: Starting Experiment");
 
                     string savePathAndFile = "";
                     if (saveModelAfterRun)
@@ -109,7 +101,8 @@ namespace RunSimioScheduleConsole
 
                     List<string> warningList = new List<string>();
 
-                    if (!SimEngineHelpers.RunModelExperiment( model, experimentName, out string explanation))
+                    string resultsPath = Path.Combine(projectFolder, "results.csv");
+                    if (!SimEngineHelpers.RunModelExperiment(model, experimentName, resultsPath, out string explanation))
                     {
                         throw new ApplicationException(explanation);
                     }
@@ -131,13 +124,14 @@ namespace RunSimioScheduleConsole
             }
             catch (Exception ex)
             {
-                Logit($"RunError={ex.Message}");
+                Logit($"RunError. Marker={marker} Err={ex.Message}");
             }
         }
 
         private static void Logit(string msg)
         {
-            string fullMsg = $"{DateTime.Now.ToString("HH:mm:ss.ff")}: {msg}";
+            marker = msg;
+            string fullMsg = $"{DateTime.Now:HH:mm:ss.ff}: {msg}";
             Console.WriteLine(fullMsg);
             System.Diagnostics.Trace.WriteLine(fullMsg);
         }
