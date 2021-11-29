@@ -16,6 +16,96 @@ namespace SimEngineLibrary
     public static class SimEngineHelpers
     {
 
+        public static string BuildSimioDesktopExtensionsPath(string simioInstallPath, bool testForExistence)
+        {
+            string marker = $"Begin. InstallPath={simioInstallPath}";
+            try
+            {
+                string userExtensionsPath = Path.Combine(simioInstallPath, "UserExtensions");
+
+                marker = $"UserExtenationsPath={userExtensionsPath}";
+
+                if ( testForExistence )
+                {
+                    marker = $"Test that Folder={userExtensionsPath} exists.";
+
+                    if (Directory.Exists(userExtensionsPath) == false)
+                        throw new ApplicationException($"Folder={userExtensionsPath} does not exist.");
+
+                }
+
+                return userExtensionsPath;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException($"Marker={marker} Err={ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Find the 'normal' installation path, which depends on whether this is a 32 or 64 bit targetted app.
+        /// If 32 or Any, the ProgramFiles location will both resolve to "program files (x86)" and Simio is under "Simio"
+        /// If 64, then it will resolve to program files, and Simio is under "Simio LLC > Simio"
+        /// </summary>
+        /// <param name="explanation"></param>
+        /// <returns></returns>
+        public static string FindNormalSimioInstallPath()
+        {
+            string marker = "Begin.";
+            try
+            {
+                string programFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+                string programFiles86 = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
+
+                string installPath = "";
+                if ( programFiles == programFiles86)
+                {
+                    installPath = Path.Combine(programFiles86, "simio");
+                }
+                else
+                {
+                    installPath = Path.Combine(programFiles, "simio llc", "simio");
+                }
+
+                if (Directory.Exists(installPath) == false)
+                    throw new ApplicationException($"Simio InstallPath={installPath} cannot be found.");
+
+                return installPath;
+    
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException($"Marker={marker} Err={ex.Message}");
+            }
+        }
+
+        public static string BuildSimioDesktopExtensionsPath(bool testForExistence)
+        {
+            string marker = $"Begin.";
+            try
+            {
+                string simioInstallPath = FindNormalSimioInstallPath();
+                marker = $"InstallPath={simioInstallPath}";
+
+                string userExtensionsPath = Path.Combine(simioInstallPath, "UserExtensions");
+
+                marker = $"UserExtenationsPath={userExtensionsPath}";
+
+                if (testForExistence)
+                {
+                    marker = $"Test that Folder={userExtensionsPath} exists.";
+
+                    if (Directory.Exists(userExtensionsPath) == false)
+                        throw new ApplicationException($"Folder={userExtensionsPath} does not exist.");
+                }
+
+                return userExtensionsPath;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException($"Marker={marker} Err={ex.Message}");
+            }
+        }
 
         /// <summary>
         /// Run an experiment. The experiment is Reset prior to run.
@@ -166,31 +256,36 @@ namespace SimEngineLibrary
                 // Here the 'e' is RunStartedEventArgs
                 experiment.RunStarted += (s, e) =>
                 {
-                    LogIt($"Info: Event=> Experiment={experiment.Name} Run Started. ");
+                    marker = $"Event=> Experiment={experiment.Name} Run Started.";
+                    LogIt($"Info: {marker}");
                 };
 
                 // Here the 'e' is ReplicationEndedEventArgs
                 experiment.ReplicationEnded += (s, e) =>
                 {
-                    LogIt($"Info: Event=> Ended Replication={e.ReplicationNumber} of Scenario={e.Scenario.Name}.");
+                    marker = $"Event=> Ended Replication={e.ReplicationNumber} of Scenario={e.Scenario.Name}.";
+                    LogIt($"Info: {marker}");
                 };
 
                 // Here the 'e' is ScenarioStartedEventArgs
                 experiment.ScenarioStarted += (s, e) =>
                 {
-                    LogIt($"Info: Event=> Scenario={e.Scenario.Name} Started.");
+                    marker = $"Event=> Scenario={e.Scenario.Name} Started";
+                    LogIt($"Info: {marker}.");
 
                 };
                 experiment.ScenarioEnded += (s, e) =>
                 {
-                    LogIt($"Info: Event=> Scenario={e.Scenario.Name} Ended.");
+                    marker = $"Event=> Scenario={e.Scenario.Name} Ended";
+                    LogIt($"Info: {marker}");
                 };
 
 
                 // Here the 'e' is RunCompletedEventArgs
                 experiment.RunCompleted += (s, e) =>
                 {
-                    LogIt($"Info: Event=> Experiment={experiment.Name} Run Complete. ");
+                    marker = $"Event=> Experiment={experiment.Name} Run Complete.";
+                    LogIt($"Info: {marker}");
                     foreach (ITable table in model.Tables)
                     {
                         table.ExportForInteractive();
@@ -200,7 +295,7 @@ namespace SimEngineLibrary
 
                 // Now do the run.
                 LogIt($"Info: Resetting Experiment={experiment.Name}");
-                experiment.Reset();
+                //experiment.Reset();
                 LogIt($"Info: Running Experiment={experiment.Name}");
                 experiment.Run();
                 //experiment.RunAsync(); // Another option
@@ -894,6 +989,7 @@ namespace SimEngineLibrary
             string marker = "Begin";
             try
             {
+                marker = $"Check ProjectPath={projectPath}";
                 if ( !File.Exists(projectPath ))
                 {
                     explanation = $"No such Project={projectPath}";
@@ -905,6 +1001,8 @@ namespace SimEngineLibrary
 
 
                 string saveFolder = GetArgumentAsString(argList, "saveFolder", projectFolder, out explanation);
+                marker = $"Check SaveFolder={saveFolder}";
+
                 if (saveFolder != null && !Directory.Exists(saveFolder))
                 {
                     explanation = $"SaveFolder={saveFolder} does not exist.";
@@ -917,11 +1015,12 @@ namespace SimEngineLibrary
                 string modelName = GetArgumentAsString(argList, "model", "model", out explanation);
                 string experimentName = GetArgumentAsString(argList, "experiment", "experiment1", out explanation);
 
+                string runContextNote = $"SavePath={savePath}. Model={modelName} Experiment={experimentName}";
 
                 marker = $"Setting ExtensionsPath={extensionsPath}";
                 SimioProjectFactory.SetExtensionsPath(extensionsPath);
 
-                marker = $"Loading Project from={projectPath}";
+                marker = $"Loading Project from={projectPath}. Run Context={runContextNote}";
 
                 warningList.Clear();
                 var _simioProject = LoadProject(extensionsPath, projectPath, warningList, out explanation);
