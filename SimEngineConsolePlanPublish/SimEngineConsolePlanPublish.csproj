@@ -38,21 +38,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>SimioBin\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="SimioAPI, Version=11.204.20120.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Simio\SimioAPI.dll</HintPath>
+    <Reference Include="SimioAPI">
+      <HintPath>C:\Program Files\Simio LLC\Simio\SimioAPI.dll</HintPath>
     </Reference>
-    <Reference Include="SimioDLL, Version=11.204.20120.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Simio\SimioDLL.dll</HintPath>
+    <Reference Include="SimioDLL">
+      <HintPath>C:\Program Files\Simio LLC\Simio\SimioDLL.dll</HintPath>
     </Reference>
-    <Reference Include="SimioServerAPI, Version=11.204.20120.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Simio\SimioServerAPI.dll</HintPath>
-    </Reference>
-    <Reference Include="SimioServerConnector, Version=11.204.20120.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Simio\ServerConnector\SimioServerConnector.dll</HintPath>
+    <Reference Include="SimioServerAPI">
+      <HintPath>C:\Program Files\Simio LLC\Simio\SimioServerAPI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

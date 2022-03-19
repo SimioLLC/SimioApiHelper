@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ProductVersion="14.236.26607.0" FileVersion="234" WriteToMultipleFiles="True" Id="6f416138-3b55-4e95-a79c-5e01fee400dd" xmlns="http://www.simio.com/projects/v1">
+  <DocumentInfo LicenseInfo="15:1" UserName="" Organization="Simio Test" SerialNumber="" SaveDate="2022-03-19T12:58:24" Sig="WhP3HM76R2k8gbCJ3Kvs5/+JsJiDKgeVZEfkRxcBoWyi8FpvcAO17E6YgDxzqtsRA/VjtWYDUyqRotj1OycoPQ==" />
+  <Models>
+    <Model Definition="ModelEntity" Runnable="False">
+      <TargetSettings HighRiskThreshold="50" MediumRiskThreshold="80" HighRiskColor="ff0000" MediumRiskColor="ffff00" LowRiskColor="90ee90" />
+      <ModelViewInfo>
+        <FileRef Name="ViewInfos\ModelEntity_ModelViewInfo.xml" />
+      </ModelViewInfo>
+    </Model>
+    <Model Definition="Model">
+      <RunSetup AnimationInterval="1" ReplicationNumber="1" Latitude="40.539912" Longitude="-80.180157">
+        <StartDate>2012-01-02T00:00:00</StartDate>
+        <RunLength Units="Hours">1</RunLength>
+        <CompatibilitySettings ChangeNaNToZeroInExpressions="True" DontUnitConvertStateParameters="True" EnsureForeignNodesCastToNonNodeTypesAreAssociatedNodes="True" AlwaysAllowInfinityAsLinkSelectionWeightValue="True" AssumeInputNodeEntriesAreToAssociatedObjectIfNoDrawnOutboundLinks="False" IgnoreShortCircuitEvaluationInExpressions="True" IgnorePrimaryForeignKeyRelationshipsWhenEvaluatingTablePropertyRandomRowFunction="True" ThrowErrorIfIndexOutOfRangeWhenEvaluatingAnItemAtIndexFunction="False" DefaultListStateResultsClassificationDataItemString="$(StateValueLabel)Time" PreventMonitorTriggeringDuringStateInitialization="False" HarvestAvailableRowsViaUnionAcrossAllRowsReferencedFromOriginalTable="True" AlwaysAssociateDynamicSelectionRuleEvaluationsWithTheObjectsMakingTheSelections="False" SetCurrentJobStepWhenSettingRowOnSequenceDestinationTable="True" UseConsistentTableReferenceSearches="False" IgnoreTableReferencesWhenResolvingScheduleExceptions="True" IncludeContextObjectInTableReferenceSearches="False" AlwaysAllocateResourcesToFirstEligibleSeizeRequests="False" IgnoreTableReferencesWhenResolvingTableStatesIndexedByRow="True" AutomaticallyClearEntityDestinationNodeFirstBeforeExecutingRouteStep="True" NodeAssociatedStationHasSpaceForFunctionConsidersAllPossibleRedirectStations="False" AllowRouteRequestQueueBypassing="True" RunOnEvaluatingRouteRequestAsRegularProcess="True" RunResourceOnCapacityAllocatedProcessAfterSeizeStepOnSeizedProcess="False" RunResourceOnCapacityReleasedProcessAfterReleaseStepOnReleasedProcess="False" OnResourceCapacityIncreaseScheduleLateCurrentEventToTryAllocateCapacity="False" TokenIsSuspendedFunctionConsidersOnlySuspensionsAppliedExplicitlyToTheToken="True" RoutingGroupAsContextOnEvaluatingToken="False" ScheduleLateCurrentEventToTryBatchingWhenBatchQueueItemInserted="False" ExcludeUnrelatedRowsInTimerArrivalTables="False" ReportMaterialConsumptionCostAsUsageCostCharged="False" AllowMaterialAllocationQueueBypassing="True" ScheduleLateCurrentEventToTryAllocatingWhenMaterialProduced="False" EvaluateExpressionFunctionsInExpressionsUsingUnitTypesOfExpression="True" AlwaysDoFullChecksOfBatchLogicParentQueues="False" AlwaysUseSeizeSelectionGoalWhenCheckingResourceAllocationQueue="False" AutomaticallyAdjustTimerTargetTriggeringEventCountIfZeroToOne="True" AutoDestroyZeroVolumeEntitiesInContainersWithZeroRateInflow="False" AllowIndexingPastRelatedRowsForTableStateIndexing="True" SearchAssociatedObjectsOfCandidateObjectsForTableReferences="False" OnSeizedProcessCompatibilityMode="True" OnReleasedProcessCompatibilityMode="True" SearchCopiesTableReferencesWhenSearchedTableIsImplicitlyReferenced="False" AutoCancelMoveRequestIfResourceReleased="False" SearchStepUsesExplicitCopyOverTableRowReferences="False" AlwaysCheckSpecificRunSpaceContextWhenResolvingTableRowReferences="False" ExcludeEntitiesTransferringOutOfChildStationsFromResourceUtilization="False" MinimalAutomaticRouteRequestQueueChecking="False" AllChangeoverLogicExpressionEvaluationsAllowResourceReferences="False" SearchRelatedRowsOnlyOptionAlwaysLooksForBestForeignKeyRelationship="False" AllowTokenBasedTableRowReferencesInQueueRankingExpressions="False" ScheduleConstraintLogicRelatedQueueChecksAsLatestCurrentEvents="False" RecordStateVariableValueWheneverStateStatisticFunctionCalled="True" IncludeStaticAgentObjectInTableReferenceSearches="False" AllowCrossNodeComparisonsWhenUsingRoutingGroupDynamicSelectionRules="False" AlwaysUsePropertyParentTableReferences="False" />
+      </RunSetup>
+      <TargetSettings HighRiskThreshold="50" MediumRiskThreshold="80" HighRiskColor="ff0000" MediumRiskColor="ffff00" LowRiskColor="90ee90" />
+      <RunnableInstance>
+        <Properties>
+          <Property Name="InitialCost" Units="Default Currency">0.0</Property>
+          <Property Name="InitialCostRate" Units="Default Currency per Hour">0.0</Property>
+          <Property Name="ResourceIdleCostRate" Units="Default Currency per Hour">0.0</Property>
+          <Property Name="ResourceCostPerUse" Units="Default Currency">0.0</Property>
+          <Property Name="ResourceUsageCostRate" Units="Default Currency per Hour">0.0</Property>
+          <Property Name="DynamicSelectionRule">
+            <Value>None</Value>
+          </Property>
+        </Properties>
+      </RunnableInstance>
+      <InteractiveStatistics ResultSetId="1d7858b8-af3d-4c49-b30e-1f875b5bb497" ResultSetTimeStampUtc="2021-03-07T13:17:27.2673304Z">
+        <FileRef Name="Results\Model\Interactive_Results.stats" />
+      </InteractiveStatistics>
+      <Experiments>
+        <Experiment Name="Experiment1" ConfidenceLevel="Point95" LowerPercentile="25" UpperPercentile="75" DefaultReplications="10">
+          <Warmup Units="Hours">0</Warmup>
+          <Scenarios>
+            <Scenario Name="Scenario1">
+              <Properties>
+                <Property Name="InitialCost" Units="Default Currency">0.0</Property>
+                <Property Name="InitialCostRate" Units="Default Currency per Hour">0.0</Property>
+                <Property Name="ResourceIdleCostRate" Units="Default Currency per Hour">0.0</Property>
+                <Property Name="ResourceCostPerUse" Units="Default Currency">0.0</Property>
+                <Property Name="ResourceUsageCostRate" Units="Default Currency per Hour">0.0</Property>
+                <Property Name="DynamicSelectionRule">
+                  <Value>None</Value>
+                </Property>
+              </Properties>
+            </Scenario>
+          </Scenarios>
+          <Responses>
+            <Response Name="Response1" Expression="Server1.Processing.NumberEntered" Primary="True" />
+          </Responses>
+          <ExperimentViewInfo>
+            <FileRef Name="ViewInfos\Model_Experiment1_ExperimentViewInfo.xml" />
+          </ExperimentViewInfo>
+        </Experiment>
+      </Experiments>
+      <ModelViewInfo>
+        <FileRef Name="ViewInfos\Model_ModelViewInfo.xml" />
+      </ModelViewInfo>
+    </Model>
+  </Models>
+  <Libraries>
+    <LibraryRef Name="Extras Library" Id="97fb5c31-0a87-4ae8-847a-eb28d64aefd8" PathHint="C:\Program Files\Simio LLC\Simio\Examples\ExtrasLibrary.spfx" />
+  </Libraries>
+  <CommonItems>
+    <Definitions>
+      <EntityDefinition Name="ModelEntity" Id="b89d325b-b3c0-49ba-b9ca-7ce6bfe2633e" Revision="2" FileVersion="234" Author="Simio Employee" Description="The default entity definition for your project.">
+        <FileRef Name="Models\ModelEntity\b89d325b-b3c0-49ba-b9ca-7ce6bfe2633e.xml" />
+      </EntityDefinition>
+      <FixedDefinition Name="Model" Id="4e9c466e-ce33-49fb-b0ce-67453c79c9fa" Revision="108" FileVersion="234" Author="Simio Employee" Description="I want to be able to write entity specific output information to an output data table at the end of the simulation run. *Enterprise edition only *">
+        <Keywords>Add-On Process, Assign Step, AddRow Step, Data Table, Output Table, Real State Variable, Run.TimeNow, State Assignments, String State Variable, Maximum Arrivals</Keywords>
+        <Categories>Data Tables</Categories>
+        <FileRef Name="Models\Model\4e9c466e-ce33-49fb-b0ce-67453c79c9fa.xml" />
+      </FixedDefinition>
+    </Definitions>
+    <DefinitionRefs>
+      <DefinitionRef Name="ModelEntity">
+        <Id>b89d325b-b3c0-49ba-b9ca-7ce6bfe2633e</Id>
+        <Revision>2</Revision>
+      </DefinitionRef>
+      <DefinitionRef Name="Model">
+        <Id>4e9c466e-ce33-49fb-b0ce-67453c79c9fa</Id>
+        <Revision>108</Revision>
+      </DefinitionRef>
+      <DefinitionRef Name="TransferNode">
+        <Id>0d40fbf0-8206-443f-b771-65f85633a2f6</Id>
+        <Revision>162</Revision>
+      </DefinitionRef>
+      <DefinitionRef Name="Server">
+        <Id>1bc342dc-9d96-49f2-ae4a-af8f05416564</Id>
+        <Revision>264</Revision>
+      </DefinitionRef>
+      <DefinitionRef Name="Source">
+        <Id>1d0ccf22-61f9-4fc0-9b3c-01d17e71402d</Id>
+        <Revision>125</Revision>
+      </DefinitionRef>
+      <DefinitionRef Name="Sink">
+        <Id>5f44138f-a5f7-40d1-ab9a-eea7c5f0254e</Id>
+        <Revision>69</Revision>
+      </DefinitionRef>
+      <DefinitionRef Name="BasicNode">
+        <Id>585953ca-c744-444b-92d9-8af032f3e9a1</Id>
+        <Revision>108</Revision>
+      </DefinitionRef>
+      <DefinitionRef Name="Path">
+        <Id>93d39da5-5ba1-4ae1-a526-15bdb27d48e4</Id>
+        <Revision>63</Revision>
+      </DefinitionRef>
+    </DefinitionRefs>
+    <Materials>
+      <ColorMaterial Id="6f5f7e9b-7979-4396-a96a-a4aed4e90883" Color="008000" />
+    </Materials>
+    <Symbols>
+      <Symbol Id="be7de98c-64cf-463b-a478-f0f9ee6ee4ae">
+        <Graphics>
+          <Polygon Center="0 0 0" Color="008000" YHeight="0.25" ExternallyVisible="True">
+            <Points>
+              <Point Location="-0.25 0 0.25" />
+              <Point Location="-0.25 0 -0.25" />
+              <Point Location="0.25 0 0" />
+            </Points>
+          </Polygon>
+          <DefaultFlowMaterial>
+            <MaterialRef Id="6f5f7e9b-7979-4396-a96a-a4aed4e90883" />
+          </DefaultFlowMaterial>
+        </Graphics>
+      </Symbol>
+    </Symbols>
+    <Definitions>
+      <NodeDefinition Name="BasicNode" Id="585953ca-c744-444b-92d9-8af032f3e9a1" Revision="108" FileVersion="234" Author="Simio Employee" Description="A BasicNode object may be used by an entity to transfer into or out of an object. This type of node may also be used to define an intersection point in a network of links." CheckBaseForAdvancedProperties="True" Color="808080">
+        <FileRef Name="Models\BasicNode\585953ca-c744-444b-92d9-8af032f3e9a1.xml" />
+      </NodeDefinition>
+      <LinkDefinition Name="Path" Id="93d39da5-5ba1-4ae1-a526-15bdb27d48e4" Revision="63" FileVersion="234" Author="Simio Employee" Description="A Path object may be used to define a pathway between two node locations where the travel time is determined by the path length and a traveling entity's speed. Passing may or may not be allowed." CheckBaseForAdvancedProperties="True" FlowConstraintMode="Default" Color="8b4513">
+        <FileRef Name="Models\Path\93d39da5-5ba1-4ae1-a526-15bdb27d48e4.xml" />
+      </LinkDefinition>
+      <FixedDefinition Name="Server" Id="1bc342dc-9d96-49f2-ae4a-af8f05416564" Revision="264" FileVersion="234" Author="Simio Employee" Description="A Server object may be used to model a capacity-constrained processing location. Operations performed at the server can be modeled as either a processing time or as a sequence of tasks. Secondary resources or material requirements may be optionally specified." ResourceLogic="True">
+        <FileRef Name="Models\Server\1bc342dc-9d96-49f2-ae4a-af8f05416564.xml" />
+      </FixedDefinition>
+      <FixedDefinition Name="Sink" Id="5f44138f-a5f7-40d1-ab9a-eea7c5f0254e" Revision="69" FileVersion="234" Author="Simio Employee" Description="A Sink object may be used to destroy entities that have finished processing in the model." CheckBaseForAdvancedProperties="True">
+        <FileRef Name="Models\Sink\5f44138f-a5f7-40d1-ab9a-eea7c5f0254e.xml" />
+      </FixedDefinition>
+      <FixedDefinition Name="Source" Id="1d0ccf22-61f9-4fc0-9b3c-01d17e71402d" Revision="125" FileVersion="234" Author="Simio Employee" Description="A Source object may be used to generate entities of a specified type." CheckBaseForAdvancedProperties="True">
+        <FileRef Name="Models\Source\1d0ccf22-61f9-4fc0-9b3c-01d17e71402d.xml" />
+      </FixedDefinition>
+      <NodeDefinition Name="TransferNode" Id="0d40fbf0-8206-443f-b771-65f85633a2f6" Revision="162" FileVersion="234" Author="Simio Employee" Description="A TransferNode object may be used by an entity to transfer into or out of an object. This type of node may also be used to define an intersection point in a network of links. Optional entity destination selection and transport logic is provided." Color="1e90ff">
+        <FileRef Name="Models\TransferNode\0d40fbf0-8206-443f-b771-65f85633a2f6.xml" />
+      </NodeDefinition>
+    </Definitions>
+    <Materials>
+      <ColorMaterial Id="d44458fd-88ef-4416-9671-05f5769fa6dd" Color="008000" />
+      <ColorMaterial Id="f3b81bb0-c086-4fd7-ba37-5c20f3142b03" Color="ffff00" />
+      <ColorMaterial Id="c1b9ffae-39aa-43fd-aeca-c676e79e0ea0" Color="ff0000" />
+      <ColorMaterial Id="e5951221-ab40-482a-a16e-bf262555f0db" Color="ffffff" />
+      <ColorMaterial Id="d5dbd243-4671-4d14-b44a-99ab9090b4e4" Color="ff0000" />
+      <ColorMaterial Id="54348365-5076-40d3-ad8c-9419f622d056" Color="ffffff" />
+      <ColorMaterial Id="835198d4-4d8a-428d-96a4-80544cadd608" Color="008000" />
+      <ColorMaterial Id="2a3e216a-ec7e-4206-9916-7a0524d2a531" Color="ffffff" />
+    </Materials>
+    <Symbols>
+      <Symbol Name="Server" Id="40ac3b5a-78c5-4e3d-b106-349426cf8bb3" Types="StandardLibrary" Actions="Static" PadBoundingBox="True">
+        <Thumbnail>
+          <FileRef Name="Data\Thumbnails\Server.png" />
+        </Thumbnail>
+        <Graphics>
+          <Geometry Center="0 3.576279E-07 3.72529E-09" Scale="5.126141">
+            <GeometryData>
+              <MeshData>
+                <FileRef Name="Data\Geometry\Server.s3d" />
+              </MeshData>
+              <GeometryDataPieces />
+            </GeometryData>
+            <Decorations>
+              <Decoration SurfaceId="0">
+                <MaterialRef Id="72ddb72d-221f-4088-af13-b2940aa9aa7b" />
+              </Decoration>
+              <Decoration SurfaceId="1">
+                <MaterialRef Id="d3c32277-2baa-4e7a-ad35-6b0976cdbb2a" />
+              </Decoration>
+            </Decorations>
+          </Geometry>
+        </Graphics>
+      </Symbol>
+      <Symbol Name="Sink" Id="f5b0a0b7-4274-403c-981c-33d4b6e077a5" Types="StandardLibrary" Actions="Static" PadBoundingBox="True">
+        <Thumbnail>
+          <FileRef Name="Data\Thumbnails\Sink.png" />
+        </Thumbnail>
+        <Graphics>
+          <Geometry Center="0 3.576279E-07 0" Scale="5.228027">
+            <GeometryData>
+              <MeshData>
+                <FileRef Name="Data\Geometry\Sink.s3d" />
+              </MeshData>
+              <GeometryDataPieces />
+            </GeometryData>
+            <Decorations>
+              <Decoration SurfaceId="0">
+                <MaterialRef Id="bab850ad-84d5-4885-a81d-3f604b121144" />
+              </Decoration>
+              <Decoration SurfaceId="1">
+                <MaterialRef Id="def9c0aa-66b6-4b4e-b436-e0dfa0c0d5cf" />
+              </Decoration>
+            </Decorations>
+          </Geometry>
+        </Graphics>
+      </Symbol>
+      <Symbol Name="Source" Id="4253805c-d9dd-447f-b808-dc61ab3765de" Types="StandardLibrary" Actions="Static" PadBoundingBox="True">
+        <Thumbnail>
+          <FileRef Name="Data\Thumbnails\Source.png" />
+        </Thumbnail>
+        <Graphics>
+          <Geometry Center="0 -3.576279E-07 -1.490116E-08" Scale="5.10292">
+            <GeometryData>
+              <MeshData>
+                <FileRef Name="Data\Geometry\Source.s3d" />
+              </MeshData>
+              <GeometryDataPieces />
+            </GeometryData>
+            <Decorations>
+              <Decoration SurfaceId="0">
+                <MaterialRef Id="9699965b-b2a7-449d-a1aa-2b4b69e9f686" />
+              </Decoration>
+              <Decoration SurfaceId="1">
+                <MaterialRef Id="9539f632-7efb-49b3-a6cd-5c1627c06e27" />
+              </Decoration>
+            </Decorations>
+          </Geometry>
+        </Graphics>
+      </Symbol>
+    </Symbols>
+    <Materials>
+      <TextureMaterial Id="72ddb72d-221f-4088-af13-b2940aa9aa7b" Name="SketchupTexture">
+        <Image>
+          <FileRef Name="Data\Textures\SketchupTexture.jpg" />
+        </Image>
+      </TextureMaterial>
+      <TextureMaterial Id="d3c32277-2baa-4e7a-ad35-6b0976cdbb2a" Name="SketchupTexture">
+        <Image>
+          <FileRef Name="Data\Textures\SketchupTexture1.jpg" />
+        </Image>
+      </TextureMaterial>
+      <TextureMaterial Id="bab850ad-84d5-4885-a81d-3f604b121144" Name="SketchupTexture">
+        <Image>
+          <FileRef Name="Data\Textures\SketchupTexture2.jpg" />
+        </Image>
+      </TextureMaterial>
+      <TextureMaterial Id="def9c0aa-66b6-4b4e-b436-e0dfa0c0d5cf" Name="SketchupTexture">
+        <Image>
+          <FileRef Name="Data\Textures\SketchupTexture3.jpg" />
+        </Image>
+      </TextureMaterial>
+      <TextureMaterial Id="9699965b-b2a7-449d-a1aa-2b4b69e9f686" Name="SketchupTexture">
+        <Image>
+          <FileRef Name="Data\Textures\SketchupTexture4.jpg" />
+        </Image>
+      </TextureMaterial>
+      <TextureMaterial Id="9539f632-7efb-49b3-a6cd-5c1627c06e27" Name="SketchupTexture">
+        <Image>
+          <FileRef Name="Data\Textures\SketchupTexture5.jpg" />
+        </Image>
+      </TextureMaterial>
+    </Materials>
+  </CommonItems>
+</Project>
+<!-- aYyHGOE4BkXQGM+2thJoYxDGYbzpzLQVth2TwSEwHCz3ag5fmuqHU4+MROzwAdNpnjDTrCXc2YKdMyay19kZoQ== -->

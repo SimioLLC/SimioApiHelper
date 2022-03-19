@@ -1,0 +1,627 @@
+<Fragment>
+  <Compatibility ParseElementFunctionsInExpressionsLast="False" ParseNonEntityAssociatedObjectForPropertyReference="False" AllowInteractiveEntryOfNonStandardElementNames="False" ParsePropertiesForObjectTypeForAutoCreatedObjectsFirst="False" />
+  <PropertyDefinitions>
+    <Categories>
+      <Category Name="Basic Logic" Description="Basic Logic" />
+      <Category Name="Process Logic" Description="Process Logic" />
+      <Category Name="Transport Logic" Description="Transport Logic" />
+      <Category Name="Travel Logic" Description="Travel Logic" />
+      <Category Name="Routing Logic" Description="Routing Logic" />
+      <Category Name="Population" Description="Population" InitiallyExpanded="False" />
+      <Category Name="Results Classification" Description="Results Classification" InitiallyExpanded="False" />
+      <Category Name="Stopping Conditions" Description="Stopping Conditions" InitiallyExpanded="False" />
+      <Category Name="Financials" Description="Financials" InitiallyExpanded="False" />
+      <Category Name="Financials/Transport Costs" Description="Transport Costs" InitiallyExpanded="False" />
+      <Category Name="Financials/Resource Costs" Description="Resource Costs" InitiallyExpanded="False" />
+      <Category Name="Advanced Options" Description="Advanced Options" InitiallyExpanded="False" />
+      <Category Name="Advanced Options/Token Actions" Description="Token Action Options" InitiallyExpanded="False" />
+    </Categories>
+    <Overrides>
+      <Override Name="ResourceIdleCostRate" Visible="False" />
+      <Override Name="ResourceCostPerUse" Visible="False" />
+      <Override Name="ResourceUsageCostRate" Visible="False" />
+      <Override Name="LogResourceUsage" Visible="False" />
+      <Override Name="DisplayCategory" Visible="False" />
+      <Override Name="DisplayColor" Visible="False" />
+      <Override Name="IncludeInPlanResourceConstraints" Visible="False" />
+      <Override Name="CapacityType" Visible="False" />
+      <Override Name="InitialWorkSchedule" Visible="False" />
+      <Override Name="WorkDayExceptions" Visible="False" />
+      <Override Name="WorkPeriodExceptions" Visible="False" />
+      <Override Name="InitialCapacity" Visible="False" />
+      <Override Name="RankingRule" Visible="False" />
+      <Override Name="RankingExpression" Visible="False" />
+      <Override Name="DynamicSelectionRule" Visible="False" />
+    </Overrides>
+  </PropertyDefinitions>
+  <States>
+    <IntegerState Name="RecordCounter" Description="Counter or records, so we know when to delete the entire table at the beginning of a run" />
+  </States>
+  <Events />
+  <GridDataExporters>
+    <GridDataExporter Name="CSV Data Exporter1" DefinitionName="CSV Data Exporter" DefinitionID="72d4fb74-a1d2-4041-a690-8de096f1bbc7">
+      <AddInPropertyValues>
+        <AddInPropertyValue Name="ExportCulture" Value="" Type="String" />
+        <AddInPropertyValue Name="ExportFolder" Value="E:\Temp\" Type="String" />
+        <AddInPropertyValue Name="Separator" Value="," Type="String" />
+        <AddInPropertyValue Name="WriteHeaders" Value="True" Type="Boolean" />
+      </AddInPropertyValues>
+    </GridDataExporter>
+    <GridDataExporter Name="Database Data Exporter1" DefinitionName="Database Data Exporter" DefinitionID="dff45436-012b-4b3f-9b3a-1340272352ff">
+      <AddInPropertyValues>
+        <AddInPropertyValue Name="ConnectionString" Value="Data Source=legion2017\SqlExpress;Initial Catalog=Test2;Integrated Security=True;MultipleActiveResultSets=True" Type="String" />
+        <AddInPropertyValue Name="ConnectionTimeOut" Value="5" Type="String" />
+        <AddInPropertyValue Name="DateTimeFormat" Value="yyyy-MM-dd HH:mm:ss" Type="String" />
+        <AddInPropertyValue Name="ProviderName" Value="SqlClient Data Provider" Type="String" />
+        <AddInPropertyValue Name="ProviderSettings" Value="OracleDateTimeFormat=yyyy-MM-dd HH24:mi:ss" Type="String" />
+      </AddInPropertyValues>
+    </GridDataExporter>
+  </GridDataExporters>
+  <UsedObjects>
+    <UsedObject Name="TransferNode" />
+    <UsedObject Name="Server" />
+    <UsedObject Name="ModelEntity" />
+  </UsedObjects>
+  <Elements>
+    <Element Type="855e797b-d083-4717-a328-8d7912185eb7" ReadableType="DbConnect" Name="DbConnect1" Scope="Public">
+      <Properties>
+        <Property Name="ConnectionString">Data Source=legion2017\SqlExpress;Initial Catalog=Test2;Integrated Security=True;MultipleActiveResultSets=True</Property>
+        <Property Name="ProviderName">SqlClient Data Provider</Property>
+      </Properties>
+    </Element>
+  </Elements>
+  <Processes>
+    <Process Name="OnRunInitialized" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Object.OnRunInitialized" BeginStepID="4">
+      <Properties />
+      <Steps>
+        <Step Type="1aa53c23-417c-41e0-8303-a2c1122d49fa" ReadableType="DbExecute" Name="DbExecute1" ID="2">
+          <Properties>
+            <Property Name="DbConnect">
+              <Value>DbConnect1</Value>
+            </Property>
+            <Property Name="SQLStatement">DELETE FROM TestExperiment WHERE 1=1</Property>
+            <Property Name="Items">
+              <Rows>
+                <Properties>
+                  <Property Name="Expression">False</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+        </Step>
+        <Step Type="Decide" Name="Decide2" ID="3">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">Run.ReplicationNumber == 1 &amp;&amp; RecordCounter == 1</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="2" />
+        </Step>
+        <Step Type="Assign" Name="Assign1" ID="4">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>RecordCounter</Value>
+            </Property>
+            <Property Name="NewValue">RecordCounter+1</Property>
+          </Properties>
+          <Breakpoint Enabled="True" />
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="Input_Sink1_Entered" BeginStepID="5" Category="Input@Sink1 AddOn Processes">
+      <Properties>
+        <Property Name="TokenActionOnAssociatedObjectDestroyed">EndProcess</Property>
+      </Properties>
+      <Steps>
+        <Step Type="AddRow" Name="AddRow1" ID="2">
+          <Properties>
+            <Property Name="TableName">OutputTable1</Property>
+            <Property Name="KeyColumnValue">String.FromReal(Run.ReplicationNumber) + ":" +  ModelEntity.Name</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Assign" Name="Assign1" ID="3">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>OutputTable1.TimeEntered</Value>
+            </Property>
+            <Property Name="NewValue">ModelEntity.TimeCreated</Property>
+            <Property Name="Assignments">
+              <Rows>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OutputTable1.EntityName</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">ModelEntity.Name</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OutputTable1.TimeLeaving</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">Run.TimeNow</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OutputTable1.ServerName</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">ModelEntity.WhichServer</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OutputTable1.KeyValue</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">String.FromReal(Run.ReplicationNumber) + ":" +  ModelEntity.Name</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+        </Step>
+        <Step Type="5b218bd5-7fa5-4b53-8969-c79c6642763f" ReadableType="DbWrite" Name="DbWrite1" Color="c6d9f0" ID="4">
+          <Properties>
+            <Property Name="DbConnect">
+              <Value>DbConnect1</Value>
+            </Property>
+            <Property Name="TableName">TestExperiment</Property>
+            <Property Name="Columns">
+              <Rows>
+                <Properties>
+                  <Property Name="Column">KeyValue</Property>
+                  <Property Name="Expression">String.FromReal(Run.ReplicationNumber) + ":" + ModelEntity.Name</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="Column">EntityName</Property>
+                  <Property Name="Expression">ModelEntity.Name</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="Column">ServerName</Property>
+                  <Property Name="Expression">ModelEntity.WhichServer</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="Column">TimeLeaving</Property>
+                  <Property Name="Expression">Run.TimeNow</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="Column">TimeEntered</Property>
+                  <Property Name="Expression">ModelEntity.TimeCreated</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+        </Step>
+        <Step Type="Decide" Name="ChooseTechnique" ID="5">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">True</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="2" />
+          <Exit Name="False" Type="Alternate" NextID="4" />
+        </Step>
+      </Steps>
+    </Process>
+  </Processes>
+  <Objects>
+    <Fixed Name="Source1" Type="Source" Location="-7.61621332168579 0 -3.23202729225158" YawDeg="90" Size="1.49711918830872 1.02344524860382 0.999999761581421" Scope="Public">
+      <AssociatedNodes>
+        <Node Name="Output@Source1" Type="TransferNode" Location="-6.11621332168579 0 -3.23202729225158" YawDeg="90" Scope="Public" RotationChangesLocation="False">
+          <Properties>
+            <Property Name="InitialCost" Units="USD">0.0</Property>
+            <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="ResourceIdleCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="ResourceCostPerUse" Units="USD">0.0</Property>
+            <Property Name="ResourceUsageCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="DynamicSelectionRule">
+              <Value>None</Value>
+            </Property>
+            <Property Name="FlowSplitAllocationRule">Proportional Based On Link Weights</Property>
+            <Property Name="DestinationNodeName"></Property>
+            <Property Name="DestinationSelectionExpression">Candidate.Node.InputLocation.Overload</Property>
+            <Property Name="RouteRequestDynamicSelectionRule">
+              <Value>None</Value>
+            </Property>
+            <Property Name="RideOnTransporterCondition">False</Property>
+            <Property Name="TransporterSelectionValueExpression">Candidate.Transporter.RideCapacityRemaining</Property>
+          </Properties>
+          <Graphics ExternallyVisible="True" />
+        </Node>
+      </AssociatedNodes>
+      <Properties>
+        <Property Name="InitialCost" Units="USD">0.0</Property>
+        <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ResourceIdleCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ResourceCostPerUse" Units="USD">0.0</Property>
+        <Property Name="ResourceUsageCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="DynamicSelectionRule">
+          <Value>None</Value>
+        </Property>
+        <Property Name="EntityType">DefaultEntity</Property>
+        <Property Name="ArrivalNoShowProbability">0</Property>
+        <Property Name="MaximumArrivals">20</Property>
+        <Property Name="CapitalCost" Units="USD">0.0</Property>
+        <Property Name="OutputBufferCostPerUse" Units="USD">0.0</Property>
+        <Property Name="OutputBufferHoldingCostRate" Units="USD per Hour">0.0</Property>
+      </Properties>
+      <Graphics ExternallyVisible="True">
+        <SymbolInstances>
+          <SymbolInstance Center="0 0 0" ExternallyVisible="True">
+            <SymbolRef Id="[UseExternalSymbol]" />
+          </SymbolInstance>
+        </SymbolInstances>
+      </Graphics>
+    </Fixed>
+    <Fixed Name="Sink1" Type="Sink" Location="4.06041944026947 0 -3.06336380489787" YawDeg="90" Size="1.50498116016388 1.02881991863251 1.00000035762787" Scope="Public">
+      <AssociatedNodes>
+        <Node Name="Input@Sink1" Type="BasicNode" Location="2.56041944026947 0 -3.06336380489787" YawDeg="90" Scope="Public" RotationChangesLocation="False">
+          <Properties>
+            <Property Name="InitialCost" Units="USD">0.0</Property>
+            <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="ResourceIdleCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="ResourceCostPerUse" Units="USD">0.0</Property>
+            <Property Name="ResourceUsageCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="DynamicSelectionRule">
+              <Value>None</Value>
+            </Property>
+            <Property Name="FlowSplitAllocationRule">Proportional Based On Link Weights</Property>
+            <Property Name="EnteredAddOnProcess">
+              <Value>Input_Sink1_Entered</Value>
+            </Property>
+          </Properties>
+          <Graphics ExternallyVisible="True" />
+        </Node>
+      </AssociatedNodes>
+      <Properties>
+        <Property Name="InitialCost" Units="USD">0.0</Property>
+        <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ResourceIdleCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ResourceCostPerUse" Units="USD">0.0</Property>
+        <Property Name="ResourceUsageCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="DynamicSelectionRule">
+          <Value>None</Value>
+        </Property>
+        <Property Name="CapitalCost" Units="USD">0.0</Property>
+        <Property Name="InputBufferCostPerUse" Units="USD">0.0</Property>
+        <Property Name="InputBufferHoldingCostRate" Units="USD per Hour">0.0</Property>
+      </Properties>
+      <Graphics ExternallyVisible="True">
+        <SymbolInstances>
+          <SymbolInstance Center="0 0 0" ExternallyVisible="True">
+            <SymbolRef Id="[UseExternalSymbol]" />
+          </SymbolInstance>
+        </SymbolInstances>
+      </Graphics>
+    </Fixed>
+    <Fixed Name="Server1" Type="Server" Location="-1.81777322292328 0 -4.97083224292815" YawDeg="90" Size="2.08920814597344 0.999103702764571 1.000000367302" Scope="Public">
+      <AssociatedNodes>
+        <Node Name="Input@Server1" Type="BasicNode" Location="-3.31777322292328 0 -4.97083224292815" YawDeg="90" Scope="Public" RotationChangesLocation="False">
+          <Properties>
+            <Property Name="InitialCost" Units="USD">0.0</Property>
+            <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="ResourceIdleCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="ResourceCostPerUse" Units="USD">0.0</Property>
+            <Property Name="ResourceUsageCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="DynamicSelectionRule">
+              <Value>None</Value>
+            </Property>
+            <Property Name="FlowSplitAllocationRule">Proportional Based On Link Weights</Property>
+            <Property Name="SequenceExpectedOperationTime">Math.If(Entity.CanTransferInAndOutOfObjects, Node.AssociatedObject.Server.ProcessingTime, 0.0)</Property>
+          </Properties>
+          <Graphics ExternallyVisible="True" />
+        </Node>
+        <Node Name="Output@Server1" Type="TransferNode" Location="-0.317773222923279 0 -4.97083224292815" YawDeg="90" Scope="Public" RotationChangesLocation="False">
+          <Properties>
+            <Property Name="InitialCost" Units="USD">0.0</Property>
+            <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="ResourceIdleCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="ResourceCostPerUse" Units="USD">0.0</Property>
+            <Property Name="ResourceUsageCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="DynamicSelectionRule">
+              <Value>None</Value>
+            </Property>
+            <Property Name="FlowSplitAllocationRule">Proportional Based On Link Weights</Property>
+            <Property Name="DestinationNodeName"></Property>
+            <Property Name="DestinationSelectionExpression">Candidate.Node.InputLocation.Overload</Property>
+            <Property Name="RouteRequestDynamicSelectionRule">
+              <Value>None</Value>
+            </Property>
+            <Property Name="RideOnTransporterCondition">False</Property>
+            <Property Name="TransporterSelectionValueExpression">Candidate.Transporter.RideCapacityRemaining</Property>
+          </Properties>
+          <Graphics ExternallyVisible="True" />
+        </Node>
+      </AssociatedNodes>
+      <IndexedSizes>
+        <IndexedSize Size="2.08920814597344 0.999103702764571 1.000000367302" YawDeg="90" />
+        <IndexedSize Size="2.08920814597344 0.999103702764571 1.000000367302" YawDeg="90" />
+        <IndexedSize Size="2.08920814597344 0.999103702764571 1.000000367302" YawDeg="90" />
+        <IndexedSize Size="2.08920814597344 0.999103702764571 1.000000367302" YawDeg="90" />
+        <IndexedSize Size="2.08920814597344 0.999103702764571 1.000000367302" YawDeg="90" />
+      </IndexedSizes>
+      <Properties>
+        <Property Name="InitialCost" Units="USD">0.0</Property>
+        <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ResourceIdleCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ResourceCostPerUse" Units="USD">0.0</Property>
+        <Property Name="ResourceUsageCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="DynamicSelectionRule">
+          <Value>None</Value>
+        </Property>
+        <Property Name="ExpectedOperationTimeExpression">0.0</Property>
+        <Property Name="ImmediatelyTrySeize">True</Property>
+        <Property Name="AssignmentsOnEntering">
+          <Rows>
+            <Properties>
+              <Property Name="AssignmentsOnEnteringStateVariableName">
+                <Value>ModelEntity.WhichServer</Value>
+              </Property>
+              <Property Name="AssignmentsOnEnteringNewValue">Server1.Name</Property>
+            </Properties>
+          </Rows>
+        </Property>
+        <Property Name="SecondaryResourcesForProcessingOffShiftRule">Finish Work Already Started</Property>
+        <Property Name="SecondaryResourcesForProcessingImmediatelyTrySeize">True</Property>
+        <Property Name="SecondaryResourcesForProcessingImmediatelyTryAllocateWhenReleased">True</Property>
+        <Property Name="CapitalCost" Units="USD">0.0</Property>
+        <Property Name="InputBufferCostPerUse" Units="USD">0.0</Property>
+        <Property Name="InputBufferHoldingCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="OutputBufferCostPerUse" Units="USD">0.0</Property>
+        <Property Name="OutputBufferHoldingCostRate" Units="USD per Hour">0.0</Property>
+      </Properties>
+      <Graphics ExternallyVisible="True">
+        <SymbolInstances>
+          <SymbolInstance Center="0 0 0" ExternallyVisible="True">
+            <SymbolRef Id="[UseExternalSymbol]" />
+          </SymbolInstance>
+        </SymbolInstances>
+      </Graphics>
+    </Fixed>
+    <Fixed Name="Server2" Type="Server" Location="-1.66068232059479 0 -1.02110109788788" YawDeg="90" Size="2.08920814597344 0.999103702764571 1.000000367302" Scope="Public">
+      <AssociatedNodes>
+        <Node Name="Input@Server2" Type="BasicNode" Location="-3.16068232059479 0 -1.02110109788788" YawDeg="90" Scope="Public" RotationChangesLocation="False">
+          <Properties>
+            <Property Name="InitialCost" Units="USD">0.0</Property>
+            <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="ResourceIdleCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="ResourceCostPerUse" Units="USD">0.0</Property>
+            <Property Name="ResourceUsageCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="DynamicSelectionRule">
+              <Value>None</Value>
+            </Property>
+            <Property Name="FlowSplitAllocationRule">Proportional Based On Link Weights</Property>
+            <Property Name="SequenceExpectedOperationTime">Math.If(Entity.CanTransferInAndOutOfObjects, Node.AssociatedObject.Server.ProcessingTime, 0.0)</Property>
+          </Properties>
+          <Graphics ExternallyVisible="True" />
+        </Node>
+        <Node Name="Output@Server2" Type="TransferNode" Location="-0.160682320594788 0 -1.02110109788788" YawDeg="90" Scope="Public" RotationChangesLocation="False">
+          <Properties>
+            <Property Name="InitialCost" Units="USD">0.0</Property>
+            <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="ResourceIdleCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="ResourceCostPerUse" Units="USD">0.0</Property>
+            <Property Name="ResourceUsageCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="DynamicSelectionRule">
+              <Value>None</Value>
+            </Property>
+            <Property Name="FlowSplitAllocationRule">Proportional Based On Link Weights</Property>
+            <Property Name="DestinationNodeName"></Property>
+            <Property Name="DestinationSelectionExpression">Candidate.Node.InputLocation.Overload</Property>
+            <Property Name="RouteRequestDynamicSelectionRule">
+              <Value>None</Value>
+            </Property>
+            <Property Name="RideOnTransporterCondition">False</Property>
+            <Property Name="TransporterSelectionValueExpression">Candidate.Transporter.RideCapacityRemaining</Property>
+          </Properties>
+          <Graphics ExternallyVisible="True" />
+        </Node>
+      </AssociatedNodes>
+      <IndexedSizes>
+        <IndexedSize Size="2.08920814597344 0.999103702764571 1.000000367302" YawDeg="90" />
+        <IndexedSize Size="2.08920814597344 0.999103702764571 1.000000367302" YawDeg="90" />
+        <IndexedSize Size="2.08920814597344 0.999103702764571 1.000000367302" YawDeg="90" />
+        <IndexedSize Size="2.08920814597344 0.999103702764571 1.000000367302" YawDeg="90" />
+        <IndexedSize Size="2.08920814597344 0.999103702764571 1.000000367302" YawDeg="90" />
+      </IndexedSizes>
+      <Properties>
+        <Property Name="InitialCost" Units="USD">0.0</Property>
+        <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ResourceIdleCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ResourceCostPerUse" Units="USD">0.0</Property>
+        <Property Name="ResourceUsageCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="DynamicSelectionRule">
+          <Value>None</Value>
+        </Property>
+        <Property Name="ExpectedOperationTimeExpression">0.0</Property>
+        <Property Name="ImmediatelyTrySeize">True</Property>
+        <Property Name="AssignmentsOnEntering">
+          <Rows>
+            <Properties>
+              <Property Name="AssignmentsOnEnteringStateVariableName">
+                <Value>ModelEntity.WhichServer</Value>
+              </Property>
+              <Property Name="AssignmentsOnEnteringNewValue">Server2.Name</Property>
+            </Properties>
+          </Rows>
+        </Property>
+        <Property Name="SecondaryResourcesForProcessingOffShiftRule">Finish Work Already Started</Property>
+        <Property Name="SecondaryResourcesForProcessingImmediatelyTrySeize">True</Property>
+        <Property Name="SecondaryResourcesForProcessingImmediatelyTryAllocateWhenReleased">True</Property>
+        <Property Name="CapitalCost" Units="USD">0.0</Property>
+        <Property Name="InputBufferCostPerUse" Units="USD">0.0</Property>
+        <Property Name="InputBufferHoldingCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="OutputBufferCostPerUse" Units="USD">0.0</Property>
+        <Property Name="OutputBufferHoldingCostRate" Units="USD per Hour">0.0</Property>
+      </Properties>
+      <Graphics ExternallyVisible="True">
+        <SymbolInstances>
+          <SymbolInstance Center="0 0 0" ExternallyVisible="True">
+            <SymbolRef Id="[UseExternalSymbol]" />
+          </SymbolInstance>
+        </SymbolInstances>
+      </Graphics>
+    </Fixed>
+    <Entity Name="DefaultEntity" Type="ModelEntity" Location="-7.70399332046509 0 -0.151910342276096" YawDeg="90" Size="0.5 0.5 0.25" Scope="Public">
+      <IndexedSizes>
+        <IndexedSize Size="0.5 0.5 0.25" YawDeg="90" />
+        <IndexedSize Size="0.5 0.5 0.25" YawDeg="90" />
+      </IndexedSizes>
+      <Properties>
+        <Property Name="InitialCost" Units="USD">0.0</Property>
+        <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ResourceIdleCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ResourceCostPerUse" Units="USD">0.0</Property>
+        <Property Name="ResourceUsageCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="DynamicSelectionRule">
+          <Value>None</Value>
+        </Property>
+        <Property Name="InitialTravelMode">Network Only</Property>
+      </Properties>
+      <Graphics ExternallyVisible="True">
+        <SymbolInstances>
+          <SymbolInstance Center="0 0 0" ExternallyVisible="True">
+            <SymbolRef Id="be7de98c-64cf-463b-a478-f0f9ee6ee4ae" />
+            <FlowDecoration>
+              <MaterialRef Id="6f5f7e9b-7979-4396-a96a-a4aed4e90883" />
+            </FlowDecoration>
+            <DefaultFlowDecoration>
+              <MaterialRef Id="6f5f7e9b-7979-4396-a96a-a4aed4e90883" />
+            </DefaultFlowDecoration>
+          </SymbolInstance>
+        </SymbolInstances>
+      </Graphics>
+    </Entity>
+    <Link Name="Path1" Type="Path" Size="3.29 0 0" Scope="Public" Start="Output@Source1" End="Input@Server1">
+      <Properties>
+        <Property Name="InitialCost" Units="USD">0.0</Property>
+        <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ResourceIdleCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ResourceCostPerUse" Units="USD">0.0</Property>
+        <Property Name="ResourceUsageCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="DynamicSelectionRule">
+          <Value>None</Value>
+        </Property>
+      </Properties>
+      <Graphics ExternallyVisible="True" />
+    </Link>
+    <Link Name="Path2" Type="Path" Size="3.69 0 0" Scope="Public" Start="Output@Source1" End="Input@Server2">
+      <Properties>
+        <Property Name="InitialCost" Units="USD">0.0</Property>
+        <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ResourceIdleCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ResourceCostPerUse" Units="USD">0.0</Property>
+        <Property Name="ResourceUsageCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="DynamicSelectionRule">
+          <Value>None</Value>
+        </Property>
+      </Properties>
+      <Graphics ExternallyVisible="True" />
+    </Link>
+    <Link Name="Path3" Type="Path" Size="3.45 0 0" Scope="Public" Start="Output@Server1" End="Input@Sink1">
+      <Properties>
+        <Property Name="InitialCost" Units="USD">0.0</Property>
+        <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ResourceIdleCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ResourceCostPerUse" Units="USD">0.0</Property>
+        <Property Name="ResourceUsageCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="DynamicSelectionRule">
+          <Value>None</Value>
+        </Property>
+      </Properties>
+      <Graphics ExternallyVisible="True" />
+    </Link>
+    <Link Name="Path4" Type="Path" Size="3.4 0 0" Scope="Public" Start="Output@Server2" End="Input@Sink1">
+      <Properties>
+        <Property Name="InitialCost" Units="USD">0.0</Property>
+        <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ResourceIdleCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ResourceCostPerUse" Units="USD">0.0</Property>
+        <Property Name="ResourceUsageCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="DynamicSelectionRule">
+          <Value>None</Value>
+        </Property>
+      </Properties>
+      <Graphics ExternallyVisible="True" />
+    </Link>
+  </Objects>
+  <Tables>
+    <Table Name="OutputTable1" OutputOnly="True">
+      <Schema>
+        <States>
+          <DiscreteState Name="TimeEntered" />
+          <StringState Name="EntityName" />
+          <DiscreteState Name="TimeLeaving" />
+          <StringState Name="ServerName" />
+          <StringState Name="KeyValue" DisplayName="KeyValue" />
+        </States>
+        <Keys>
+          <Key Column="KeyValue" />
+        </Keys>
+      </Schema>
+      <Rows>
+        <FileRef Name="Models\Model\TableData\OutputTable1.xml" />
+      </Rows>
+      <DataBindings ImportMode="Automatic" />
+      <ExportBindings ExportOnExperimentReplicationRunComplete="True" ActiveExportDataBinding="Database Data Exporter1">
+        <NamedDataBinding Name="Database Data Exporter1" ExporterName="Database Data Exporter1">
+          <ExporterTableSettings>
+            <AddInPropertyValues>
+              <AddInPropertyValue Name="DatabaseTableName" Value="TestExperiment" Type="String" />
+              <AddInPropertyValue Name="DataExportType" Value="Update And Insert" Type="String" />
+              <AddInPropertyValue Name="EnableTableExport" Value="True" Type="Boolean" />
+              <AddInPropertyValue Name="PostSaveStoredProcedure" Value="" Type="String" />
+              <AddInPropertyValue Name="PreSaveStoredProcedure" Value="" Type="String" />
+            </AddInPropertyValues>
+          </ExporterTableSettings>
+          <ExporterStateColumnSettings ColumnName="TimeEntered">
+            <AddInPropertyValues>
+              <AddInPropertyValue Name="EnableColumnExport" Value="True" Type="Boolean" />
+            </AddInPropertyValues>
+          </ExporterStateColumnSettings>
+          <ExporterStateColumnSettings ColumnName="EntityName">
+            <AddInPropertyValues>
+              <AddInPropertyValue Name="EnableColumnExport" Value="True" Type="Boolean" />
+            </AddInPropertyValues>
+          </ExporterStateColumnSettings>
+          <ExporterStateColumnSettings ColumnName="TimeLeaving">
+            <AddInPropertyValues>
+              <AddInPropertyValue Name="EnableColumnExport" Value="True" Type="Boolean" />
+            </AddInPropertyValues>
+          </ExporterStateColumnSettings>
+          <ExporterStateColumnSettings ColumnName="ServerName">
+            <AddInPropertyValues>
+              <AddInPropertyValue Name="EnableColumnExport" Value="True" Type="Boolean" />
+            </AddInPropertyValues>
+          </ExporterStateColumnSettings>
+          <ExporterStateColumnSettings ColumnName="KeyValue">
+            <AddInPropertyValues>
+              <AddInPropertyValue Name="EnableColumnExport" Value="True" Type="Boolean" />
+            </AddInPropertyValues>
+          </ExporterStateColumnSettings>
+        </NamedDataBinding>
+      </ExportBindings>
+    </Table>
+  </Tables>
+  <Schedules>
+    <Schedule Name="StandardWeek" CycleDays="7" StartDate="2011-01-03T00:00:00" Description="Typical Work Week">
+      <DayPatternRefs>
+        <DayPatternRef DayNumber="1" DayPattern="StandardDay" />
+        <DayPatternRef DayNumber="2" DayPattern="StandardDay" />
+        <DayPatternRef DayNumber="3" DayPattern="StandardDay" />
+        <DayPatternRef DayNumber="4" DayPattern="StandardDay" />
+        <DayPatternRef DayNumber="5" DayPattern="StandardDay" />
+      </DayPatternRefs>
+    </Schedule>
+  </Schedules>
+  <DayPatterns>
+    <DayPattern Name="StandardDay" Description="Standard 8-5 work day">
+      <Periods>
+        <Period Start="08:00:00" End="12:00:00" Value="1" CostMultiplier="1" />
+        <Period Start="13:00:00" End="17:00:00" Value="1" CostMultiplier="1" />
+      </Periods>
+    </DayPattern>
+  </DayPatterns>
+  <SaveHistories>
+    <SaveHistory SavedDateTime="2022-03-19T13:03:08" ProductVersion="14.236.26607.0" Edition="Internal" />
+  </SaveHistories>
+  <Graphics>
+    <AnimationSetup MinimumNumberOfFramesToDisplayIdleAnimation="10" />
+  </Graphics>
+</Fragment>
+<!-- WQGn5DVOWhOUvi3MfZdSVSS1CgLpz89e+F4I9CId5Gp8OxfaILpt0Fw7sD71uyC4WOAtISel0HqkiBDjtwz8Nw== -->

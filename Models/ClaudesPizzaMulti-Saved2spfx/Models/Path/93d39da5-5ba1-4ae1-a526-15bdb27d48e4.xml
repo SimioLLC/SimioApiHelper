@@ -1,0 +1,358 @@
+<Fragment>
+  <Compatibility ParseElementFunctionsInExpressionsLast="True" ParseNonEntityAssociatedObjectForPropertyReference="False" AllowInteractiveEntryOfNonStandardElementNames="False" ParsePropertiesForObjectTypeForAutoCreatedObjectsFirst="False" />
+  <ChangeDescriptions>
+    <ChangeDescription Version="31">Version 2.39: Updated the Path object to provide a 'State Assignments' property category.</ChangeDescription>
+    <ChangeDescription Version="33">Version 2.40: Removed the Path object's 'Close' and 'Open' public processes. For equivalent functionality, use the Assign step and assign the path's DesiredDirection state to the value 'Enum.TrafficDirection.None' to close entry onto the path, or to the value 'Enum.TrafficDirection.Either' to re-open entry onto the path. In the object process logic, the 'Action' property for all Execute steps executing an 'add-on process' is now specified as 'WaitUntilCompleted'.</ChangeDescription>
+    <ChangeDescription Version="34">Version 2.41: Updated the assignments repeat groups to take state units into account.</ChangeDescription>
+    <ChangeDescription Version="35">Version 3.42: Changes related to setting the 'Token Associated Object Destroyed Action' option for process logic in this object.</ChangeDescription>
+    <ChangeDescription Version="36">Version 3.47: Added new 'Appearance' property category.</ChangeDescription>
+    <ChangeDescription Version="37">Version 3.49: Specified the 'OnAssociatedObjectTransferRequested' property of some processes as 'EndProcess'.</ChangeDescription>
+    <ChangeDescription Version="40">Version 3.51: Do not display new link 'Cell Spacing Type', 'Cell Size', and 'Auto Align Cells' properties.</ChangeDescription>
+    <ChangeDescription Version="42">Version 3.54: Conversion to 'OnRunInitialized' standard interface process. Added 'Run Ending' add-on process trigger.</ChangeDescription>
+    <ChangeDescription Version="44">Version 3.57: Added logic for new 'OnTurnedAround' standard interface process.</ChangeDescription>
+    <ChangeDescription Version="45">Version 4.58: Added new 'Advanced Options' property category.</ChangeDescription>
+    <ChangeDescription Version="47">Version 4.59: Process logic now uses new entity 'NextEntityAheadOnLink' function instead of deprecated 'FrontTraffic.Speed' function</ChangeDescription>
+    <ChangeDescription Version="48">Version 4.61: Set all inherited properties in 'Financials' category to not be visible.</ChangeDescription>
+    <ChangeDescription Version="49">Version 4.63: Reordered the position of the 'Financials' property category.</ChangeDescription>
+    <ChangeDescription Version="52">Version 4.68: Changed 'TravelerCapacity' integer property to 'InitialTravelerCapacity' expression property. Renamed 'InitializedAddOnProcess' property to 'RunInitializedAddOnProcess'.</ChangeDescription>
+    <ChangeDescription Version="55">Version 4.76: Updates required due to Suspend &amp; Resume step enhancements.</ChangeDescription>
+    <ChangeDescription Version="56">Version 5.85: Process logic changes to better support an entity on the path being destroyed before reaching the end of the link.</ChangeDescription>
+    <ChangeDescription Version="57">Version 5.87: Process logic now uses new property 'HasValue' function instead of deprecated 'IsDefined'.</ChangeDescription>
+    <ChangeDescription Version="58">Version 5.88: 'OnCollisionCleared' process - Improvements to entity movement rate assignment expression to better avoid null pointer exceptions.</ChangeDescription>
+    <ChangeDescription Version="59">Version 5.91: Added information to indicate which properties to display if the new 'Show Commonly Used Properties Only' option is enabled.</ChangeDescription>
+    <ChangeDescription Version="60">Version 6.103: Some property description updates.</ChangeDescription>
+    <ChangeDescription Version="61">Version 8.147: Property description string updates.</ChangeDescription>
+    <ChangeDescription Version="62">Version 9.161: New TokenMatchCondition property added to Suspend &amp; Resume steps.</ChangeDescription>
+    <ChangeDescription Version="63">Version 9.164: OnCollisionCleared process logic - Fixed entity movement rate assignment expression to never assign a value greater than the entity's desired speed.</ChangeDescription>
+  </ChangeDescriptions>
+  <ChangeStringReplacements>
+    <ChangeStringReplacement Version="52" RegularExpressionPattern="(^|[^\w_])(?i:InitializedAddOnProcess)([^\w_]|$)" ReplacementString="$1RunInitializedAddOnProcess$2" />
+  </ChangeStringReplacements>
+  <PropertyDefinitions>
+    <Categories>
+      <Category Name="Travel Logic" Description="Travel Logic" />
+      <Category Name="Routing Logic" Description="Routing Logic" />
+      <Category Name="State Assignments" Description="Optional State Assignments" InitiallyExpanded="False" />
+      <Category Name="Financials" Description="Financials" InitiallyExpanded="False" />
+      <Category Name="Add-On Process Triggers" Description="Add-On Process Triggers" InitiallyExpanded="False" />
+      <Category Name="Advanced Options" Description="Advanced Options" InitiallyExpanded="False" />
+    </Categories>
+    <BooleanProperty Name="AllowPassing" DisplayName="Allow Passing" Description="Indicates whether passing is allowed on this path. Passing means that entities will not be blocked along the path, but instead will pass each other if speeds vary." Category="Travel Logic" DefaultValue="True" NullString="null" />
+    <RealProperty Name="SpeedLimit" DisplayName="Speed Limit" Description="The maximum speed at which an entity can travel along this path." ComplexityLevel="Advanced" Category="Travel Logic" DefaultValue="Infinity" NullString="null" UnitType="TravelRate" DefaultUnits="Meters per Second" />
+    <RepeatingProperty Name="AssignmentsOnEntering" DisplayName="On Entering" Description="Optional state assignments when an entity is entering the object." Category="State Assignments" Required="False" NullString="null">
+      <PropertyDefinitions>
+        <Categories>
+          <Category Name="Basic Logic" Description="State Assignments (Basic Logic)" />
+        </Categories>
+        <StateProperty Name="AssignmentsOnEnteringStateVariableName" DisplayName="State Variable Name" Description="Name of the state variable that will be assigned a new value." Category="Basic Logic" Required="False" NullString="null" IsAssignable="True" />
+        <ExpressionProperty Name="AssignmentsOnEnteringNewValue" DisplayName="New Value" Description="The new value to assign." Category="Basic Logic" DefaultValue="0.0" Required="False" NullString="null" UnitTypeProperty="AssignmentsOnEnteringStateVariableName" />
+        <Overrides />
+      </PropertyDefinitions>
+    </RepeatingProperty>
+    <RepeatingProperty Name="AssignmentsBeforeExiting" DisplayName="Before Exiting" Description="Optional state assignments when an entity is ready to exit the object." ComplexityLevel="Advanced" Category="State Assignments" Required="False" NullString="null">
+      <PropertyDefinitions>
+        <Categories>
+          <Category Name="Basic Logic" Description="State Assignments (Basic Logic)" />
+        </Categories>
+        <StateProperty Name="AssignmentsBeforeExitingStateVariableName" DisplayName="State Variable Name" Description="Name of the state variable that will be assigned a new value." Category="Basic Logic" Required="False" NullString="null" IsAssignable="True" />
+        <ExpressionProperty Name="AssignmentsBeforeExitingNewValue" DisplayName="New Value" Description="The new value to assign." Category="Basic Logic" DefaultValue="0.0" Required="False" NullString="null" UnitTypeProperty="AssignmentsBeforeExitingStateVariableName" />
+        <Overrides />
+      </PropertyDefinitions>
+    </RepeatingProperty>
+    <ElementProperty Name="RunInitializedAddOnProcess" DisplayName="Run Initialized" Description="Occurs when the simulation run is initialized." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="RunEndingAddOnProcess" DisplayName="Run Ending" Description="Occurs when the simulation run is ending." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="EnteredAddOnProcess" DisplayName="Entered" Description="Occurs when an entity's leading edge has entered this path." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="TrailingEdgeEnteredAddOnProcess" DisplayName="Trailing Edge Entered" Description="Occurs when an entity's trailing edge has entered this path." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="ReachedEndAddOnProcess" DisplayName="Reached End" Description="Occurs when an entity's leading edge has reached the end of this path." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="ExitedAddOnProcess" DisplayName="Exited" Description="Occurs when an entity has exited this path." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <Overrides>
+      <Override Name="ReportStatistics" DefaultValue="True" />
+      <Override Name="ParentCostCenter" Visible="False" />
+      <Override Name="InitialCost" Visible="False" />
+      <Override Name="InitialCostRate" Visible="False" />
+      <Override Name="ResourceIdleCostRate" Visible="False" />
+      <Override Name="ResourceCostPerUse" Visible="False" />
+      <Override Name="ResourceUsageCostRate" Visible="False" />
+      <Override Name="LogResourceUsage" Visible="False" />
+      <Override Name="DisplayCategory" Visible="False" />
+      <Override Name="DisplayColor" Visible="False" />
+      <Override Name="IncludeInPlanResourceConstraints" Visible="False" />
+      <Override Name="CapacityType" Visible="False" />
+      <Override Name="InitialWorkSchedule" Visible="False" />
+      <Override Name="WorkDayExceptions" Visible="False" />
+      <Override Name="WorkPeriodExceptions" Visible="False" />
+      <Override Name="InitialCapacity" Visible="False" />
+      <Override Name="RankingRule" Visible="False" />
+      <Override Name="RankingExpression" Visible="False" />
+      <Override Name="DynamicSelectionRule" Visible="False" />
+      <Override Name="Type" ComplexityLevel="Basic" />
+      <Override Name="InitialDesiredSpeed" Visible="False" DefaultValue="0.0" />
+      <Override Name="EntityAlignment" Visible="False" />
+      <Override Name="CellSpacingType" Visible="False" />
+      <Override Name="NumberOfCells" Visible="False" />
+      <Override Name="CellSize" Visible="False" />
+      <Override Name="AutoAlignCells" Visible="False" />
+    </Overrides>
+    <PropertyReplacements>
+      <PropertyReplacement Version="51" OldPropertyName="InitializedAddOnProcess" NewPropertyName="RunInitializedAddOnProcess" />
+    </PropertyReplacements>
+  </PropertyDefinitions>
+  <States />
+  <Events />
+  <Processes>
+    <Process Name="OnRunInitialized" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Object.OnRunInitialized" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Execute" Name="RunInitialized_AddOnProcess" ID="2">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>RunInitializedAddOnProcess</Value>
+            </Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnRunEnding" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Object.OnRunEnding" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Execute" Name="RunEnding_AddOnProcess" ID="2">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>RunEndingAddOnProcess</Value>
+            </Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnEntered" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Link.OnEntered" BeginStepID="2">
+      <Properties>
+        <Property Name="TokenActionOnAssociatedObjectDestroyed">EndProcess</Property>
+        <Property Name="TokenActionOnAssociatedObjectTransferRequested">EndProcess</Property>
+      </Properties>
+      <Steps>
+        <Step Type="Assign" Name="OnEnteringAssignments" ID="2">
+          <Properties>
+            <Property Name="Assignments">
+              <Value>AssignmentsOnEntering</Value>
+              <Rows>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>AssignmentsOnEnteringStateVariableName</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">AssignmentsOnEnteringNewValue</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Decide" Name="IfNoEnteredAddOnProcess" ExclusionExpression="Math.If(EnteredAddOnProcess.HasValue, 2, 1)" ID="3">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">!EnteredAddOnProcess.HasValue</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="9" />
+          <Exit Name="False" Type="Alternate" NextID="4" />
+        </Step>
+        <Step Type="Assign" Name="DisableOnCollisionCleared" ID="4">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>OnCollisionCleared.Enabled</Value>
+            </Property>
+            <Property Name="NewValue">False</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="5" />
+        </Step>
+        <Step Type="Suspend" Name="EntityMovement" ID="5">
+          <Properties>
+            <Property Name="SuspendType">ObjectMovement</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="6" />
+        </Step>
+        <Step Type="Assign" Name="EnableOnCollisionCleared" ID="6">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>OnCollisionCleared.Enabled</Value>
+            </Property>
+            <Property Name="NewValue">True</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="7" />
+        </Step>
+        <Step Type="Execute" Name="Entered_AddOnProcess" ID="7">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>EnteredAddOnProcess</Value>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="8" />
+        </Step>
+        <Step Type="Resume" Name="EntityMovement" ID="8">
+          <Properties>
+            <Property Name="ResumeType">ObjectMovement</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="9" />
+        </Step>
+        <Step Type="Assign" Name="EntityMovementRate" ID="9">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>Entity.Movement.Rate</Value>
+            </Property>
+            <Property Name="NewValue">Math.Min(Entity.DesiredSpeed, SpeedLimit)</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="10" />
+        </Step>
+        <Step Type="Decide" Name="IfPassingAllowed" ExclusionExpression="Math.If(AllowPassing, 1, 2)" ID="10">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">AllowPassing</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="11" />
+        </Step>
+        <Step Type="EndTransfer" Name="OntoPath" ID="11">
+          <Properties />
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnExited" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Link.OnExited" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Execute" Name="Exited_AddOnProcess" ID="2">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>ExitedAddOnProcess</Value>
+            </Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnReachedEnd" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Link.OnReachedEnd" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Execute" Name="ReachedEnd_AddOnProcess" ID="2">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>ReachedEndAddOnProcess</Value>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Assign" Name="BeforeExitingAssignments" ID="3">
+          <Properties>
+            <Property Name="Assignments">
+              <Value>AssignmentsBeforeExiting</Value>
+              <Rows>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>AssignmentsBeforeExitingStateVariableName</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">AssignmentsBeforeExitingNewValue</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="Transfer" Name="FromPath" ID="4">
+          <Properties>
+            <Property Name="FromType">EndOfLink</Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnCollided" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Link.OnCollided" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Decide" Name="IfPassingAllowed" ExclusionExpression="Math.If(AllowPassing, 1, 2)" ID="2">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">AllowPassing</Property>
+          </Properties>
+          <Exit Name="False" Type="Alternate" NextID="3" />
+        </Step>
+        <Step Type="Assign" Name="EntityMovementRate" ID="3">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>Entity.Movement.Rate</Value>
+            </Property>
+            <Property Name="NewValue">Entity.NextEntityAheadOnLink.Movement.Rate</Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnCollisionCleared" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Link.OnCollisionCleared" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Decide" Name="IfPassingAllowed" ExclusionExpression="Math.If(AllowPassing, 1, 2)" ID="2">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">AllowPassing</Property>
+          </Properties>
+          <Exit Name="False" Type="Alternate" NextID="3" />
+        </Step>
+        <Step Type="Assign" Name="EntityMovementRate" ID="3">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>Entity.Movement.Rate</Value>
+            </Property>
+            <Property Name="NewValue">Math.Min(Math.Min(Math.If((Entity.NextEntityAheadOnLink!=Nothing)&amp;&amp;(Entity.NetworkDistanceTo.NextEntityAheadOnLink==0.0), Entity.NextEntityAheadOnLink.Movement.Rate, Infinity), Entity.DesiredSpeed), SpeedLimit)</Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnTrailingEdgeEntered" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Link.OnTrailingEdgeEntered" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Decide" Name="IfPassingAllowed" ExclusionExpression="Math.If(AllowPassing, 1, 2)" ID="2">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">AllowPassing</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="4" />
+          <Exit Name="False" Type="Alternate" NextID="3" />
+        </Step>
+        <Step Type="EndTransfer" Name="OntoPath" ID="3">
+          <Properties />
+          <Exit Name="Exit" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="Execute" Name="TrailingEdgeEntered_AddOnProcess" ID="4">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>TrailingEdgeEnteredAddOnProcess</Value>
+            </Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnTurnedAround" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Link.OnTurnedAround" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Assign" Name="EntityMovementRate" ExclusionExpression="SpeedLimit == Infinity" ID="2">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>Entity.Movement.Rate</Value>
+            </Property>
+            <Property Name="NewValue">Math.Min(Entity.DesiredSpeed, SpeedLimit)</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Decide" Name="IfPassingAllowed" ExclusionExpression="Math.If(AllowPassing, 1, 2)" ID="3">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">AllowPassing</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="EndTransfer" Name="OntoPath" ID="4">
+          <Properties />
+        </Step>
+      </Steps>
+    </Process>
+  </Processes>
+  <SaveHistories>
+    <SaveHistory SavedDateTime="2022-03-19T16:05:21" ProductVersion="14.236.26607.0" Edition="Internal" />
+  </SaveHistories>
+  <Graphics>
+    <AnimationSetup MinimumNumberOfFramesToDisplayIdleAnimation="10" />
+  </Graphics>
+</Fragment>
+<!-- em7lePMKVrsveUd0+NT6zfaZJKDgixSwkGYjZfwUjoPX6okB0AYGfzb3Aw2Wa24qYZ+7q3efJWLllWhXdXnnDQ== -->

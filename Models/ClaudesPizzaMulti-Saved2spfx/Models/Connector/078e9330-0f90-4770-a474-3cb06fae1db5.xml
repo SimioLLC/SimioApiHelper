@@ -1,0 +1,63 @@
+<Fragment>
+  <Compatibility ParseElementFunctionsInExpressionsLast="False" ParseNonEntityAssociatedObjectForPropertyReference="False" AllowInteractiveEntryOfNonStandardElementNames="False" ParsePropertiesForObjectTypeForAutoCreatedObjectsFirst="False" />
+  <ChangeDescriptions>
+    <ChangeDescription Version="24">Version 3.47: Added new 'Appearance' property category.</ChangeDescription>
+    <ChangeDescription Version="27">Version 3.51: Do not display new link 'Cell Spacing Type', 'Cell Size', and 'Auto Align Cells' properties.</ChangeDescription>
+    <ChangeDescription Version="28">Version 4.58: Added new 'Advanced Options' property category.</ChangeDescription>
+    <ChangeDescription Version="29">Version 4.61: Set all inherited properties in 'Financials' category to not be visible.</ChangeDescription>
+    <ChangeDescription Version="31">Version 4.68: Changed 'TravelerCapacity' integer property to 'InitialTravelerCapacity' expression property.</ChangeDescription>
+    <ChangeDescription Version="32">Version 5.91: Added information to indicate which properties to display if the new 'Show Commonly Used Properties Only' option is enabled.</ChangeDescription>
+    <ChangeDescription Version="33">Version 6.101: Explicitly set the 'Visible' property of the 'EntryRankingExpression' property to 'False'</ChangeDescription>
+  </ChangeDescriptions>
+  <PropertyDefinitions>
+    <Categories>
+      <Category Name="Routing Logic" Description="Routing Logic" />
+      <Category Name="Advanced Options" Description="Advanced Options" InitiallyExpanded="False" />
+    </Categories>
+    <Overrides>
+      <Override Name="ReportStatistics" DefaultValue="False" />
+      <Override Name="ParentCostCenter" Visible="False" />
+      <Override Name="InitialCost" Visible="False" />
+      <Override Name="InitialCostRate" Visible="False" />
+      <Override Name="ResourceIdleCostRate" Visible="False" />
+      <Override Name="ResourceCostPerUse" Visible="False" />
+      <Override Name="ResourceUsageCostRate" Visible="False" />
+      <Override Name="LogResourceUsage" Visible="False" />
+      <Override Name="DisplayCategory" Visible="False" />
+      <Override Name="DisplayColor" Visible="False" />
+      <Override Name="IncludeInPlanResourceConstraints" Visible="False" />
+      <Override Name="CapacityType" Visible="False" />
+      <Override Name="InitialWorkSchedule" Visible="False" />
+      <Override Name="WorkDayExceptions" Visible="False" />
+      <Override Name="WorkPeriodExceptions" Visible="False" />
+      <Override Name="InitialCapacity" Visible="False" />
+      <Override Name="RankingRule" Visible="False" />
+      <Override Name="RankingExpression" Visible="False" />
+      <Override Name="DynamicSelectionRule" Visible="False" />
+      <Override Name="Type" Visible="False" />
+      <Override Name="InitialTravelerCapacity" Visible="False" />
+      <Override Name="TrafficDirectionRule" Visible="False" />
+      <Override Name="InitialDesiredDirection" Visible="False" />
+      <Override Name="EntryRankingRule" Visible="False" />
+      <Override Name="EntryRankingExpression" Visible="False" />
+      <Override Name="InitialDesiredSpeed" Visible="False" DefaultValue="0.0" />
+      <Override Name="EntityAlignment" Visible="False" />
+      <Override Name="CellSpacingType" Visible="False" />
+      <Override Name="NumberOfCells" Visible="False" />
+      <Override Name="CellSize" Visible="False" />
+      <Override Name="AutoAlignCells" Visible="False" />
+      <Override Name="DrawnToScale" Visible="False" DefaultValue="False" />
+      <Override Name="LogicalLength" Visible="False" DefaultValue="0.0" />
+    </Overrides>
+  </PropertyDefinitions>
+  <States />
+  <Events />
+  <Processes />
+  <SaveHistories>
+    <SaveHistory SavedDateTime="2022-03-19T16:05:21" ProductVersion="14.236.26607.0" Edition="Internal" />
+  </SaveHistories>
+  <Graphics>
+    <AnimationSetup MinimumNumberOfFramesToDisplayIdleAnimation="10" />
+  </Graphics>
+</Fragment>
+<!-- 5ZwoGRDA1O/b86s+rS157mWEzgwgf9haFfGSW8UrgHD4DV9ceYDKCv3s1wLW/E3wOuVT52pkzqW6jkBOJrhCjg== -->

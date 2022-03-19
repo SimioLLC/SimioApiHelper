@@ -1,0 +1,2073 @@
+<Fragment>
+  <ChangeDescriptions>
+    <ChangeDescription Version="20">Version 2.41: Added customized resource utilization calculation for the object using its 'ResourceState' list state.</ChangeDescription>
+    <ChangeDescription Version="21">Version 3.42: Changes related to setting the 'Token Associated Object Destroyed Action' option for process logic in this object.</ChangeDescription>
+    <ChangeDescription Version="23">Version 3.43: Updated the Worker object's OnVisitingNode process logic to now include a SelectVisit step attempt that searches for an accepted visit request (either a transport pickup or a seize visit) before considering the worker as 'Idle'. Also, if the worker resource is released from transporting activity and then immediately reseized, added some decision logic to account for possibility of the new Seize requesting a visit to the same node destination as the worker's current node.</ChangeDescription>
+    <ChangeDescription Version="25">Version 3.44: 'SeizedObjects.UnitsOwned' function renamed to 'SeizedObjects.CapacityUnitsOwned'.</ChangeDescription>
+    <ChangeDescription Version="28">Version 3.45: A Worker object in the 'Transporting' state will now accept multiple transport reservation requests up to its ride capacity if the request(s) originate from the same pickup location that the worker is already traveling to. Renamed internal 'PickupsFinished' event to 'RidePickupsFinished'. Renamed 'OnVisitRequestQueueEmptied' process to 'OnAllRiderReservationsPickedUp'.</ChangeDescription>
+    <ChangeDescription Version="29">Version 3.46: Removed special-casing of ride capacity '1' in the worker's OnVisitingNode process to allow dynamic assignments of the worker's ride capacity to consistently work as expected.</ChangeDescription>
+    <ChangeDescription Version="32">Version 3.47: Updated the Worker object's process logic to handle the scenario where, if the worker has picked up a rider who did not make a reservation, the worker will still accept multiple transport reservation requests up to its ride capacity while at the same pickup point. A worker object also now always immediately goes into the Transporting state if picking up an unreserved rider. Added new 'Appearance' property category.</ChangeDescription>
+    <ChangeDescription Version="37">Version 3.49: Specified the 'OnAssociatedObjectTransferRequested' property of some processes as 'EndProcess'. The 'Exiting Node' add-on process trigger is now also called when the Worker is exiting a node by parking in the node's parking station. Added new 'Park While Busy' and 'Park to Load/Unload' properties.</ChangeDescription>
+    <ChangeDescription Version="40">Version 3.53: Conversion to 'OnEvaluatingMoveRequest' and 'OnMoveRequestAccepted' standard interface processes. Added worker support to allow multiple move requests by an owning entity.</ChangeDescription>
+    <ChangeDescription Version="42">Version 3.54: Added new Notify step to 'OnCapacityChanged' process to output a warning if the worker's resource capacity is assigned a value other than 0 or 1. Conversion to 'OnRunInitialized' standard interface process. Added 'Run Ending' add-on process trigger.</ChangeDescription>
+    <ChangeDescription Version="43">Version 3.55: Conversion to 'OnRiderReservationAccepted' standard interface process.</ChangeDescription>
+    <ChangeDescription Version="44">Version 3.56: Conversion to 'OnEvaluatingSeizeRequest' standard interface process.</ChangeDescription>
+    <ChangeDescription Version="46">Version 3.57: OnRunInitialized logic change - Never try to unpark worker if not parked. Removed some unnecessary Wait steps from the 'OnVisitingNode' process logic.</ChangeDescription>
+    <ChangeDescription Version="52">Version 4.58: OnVisitingNode process logic - After arriving to the destination of a requested move, check the worker's visit request queue for additional accepted move requests. OnRunInitialized process logic - After parking at the initial node, do a PlanVisit step to check for initial move or transport requests. 'Dynamic Objects' property category renamed to 'Population'. Added new 'Advanced Options' property category.</ChangeDescription>
+    <ChangeDescription Version="53">Version 4.59: Process logic now uses new entity 'CurrentNode' and 'DestinationNode' object reference functions instead of deprecated 'CurrentNodeID' and 'DestinationNodeID' functions.</ChangeDescription>
+    <ChangeDescription Version="54">Version 4.60: Process logic now uses new object 'SeizedResources.CapacityUnitsOwned' function instead of deprecated 'SeizedObjects.CapacityUnitsOwned'.</ChangeDescription>
+    <ChangeDescription Version="56">Version 4.61: Added new 'Financials' property category.</ChangeDescription>
+    <ChangeDescription Version="58">Version 4.62: Process logic now uses new entity 'Population.Index' function instead of deprecated 'MemberIndex' function. Added new 'Financials-&gt;Transport Costs' property category.</ChangeDescription>
+    <ChangeDescription Version="62">Version 4.63: Reordered the position of the 'Financials' property category. Added new 'Financials-&gt;Resource Costs' property category.</ChangeDescription>
+    <ChangeDescription Version="67">Version 4.65: Process logic now uses new object 'SeizedResources.CapacityOwnedOf' function instead of deprecated 'SeizedResources.CapacityUnitsOwned'. Private 'HomeNodeID' state variable replaced by new Public 'HomeNode' node reference state variable. Private 'IgnoredDestinationNodeID' state variable replaced by new Private boolean 'IgnoreVisitingCurrentNode' state variable assignment.</ChangeDescription>
+    <ChangeDescription Version="68">Version 4.66: Miscellaneous process logic changes to take advantage of object reference functions as well as the 'Math.If' function syntax.</ChangeDescription>
+    <ChangeDescription Version="71">Version 4.68: Renamed 'InitializedAddOnProcess' property to 'RunInitializedAddOnProcess'. Renamed 'EvaluatingAllocationAddOnProcess' property to 'EvaluatingSeizeRequestAddOnProcess'. Renamed 'EvaluatingRiderAddOnProcess' property to 'EvaluatingTransportRequestAddOnProcess'. Renamed 'Process Logic' property category to 'Resource Logic'.</ChangeDescription>
+    <ChangeDescription Version="72">Version 4.71: Process logic now uses new transporter 'RideStationLoad' function instead of deprecated 'RideCapacityRemaining'.</ChangeDescription>
+    <ChangeDescription Version="83">Version 4.73: New 'Minimum Dwell Time' related features now available in the 'Transport Logic' category. In the process logic, removed the 'RiderPickupsFinished' event and the 'OnRiderReservationsPickedUp' process which was triggered by that event.</ChangeDescription>
+    <ChangeDescription Version="84">Version 4.74: If dwelling due to minimum dwell time requirement, and the worker goes off-shift, the 'Dwell Only If' condition is now rechecked.</ChangeDescription>
+    <ChangeDescription Version="104">Version 4.75: Added 'OnEnteredFreeSpace' process logic to support free space travel.</ChangeDescription>
+    <ChangeDescription Version="105">Version 5.87: Process logic now uses new property 'HasValue' function instead of deprecated 'IsDefined'.</ChangeDescription>
+    <ChangeDescription Version="106">Version 5.88: If the 'Minimum Dwell Time' feature is being used, by default the worker will now dwell at a node only if the node is a TransferNode with its RideOnTransporter property set to 'True'.</ChangeDescription>
+    <ChangeDescription Version="107">Version 5.90: Some simplification of the worker's 'OnEnteredFreeSpace' process logic.</ChangeDescription>
+    <ChangeDescription Version="109">Version 5.91: Fixed issues assigning a correct value to the worker's 'OnEvaluatingRiderAtPickup.Enabled' state. Added information to indicate which properties to display if the new 'Show Commonly Used Properties Only' option is enabled.</ChangeDescription>
+    <ChangeDescription Version="110">Version 5.94: Modifications of the 'OnEvaluatingRiderReservation' &amp; 'OnEvaluatingSeizeRequest' process logic.</ChangeDescription>
+    <ChangeDescription Version="111">Version 5.95: Updates to the 'OnCapacityChanged' process logic.</ChangeDescription>
+    <ChangeDescription Version="112">Version 6.101: Minor edit to the 'OnVisitingNode' process logic. The 'IfParked' Decide step right before attempting to dropoff/pickup riders was changed to 'IfParking' for improved process logic readability.</ChangeDescription>
+    <ChangeDescription Version="114">Version 6.103: Some property description updates.</ChangeDescription>
+    <ChangeDescription Version="115">Version 7.121: 'OnVisitingNode' process logic - When released from a processing task, if the worker has been kept reserved then delay the executing token for an epsilon time before checking whether to exit the current node, to allow for possible new tasks at the same node.</ChangeDescription>
+    <ChangeDescription Version="122">Version 7.122: Simplification of the 'OnEvaluatingSeizeRequest' process logic - The Simio engine now automatically ignores checking this decision process if the worker is trying to seize itself. 'OnVisitingNode' process logic - After attempting transport dropoffs and pickups, if the worker has been kept as a reserved resource then delay the executing token for an epsilon time before potentially performing any idle actions, to allow for possible new tasks at the same node. 'OnRiderUnloading' process logic replaced by new 'OnRiderUnloaded' standard interface process, plus related changes to affected portions of the 'OnVisitingNode' process logic. These changes were made to better support the use of the worker if being kept as a reserved transport resource.</ChangeDescription>
+    <ChangeDescription Version="127">Version 7.123: Added 'OnCapacityReservationCancelled' &amp; 'OnNewSeizeRequest' process logic. 'Allocate', 'Pickup', 'Dropoff', and 'PlanVisit' processes moved to 'Obsolete Processes' category.</ChangeDescription>
+    <ChangeDescription Version="128">Version 7.126: 'OnRiderLoaded' process now a standard interface process automatically called by the engine.</ChangeDescription>
+    <ChangeDescription Version="130">Version 7.127: Updates to support new 'Release Quantity Type' property on Release step.</ChangeDescription>
+    <ChangeDescription Version="131">Version 7.134: New 'Travel Logic -&gt; Free Space Steering Behavior' property.</ChangeDescription>
+    <ChangeDescription Version="132">Version 8.136: Simplification of 'OnCreated' process logic.</ChangeDescription>
+    <ChangeDescription Version="133">Version 8.137: Changed default value of 'FreeSpaceSteeringUpdateInterval' property.</ChangeDescription>
+    <ChangeDescription Version="135">Version 8.142: Seize steps in process logic now use Skip Seize Condition feature if applicable. Resource state assignments always performed using separate Assign step for better trace readability.</ChangeDescription>
+    <ChangeDescription Version="136">Version 9.150: Updated 'Initial Node' property description text. Some simplification of 'OnCreated' process logic.</ChangeDescription>
+    <ChangeDescription Version="138">Version 9.159: Default value 'None' now properly specified for the Request Move property of Seize steps in the worker's process logic.</ChangeDescription>
+    <ChangeDescription Version="139">Version 9.160: New OnCapacityChangedProcess property added to Seize step.</ChangeDescription>
+    <ChangeDescription Version="141">Version 9.162: Process logic now references Process.TokensInProcess function namespace instead of deprecated Process.NumberTokensInProcess. Updates to the workers's ResourceState assignments to support use of the new 'Off Shift Rule' option for secondary resources in the Standard and Flow libraries.</ChangeDescription>
+    <ChangeDescription Version="144">Version 9.163: OnCapacityChanged process logic - Always fire 'RemainInPlaceEnded' event at start of a shift.</ChangeDescription>
+    <ChangeDescription Version="145">Version 10.180: OnVisitingNode process logic fix - Allow ride pickup requests at current node to be accepted if dwelling.</ChangeDescription>
+    <ChangeDescription Version="146">Version 10.184: Simplification of the OnEnteredFreeSpace process logic.</ChangeDescription>
+    <ChangeDescription Version="147">Version 10.186: OnCapacityChanged process logic - If on shift, then delay for epsilon time before trying to allocate the worker resource.</ChangeDescription>
+    <ChangeDescription Version="148">Version 10.187: OnVisitingNode process logic - When released from a processing task, always delay the executing token for an epsilon time before checking whether to exit the current node, to allow for possible new tasks at the same node.</ChangeDescription>
+    <ChangeDescription Version="150">Version 11.188: OnVisitingNode process logic - Release step releasing the worker if no additional transportation tasks, the Immediately Try Allocate property is now set to False.</ChangeDescription>
+    <ChangeDescription Version="151">Version 12.214: Changed the display name and description of Work Schedule property to Initial Work Schedule.</ChangeDescription>
+    <ChangeDescription Version="153">Version 14.225: Updated External View graphics to rotate with object.</ChangeDescription>
+  </ChangeDescriptions>
+  <ChangeStringReplacements>
+    <ChangeStringReplacement Version="71" RegularExpressionPattern="(^|[^\w_])(?i:InitializedAddOnProcess)([^\w_]|$)" ReplacementString="$1RunInitializedAddOnProcess$2" />
+    <ChangeStringReplacement Version="71" RegularExpressionPattern="(^|[^\w_])(?i:EvaluatingRiderAddOnProcess)([^\w_]|$)" ReplacementString="$1EvaluatingTransportRequestAddOnProcess$2" />
+    <ChangeStringReplacement Version="71" RegularExpressionPattern="(^|[^\w_])(?i:EvaluatingAllocationAddOnProcess)([^\w_]|$)" ReplacementString="$1EvaluatingSeizeRequestAddOnProcess$2" />
+  </ChangeStringReplacements>
+  <Lists>
+    <StringList Name="FreeSpaceSteeringBehaviorType">
+      <Items>
+        <Item Value="DirectToDestination" />
+        <Item Value="FollowNetworkPathIfPossible" />
+      </Items>
+    </StringList>
+    <StringList Name="WorkerIdleAction">
+      <Items>
+        <Item Value="ParkAtNode" />
+        <Item Value="ParkAtHome" />
+        <Item Value="Roam" />
+        <Item Value="GoToHome" />
+        <Item Value="None" />
+      </Items>
+    </StringList>
+    <StringList Name="WorkerOffShiftAction">
+      <Items>
+        <Item Value="ParkAtNode" />
+        <Item Value="ParkAtHome" />
+        <Item Value="GoToHome" />
+        <Item Value="None" />
+      </Items>
+    </StringList>
+    <StringList Name="WorkerMinimumDwellTimeType">
+      <Items>
+        <Item Value="NoRequirement" />
+        <Item Value="SpecificTime" />
+        <Item Value="DwellUntilEvent" />
+        <Item Value="DwellUntilFull" />
+      </Items>
+    </StringList>
+    <StringList Name="ResourceStateName">
+      <Items>
+        <Item Value="Idle" />
+        <Item Value="Busy" />
+        <Item Value="Blocked" />
+        <Item Value="Failed" />
+        <Item Value="OffShift" />
+        <Item Value="FailedBusy" />
+        <Item Value="OffShiftBusy" />
+        <Item Value="Transporting" />
+        <Item Value="FailedTransporting" />
+        <Item Value="OffShiftTransporting" />
+      </Items>
+    </StringList>
+  </Lists>
+  <PropertyDefinitions>
+    <Categories>
+      <Category Name="Resource Logic" Description="Resource Logic" />
+      <Category Name="Travel Logic" Description="Travel Logic" />
+      <Category Name="Routing Logic" Description="Routing Logic" />
+      <Category Name="Transport Logic" Description="Transport Logic" InitiallyExpanded="False" />
+      <Category Name="Financials" Description="Financials" InitiallyExpanded="False" />
+      <Category Name="Financials/Transport Costs" Description="Transport Costs" InitiallyExpanded="False" />
+      <Category Name="Financials/Resource Costs" Description="Resource Costs" InitiallyExpanded="False" />
+      <Category Name="Add-On Process Triggers" Description="Add-On Process Triggers" InitiallyExpanded="False" />
+      <Category Name="Population" Description="Population" InitiallyExpanded="False" />
+      <Category Name="Advanced Options" Description="Advanced Options" InitiallyExpanded="False" />
+    </Categories>
+    <BooleanProperty Name="ParkWhileBusy" DisplayName="Park While Busy" Description="Indicates whether this Worker object should park while busy at a node due to a seize request. Parking a worker can be useful to avoid blocking other travelers on the network." ComplexityLevel="Advanced" Category="Resource Logic" DefaultValue="False" NullString="null" />
+    <ListProperty Name="FreeSpaceSteeringBehavior" DisplayName="Free Space Steering Behavior" Description="The behavior used to steer an entity of this type when traveling in free space to a destination.&#xD;&#xA;&#xD;&#xA;'Direct To Destination' will steer an entity in a straight line to its destination.&#xD;&#xA;&#xD;&#xA;'Follow Network Path If Possible' will prefer to steer an entity along a path following its currently assigned network, staying within the boundaries of the drawn path width. However, if no followable network path exists to the entity's destination then the entity will be steered in a straight line. Note: In order to use this steering behavior, make sure the entity's travel mode is set to 'Free Space Only'." ComplexityLevel="Advanced" Category="Travel Logic" DefaultValue="Direct To Destination" NullString="null" List="FreeSpaceSteeringBehaviorType">
+      <Captions>
+        <Caption Value="DirectToDestination" Display="Direct To Destination" />
+        <Caption Value="FollowNetworkPathIfPossible" Display="Follow Network Path If Possible" />
+      </Captions>
+    </ListProperty>
+    <ExpressionProperty Name="FreeSpaceSteeringUpdateInterval" DisplayName="Update Interval" Description="The time interval between steering adjustments to maintain adherence to the network path and avoid collisions." ComplexityLevel="Advanced" Category="Travel Logic" DefaultValue="0.1" Parent="FreeSpaceSteeringBehavior" NullString="null" UnitType="Time" DefaultUnits="Seconds">
+      <Switch Property="FreeSpaceSteeringBehavior" Value="FollowNetworkPathIfPossible" />
+    </ExpressionProperty>
+    <BooleanProperty Name="FreeSpaceSteeringAvoidCollisions" DisplayName="Avoid Collisions" Description="Indicates whether the steering behavior will attempt to avoid collisions with other entities that are following the same network path." ComplexityLevel="Advanced" Category="Travel Logic" DefaultValue="False" Parent="FreeSpaceSteeringBehavior" NullString="null">
+      <Switch Property="FreeSpaceSteeringBehavior" Value="FollowNetworkPathIfPossible" />
+    </BooleanProperty>
+    <NodeProperty Name="InitialNode" DisplayName="Initial Node (Home)" Description="The initial home node location for workers of this type at the beginning of the simulation run.&#xD;&#xA;&#xD;&#xA;NOTE: Refer to the user-assignable ‘HomeNode' state variable of a worker to dynamically change its home node during a simulation run.&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;" Category="Routing Logic" Required="False" NullString="null" ValidObjectType="Node" LocationType="Cartesian" />
+    <ListProperty Name="IdleAction" DisplayName="Idle Action" Description="The action of this Worker object when it does not have any tasks to perform." ComplexityLevel="Advanced" Category="Routing Logic" DefaultValue="Park At Node" NullString="null" List="WorkerIdleAction">
+      <Captions>
+        <Caption Value="ParkAtNode" Display="Park At Node" />
+        <Caption Value="ParkAtHome" Display="Park At Home" />
+        <Caption Value="GoToHome" Display="Go To Home" />
+        <Caption Value="None" Display="Remain In Place" />
+      </Captions>
+    </ListProperty>
+    <ListProperty Name="OffShiftAction" DisplayName="Off Shift Action" Description="The action of this Worker object when it goes 'off shift'. Note that, if the worker is busy or transporting when an off shift period begins, then this action will be taken when the worker is released from (i.e., finishes) the remaining tasks." ComplexityLevel="Advanced" Category="Routing Logic" DefaultValue="Park At Node" NullString="null" List="WorkerOffShiftAction">
+      <Captions>
+        <Caption Value="ParkAtNode" Display="Park At Node" />
+        <Caption Value="ParkAtHome" Display="Park At Home" />
+        <Caption Value="GoToHome" Display="Go To Home" />
+        <Caption Value="None" Display="Remain In Place" />
+      </Captions>
+    </ListProperty>
+    <EnumProperty Name="TaskSelectionStrategy" DisplayName="Task Selection Strategy" Description="The strategy used by the Worker object to select its next transport pickup or dropoff task." ComplexityLevel="Advanced" Category="Transport Logic" DefaultValue="First In Queue" NullString="null" EnumType="TripSelectionGoal">
+      <Captions>
+        <Caption Value="SmallestDistance" Display="Smallest Distance" />
+        <Caption Value="LargestDistance" Display="Largest Distance" />
+        <Caption Value="SmallestPriority" Display="Smallest Priority" />
+        <Caption Value="LargestPriority" Display="Largest Priority" />
+        <Caption Value="FirstInQueue" Display="First In Queue" />
+      </Captions>
+    </EnumProperty>
+    <ExpressionProperty Name="LoadTime" DisplayName="Load Time" Description="The time required for this Worker object to load an entity (i.e., the load time per entity)." ComplexityLevel="Advanced" Category="Transport Logic" DefaultValue="0.0" NullString="null" UnitType="Time" DefaultUnits="Minutes" />
+    <ExpressionProperty Name="UnloadTime" DisplayName="Unload Time" Description="The time required for this Worker object to unload an entity (i.e., the unload time per entity)." ComplexityLevel="Advanced" Category="Transport Logic" DefaultValue="0.0" NullString="null" UnitType="Time" DefaultUnits="Minutes" />
+    <BooleanProperty Name="ParkToLoadUnload" DisplayName="Park to Load/Unload" Description="Indicates whether this Worker object should park to load and unload entities at a node. Parking a worker can be useful to avoid blocking other travelers on the network." ComplexityLevel="Advanced" Category="Transport Logic" DefaultValue="False" NullString="null" />
+    <ListProperty Name="MinimumDwellTimeType" DisplayName="Minimum Dwell Time Type" Description="Specifies the minimum dwell time requirement for this Worker object when loading and unloading entities at a node. A 'minimum dwell time' is a minimum amount of time the worker is required to wait, or 'dwell', at a node to load and unload entities." ComplexityLevel="Advanced" Category="Transport Logic" DefaultValue="No Requirement" NullString="null" List="WorkerMinimumDwellTimeType">
+      <Captions>
+        <Caption Value="NoRequirement" Display="No Requirement" />
+        <Caption Value="SpecificTime" Display="Specific Time" />
+        <Caption Value="DwellUntilEvent" Display="Dwell Until Event" />
+        <Caption Value="DwellUntilFull" Display="Dwell Until Full" />
+      </Captions>
+    </ListProperty>
+    <ExpressionProperty Name="MinimumDwellTime" DisplayName="Minimum Dwell Time" Description="The specific minimum amount of time that this Worker object is required to wait, or 'dwell', at a node to load and unload entities." ComplexityLevel="Advanced" Category="Transport Logic" DefaultValue="0.0" Parent="MinimumDwellTimeType" NullString="null" UnitType="Time">
+      <Switch Property="MinimumDwellTimeType" Value="SpecificTime" />
+    </ExpressionProperty>
+    <EventProperty Name="MinimumDwellTimeExpirationEventName" DisplayName="Event Name" Description="The name of the event whose occurrence will indicate the expiration of the minimum wait time requirement for this Worker object when loading and unloading entities at a node." ComplexityLevel="Advanced" Category="Transport Logic" Parent="MinimumDwellTimeType" NullString="null">
+      <Switch Property="MinimumDwellTimeType" Value="DwellUntilEvent" />
+    </EventProperty>
+    <ExpressionProperty Name="MinimumDwellTimeCondition" DisplayName="Dwell Only If" Description="If specified, this condition will be used to indicate whether the worker must respect the minimum dwell time at a node if that requirement has not yet expired, thereby forcing the worker to wait, or 'dwell', at the node for possible additional loads.&#xD;&#xA;&#xD;&#xA;Example uses of this property might include allowing the worker to exit a node before the minimum dwell time has expired if the worker has reached full ride capacity, or if there is little to no chance of additional loads. Another example condition might be to only respect the minimum dwell time requirement if the worker is at a node meeting some specific criteria." ComplexityLevel="Advanced" Category="Transport Logic" DefaultValue="Math.If($(DefinitionName).CurrentNode.Is.TransferNode, $(DefinitionName).CurrentNode.TransferNode.RideOnTransporter, False) &amp;&amp; ($(DefinitionName).RideStation.Capacity &gt; $(DefinitionName).RideStationLoad) &amp;&amp; ($(DefinitionName).ResourceState == 7)" Required="False" Parent="MinimumDwellTimeType" NullString="null">
+      <Switch Property="MinimumDwellTimeType" Comparison="NotEqual" Value="NoRequirement" />
+    </ExpressionProperty>
+    <ElementProperty Name="RunInitializedAddOnProcess" DisplayName="Run Initialized" Description="Occurs when the simulation run is initialized." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="RunEndingAddOnProcess" DisplayName="Run Ending" Description="Occurs when the simulation run is ending." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="AllocatedAddOnProcess" DisplayName="Allocated" Description="Occurs when this Worker resource has been allocated to perform some transport tasks, or when another object has seized this Worker resource for some non-transport related tasks." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="ReleasedAddOnProcess" DisplayName="Released" Description="Occurs when this Worker resource has been released (freed) after completing a set of transport tasks, or when another object has released this Worker resource from some non-transport related tasks." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="EnteredNodeAddOnProcess" DisplayName="Entered Node" Description="Occurs when this Worker object has entered a node's crossing area, including occurrences when the Worker object has entered by unparking from a node's parking station." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="UnloadedAddOnProcess" DisplayName="Unloaded" Description="Occurs after an entity has been unloaded from this Worker." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="LoadedAddOnProcess" DisplayName="Loaded" Description="Occurs after an entity has been loaded onto this Worker." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="ExitingNodeAddOnProcess" DisplayName="Exiting Node" Description="Occurs when this Worker object is about to begin exiting a node's crossing area, including occurrences when the Worker is exiting by parking in a node's parking station." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="EvaluatingTransportRequestAddOnProcess" DisplayName="Evaluating Transport Request" Description="Occurs when this Worker object is evaluating whether to accept or reject a transport request from a potential rider. In the executed decision process, assigning a non-positive value to the executing token's ReturnValue state indicates that the transport request is rejected." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="EvaluatingSeizeRequestAddOnProcess" DisplayName="Evaluating Seize Request" Description="Occurs when this Worker object is evaluating whether to accept or reject a request from another object to seize the worker resource. In the executed decision process, assigning a non-positive value to the executing token's ReturnValue state indicates that the seize request is rejected." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="OnShiftAddOnProcess" DisplayName="On Shift" Description="Occurs when the worker is at the start of a shift because of its specified work schedule." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="OffShiftAddOnProcess" DisplayName="Off Shift" Description="Occurs when the worker is at the end of a shift because of its specified work schedule." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ExpressionProperty Name="CapitalCostPerWorker" DisplayName="Capital Cost Per Worker" Description="The initial one-time setup cost to add a worker of this type to the system." ComplexityLevel="Advanced" Category="Financials" DefaultValue="0.0" NullString="null" UnitType="Currency" />
+    <Overrides>
+      <Override Name="ParentCostCenter" Visible="True" Description="The parent cost center that costs charged, or accrued, to workers of this type are rolled up into. If a parent cost center is not explicitly specified, then costs accrued to a worker will be automatically rolled up into the parent object that contains the worker's current location." />
+      <Override Name="InitialCost" Visible="False" />
+      <Override Name="InitialCostRate" Visible="False" />
+      <Override Name="ResourceIdleCostRate" Visible="True" Description="The cost per unit time that is charged to the cost of a worker of this type when it is idle." />
+      <Override Name="ResourceCostPerUse" Visible="True" Description="The one-time cost that is charged each time a worker of this type is used for a non-transport task, regardless of the usage duration. Is charged to the cost of the entity that seized the worker." />
+      <Override Name="ResourceUsageCostRate" Visible="True" Description="The cost per unit time that is charged to use a worker of this type for a non-transport task. Is charged to the cost of the entity that seized the worker." />
+      <Override Name="LogResourceUsage" Visible="True" />
+      <Override Name="DisplayCategory" Visible="True" />
+      <Override Name="DisplayColor" Visible="True" />
+      <Override Name="IncludeInPlanResourceConstraints" Visible="True" />
+      <Override Name="CapacityType" Visible="True" Description="The availability of this worker type to perform tasks. 'Fixed' indicates that this type of worker is always available. 'WorkSchedule' indicates that each worker of this type follows a work schedule defining its 'On-shift, Off-shift' availability over time." Category="Resource Logic" />
+      <Override Name="InitialWorkSchedule" Visible="True" Category="Resource Logic" />
+      <Override Name="WorkDayExceptions" Visible="True" />
+      <Override Name="WorkPeriodExceptions" Visible="True" />
+      <Override Name="InitialCapacity" Visible="False" DefaultValue="1" />
+      <Override Name="RankingRule" Visible="True" Description="The static ranking rule used to order requests waiting to seize this Worker object for a process task." Category="Resource Logic" />
+      <Override Name="RankingExpression" Visible="True" />
+      <Override Name="DynamicSelectionRule" Visible="True" Description="Indicates whether this worker, when it becomes available, dynamically selects the next seize request from its statically ranked allocation queue using a dynamic selection rule." Category="Resource Logic" />
+      <Override Name="CurrentSizeIndex" DefaultValue="$(DefinitionName).ResourceState" />
+      <Override Name="InitialNumberInSystem" DefaultValue="1" />
+      <Override Name="Destroyable" Visible="False" DefaultValue="False" />
+      <Override Name="InitialPriority" ComplexityLevel="Advanced" />
+      <Override Name="InitialSequence" Visible="False" />
+      <Override Name="CanTransferInAndOutOfObjects" DefaultValue="False" />
+      <Override Name="DueDateExpression" Visible="False" />
+      <Override Name="InitialRideCapacity" ComplexityLevel="Advanced" />
+    </Overrides>
+    <PropertyReplacements>
+      <PropertyReplacement Version="70" OldPropertyName="InitializedAddOnProcess" NewPropertyName="RunInitializedAddOnProcess" />
+      <PropertyReplacement Version="70" OldPropertyName="EvaluatingAllocationAddOnProcess" NewPropertyName="EvaluatingSeizeRequestAddOnProcess" />
+      <PropertyReplacement Version="70" OldPropertyName="EvaluatingRiderAddOnProcess" NewPropertyName="EvaluatingTransportRequestAddOnProcess" />
+    </PropertyReplacements>
+  </PropertyDefinitions>
+  <States>
+    <ElementReferenceState Name="HomeNode" Description="Gets or sets the home node location of the worker." ElementType="Node" />
+    <BooleanState Name="IgnoreVisitingCurrentNode" Private="True" />
+    <BooleanState Name="MinimumDwellTimeExpired" InitialValue="1" Private="True" />
+    <ElementReferenceState Name="PreferredOwner" Private="True" ElementType="Object" />
+    <ListState Name="ResourceState" Description="Gets the current resource state of the object.&#xD;&#xA;&#xD;&#xA;Possible Values: Idle = 0, Busy = 1, OffShift = 4, OffShiftBusy = 6, Transporting = 7, OffShiftTransporting = 9" List="ResourceStateName" AutomaticAssignment="ResourceAutoStates" ResourceUtilizationCalculation="Custom">
+      <AutoStates>
+        <AutoState Label="FailedBusy" State="Failed AutoState" />
+        <AutoState Label="OffShiftBusy" State="OffShift AutoState" />
+        <AutoState Label="Transporting" State="Busy AutoState" />
+        <AutoState Label="FailedTransporting" State="Failed AutoState" />
+        <AutoState Label="OffShiftTransporting" State="OffShift AutoState" />
+      </AutoStates>
+      <ResourceUtilizationCalculationSettings>
+        <ResourceUtilizationCalculationSetting StateName="Idle" Setting="NotUtilized" />
+        <ResourceUtilizationCalculationSetting StateName="Busy" Setting="Utilized" />
+        <ResourceUtilizationCalculationSetting StateName="Blocked" Setting="NotUtilized" />
+        <ResourceUtilizationCalculationSetting StateName="Failed" Setting="NotUtilized" />
+        <ResourceUtilizationCalculationSetting StateName="OffShift" Setting="NotUtilized" />
+        <ResourceUtilizationCalculationSetting StateName="FailedBusy" Setting="Utilized" />
+        <ResourceUtilizationCalculationSetting StateName="OffShiftBusy" Setting="Utilized" />
+        <ResourceUtilizationCalculationSetting StateName="Transporting" Setting="Utilized" />
+        <ResourceUtilizationCalculationSetting StateName="FailedTransporting" Setting="Utilized" />
+        <ResourceUtilizationCalculationSetting StateName="OffShiftTransporting" Setting="Utilized" />
+      </ResourceUtilizationCalculationSettings>
+    </ListState>
+  </States>
+  <Events>
+    <Event Name="RiderLoaded" Description="The RiderLoaded event provides notification to the worker's OnVisitingNode process that a rider has been loaded." Public="False" />
+    <Event Name="RiderUnloaded" Description="The RiderUnloaded event provides notification to the worker's OnVisitingNode process that a rider has been unloaded." Public="False" />
+    <Event Name="Allocated" Description="The Allocated event provides notification that capacity of this resource has been allocated." />
+    <Event Name="Released" Description="The Released event provides notification that capacity of this resource has been released." />
+    <Event Name="RemainInPlaceEnded" Description="The RemainInPlaceEnded event provides notification to the worker's process logic that the worker is to no longer remain in place at its current node if currently doing so." Public="False" />
+    <Event Name="MinimumDwellTimeExpirationReset" Description="The MinimumDwellTimeExpirationReset event provides notification to reset the worker's minimum dwell time expiration timer." Public="False" />
+  </Events>
+  <Elements>
+    <Element Type="Timer" Name="MinimumDwellTimeExpirationTimer">
+      <Properties>
+        <Property Name="TimeOffset">MinimumDwellTime</Property>
+        <Property Name="TimeInterval">MinimumDwellTime</Property>
+        <Property Name="MaximumEvents">Math.If(MinimumDwellTimeExpired,0,1)</Property>
+        <Property Name="ResetEventName">MinimumDwellTimeExpirationReset</Property>
+        <Property Name="InitiallyEnabled">False</Property>
+      </Properties>
+    </Element>
+    <Element Type="CostCenter" Name="CapitalCosts">
+      <Properties>
+        <Property Name="InitialCost" Units="USD">CapitalCostPerWorker</Property>
+        <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="DataSource">[Object]</Property>
+        <Property Name="DataItem">"CapitalCost"</Property>
+      </Properties>
+    </Element>
+  </Elements>
+  <Processes>
+    <Process Name="OnRunInitialized" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Object.OnRunInitialized" BeginStepID="5">
+      <Properties>
+        <Property Name="TokenActionOnAssociatedObjectTransferRequested">EndProcess</Property>
+      </Properties>
+      <Steps>
+        <Step Type="Park" Name="AtInitialNode" ID="2">
+          <Properties>
+            <Property Name="EntityType">ParentObject</Property>
+            <Property Name="NodeName">InitialNode</Property>
+          </Properties>
+          <Exit Name="OK" Type="Primary" NextID="6" />
+          <Exit Name="Failed" Type="Alternate" NextID="6" />
+        </Step>
+        <Step Type="Decide" Name="IfUnpark" ExclusionExpression="Math.If(IdleAction == List.WorkerIdleAction.Roam, 0, 2)" ID="3">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">IsParked</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="UnPark" Name="Worker" ID="4">
+          <Properties>
+            <Property Name="EntityType">ParentObject</Property>
+          </Properties>
+        </Step>
+        <Step Type="Execute" Name="RunInitializedAddOnProcess" ID="5">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>RunInitializedAddOnProcess</Value>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="2" />
+        </Step>
+        <Step Type="Decide" Name="IfOnShift" ID="6">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">ResourceState!=List.ResourceStateName.OffShift</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="7" />
+        </Step>
+        <Step Type="PlanVisit" Name="InitialMoveOrTransportRequests" ID="7">
+          <Properties>
+            <Property Name="EntityType">ParentObject</Property>
+            <Property Name="SelectionGoal">TaskSelectionStrategy</Property>
+          </Properties>
+          <Exit Name="OK" Type="Primary" NextID="7" />
+          <Exit Name="Failed" Type="Alternate" NextID="3" />
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnCreated" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Object.OnCreated" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Notify" Name="IfInvalidCapacity" ID="2">
+          <Properties>
+            <Property Name="NotificationType">Warning</Property>
+            <Property Name="MessageHeading">"Invalid resource capacity detected"</Property>
+            <Property Name="MessageContent">"Invalid capacity value '" + String.FromReal(Capacity) + "' assigned to resource '" + Name + "'. The value cannot be greater than 1.
+
+The resource's capacity will be automatically adjusted to the maximum allowable value. However, this warning may indicate a problem in the modeled logic."</Property>
+            <Property Name="NotifyCondition">Capacity &gt; 1</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Assign" Name="OnCreatedAssignments" ID="3">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>OnEvaluatingRiderReservation.Enabled</Value>
+            </Property>
+            <Property Name="NewValue">ResourceState!=List.ResourceStateName.OffShift</Property>
+            <Property Name="Assignments">
+              <Rows>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingRiderReservation.ReturnValue</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">ResourceState!=List.ResourceStateName.OffShift</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingSeizeRequest.Enabled</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">ResourceState==List.ResourceStateName.Idle</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingSeizeRequest.ReturnValue</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">ResourceState==List.ResourceStateName.Idle</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingRiderAtPickup.Enabled</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">ResourceState!=List.ResourceStateName.OffShift</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingRiderAtPickup.ReturnValue</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">ResourceState!=List.ResourceStateName.OffShift</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>CurrentCapacity</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">1</Property>
+                  <Property Name="AssignmentsSkipAssignmentCondition">CurrentCapacity &lt;= 1</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>HomeNode</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">InitialNode</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>MinimumDwellTimeExpirationTimer.Enabled</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">True</Property>
+                  <Property Name="AssignmentsSkipAssignmentCondition">MinimumDwellTimeType!=List.WorkerMinimumDwellTimeType.SpecificTime</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="Decide" Name="IfOnShift" ExclusionExpression="Math.If(OnShiftAddOnProcess.HasValue, 0, 2)" ID="4">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">ResourceState!=List.ResourceStateName.OffShift</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="7" />
+          <Exit Name="False" Type="Alternate" NextID="5" />
+        </Step>
+        <Step Type="Decide" Name="IfOffShift" ExclusionExpression="Math.If(OffShiftAddOnProcess.HasValue, 0, 2)" ID="5">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">ResourceState==List.ResourceStateName.OffShift</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="6" />
+        </Step>
+        <Step Type="Execute" Name="OffShiftAddOnProcess" ID="6">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>OffShiftAddOnProcess</Value>
+            </Property>
+          </Properties>
+        </Step>
+        <Step Type="Execute" Name="OnShiftAddOnProcess" ID="7">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>OnShiftAddOnProcess</Value>
+            </Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnCapacityAllocated" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Object.OnCapacityAllocated" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Assign" Name="ResourceState" ID="2">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>ResourceState</Value>
+            </Property>
+            <Property Name="NewValue">Math.If(ResourceOwners.Contains(ParentObject), List.ResourceStateName.Transporting, List.ResourceStateName.Busy)</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Assign" Name="OnCapacityAllocatedAssignments" ID="3">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>OnEvaluatingRiderReservation.Enabled</Value>
+            </Property>
+            <Property Name="NewValue">Math.If(ResourceState==List.ResourceStateName.Transporting, RideStation.Capacity &gt; RideStationLoad, False)</Property>
+            <Property Name="Assignments">
+              <Rows>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingRiderReservation.ReturnValue</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">Math.If(ResourceState==List.ResourceStateName.Transporting, RideStation.Capacity &gt; RideStationLoad, False)</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingSeizeRequest.Enabled</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">False</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingSeizeRequest.ReturnValue</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">False</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingRiderAtPickup.Enabled</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">ResourceState==List.ResourceStateName.Transporting</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingRiderAtPickup.ReturnValue</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">ResourceState==List.ResourceStateName.Transporting</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="Fire" Name="AllocatedEvent" ID="4">
+          <Properties>
+            <Property Name="EventName">Allocated</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="5" />
+        </Step>
+        <Step Type="Execute" Name="AllocatedAddOnProcess" ID="5">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>AllocatedAddOnProcess</Value>
+            </Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnCapacityReleased" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Object.OnCapacityReleased" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Assign" Name="ResourceState" ID="2">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>ResourceState</Value>
+            </Property>
+            <Property Name="NewValue">Math.If(Capacity==0, List.ResourceStateName.OffShift, ResourceState)</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Assign" Name="OnCapacityReleasedAssignments" ID="3">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>OnEvaluatingRiderReservation.Enabled</Value>
+            </Property>
+            <Property Name="NewValue">ResourceState==List.ResourceStateName.Idle</Property>
+            <Property Name="Assignments">
+              <Rows>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingRiderReservation.ReturnValue</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">ResourceState==List.ResourceStateName.Idle</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingSeizeRequest.Enabled</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">ResourceState==List.ResourceStateName.Idle</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingSeizeRequest.ReturnValue</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">ResourceState==List.ResourceStateName.Idle</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingRiderAtPickup.Enabled</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">ResourceState==List.ResourceStateName.Idle</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingRiderAtPickup.ReturnValue</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">ResourceState==List.ResourceStateName.Idle</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="SetNode" Name="ToClearDestination" ID="4">
+          <Properties>
+            <Property Name="EntityType">ParentObject</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="5" />
+        </Step>
+        <Step Type="Fire" Name="RemainInPlaceEndedEvent" ID="5">
+          <Properties>
+            <Property Name="EventName">RemainInPlaceEnded</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="6" />
+        </Step>
+        <Step Type="Fire" Name="ReleasedEvent" ID="6">
+          <Properties>
+            <Property Name="EventName">Released</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="7" />
+        </Step>
+        <Step Type="Execute" Name="ReleasedAddOnProcess" ID="7">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>ReleasedAddOnProcess</Value>
+            </Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnEvaluatingSeizeRequest" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Object.OnEvaluatingSeizeRequest" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Execute" Name="EvaluatingSeizeRequestAddOnProcess" ID="2">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>EvaluatingSeizeRequestAddOnProcess</Value>
+            </Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnCapacityChanged" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Object.OnCapacityChanged" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Decide" Name="IfValidCapacity" ID="2">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">Capacity&lt;=1</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="5" />
+          <Exit Name="False" Type="Alternate" NextID="3" />
+        </Step>
+        <Step Type="Notify" Name="InvalidCapacity" ID="3">
+          <Properties>
+            <Property Name="NotificationType">Warning</Property>
+            <Property Name="MessageHeading">"Invalid resource capacity detected"</Property>
+            <Property Name="MessageContent">"Invalid capacity value '" + String.FromReal(Capacity) + "' assigned to resource '" + Name + "'. The value cannot be greater than 1.
+
+The resource's capacity will be automatically adjusted to the maximum allowable value. However, this warning may indicate a problem in the modeled logic."</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="Assign" Name="CurrentCapacity" ID="4">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>OnCapacityChanged.Enabled</Value>
+            </Property>
+            <Property Name="NewValue">False</Property>
+            <Property Name="Assignments">
+              <Rows>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>CurrentCapacity</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">1</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnCapacityChanged.Enabled</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">True</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="5" />
+        </Step>
+        <Step Type="Decide" Name="IfOnShift" ID="5">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">Capacity==1</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="10" />
+          <Exit Name="False" Type="Alternate" NextID="6" />
+        </Step>
+        <Step Type="Decide" Name="IfOffShift" ID="6">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">Capacity==0</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="7" />
+        </Step>
+        <Step Type="Assign" Name="ResourceState" ID="7">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>ResourceState</Value>
+            </Property>
+            <Property Name="NewValue">Math.If((ResourceOwners==0)||ResourceOwners.AllProcessingSuspended, List.ResourceStateName.OffShift, ResourceOwners.Contains(ParentObject), List.ResourceStateName.OffShiftTransporting, List.ResourceStateName.OffShiftBusy)</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="8" />
+        </Step>
+        <Step Type="Assign" Name="OffShiftAssignments" ID="8">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>OnEvaluatingRiderReservation.Enabled</Value>
+            </Property>
+            <Property Name="NewValue">False</Property>
+            <Property Name="Assignments">
+              <Rows>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingRiderReservation.ReturnValue</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">False</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingSeizeRequest.Enabled</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">False</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingSeizeRequest.ReturnValue</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">False</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingRiderAtPickup.Enabled</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">(ResourceState==List.ResourceStateName.OffShiftTransporting)&amp;&amp;(VisitRequestQueue.NumberWaiting&gt;0)</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingRiderAtPickup.ReturnValue</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">(ResourceState==List.ResourceStateName.OffShiftTransporting)&amp;&amp;(VisitRequestQueue.NumberWaiting&gt;0)</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="9" />
+        </Step>
+        <Step Type="Execute" Name="OffShiftAddOnProcess" ID="9">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>OffShiftAddOnProcess</Value>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="27" />
+        </Step>
+        <Step Type="Assign" Name="OnShiftAssignments" ID="10">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>OnEvaluatingRiderReservation.Enabled</Value>
+            </Property>
+            <Property Name="NewValue">ResourceState==List.ResourceStateName.Idle || (ResourceState==List.ResourceStateName.Transporting &amp;&amp; (RideStation.Capacity &gt; RideStationLoad))</Property>
+            <Property Name="Assignments">
+              <Rows>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingRiderReservation.ReturnValue</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">ResourceState==List.ResourceStateName.Idle || (ResourceState==List.ResourceStateName.Transporting &amp;&amp; (RideStation.Capacity &gt; RideStationLoad))</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingSeizeRequest.Enabled</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">ResourceState==List.ResourceStateName.Idle</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingSeizeRequest.ReturnValue</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">ResourceState==List.ResourceStateName.Idle</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingRiderAtPickup.Enabled</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">ResourceState==List.ResourceStateName.Idle || ResourceState==List.ResourceStateName.Transporting</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingRiderAtPickup.ReturnValue</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">ResourceState==List.ResourceStateName.Idle || ResourceState==List.ResourceStateName.Transporting</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="11" />
+        </Step>
+        <Step Type="Execute" Name="OnShiftAddOnProcess" ID="11">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>OnShiftAddOnProcess</Value>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="12" />
+        </Step>
+        <Step Type="Delay" Name="Epsilon" ID="12">
+          <Properties>
+            <Property Name="DelayTime">Math.Epsilon</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="13" />
+        </Step>
+        <Step Type="Allocate" Name="Worker" ID="13">
+          <Properties>
+            <Property Name="ResourceType">ParentObject</Property>
+          </Properties>
+          <Exit Name="Failed" Type="Alternate" NextID="14" />
+        </Step>
+        <Step Type="PlanVisit" Name="NewTransportRequests" ID="14">
+          <Properties>
+            <Property Name="EntityType">ParentObject</Property>
+            <Property Name="SelectionGoal">TaskSelectionStrategy</Property>
+          </Properties>
+          <Exit Name="OK" Type="Primary" NextID="14" />
+          <Exit Name="Failed" Type="Alternate" NextID="15" />
+        </Step>
+        <Step Type="Decide" Name="IfIdle" ID="15">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">ResourceState==List.ResourceStateName.Idle</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="16" />
+          <Exit Name="False" Type="Alternate" NextID="19" />
+        </Step>
+        <Step Type="Decide" Name="IfIdleAction" ID="16">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">Math.If(IdleAction==List.WorkerIdleAction.GoToHome, ((CurrentNode==Nothing)&amp;&amp;(CurrentLink==Nothing)&amp;&amp;(CurrentStation==Nothing))||((CurrentNode!=Nothing)&amp;&amp;(CurrentNode!=HomeNode)), IdleAction==List.WorkerIdleAction.ParkAtNode, (CurrentNode!=Nothing)&amp;&amp;!IsParked, IdleAction==List.WorkerIdleAction.ParkAtHome, ((CurrentNode==Nothing)&amp;&amp;(CurrentLink==Nothing)&amp;&amp;(CurrentStation==Nothing))||((CurrentNode!=Nothing)&amp;&amp;(CurrentNode!=HomeNode))||((CurrentNode==HomeNode)&amp;&amp;!IsParked), False)</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="21" />
+        </Step>
+        <Step Type="Decide" Name="IfOffShift" ID="17">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">ResourceState==List.ResourceStateName.OffShift</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="18" />
+        </Step>
+        <Step Type="Decide" Name="IfOffShiftAction" ID="18">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">Math.If(OffShiftAction==List.WorkerOffShiftAction.GoToHome, ((CurrentNode==Nothing)&amp;&amp;(CurrentLink==Nothing)&amp;&amp;(CurrentStation==Nothing))||((CurrentNode!=Nothing)&amp;&amp;(CurrentNode!=HomeNode)), OffShiftAction==List.WorkerOffShiftAction.ParkAtNode, (CurrentNode!=Nothing)&amp;&amp;!IsParked, OffShiftAction==List.WorkerOffShiftAction.ParkAtHome, ((CurrentNode==Nothing)&amp;&amp;(CurrentLink==Nothing)&amp;&amp;(CurrentStation==Nothing))||((CurrentNode!=Nothing)&amp;&amp;(CurrentNode!=HomeNode))||((CurrentNode==HomeNode)&amp;&amp;!IsParked), False)</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="23" />
+        </Step>
+        <Step Type="Fire" Name="RemainInPlaceEndedEvent" ID="19">
+          <Properties>
+            <Property Name="EventName">RemainInPlaceEnded</Property>
+          </Properties>
+        </Step>
+        <Step Type="Fire" Name="RemainInPlaceEndedEvent" ID="20">
+          <Properties>
+            <Property Name="EventName">RemainInPlaceEnded</Property>
+          </Properties>
+        </Step>
+        <Step Type="Decide" Name="IfInFreeSpace" ID="21">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">(CurrentNode==Nothing)&amp;&amp;(CurrentLink==Nothing)&amp;&amp;(CurrentStation==Nothing)</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="28" />
+          <Exit Name="False" Type="Alternate" NextID="22" />
+        </Step>
+        <Step Type="Decide" Name="IfUnpark" ID="22">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">IsParked &amp;&amp; (OnVisitingNode.TokensInProcess==0)</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="25" />
+          <Exit Name="False" Type="Alternate" NextID="19" />
+        </Step>
+        <Step Type="Decide" Name="IfInFreeSpace" ID="23">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">(CurrentNode==Nothing)&amp;&amp;(CurrentLink==Nothing)&amp;&amp;(CurrentStation==Nothing)</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="29" />
+          <Exit Name="False" Type="Alternate" NextID="24" />
+        </Step>
+        <Step Type="Decide" Name="IfUnpark" ID="24">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">IsParked &amp;&amp; (OnVisitingNode.TokensInProcess==0)</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="26" />
+          <Exit Name="False" Type="Alternate" NextID="20" />
+        </Step>
+        <Step Type="UnPark" Name="Worker" ID="25">
+          <Properties>
+            <Property Name="EntityType">ParentObject</Property>
+          </Properties>
+        </Step>
+        <Step Type="UnPark" Name="Worker" ID="26">
+          <Properties>
+            <Property Name="EntityType">ParentObject</Property>
+          </Properties>
+        </Step>
+        <Step Type="Decide" Name="IfDwellingForMinimumDwellTime" ExclusionExpression="Math.If(MinimumDwellTimeType == List.WorkerMinimumDwellTimeType.NoRequirement, 2, 0)" ID="27">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">!MinimumDwellTimeExpired</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="20" />
+          <Exit Name="False" Type="Alternate" NextID="17" />
+        </Step>
+        <Step Type="Decide" Name="IfHoming" ID="28">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">((IdleAction==List.WorkerIdleAction.GoToHome)||(IdleAction==List.WorkerIdleAction.ParkAtHome))&amp;&amp;(HomeNode!=Nothing)</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="30" />
+        </Step>
+        <Step Type="Decide" Name="IfHoming" ID="29">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">((OffShiftAction==List.WorkerOffShiftAction.GoToHome)||(OffShiftAction==List.WorkerOffShiftAction.ParkAtHome))&amp;&amp;(HomeNode!=Nothing)</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="30" />
+        </Step>
+        <Step Type="SetNode" Name="ToHomeNode" ID="30">
+          <Properties>
+            <Property Name="NodeName">HomeNode</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="31" />
+        </Step>
+        <Step Type="Travel" Name="ToDestinationNode" ID="31">
+          <Properties>
+            <Property Name="EntityType">ParentObject</Property>
+            <Property Name="SteeringBehavior" BehaviorGuid="2b2ac6d5-73de-4ac8-bfc8-8b0ea2fdbe1e">
+              <Value>Direct To Destination</Value>
+              <Properties>
+                <Property Name="DestinationObject">DestinationNode</Property>
+                <Property Name="MaximumMovementRate">DesiredSpeed</Property>
+              </Properties>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="32" />
+        </Step>
+        <Step Type="Transfer" Name="ToDestinationNode" ID="32">
+          <Properties>
+            <Property Name="EntityType">ParentObject</Property>
+            <Property Name="NodeName">DestinationNode</Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnRunEnding" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Object.OnRunEnding" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Execute" Name="RunEndingAddOnProcess" ID="2">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>RunEndingAddOnProcess</Value>
+            </Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnCapacityReservationCancelled" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Object.OnCapacityReservationCancelled" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Allocate" Name="Worker" ID="2">
+          <Properties>
+            <Property Name="ResourceType">ParentObject</Property>
+          </Properties>
+          <Exit Name="Failed" Type="Alternate" NextID="3" />
+        </Step>
+        <Step Type="PlanVisit" Name="NewTransportRequests" ID="3">
+          <Properties>
+            <Property Name="EntityType">ParentObject</Property>
+            <Property Name="SelectionGoal">TaskSelectionStrategy</Property>
+          </Properties>
+          <Exit Name="OK" Type="Primary" NextID="3" />
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnNewSeizeRequest" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Object.OnNewSeizeRequest" BeginStepID="2">
+      <Properties>
+        <Property Name="InitiallyEnabled">False</Property>
+      </Properties>
+      <Steps>
+        <Step Type="Decide" Name="IfPreferredOwner" ID="2">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">Entity==PreferredOwner</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Release" Name="Worker" ID="3">
+          <Properties>
+            <Property Name="OwnerType">ParentObject</Property>
+            <Property Name="ResourceReleases">
+              <Rows>
+                <Properties>
+                  <Property Name="ResourceType">ParentObject</Property>
+                  <Property Name="QuantityType">All</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="EndTransfer" Name="FromWorker" ID="4">
+          <Properties />
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnVisitingNode" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Entity.OnVisitingNode" BeginStepID="2">
+      <Properties>
+        <Property Name="TokenActionOnAssociatedObjectTransferRequested">EndProcess</Property>
+      </Properties>
+      <Steps>
+        <Step Type="Execute" Name="EnteredNodeAddOnProcess" ID="2">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>EnteredNodeAddOnProcess</Value>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Decide" Name="IfNotVisitingNode" ID="3">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">Math.If(IgnoreVisitingCurrentNode, True, ResourceState==List.ResourceStateName.Idle, False, ResourceState==List.ResourceStateName.OffShift, ((OffShiftAction==List.WorkerOffShiftAction.GoToHome)||(OffShiftAction==List.WorkerOffShiftAction.ParkAtHome))&amp;&amp;(HomeNode!=Nothing)&amp;&amp;(DestinationNode==HomeNode)&amp;&amp;(CurrentNode!=HomeNode),(DestinationNode!=Nothing)&amp;&amp;(CurrentNode!=DestinationNode), True, False)</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="40" />
+          <Exit Name="False" Type="Alternate" NextID="4" />
+        </Step>
+        <Step Type="Decide" Name="IfBusy" ID="4">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">(ResourceState==List.ResourceStateName.Busy)||(ResourceState==List.ResourceStateName.OffShiftBusy)</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="32" />
+          <Exit Name="False" Type="Alternate" NextID="35" />
+        </Step>
+        <Step Type="Arrive" Name="AtDestination" ID="5">
+          <Properties>
+            <Property Name="EntityType">ParentObject</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="42" />
+        </Step>
+        <Step Type="Wait" Name="UntilRemainInPlaceEnded" ID="6">
+          <Properties>
+            <Property Name="EventName">RemainInPlaceEnded</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="7" />
+        </Step>
+        <Step Type="Delay" Name="Epsilon" ID="7">
+          <Properties>
+            <Property Name="DelayTime">Math.Epsilon</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Execute" Name="ExitingNodeAddOnProcess" ID="8">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>ExitingNodeAddOnProcess</Value>
+            </Property>
+          </Properties>
+        </Step>
+        <Step Type="Dropoff" Name="Rider" ID="9">
+          <Properties>
+            <Property Name="TransporterType">ParentObject</Property>
+            <Property Name="UnloadTime">UnloadTime</Property>
+          </Properties>
+          <Exit Name="OK" Type="Primary" NextID="10" />
+          <Exit Name="Failed" Type="Alternate" NextID="55" />
+        </Step>
+        <Step Type="Decide" Name="IfWaitUntilRiderUnloaded" ExclusionExpression="Math.If(!UnloadedAddOnProcess.HasValue, 2, 0)" ID="10">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">OnRiderUnloaded.TokensInProcess &gt; 0</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="11" />
+          <Exit Name="False" Type="Alternate" NextID="9" />
+        </Step>
+        <Step Type="Wait" Name="UntilRiderUnloaded" ExclusionExpression="!UnloadedAddOnProcess.HasValue" ID="11">
+          <Properties>
+            <Property Name="EventName">RiderUnloaded</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="9" />
+        </Step>
+        <Step Type="Pickup" Name="Rider" ID="12">
+          <Properties>
+            <Property Name="TransporterType">ParentObject</Property>
+            <Property Name="SelectionGoal">TaskSelectionStrategy</Property>
+            <Property Name="LoadTime">LoadTime</Property>
+          </Properties>
+          <Exit Name="OK" Type="Primary" NextID="13" />
+          <Exit Name="Failed" Type="Alternate" NextID="49" />
+        </Step>
+        <Step Type="Decide" Name="IfWaitUntilRiderLoaded" ExclusionExpression="Math.If(!LoadedAddOnProcess.HasValue, 2, 0)" ID="13">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">OnRiderLoaded.TokensInProcess &gt; 0</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="14" />
+          <Exit Name="False" Type="Alternate" NextID="12" />
+        </Step>
+        <Step Type="Wait" Name="UntilRiderLoaded" ExclusionExpression="!LoadedAddOnProcess.HasValue" ID="14">
+          <Properties>
+            <Property Name="EventName">RiderLoaded</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="12" />
+        </Step>
+        <Step Type="SelectDropoff" Name="NextTransportDropoff" ID="15">
+          <Properties>
+            <Property Name="TransporterType">ParentObject</Property>
+            <Property Name="SelectionGoal">TaskSelectionStrategy</Property>
+          </Properties>
+          <Exit Name="OK" Type="Primary" NextID="40" />
+          <Exit Name="Failed" Type="Alternate" NextID="16" />
+        </Step>
+        <Step Type="SelectVisit" Name="ToAcceptedDestination" ID="16">
+          <Properties>
+            <Property Name="EntityType">ParentObject</Property>
+            <Property Name="SelectionGoal">TaskSelectionStrategy</Property>
+          </Properties>
+          <Exit Name="OK" Type="Primary" NextID="54" />
+          <Exit Name="Failed" Type="Alternate" NextID="17" />
+        </Step>
+        <Step Type="Release" Name="Worker" ID="17">
+          <Properties>
+            <Property Name="OwnerType">ParentObject</Property>
+            <Property Name="ResourceReleases">
+              <Rows>
+                <Properties>
+                  <Property Name="ResourceType">ParentObject</Property>
+                  <Property Name="QuantityType">All</Property>
+                </Properties>
+              </Rows>
+            </Property>
+            <Property Name="ImmediatelyTryAllocate">False</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="18" />
+        </Step>
+        <Step Type="Delay" Name="Epsilon" ID="18">
+          <Properties>
+            <Property Name="DelayTime">Math.Epsilon</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="27" />
+        </Step>
+        <Step Type="PlanVisit" Name="NewTransportRequests" ID="19">
+          <Properties>
+            <Property Name="EntityType">ParentObject</Property>
+            <Property Name="SelectionGoal">TaskSelectionStrategy</Property>
+          </Properties>
+          <Exit Name="OK" Type="Primary" NextID="19" />
+          <Exit Name="Failed" Type="Alternate" NextID="20" />
+        </Step>
+        <Step Type="Decide" Name="IfIdle" ID="20">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">ResourceState==List.ResourceStateName.Idle</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="21" />
+          <Exit Name="False" Type="Alternate" NextID="40" />
+        </Step>
+        <Step Type="Decide" Name="IfParking" ExclusionExpression="Math.If(IdleAction == List.WorkerIdleAction.ParkAtNode, 1, IdleAction != List.WorkerIdleAction.ParkAtHome, 2, 0)" ID="21">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">(HomeNode==CurrentNode)||(HomeNode==Nothing)</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="39" />
+          <Exit Name="False" Type="Alternate" NextID="22" />
+        </Step>
+        <Step Type="Decide" Name="IfHoming" ExclusionExpression="Math.If(IdleAction == List.WorkerIdleAction.ParkAtHome, 1, IdleAction != List.WorkerIdleAction.GoToHome, 2, 0)" ID="22">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">(HomeNode!=Nothing)&amp;&amp;(HomeNode!=CurrentNode)</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="24" />
+          <Exit Name="False" Type="Alternate" NextID="23" />
+        </Step>
+        <Step Type="Decide" Name="IfRoaming" ExclusionExpression="Math.If(IdleAction == List.WorkerIdleAction.Roam, 1, 2)" ID="23">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">IdleAction==List.WorkerIdleAction.Roam</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="40" />
+          <Exit Name="False" Type="Alternate" NextID="26" />
+        </Step>
+        <Step Type="SetNode" Name="ToHome" ID="24">
+          <Properties>
+            <Property Name="EntityType">ParentObject</Property>
+            <Property Name="NodeName">HomeNode</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="40" />
+        </Step>
+        <Step Type="Park" Name="AtCurrentNode" ID="25">
+          <Properties>
+            <Property Name="EntityType">ParentObject</Property>
+            <Property Name="NodeName">CurrentNode</Property>
+          </Properties>
+          <Exit Name="OK" Type="Primary" NextID="43" />
+        </Step>
+        <Step Type="Wait" Name="UntilRemainInPlaceEnded" ID="26">
+          <Properties>
+            <Property Name="EventName">RemainInPlaceEnded</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Decide" Name="IfIdle" ID="27">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">ResourceState==List.ResourceStateName.Idle</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="19" />
+          <Exit Name="False" Type="Alternate" NextID="28" />
+        </Step>
+        <Step Type="Decide" Name="IfOffShift" ID="28">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">ResourceState==List.ResourceStateName.OffShift</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="29" />
+          <Exit Name="False" Type="Alternate" NextID="3" />
+        </Step>
+        <Step Type="Decide" Name="IfParking" ExclusionExpression="Math.If(OffShiftAction == List.WorkerOffShiftAction.ParkAtNode, 1, OffShiftAction != List.WorkerOffShiftAction.ParkAtHome, 2, 0)" ID="29">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">(HomeNode==CurrentNode)||(HomeNode==Nothing)</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="39" />
+          <Exit Name="False" Type="Alternate" NextID="30" />
+        </Step>
+        <Step Type="Decide" Name="IfHoming" ExclusionExpression="Math.If(OffShiftAction == List.WorkerOffShiftAction.ParkAtHome, 1, OffShiftAction != List.WorkerOffShiftAction.GoToHome, 2, 0)" ID="30">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">(HomeNode!=Nothing)&amp;&amp;(HomeNode!=CurrentNode)</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="24" />
+          <Exit Name="False" Type="Alternate" NextID="26" />
+        </Step>
+        <Step Type="Execute" Name="ExitingNodeAddOnProcess" ID="31">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>ExitingNodeAddOnProcess</Value>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="25" />
+        </Step>
+        <Step Type="Decide" Name="IfParked" ExclusionExpression="!ParkWhileBusy" ID="32">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">IsParked</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="5" />
+          <Exit Name="False" Type="Alternate" NextID="33" />
+        </Step>
+        <Step Type="Execute" Name="ExitingNodeAddOnProcess" ID="33">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>ExitingNodeAddOnProcess</Value>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="34" />
+        </Step>
+        <Step Type="Park" Name="AtCurrentNode" ID="34">
+          <Properties>
+            <Property Name="EntityType">ParentObject</Property>
+            <Property Name="NodeName">CurrentNode</Property>
+          </Properties>
+          <Exit Name="OK" Type="Primary" NextID="5" />
+        </Step>
+        <Step Type="Decide" Name="IfLoadingUnloading" ID="35">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">Math.If(ResourceState==List.ResourceStateName.OffShift, False, (ResourceState==List.ResourceStateName.Transporting)||(ResourceState==List.ResourceStateName.OffShiftTransporting), True, Node.RidePickupQueue.NumberWaiting&gt;0)</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="46" />
+          <Exit Name="False" Type="Alternate" NextID="27" />
+        </Step>
+        <Step Type="Decide" Name="IfParking" ExclusionExpression="Math.If(ParkToLoadUnload, 0, 2)" ID="36">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">ParkToLoadUnload &amp;&amp; !IsParked</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="37" />
+          <Exit Name="False" Type="Alternate" NextID="9" />
+        </Step>
+        <Step Type="Execute" Name="ExitingNodeAddOnProcess" ID="37">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>ExitingNodeAddOnProcess</Value>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="38" />
+        </Step>
+        <Step Type="Park" Name="AtCurrentNode" ID="38">
+          <Properties>
+            <Property Name="EntityType">ParentObject</Property>
+            <Property Name="NodeName">CurrentNode</Property>
+          </Properties>
+          <Exit Name="OK" Type="Primary" NextID="9" />
+        </Step>
+        <Step Type="Decide" Name="IfParked" ID="39">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">IsParked</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="26" />
+          <Exit Name="False" Type="Alternate" NextID="31" />
+        </Step>
+        <Step Type="Decide" Name="IfParked" ID="40">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">IsParked</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="44" />
+          <Exit Name="False" Type="Alternate" NextID="45" />
+        </Step>
+        <Step Type="UnPark" Name="Worker" ID="41">
+          <Properties>
+            <Property Name="EntityType">ParentObject</Property>
+          </Properties>
+        </Step>
+        <Step Type="SelectVisit" Name="ToAcceptedDestination" ID="42">
+          <Properties>
+            <Property Name="EntityType">ParentObject</Property>
+            <Property Name="SelectionGoal">TaskSelectionStrategy</Property>
+          </Properties>
+          <Exit Name="OK" Type="Primary" NextID="3" />
+          <Exit Name="Failed" Type="Alternate" NextID="6" />
+        </Step>
+        <Step Type="Decide" Name="IfIdleOrOffShift" ID="43">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">(ResourceState==List.ResourceStateName.Idle)||(ResourceState==List.ResourceStateName.OffShift)</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="26" />
+          <Exit Name="False" Type="Alternate" NextID="3" />
+        </Step>
+        <Step Type="Assign" Name="IgnoreVisitingCurrentNodeFlag" ID="44">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>IgnoreVisitingCurrentNode</Value>
+            </Property>
+            <Property Name="NewValue">CurrentNode!=DestinationNode</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="41" />
+        </Step>
+        <Step Type="Assign" Name="IgnoreVisitingCurrentNodeFlag" ID="45">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>IgnoreVisitingCurrentNode</Value>
+            </Property>
+            <Property Name="NewValue">False</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="8" />
+        </Step>
+        <Step Type="Assign" Name="MinimumDwellTimeExpiredFlag" ExclusionExpression="MinimumDwellTimeType == List.WorkerMinimumDwellTimeType.NoRequirement" ID="46">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>MinimumDwellTimeExpired</Value>
+            </Property>
+            <Property Name="NewValue">False</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="47" />
+        </Step>
+        <Step Type="Fire" Name="MinimumDwellTimeExpirationResetEvent" ExclusionExpression="MinimumDwellTimeType != List.WorkerMinimumDwellTimeType.SpecificTime" ID="47">
+          <Properties>
+            <Property Name="EventName">MinimumDwellTimeExpirationReset</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="48" />
+        </Step>
+        <Step Type="Subscribe" Name="ToMinimumDwellTimeExpirationEvent" ExclusionExpression="MinimumDwellTimeType != List.WorkerMinimumDwellTimeType.DwellUntilEvent" ID="48">
+          <Properties>
+            <Property Name="EventName">MinimumDwellTimeExpirationEventName</Property>
+            <Property Name="ProcessName">
+              <Value>OnMinimumDwellTimeExpired</Value>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="36" />
+        </Step>
+        <Step Type="Decide" Name="IfMinimumDwellTimeExpired" ExclusionExpression="MinimumDwellTimeType == List.WorkerMinimumDwellTimeType.NoRequirement" ID="49">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">MinimumDwellTimeExpired</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="15" />
+          <Exit Name="False" Type="Alternate" NextID="50" />
+        </Step>
+        <Step Type="Decide" Name="IfMinimumDwellTimeCondition" ID="50">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">Math.If(MinimumDwellTimeCondition.HasValue, MinimumDwellTimeCondition, True)</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="56" />
+          <Exit Name="False" Type="Alternate" NextID="52" />
+        </Step>
+        <Step Type="Wait" Name="UntilRemainInPlaceEnded" ID="51">
+          <Properties>
+            <Property Name="EventName">RemainInPlaceEnded</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="12" />
+        </Step>
+        <Step Type="Assign" Name="MinimumDwellTimeExpiredFlag" ID="52">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>MinimumDwellTimeExpired</Value>
+            </Property>
+            <Property Name="NewValue">True</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="53" />
+        </Step>
+        <Step Type="UnSubscribe" Name="FromMinimumDwellTimeExpirationEvent" ExclusionExpression="MinimumDwellTimeType != List.WorkerMinimumDwellTimeType.DwellUntilEvent" ID="53">
+          <Properties>
+            <Property Name="EventName">MinimumDwellTimeExpirationEventName</Property>
+            <Property Name="ProcessName">
+              <Value>OnMinimumDwellTimeExpired</Value>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="15" />
+        </Step>
+        <Step Type="Decide" Name="IfBusyAndDestinationIsCurrentNode" ID="54">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">ResourceState==List.ResourceStateName.Busy &amp;&amp; DestinationNode==CurrentNode</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="32" />
+          <Exit Name="False" Type="Alternate" NextID="40" />
+        </Step>
+        <Step Type="Assign" Name="ToClearPreferredOwner" ID="55">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>PreferredOwner</Value>
+            </Property>
+            <Property Name="NewValue">Nothing</Property>
+            <Property Name="Assignments">
+              <Rows>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnNewSeizeRequest.Enabled</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">False</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="12" />
+        </Step>
+        <Step Type="Assign" Name="DwellingAssignments" ID="56">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>OnEvaluatingRiderReservation.Enabled</Value>
+            </Property>
+            <Property Name="NewValue">RideStation.Capacity &gt; RideStationLoad</Property>
+            <Property Name="Assignments">
+              <Rows>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingRiderReservation.ReturnValue</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">RideStation.Capacity &gt; RideStationLoad</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="51" />
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnMoveRequestAccepted" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Entity.OnMoveRequestAccepted" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="SelectVisit" Name="ToAcceptedDestination" ID="2">
+          <Properties>
+            <Property Name="EntityType">ParentObject</Property>
+            <Property Name="SelectionGoal">TaskSelectionStrategy</Property>
+          </Properties>
+          <Exit Name="OK" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Decide" Name="IfInFreeSpace" ID="3">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">(CurrentNode==Nothing)&amp;&amp;(CurrentLink==Nothing)&amp;&amp;(CurrentStation==Nothing)</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="7" />
+          <Exit Name="False" Type="Alternate" NextID="4" />
+        </Step>
+        <Step Type="Decide" Name="IfUnpark" ID="4">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">IsParked &amp;&amp; (OnVisitingNode.TokensInProcess==0)</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="6" />
+          <Exit Name="False" Type="Alternate" NextID="5" />
+        </Step>
+        <Step Type="Fire" Name="RemainInPlaceEndedEvent" ID="5">
+          <Properties>
+            <Property Name="EventName">RemainInPlaceEnded</Property>
+          </Properties>
+        </Step>
+        <Step Type="UnPark" Name="Worker" ID="6">
+          <Properties>
+            <Property Name="EntityType">ParentObject</Property>
+          </Properties>
+        </Step>
+        <Step Type="Travel" Name="ToDestinationNode" ID="7">
+          <Properties>
+            <Property Name="EntityType">ParentObject</Property>
+            <Property Name="SteeringBehavior" BehaviorGuid="2b2ac6d5-73de-4ac8-bfc8-8b0ea2fdbe1e">
+              <Value>Direct To Destination</Value>
+              <Properties>
+                <Property Name="DestinationObject">DestinationNode</Property>
+                <Property Name="MaximumMovementRate">DesiredSpeed</Property>
+              </Properties>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="8" />
+        </Step>
+        <Step Type="Transfer" Name="ToDestinationNode" ID="8">
+          <Properties>
+            <Property Name="EntityType">ParentObject</Property>
+            <Property Name="NodeName">DestinationNode</Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnEnteredFreeSpace" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Entity.OnEnteredFreeSpace" BeginStepID="2">
+      <Properties>
+        <Property Name="TokenClassName">FreeSpaceSteeringToken</Property>
+        <Property Name="TokenActionOnAssociatedObjectDestroyed">EndProcess</Property>
+        <Property Name="TokenActionOnAssociatedObjectTransferRequested">EndProcess</Property>
+      </Properties>
+      <Steps>
+        <Step Type="Assign" Name="OnEnteredFreeSpaceAssignments" ID="2">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>FreeSpaceSteeringToken.EnteredFreeSpaceFromNode</Value>
+            </Property>
+            <Property Name="NewValue">Math.If(PreviousNode != Nothing, DirectDistanceTo.Object(PreviousNode) == 0.0, False)</Property>
+            <Property Name="Assignments">
+              <Rows>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>FreeSpaceSteeringToken.NetworkPathNextLink</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">PreviousNode.OutboundLinks.SelectItemFor(Entity)</Property>
+                  <Property Name="AssignmentsSkipAssignmentCondition">(DestinationNode != Nothing) || !FreeSpaceSteeringToken.EnteredFreeSpaceFromNode</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>FreeSpaceSteeringToken.NetworkPathNextNode</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">Math.If(FreeSpaceSteeringToken.NetworkPathNextLink != Nothing, Math.If(PreviousNode == FreeSpaceSteeringToken.NetworkPathNextLink.StartingNode, FreeSpaceSteeringToken.NetworkPathNextLink.EndingNode, FreeSpaceSteeringToken.NetworkPathNextLink.StartingNode), Nothing)</Property>
+                  <Property Name="AssignmentsSkipAssignmentCondition">(DestinationNode != Nothing) || !FreeSpaceSteeringToken.EnteredFreeSpaceFromNode</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>FreeSpaceSteeringToken.DestinationNode</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">Math.If(DestinationNode != Nothing, DestinationNode, !FreeSpaceSteeringToken.EnteredFreeSpaceFromNode, Nothing, FreeSpaceSteeringToken.NetworkPathNextLink != Nothing, FreeSpaceSteeringToken.NetworkPathNextNode, PreviousNode.Nearest.InputNode != Nothing, PreviousNode.Nearest.InputNode, PreviousNode.Nearest.Node != Nothing, PreviousNode.Nearest.Node, Nothing)</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>Movement.Rate</Value>
+                  </Property>
+                  <Property Name="AssignmentsSkipAssignmentCondition">FreeSpaceSteeringToken.DestinationNode != Nothing</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Decide" Name="IfDestinationNode" ID="3">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">FreeSpaceSteeringToken.DestinationNode != Nothing</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="SetNode" Name="NextDestination" ID="4">
+          <Properties>
+            <Property Name="NodeName">FreeSpaceSteeringToken.DestinationNode</Property>
+            <Property Name="AutoClearIfVisitDifferentNode">True</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="5" />
+        </Step>
+        <Step Type="Decide" Name="IfDirectToDestination" ID="5">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">Math.If(FreeSpaceSteeringBehavior == List.FreeSpaceSteeringBehaviorType.DirectToDestination || CurrentNetwork == Nothing || !FreeSpaceSteeringToken.EnteredFreeSpaceFromNode, True, !CurrentNetwork.PathExists(PreviousNode, DestinationNode))</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="7" />
+          <Exit Name="False" Type="Alternate" NextID="6" />
+        </Step>
+        <Step Type="Travel" Name="FollowNetworkPath" ID="6">
+          <Properties>
+            <Property Name="SteeringBehavior" BehaviorGuid="6cbbbd77-ba6d-45d1-bcc7-0ed1bbd08ae8">
+              <Value>Follow Network Path</Value>
+              <Properties>
+                <Property Name="NetworkName">
+                  <Value>CurrentNetwork</Value>
+                </Property>
+                <Property Name="StartingNode">PreviousNode</Property>
+                <Property Name="EndingNode">DestinationNode</Property>
+                <Property Name="UpdateTimeInterval">FreeSpaceSteeringUpdateInterval</Property>
+                <Property Name="AvoidCollisions">FreeSpaceSteeringAvoidCollisions</Property>
+              </Properties>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="8" />
+        </Step>
+        <Step Type="Travel" Name="DirectToDestination" ID="7">
+          <Properties>
+            <Property Name="SteeringBehavior" BehaviorGuid="2b2ac6d5-73de-4ac8-bfc8-8b0ea2fdbe1e">
+              <Value>Direct To Destination</Value>
+              <Properties>
+                <Property Name="DestinationObject">DestinationNode</Property>
+                <Property Name="MaximumMovementRate">DesiredSpeed</Property>
+              </Properties>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="8" />
+        </Step>
+        <Step Type="Transfer" Name="ToDestinationNode" ID="8">
+          <Properties>
+            <Property Name="NodeName">FreeSpaceSteeringToken.DestinationNode</Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnRiderReservationAccepted" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Transporter.OnRiderReservationAccepted" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Decide" Name="IfIdle" ID="2">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">ResourceState==List.ResourceStateName.Idle</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="4" />
+          <Exit Name="False" Type="Alternate" NextID="3" />
+        </Step>
+        <Step Type="Assign" Name="OnRiderReservationAcceptedAssignments" ID="3">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>OnEvaluatingRiderReservation.Enabled</Value>
+            </Property>
+            <Property Name="NewValue">RideStation.Capacity &gt; RideStationLoad</Property>
+            <Property Name="Assignments">
+              <Rows>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingRiderReservation.ReturnValue</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">RideStation.Capacity &gt; RideStationLoad</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="8" />
+        </Step>
+        <Step Type="Seize" Name="Worker" ID="4">
+          <Properties>
+            <Property Name="OwnerType">ParentObject</Property>
+            <Property Name="ResourceSeizes">
+              <Rows>
+                <Properties>
+                  <Property Name="ResourceType">ParentObject</Property>
+                  <Property Name="SelectionGoal"></Property>
+                  <Property Name="SelectionValueExpression"></Property>
+                  <Property Name="RecordResourceCost">False</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="5" />
+        </Step>
+        <Step Type="SelectVisit" Name="ToAcceptedDestination" ID="5">
+          <Properties>
+            <Property Name="EntityType">ParentObject</Property>
+            <Property Name="SelectionGoal">TaskSelectionStrategy</Property>
+          </Properties>
+          <Exit Name="OK" Type="Primary" NextID="6" />
+        </Step>
+        <Step Type="Decide" Name="IfInFreeSpace" ID="6">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">(CurrentNode==Nothing)&amp;&amp;(CurrentLink==Nothing)&amp;&amp;(CurrentStation==Nothing)</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="10" />
+          <Exit Name="False" Type="Alternate" NextID="7" />
+        </Step>
+        <Step Type="Decide" Name="IfUnpark" ID="7">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">IsParked &amp;&amp; (OnVisitingNode.TokensInProcess==0)</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="9" />
+          <Exit Name="False" Type="Alternate" NextID="8" />
+        </Step>
+        <Step Type="Fire" Name="RemainInPlaceEndedEvent" ID="8">
+          <Properties>
+            <Property Name="EventName">RemainInPlaceEnded</Property>
+          </Properties>
+        </Step>
+        <Step Type="UnPark" Name="Worker" ID="9">
+          <Properties>
+            <Property Name="EntityType">ParentObject</Property>
+          </Properties>
+        </Step>
+        <Step Type="Travel" Name="ToDestinationNode" ID="10">
+          <Properties>
+            <Property Name="EntityType">ParentObject</Property>
+            <Property Name="SteeringBehavior" BehaviorGuid="2b2ac6d5-73de-4ac8-bfc8-8b0ea2fdbe1e">
+              <Value>Direct To Destination</Value>
+              <Properties>
+                <Property Name="DestinationObject">DestinationNode</Property>
+                <Property Name="MaximumMovementRate">DesiredSpeed</Property>
+              </Properties>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="11" />
+        </Step>
+        <Step Type="Transfer" Name="ToDestinationNode" ID="11">
+          <Properties>
+            <Property Name="EntityType">ParentObject</Property>
+            <Property Name="NodeName">DestinationNode</Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnEvaluatingRiderReservation" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Transporter.OnEvaluatingRiderReservation" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Decide" Name="IfAcceptTransportRequest" ID="2">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">(ResourceState==List.ResourceStateName.Idle) || (Entity.CurrentNode==DestinationNode) || (Entity.CurrentNode==CurrentNode &amp;&amp; DestinationNode==Nothing)</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="4" />
+          <Exit Name="False" Type="Alternate" NextID="3" />
+        </Step>
+        <Step Type="Assign" Name="RejectTransportRequest" ID="3">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>Token.ReturnValue</Value>
+            </Property>
+            <Property Name="NewValue">False</Property>
+          </Properties>
+        </Step>
+        <Step Type="Execute" Name="EvaluatingTransportRequestAddOnProcess" ID="4">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>EvaluatingTransportRequestAddOnProcess</Value>
+            </Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnEvaluatingRiderAtPickup" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Transporter.OnEvaluatingRiderAtPickup" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Execute" Name="EvaluatingTransportRequestAddOnProcess" ID="2">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>EvaluatingTransportRequestAddOnProcess</Value>
+            </Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnRiderLoading" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Transporter.OnRiderLoading" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Seize" Name="Worker" ID="2">
+          <Properties>
+            <Property Name="OwnerType">ParentObject</Property>
+            <Property Name="ResourceSeizes">
+              <Rows>
+                <Properties>
+                  <Property Name="ResourceType">ParentObject</Property>
+                  <Property Name="SelectionGoal"></Property>
+                  <Property Name="SelectionValueExpression"></Property>
+                  <Property Name="RecordResourceCost">False</Property>
+                  <Property Name="PerUseCostAccrualMethod"></Property>
+                  <Property Name="RandomNumberStream"></Property>
+                  <Property Name="SkipSeizeCondition">Capacity.Allocated&gt;0</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Assign" Name="OnRiderLoadingAssignments" ID="3">
+          <Properties>
+            <Property Name="Assignments">
+              <Rows>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingRiderReservation.Enabled</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">RideStation.Capacity &gt; RideStationLoad</Property>
+                </Properties>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnEvaluatingRiderReservation.ReturnValue</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">RideStation.Capacity &gt; RideStationLoad</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="Assign" Name="MinimumDwellTimeExpiredFlag" ExclusionExpression="MinimumDwellTimeType != List.WorkerMinimumDwellTimeType.DwellUntilFull" ID="4">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>MinimumDwellTimeExpired</Value>
+            </Property>
+            <Property Name="NewValue">RideStationLoad &gt;= RideStation.Capacity</Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnRiderUnloading" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Transporter.OnRiderUnloading" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Decide" Name="IfWorkerKeptReserved" ID="2">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">Capacity.ReservedTo(Entity)&gt;0 &amp;&amp; RideStation.Contents==1</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Assign" Name="PreferredOwner" ID="3">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>PreferredOwner</Value>
+            </Property>
+            <Property Name="NewValue">Entity</Property>
+            <Property Name="Assignments">
+              <Rows>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>OnNewSeizeRequest.Enabled</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">True</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnRiderLoaded" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Transporter.OnRiderLoaded" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="EndTransfer" Name="OntoWorker" ID="2">
+          <Properties />
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Execute" Name="LoadedAddOnProcess" ExclusionExpression="!LoadedAddOnProcess.HasValue" ID="3">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>LoadedAddOnProcess</Value>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="Fire" Name="RiderLoadedEvent" ExclusionExpression="!LoadedAddOnProcess.HasValue" ID="4">
+          <Properties>
+            <Property Name="EventName">RiderLoaded</Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnRiderUnloaded" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Transporter.OnRiderUnloaded" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Execute" Name="UnloadedAddOnProcess" ExclusionExpression="!UnloadedAddOnProcess.HasValue" ID="2">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>UnloadedAddOnProcess</Value>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Fire" Name="RiderUnloadedEvent" ExclusionExpression="!UnloadedAddOnProcess.HasValue" ID="3">
+          <Properties>
+            <Property Name="EventName">RiderUnloaded</Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnMinimumDwellTimeExpired" BeginStepID="2">
+      <Properties>
+        <Property Name="TriggeringEventName">MinimumDwellTimeExpirationTimer.Event</Property>
+      </Properties>
+      <Steps>
+        <Step Type="Assign" Name="MinimumDwellTimeExpiredFlag" ID="2">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>MinimumDwellTimeExpired</Value>
+            </Property>
+            <Property Name="NewValue">True</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="UnSubscribe" Name="FromMinimumDwellTimeExpirationEvent" ExclusionExpression="MinimumDwellTimeType != List.WorkerMinimumDwellTimeType.DwellUntilEvent" ID="3">
+          <Properties>
+            <Property Name="EventName">MinimumDwellTimeExpirationEventName</Property>
+            <Property Name="ProcessName">
+              <Value>OnMinimumDwellTimeExpired</Value>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="Fire" Name="RemainInPlaceEndedEvent" ID="4">
+          <Properties>
+            <Property Name="EventName">RemainInPlaceEnded</Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="Allocate" BeginStepID="2" Category="Deprecated Processes">
+      <Properties />
+      <Steps>
+        <Step Type="Allocate" Name="Worker" ID="2">
+          <Properties>
+            <Property Name="ResourceType">ParentObject</Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="PlanVisit" BeginStepID="2" Category="Deprecated Processes">
+      <Properties />
+      <Steps>
+        <Step Type="PlanVisit" Name="NewMoveOrTransportRequests" ID="2">
+          <Properties>
+            <Property Name="EntityType">ParentObject</Property>
+            <Property Name="SelectionGoal">TaskSelectionStrategy</Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="Pickup" BeginStepID="2" Category="Deprecated Processes">
+      <Properties />
+      <Steps>
+        <Step Type="Pickup" Name="Rider" ID="2">
+          <Properties>
+            <Property Name="TransporterType">ParentObject</Property>
+            <Property Name="SelectionGoal">TaskSelectionStrategy</Property>
+            <Property Name="LoadTime">LoadTime</Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="Dropoff" BeginStepID="2" Category="Deprecated Processes">
+      <Properties />
+      <Steps>
+        <Step Type="Dropoff" Name="Rider" ID="2">
+          <Properties>
+            <Property Name="TransporterType">ParentObject</Property>
+            <Property Name="UnloadTime">UnloadTime</Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+  </Processes>
+  <Tokens>
+    <Token Name="FreeSpaceSteeringToken">
+      <States>
+        <BooleanState Name="EnteredFreeSpaceFromNode" />
+        <ElementReferenceState Name="NetworkPathNextLink" ElementType="Link" />
+        <ElementReferenceState Name="NetworkPathNextNode" ElementType="Node" />
+        <ElementReferenceState Name="DestinationNode" ElementType="Node" />
+      </States>
+    </Token>
+  </Tokens>
+  <External>
+    <Graphics>
+      <SymbolInstance Center="0 0 0" ExternallyVisible="True">
+        <SymbolRef Id="d65ba744-6b6e-424a-b956-3666644edeba" />
+      </SymbolInstance>
+      <Queue Queue="RideStation.Contents" ExternallyVisible="True">
+        <Points>
+          <Point Location="0.5 1.10000002384186 0.5" />
+          <Point Location="0.5 1.10000002384186 -0.5" />
+        </Points>
+      </Queue>
+      <DefaultAdditionalSymbols>
+        <DefaultAdditionalSymbol Index="0">
+          <SymbolInstance Center="0 0 0" ExternallyVisible="True">
+            <SymbolRef Id="[UseExternalSymbol]" />
+          </SymbolInstance>
+        </DefaultAdditionalSymbol>
+        <DefaultAdditionalSymbol Index="1">
+          <SymbolInstance Center="0 0 0" ExternallyVisible="True">
+            <SymbolRef Id="[UseExternalSymbol]" />
+            <Decorations>
+              <Decoration SurfacePath="0,0" SurfaceId="0" DynamicPath="True">
+                <MaterialRef Id="f990452b-4dee-4a47-bd44-f68d5e9fd836" />
+              </Decoration>
+            </Decorations>
+          </SymbolInstance>
+        </DefaultAdditionalSymbol>
+        <DefaultAdditionalSymbol Index="2">
+          <SymbolInstance Center="0 0 0" ExternallyVisible="True">
+            <SymbolRef Id="[UseExternalSymbol]" />
+            <Decorations>
+              <Decoration SurfacePath="0,0" SurfaceId="0" DynamicPath="True">
+                <MaterialRef Id="6ce416b8-8185-452f-819d-57e8152fa5f1" />
+              </Decoration>
+            </Decorations>
+          </SymbolInstance>
+        </DefaultAdditionalSymbol>
+        <DefaultAdditionalSymbol Index="3">
+          <SymbolInstance Center="0 0 0" ExternallyVisible="True">
+            <SymbolRef Id="[UseExternalSymbol]" />
+            <Decorations>
+              <Decoration SurfacePath="0,0" SurfaceId="0" DynamicPath="True">
+                <MaterialRef Id="236c419b-6401-40b3-8b7f-cc17ba1d328e" />
+              </Decoration>
+            </Decorations>
+          </SymbolInstance>
+        </DefaultAdditionalSymbol>
+        <DefaultAdditionalSymbol Index="4">
+          <SymbolInstance Center="0 0 0" ExternallyVisible="True">
+            <SymbolRef Id="[UseExternalSymbol]" />
+            <Decorations>
+              <Decoration SurfacePath="0,0" SurfaceId="0" DynamicPath="True">
+                <MaterialRef Id="8147554b-729d-442d-ab96-d3bab7c95a61" />
+              </Decoration>
+            </Decorations>
+          </SymbolInstance>
+        </DefaultAdditionalSymbol>
+        <DefaultAdditionalSymbol Index="5">
+          <SymbolInstance Center="0 0 0" ExternallyVisible="True">
+            <SymbolRef Id="[UseExternalSymbol]" />
+            <Decorations>
+              <Decoration SurfacePath="0,0" SurfaceId="0" DynamicPath="True">
+                <MaterialRef Id="8ae6b01c-9da6-4157-8507-a96ab2609e47" />
+              </Decoration>
+            </Decorations>
+          </SymbolInstance>
+        </DefaultAdditionalSymbol>
+        <DefaultAdditionalSymbol Index="6">
+          <SymbolInstance Center="0 0 0" ExternallyVisible="True">
+            <SymbolRef Id="[UseExternalSymbol]" />
+            <Decorations>
+              <Decoration SurfacePath="0,0" SurfaceId="0" DynamicPath="True">
+                <MaterialRef Id="5e47cfe3-0d89-4882-8b06-d906045a1dc9" />
+              </Decoration>
+            </Decorations>
+          </SymbolInstance>
+        </DefaultAdditionalSymbol>
+        <DefaultAdditionalSymbol Index="7">
+          <SymbolInstance Center="0 0 0" ExternallyVisible="True">
+            <SymbolRef Id="[UseExternalSymbol]" />
+            <Decorations>
+              <Decoration SurfacePath="0,0" SurfaceId="0" DynamicPath="True">
+                <MaterialRef Id="a75ae071-79c3-45de-bcc8-9950fe3f3380" />
+              </Decoration>
+            </Decorations>
+          </SymbolInstance>
+        </DefaultAdditionalSymbol>
+        <DefaultAdditionalSymbol Index="8">
+          <SymbolInstance Center="0 0 0" ExternallyVisible="True">
+            <SymbolRef Id="[UseExternalSymbol]" />
+            <Decorations>
+              <Decoration SurfacePath="0,0" SurfaceId="0" DynamicPath="True">
+                <MaterialRef Id="493e9959-c1ed-4105-bec7-8c072a4eac9e" />
+              </Decoration>
+            </Decorations>
+          </SymbolInstance>
+        </DefaultAdditionalSymbol>
+        <DefaultAdditionalSymbol Index="9">
+          <SymbolInstance Center="0 0 0" ExternallyVisible="True">
+            <SymbolRef Id="[UseExternalSymbol]" />
+            <Decorations>
+              <Decoration SurfacePath="0,0" SurfaceId="0" DynamicPath="True">
+                <MaterialRef Id="e8f889e0-1e46-4066-abc8-63ca5c2fe113" />
+              </Decoration>
+            </Decorations>
+          </SymbolInstance>
+        </DefaultAdditionalSymbol>
+      </DefaultAdditionalSymbols>
+    </Graphics>
+  </External>
+  <SaveHistories>
+    <SaveHistory SavedDateTime="2022-03-19T16:05:21" ProductVersion="14.236.26607.0" Edition="Internal" />
+  </SaveHistories>
+  <Graphics>
+    <AnimationSetup MinimumNumberOfFramesToDisplayIdleAnimation="10" />
+  </Graphics>
+</Fragment>
+<!-- yEACpwFgkqdBINIhcMRfmESZIgSduOCu0MuqjzkyU1aW2IwVsy5bWwJ0YZYxq+t9yI9dRmcnq52BxYTo/Nv9Bw== -->

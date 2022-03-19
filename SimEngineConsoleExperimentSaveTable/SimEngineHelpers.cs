@@ -27,7 +27,8 @@ namespace SimEngineConsoleExperimentSaveTable
         /// <param name="modelName"></param>
         /// <param name="explanation"></param>
         /// <returns></returns>
-        public static bool RunModelExperiment(string extensionsPath, string sourceProjectPath, string saveProjectPath,
+        public static bool RunModelExperiment(string extensionsPath, 
+            string sourceProjectPath, string saveProjectPath,
             string modelName, string experimentName,
             List<string> warningList,
             out string explanation)
@@ -93,8 +94,9 @@ namespace SimEngineConsoleExperimentSaveTable
                 marker = $"Loading Model named={modelName}";
                 IModel model = LoadModel(project, modelName, out explanation);
                 if (model == null)
+                {
                     return false;
-
+                }
 
                 marker = $"Run Experiment named={experimentName}";
                 if (!RunModelExperiment(model, experimentName, "", out explanation))
@@ -467,12 +469,16 @@ namespace SimEngineConsoleExperimentSaveTable
                     }
                     else
                     {
-                        LogIt($"Model={modelName} not loaded due to {model.Errors.Count} errors. Individual errors follow:");
+                        explanation = $"Model={modelName} not loaded due to {model.Errors.Count} errors. Individual errors follow:";
+                        LogIt(explanation);
+
                         int errorCount = 0;
                         // Log any model errors
                         foreach (IError err in model.Errors)
                         {
-                            LogIt($"  {++errorCount}. Error={err.ErrorText} Object={err.ObjectName} Type={err.ObjectType} Property: Name={err.PropertyName} Value={err.PropertyValue}");
+                            string error = $"  {++errorCount}. Error={err.ErrorText} Object={err.ObjectName} Type={err.ObjectType} Property: Name={err.PropertyName} Value={err.PropertyValue}";
+                            explanation += error;
+                            LogIt($"  {++errorCount}. Err={error}" );
                         }
                         return null;
                     }

@@ -1,0 +1,427 @@
+<Fragment>
+  <Compatibility ParseElementFunctionsInExpressionsLast="False" ParseNonEntityAssociatedObjectForPropertyReference="False" AllowInteractiveEntryOfNonStandardElementNames="False" ParsePropertiesForObjectTypeForAutoCreatedObjectsFirst="False" />
+  <PropertyDefinitions>
+    <Categories>
+      <Category Name="Basic Logic" Description="Basic Logic" />
+      <Category Name="Process Logic" Description="Process Logic" />
+      <Category Name="Transport Logic" Description="Transport Logic" />
+      <Category Name="Travel Logic" Description="Travel Logic" />
+      <Category Name="Routing Logic" Description="Routing Logic" />
+      <Category Name="Population" Description="Population" InitiallyExpanded="False" />
+      <Category Name="Results Classification" Description="Results Classification" InitiallyExpanded="False" />
+      <Category Name="Stopping Conditions" Description="Stopping Conditions" InitiallyExpanded="False" />
+      <Category Name="Financials" Description="Financials" InitiallyExpanded="False" />
+      <Category Name="Advanced Options" Description="Advanced Options" InitiallyExpanded="False" />
+      <Category Name="Advanced Options/Token Actions" Description="Token Action Options" InitiallyExpanded="False" />
+    </Categories>
+    <Overrides>
+      <Override Name="ResourceIdleCostRate" Visible="True" />
+      <Override Name="ResourceCostPerUse" Visible="True" />
+      <Override Name="ResourceUsageCostRate" Visible="True" />
+      <Override Name="LogResourceUsage" Visible="True" />
+      <Override Name="DisplayCategory" Visible="True" />
+      <Override Name="DisplayColor" Visible="True" />
+      <Override Name="IncludeInPlanResourceConstraints" Visible="True" />
+      <Override Name="CapacityType" Visible="True" />
+      <Override Name="InitialWorkSchedule" Visible="True" />
+      <Override Name="WorkDayExceptions" Visible="True" />
+      <Override Name="WorkPeriodExceptions" Visible="True" />
+      <Override Name="InitialCapacity" Visible="True" />
+      <Override Name="RankingRule" Visible="True" />
+      <Override Name="RankingExpression" Visible="True" />
+      <Override Name="DynamicSelectionRule" Visible="True" />
+    </Overrides>
+  </PropertyDefinitions>
+  <States />
+  <Events />
+  <UsedObjects>
+    <UsedObject Name="TransferNode" />
+    <UsedObject Name="BasicNode" />
+    <UsedObject Name="Separator" />
+  </UsedObjects>
+  <Processes />
+  <Objects>
+    <Fixed Name="Separator1" Type="Separator" Location="-9.98592281341553 -2.38418579101563E-07 -0.500896155834198" YawDeg="90" Size="1.78744792938232 1.62528884410858 0.99999988079071" Scope="Public">
+      <AssociatedNodes>
+        <Node Name="Input@Separator1" Type="BasicNode" Location="-11.4859228134155 -2.38418579101563E-07 -0.500896155834198" YawDeg="90" Scope="Public" RotationChangesLocation="False">
+          <Properties>
+            <Property Name="InitialCost" Units="USD">0.0</Property>
+            <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="ResourceIdleCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="ResourceCostPerUse" Units="USD">0.0</Property>
+            <Property Name="ResourceUsageCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="DynamicSelectionRule">
+              <Value>None</Value>
+            </Property>
+            <Property Name="TransferOutConstraintsType">Disable</Property>
+            <Property Name="FlowSplitAllocationRule">Proportional Based On Link Weights</Property>
+            <Property Name="SequenceExpectedOperationTime">Math.If(Entity.CanTransferInAndOutOfObjects, Node.AssociatedObject.Separator.ProcessingTime, 0.0)</Property>
+          </Properties>
+          <Graphics />
+        </Node>
+        <Node Name="ParentOutput@Separator1" Type="TransferNode" Location="-8.48592281341553 -2.38418579101563E-07 -1.0008961558342" YawDeg="90" Scope="Public" RotationChangesLocation="False">
+          <Properties>
+            <Property Name="InitialCost" Units="USD">0.0</Property>
+            <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="ResourceIdleCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="ResourceCostPerUse" Units="USD">0.0</Property>
+            <Property Name="ResourceUsageCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="DynamicSelectionRule">
+              <Value>None</Value>
+            </Property>
+            <Property Name="TransferOutConstraintsType">Disable</Property>
+            <Property Name="FlowSplitAllocationRule">Proportional Based On Link Weights</Property>
+            <Property Name="DestinationNodeName"></Property>
+            <Property Name="DestinationSelectionExpression">Candidate.Node.InputLocation.Overload</Property>
+            <Property Name="BlockedDestinationRule">Select Any</Property>
+            <Property Name="RouteRequestDynamicSelectionRule">
+              <Value>None</Value>
+            </Property>
+            <Property Name="RideOnTransporterCondition">False</Property>
+            <Property Name="TransporterSelectionValueExpression">Candidate.Transporter.RideCapacityRemaining</Property>
+            <Property Name="BoundExternalOutputNode">Customer</Property>
+          </Properties>
+          <Graphics />
+        </Node>
+        <Node Name="MemberOutput@Separator1" Type="TransferNode" Location="-8.48592281341553 -2.38418579101563E-07 -0.000896155834197998" YawDeg="90" Scope="Public" RotationChangesLocation="False">
+          <Properties>
+            <Property Name="InitialCost" Units="USD">0.0</Property>
+            <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="ResourceIdleCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="ResourceCostPerUse" Units="USD">0.0</Property>
+            <Property Name="ResourceUsageCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="DynamicSelectionRule">
+              <Value>None</Value>
+            </Property>
+            <Property Name="TransferOutConstraintsType">Disable</Property>
+            <Property Name="FlowSplitAllocationRule">Proportional Based On Link Weights</Property>
+            <Property Name="DestinationNodeName"></Property>
+            <Property Name="DestinationSelectionExpression">Candidate.Node.InputLocation.Overload</Property>
+            <Property Name="BlockedDestinationRule">Select Any</Property>
+            <Property Name="RouteRequestDynamicSelectionRule">
+              <Value>None</Value>
+            </Property>
+            <Property Name="RideOnTransporterCondition">False</Property>
+            <Property Name="TransporterSelectionValueExpression">Candidate.Transporter.RideCapacityRemaining</Property>
+          </Properties>
+          <Graphics />
+        </Node>
+      </AssociatedNodes>
+      <IndexedSizes>
+        <IndexedSize Size="1.78744792938232 1.62528884410858 0.99999988079071" YawDeg="90" />
+        <IndexedSize Size="1.78744792938232 1.62528884410858 0.99999988079071" YawDeg="90" />
+        <IndexedSize Size="1.78744792938232 1.62528884410858 0.99999988079071" YawDeg="90" />
+        <IndexedSize Size="1.78744792938232 1.62528884410858 0.99999988079071" YawDeg="90" />
+        <IndexedSize Size="1.78744792938232 1.62528884410858 0.99999988079071" YawDeg="90" />
+      </IndexedSizes>
+      <Properties>
+        <Property Name="InitialCost" Units="USD">0.0</Property>
+        <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ResourceIdleCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ResourceCostPerUse" Units="USD">0.0</Property>
+        <Property Name="ResourceUsageCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="DynamicSelectionRule">
+          <Value>None</Value>
+        </Property>
+        <Property Name="ExpectedOperationTimeExpression">0.0</Property>
+        <Property Name="CopyEntityType"></Property>
+        <Property Name="ImmediatelyTrySeize">True</Property>
+        <Property Name="SecondaryResourcesForProcessingOffShiftRule">Finish Work Already Started</Property>
+        <Property Name="SecondaryResourcesForProcessingImmediatelyTrySeize">True</Property>
+        <Property Name="SecondaryResourcesForProcessingImmediatelyTryAllocateWhenReleased">True</Property>
+        <Property Name="CapitalCost" Units="USD">0.0</Property>
+        <Property Name="InputBufferCostPerUse" Units="USD">0.0</Property>
+        <Property Name="InputBufferHoldingCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ParentOutputBufferCostPerUse" Units="USD">0.0</Property>
+        <Property Name="ParentOutputBufferHoldingCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="MemberOutputBufferCostPerUse" Units="USD">0.0</Property>
+        <Property Name="MemberOutputBufferHoldingCostRate" Units="USD per Hour">0.0</Property>
+      </Properties>
+      <Graphics>
+        <SymbolInstances>
+          <SymbolInstance Center="0 0 0">
+            <SymbolRef Id="[UseExternalSymbol]" />
+          </SymbolInstance>
+        </SymbolInstances>
+        <AttachedObjects IndexList="0 1 2 3">
+          <Queue Queue="InputBuffer.Contents" RotationChangesLocation="False" RotationChangesOrientation="False">
+            <Points>
+              <Point Location="-10.98592 -2.384186E-07 -0.0008961558" />
+              <Point Location="-13.98592 -2.384186E-07 -0.0008961558" />
+            </Points>
+          </Queue>
+          <Queue Queue="ParentOutputBuffer.Contents" RotationChangesLocation="False" RotationChangesOrientation="False">
+            <Points>
+              <Point Location="-8.985923 -2.384186E-07 -0.5008962" />
+              <Point Location="-5.985923 -2.384186E-07 -0.5008962" />
+            </Points>
+          </Queue>
+          <Queue Queue="MemberOutputBuffer.Contents" RotationChangesLocation="False" RotationChangesOrientation="False">
+            <Points>
+              <Point Location="-8.985923 -2.384186E-07 0.4991038" />
+              <Point Location="-5.985923 -2.384186E-07 0.4991038" />
+            </Points>
+          </Queue>
+          <Queue Queue="Processing.Contents" RotationChangesLocation="False" RotationChangesOrientation="False">
+            <Points>
+              <Point Location="-10.98592 -2.384186E-07 -1.500896" />
+              <Point Location="-8.985923 -2.384186E-07 -1.500896" />
+            </Points>
+          </Queue>
+        </AttachedObjects>
+      </Graphics>
+    </Fixed>
+    <Fixed Name="Separator2" Type="Separator" Location="-3.48130965232849 2.38418579101563E-07 0.00194668769836426" YawDeg="90" Size="1.78744792938232 1.62528884410858 0.99999988079071" Scope="Public">
+      <AssociatedNodes>
+        <Node Name="Input@Separator2" Type="BasicNode" Location="-4.98130965232849 2.38418579101563E-07 0.00194668769836426" YawDeg="90" Scope="Public" RotationChangesLocation="False">
+          <Properties>
+            <Property Name="InitialCost" Units="USD">0.0</Property>
+            <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="ResourceIdleCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="ResourceCostPerUse" Units="USD">0.0</Property>
+            <Property Name="ResourceUsageCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="DynamicSelectionRule">
+              <Value>None</Value>
+            </Property>
+            <Property Name="TransferOutConstraintsType">Disable</Property>
+            <Property Name="FlowSplitAllocationRule">Proportional Based On Link Weights</Property>
+            <Property Name="SequenceExpectedOperationTime">Math.If(Entity.CanTransferInAndOutOfObjects, Node.AssociatedObject.Separator.ProcessingTime, 0.0)</Property>
+          </Properties>
+          <Graphics />
+        </Node>
+        <Node Name="ParentOutput@Separator2" Type="TransferNode" Location="-1.98130965232849 2.38418579101563E-07 -0.498053312301636" YawDeg="90" Scope="Public" RotationChangesLocation="False">
+          <Properties>
+            <Property Name="InitialCost" Units="USD">0.0</Property>
+            <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="ResourceIdleCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="ResourceCostPerUse" Units="USD">0.0</Property>
+            <Property Name="ResourceUsageCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="DynamicSelectionRule">
+              <Value>None</Value>
+            </Property>
+            <Property Name="TransferOutConstraintsType">Disable</Property>
+            <Property Name="FlowSplitAllocationRule">Proportional Based On Link Weights</Property>
+            <Property Name="DestinationNodeName"></Property>
+            <Property Name="DestinationSelectionExpression">Candidate.Node.InputLocation.Overload</Property>
+            <Property Name="BlockedDestinationRule">Select Any</Property>
+            <Property Name="RouteRequestDynamicSelectionRule">
+              <Value>None</Value>
+            </Property>
+            <Property Name="RideOnTransporterCondition">False</Property>
+            <Property Name="TransporterSelectionValueExpression">Candidate.Transporter.RideCapacityRemaining</Property>
+            <Property Name="BoundExternalOutputNode">Tray</Property>
+          </Properties>
+          <Graphics />
+        </Node>
+        <Node Name="MemberOutput@Separator2" Type="TransferNode" Location="-1.98130965232849 2.38418579101563E-07 0.501946687698364" YawDeg="90" Scope="Public" RotationChangesLocation="False">
+          <Properties>
+            <Property Name="InitialCost" Units="USD">0.0</Property>
+            <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="ResourceIdleCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="ResourceCostPerUse" Units="USD">0.0</Property>
+            <Property Name="ResourceUsageCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="DynamicSelectionRule">
+              <Value>None</Value>
+            </Property>
+            <Property Name="TransferOutConstraintsType">Disable</Property>
+            <Property Name="FlowSplitAllocationRule">Proportional Based On Link Weights</Property>
+            <Property Name="DestinationNodeName"></Property>
+            <Property Name="DestinationSelectionExpression">Candidate.Node.InputLocation.Overload</Property>
+            <Property Name="BlockedDestinationRule">Select Any</Property>
+            <Property Name="RouteRequestDynamicSelectionRule">
+              <Value>None</Value>
+            </Property>
+            <Property Name="RideOnTransporterCondition">False</Property>
+            <Property Name="TransporterSelectionValueExpression">Candidate.Transporter.RideCapacityRemaining</Property>
+          </Properties>
+          <Graphics />
+        </Node>
+      </AssociatedNodes>
+      <IndexedSizes>
+        <IndexedSize Size="1.78744792938232 1.62528884410858 0.99999988079071" YawDeg="90" />
+        <IndexedSize Size="1.78744792938232 1.62528884410858 0.99999988079071" YawDeg="90" />
+        <IndexedSize Size="1.78744792938232 1.62528884410858 0.99999988079071" YawDeg="90" />
+        <IndexedSize Size="1.78744792938232 1.62528884410858 0.99999988079071" YawDeg="90" />
+        <IndexedSize Size="1.78744792938232 1.62528884410858 0.99999988079071" YawDeg="90" />
+      </IndexedSizes>
+      <Properties>
+        <Property Name="InitialCost" Units="USD">0.0</Property>
+        <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ResourceIdleCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ResourceCostPerUse" Units="USD">0.0</Property>
+        <Property Name="ResourceUsageCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="DynamicSelectionRule">
+          <Value>None</Value>
+        </Property>
+        <Property Name="ExpectedOperationTimeExpression">0.0</Property>
+        <Property Name="CopyEntityType"></Property>
+        <Property Name="ImmediatelyTrySeize">True</Property>
+        <Property Name="SecondaryResourcesForProcessingOffShiftRule">Finish Work Already Started</Property>
+        <Property Name="SecondaryResourcesForProcessingImmediatelyTrySeize">True</Property>
+        <Property Name="SecondaryResourcesForProcessingImmediatelyTryAllocateWhenReleased">True</Property>
+        <Property Name="CapitalCost" Units="USD">0.0</Property>
+        <Property Name="InputBufferCostPerUse" Units="USD">0.0</Property>
+        <Property Name="InputBufferHoldingCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ParentOutputBufferCostPerUse" Units="USD">0.0</Property>
+        <Property Name="ParentOutputBufferHoldingCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="MemberOutputBufferCostPerUse" Units="USD">0.0</Property>
+        <Property Name="MemberOutputBufferHoldingCostRate" Units="USD per Hour">0.0</Property>
+      </Properties>
+      <Graphics>
+        <SymbolInstances>
+          <SymbolInstance Center="0 0 0">
+            <SymbolRef Id="[UseExternalSymbol]" />
+          </SymbolInstance>
+        </SymbolInstances>
+        <AttachedObjects IndexList="4 5 6 7">
+          <Queue Queue="InputBuffer.Contents" RotationChangesLocation="False" RotationChangesOrientation="False">
+            <Points>
+              <Point Location="-4.481312 2.384186E-07 0.5019467" />
+              <Point Location="-7.481308 2.384186E-07 0.5019467" />
+            </Points>
+          </Queue>
+          <Queue Queue="ParentOutputBuffer.Contents" RotationChangesLocation="False" RotationChangesOrientation="False">
+            <Points>
+              <Point Location="-2.48131 2.384186E-07 0.001946703" />
+              <Point Location="0.518689 2.384186E-07 0.001946703" />
+            </Points>
+          </Queue>
+          <Queue Queue="MemberOutputBuffer.Contents" RotationChangesLocation="False" RotationChangesOrientation="False">
+            <Points>
+              <Point Location="-2.48131 2.384186E-07 1.001947" />
+              <Point Location="0.518689 2.384186E-07 1.001947" />
+            </Points>
+          </Queue>
+          <Queue Queue="Processing.Contents" RotationChangesLocation="False" RotationChangesOrientation="False">
+            <Points>
+              <Point Location="-4.481312 2.384186E-07 -0.9980517" />
+              <Point Location="-2.48131 2.384186E-07 -0.9980517" />
+            </Points>
+          </Queue>
+        </AttachedObjects>
+      </Graphics>
+    </Fixed>
+    <Fixed Name="Sink1" Type="Sink" Location="2.354283452034 0 2.10476934909821" YawDeg="90" Size="1.50498116016388 1.02881991863251 1.00000035762787" Scope="Public">
+      <AssociatedNodes>
+        <Node Name="Input@Sink1" Type="BasicNode" Location="0.854283452033997 0 2.10476934909821" YawDeg="90" Scope="Public" RotationChangesLocation="False">
+          <Properties>
+            <Property Name="InitialCost" Units="USD">0.0</Property>
+            <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="ResourceIdleCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="ResourceCostPerUse" Units="USD">0.0</Property>
+            <Property Name="ResourceUsageCostRate" Units="USD per Hour">0.0</Property>
+            <Property Name="DynamicSelectionRule">
+              <Value>None</Value>
+            </Property>
+            <Property Name="TransferOutConstraintsType">Disable</Property>
+            <Property Name="FlowSplitAllocationRule">Proportional Based On Link Weights</Property>
+          </Properties>
+          <Graphics />
+        </Node>
+      </AssociatedNodes>
+      <Properties>
+        <Property Name="InitialCost" Units="USD">0.0</Property>
+        <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ResourceIdleCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ResourceCostPerUse" Units="USD">0.0</Property>
+        <Property Name="ResourceUsageCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="DynamicSelectionRule">
+          <Value>None</Value>
+        </Property>
+        <Property Name="CapitalCost" Units="USD">0.0</Property>
+        <Property Name="InputBufferCostPerUse" Units="USD">0.0</Property>
+        <Property Name="InputBufferHoldingCostRate" Units="USD per Hour">0.0</Property>
+      </Properties>
+      <Graphics>
+        <SymbolInstances>
+          <SymbolInstance Center="0 0 0">
+            <SymbolRef Id="[UseExternalSymbol]" />
+          </SymbolInstance>
+        </SymbolInstances>
+        <AttachedObjects IndexList="8">
+          <Queue Queue="InputBuffer.Contents" RotationChangesLocation="False" RotationChangesOrientation="False">
+            <Points>
+              <Point Location="1.354283 0 2.604769" />
+              <Point Location="-1.645717 0 2.604769" />
+            </Points>
+          </Queue>
+        </AttachedObjects>
+      </Graphics>
+    </Fixed>
+    <Link Name="Connector1" Type="Connector" Size="3.5 0 0" Scope="Public" Start="MemberOutput@Separator1" End="Input@Separator2">
+      <Properties>
+        <Property Name="InitialCost" Units="USD">0.0</Property>
+        <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ResourceIdleCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ResourceCostPerUse" Units="USD">0.0</Property>
+        <Property Name="ResourceUsageCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="DynamicSelectionRule">
+          <Value>None</Value>
+        </Property>
+        <Property Name="InitialDesiredSpeed">2.0</Property>
+      </Properties>
+      <Graphics />
+    </Link>
+    <Link Name="Connector2" Type="Connector" Size="3.26 0 0" Scope="Public" Start="MemberOutput@Separator2" End="Input@Sink1">
+      <Properties>
+        <Property Name="InitialCost" Units="USD">0.0</Property>
+        <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ResourceIdleCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="ResourceCostPerUse" Units="USD">0.0</Property>
+        <Property Name="ResourceUsageCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="DynamicSelectionRule">
+          <Value>None</Value>
+        </Property>
+        <Property Name="InitialDesiredSpeed">2.0</Property>
+      </Properties>
+      <Graphics />
+    </Link>
+  </Objects>
+  <External>
+    <TransferPoints>
+      <ExternalNode Name="Input" Location="-0.757122099399567,0,0.311757137998939" ID="Input" RotationChangesLocation="False">
+        <Properties>
+          <Property Name="NodeClassName">BasicNode</Property>
+          <Property Name="InputLocationType">Node</Property>
+          <Property Name="NodeName">Input@Separator1</Property>
+        </Properties>
+      </ExternalNode>
+      <ExternalNode Name="Tray" Location="-6.37955963611603E-07,0,-0.831353783607483" ID="Tray" RotationChangesLocation="False">
+        <Properties>
+          <Property Name="NodeClassName">TransferNode</Property>
+        </Properties>
+      </ExternalNode>
+      <ExternalNode Name="Customer" Location="-0.890732944011688,0,-0.252375602722168" ID="Customer" RotationChangesLocation="False">
+        <Properties>
+          <Property Name="NodeClassName">TransferNode</Property>
+        </Properties>
+      </ExternalNode>
+    </TransferPoints>
+    <Graphics>
+      <SymbolInstance Center="-0.02969128 0 0.01484485">
+        <SymbolRef Id="f0f87d71-1b16-4155-a907-9b2081a79aaf" />
+      </SymbolInstance>
+      <SymbolInstance Center="-0.02968796 0 0.6086734">
+        <SymbolRef Id="f0f87d71-1b16-4155-a907-9b2081a79aaf" />
+      </SymbolInstance>
+      <PadBoundingBoxForSymbol Value="True" />
+      <OffsetDynamicRelativeToExternalBounds Value="False" />
+    </Graphics>
+  </External>
+  <SaveHistories>
+    <SaveHistory SavedDateTime="2022-03-19T15:59:12" ProductVersion="14.236.26607.0" Edition="Internal" />
+  </SaveHistories>
+  <Graphics>
+    <FloatingLabel Center="-8.416655 0 -1.652726">
+      <Text>Customer Exit</Text>
+    </FloatingLabel>
+    <FloatingLabel Center="-1.781238 0 -1.379868">
+      <Text>Tray Exit</Text>
+    </FloatingLabel>
+    <FloatingLabel Center="2.361246 0 1.13787">
+      <Text>Trash</Text>
+    </FloatingLabel>
+    <AnimationSetup SmoothAnimation="False" ShowAgentInstancesWhileRunning="True" MinimumNumberOfFramesToDisplayIdleAnimation="10" />
+  </Graphics>
+</Fragment>
+<!-- 0jryNkgd+oL0dJB7ffCCbmuHT6NaaCQ8t4zLCrmYjnTiXxRRx3VfKtUx9ewGGrpStLfPzrf1wUP0bNG8vTtZwQ== -->

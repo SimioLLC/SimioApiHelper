@@ -11,7 +11,13 @@ namespace SimEngineConsoleExperimentSaveTable
     /// create a tab-delimited CSV file of the results.
     /// Look particularly at the end-of-scenario events to see how the response results are treated.
     /// It also does a Save project at the end, assuming the user has the license to do so.
-    /// 
+    /// Assumptions:
+    /// Simio is installed under Program Files (not x86)
+    /// Command Line Arguments:
+    /// 1. Full path to Project file (e.g. spfx)
+    /// 2. Optional boolean to Save to project file after run
+    /// 3. Optional Model name (default Model)
+    /// 4. Optional Experiment name (default Experiment)
     /// </summary>
     class Program
     {
@@ -35,57 +41,60 @@ namespace SimEngineConsoleExperimentSaveTable
                 Logit("Read Command Line Settings");
                 if (args.Length == 0)
                 {
-                    Logit("Project Path And File Must Be Specified In First Command Argument");
+                    Logit("Project File (full path) must Be Specified In first command argument");
                     throw new Exception(marker);
                 }
 
                 // set parameters
-                string projectPathAndFile = args[0];
-                bool saveModelAfterRun = false;
-                string modelName = "Model";
+                string projectFilenameFullpath = args[0];
+                bool saveProjectAfterRun= false;
+                string modelName = "Model"; // default
                 string experimentName = "";
 
-                if (!File.Exists(projectPathAndFile))
+                string modelsFolderName = Path.GetDirectoryName(projectFilenameFullpath);
+                string[] files = Directory.GetFiles(modelsFolderName);
+
+                if (!File.Exists(projectFilenameFullpath))
                 {
-                    Logit($"Cannot find SimioProject file at={projectPathAndFile}");
+                    Logit($"Cannot find SimioProject file at={projectFilenameFullpath}");
                     throw new ApplicationException(marker);
                 }
 
                 if (args.Length >= 2)
                 {
-                    saveModelAfterRun = Convert.ToBoolean(args[1]);
+                    saveProjectAfterRun = Convert.ToBoolean(args[1]);
+                    Logit($"2nd arg set SaveProjectAfterRun={saveProjectAfterRun}");
                 }
+
                 if (args.Length >= 3)
                 {
                     modelName = args[2];
+                    Logit($"3rd arg set Model={modelName}");
                 }
+
                 if (args.Length >= 4)
                 {
                     experimentName = args[3];
+                    Logit($"4th arg set Experiment={experimentName}");
                 }
 
                 // If File Not Exist, Throw Exeption
-                if (File.Exists(projectPathAndFile) == false)
-                {
-                    Logit("Project Not Found : " + projectPathAndFile);
-                    throw new Exception("Looking for Simio Project");
-                }
 
-                string projectFolder = Path.GetDirectoryName(projectPathAndFile);
+                string projectFolder = Path.GetDirectoryName(projectFilenameFullpath);
 
-                Logit($"Info: Project Name={projectPathAndFile} Model={modelName} Experiment={experimentName} SaveAfterRun={saveModelAfterRun}");
+                Logit($"Info: Project Name={projectFilenameFullpath} "
+                    + $"Model={modelName} Experiment={experimentName} SaveAfterRun={saveProjectAfterRun}");
 
 
-                // Open project file.
-                Logit($"Loading Project=[{projectPathAndFile}]");
-                _simioProject = SimioProjectFactory.LoadProject(projectPathAndFile, out warnings);
+                // Open project file. This can take a few seconds
+                Logit($"Loading Project=[{projectFilenameFullpath}]");
+                _simioProject = SimioProjectFactory.LoadProject(projectFilenameFullpath, out warnings);
 
                 // Run schedule and save for existing events.
                 var model = _simioProject.Models[modelName];
                 if (model == null)
                 {
-                    throw new ApplicationException($"Model={modelName} Not Found In Project={projectPathAndFile}");
-
+                    throw new ApplicationException($"Model={modelName} Not Found In Project={projectFilenameFullpath}");
                 }
                 else
                 {
@@ -94,10 +103,6 @@ namespace SimEngineConsoleExperimentSaveTable
 
                     // Start Experiment
                     Logit("Info: Starting Experiment");
-
-                    string savePathAndFile = "";
-                    if (saveModelAfterRun)
-                        savePathAndFile = projectPathAndFile;
 
                     List<string> warningList = new List<string>();
 
@@ -112,10 +117,16 @@ namespace SimEngineConsoleExperimentSaveTable
                     }
 
 
-                    if (saveModelAfterRun)
+                    if (saveProjectAfterRun)
                     {
-                        Logit("Save Project After Experiment Run");
-                        SimioProjectFactory.SaveProject(_simioProject, projectPathAndFile, out warnings);
+                        string directory = Path.GetDirectoryName(projectFilenameFullpath);
+                        string fileExtension = Path.GetExtension(projectFilenameFullpath);
+                        string filename = Path.GetFileNameWithoutExtension(projectFilenameFullpath) + "-Saved";
+
+                        string saveProjectFullpath = Path.Combine(directory, $"{filename}{fileExtension}");
+
+                        Logit($"Save Project After Experiment Run to={saveProjectFullpath}");
+                        SimioProjectFactory.SaveProject(_simioProject, saveProjectFullpath, out warnings);
                     }
 
                     Logit("End");

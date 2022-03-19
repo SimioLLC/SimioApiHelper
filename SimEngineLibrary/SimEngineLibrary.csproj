@@ -32,13 +32,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SimioAPI, Version=11.202.19819.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Simio\SimioAPI.dll</HintPath>
+    <Reference Include="SimioAPI">
+      <HintPath>C:\Program Files\Simio LLC\Simio\SimioAPI.dll</HintPath>
     </Reference>
-    <Reference Include="SimioDLL, Version=12.209.21002.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Simio\SimioDLL.dll</HintPath>
+    <Reference Include="SimioAPI.Extensions">
+      <HintPath>C:\Program Files\Simio LLC\Simio\SimioAPI.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="SimioDLL">
+      <HintPath>C:\Program Files\Simio LLC\Simio\SimioDLL.dll</HintPath>
+    </Reference>
+    <Reference Include="SimioEnums">
+      <HintPath>C:\Program Files\Simio LLC\Simio\SimioEnums.dll</HintPath>
+    </Reference>
+    <Reference Include="SimioServerAPI">
+      <HintPath>C:\Program Files\Simio LLC\Simio\SimioServerAPI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

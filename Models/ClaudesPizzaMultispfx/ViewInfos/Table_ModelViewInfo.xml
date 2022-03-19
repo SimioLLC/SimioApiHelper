@@ -1,0 +1,30 @@
+<Fragment>
+  <ViewInfo>
+    <Facility FollowDistanceRatio="1">
+      <Camera Orientation="Top" Location="1.81898940354586E-12 12.5 -1.81898940354586E-12" Direction="0 -1 -2.22044604925031E-16" Zoom="12.5" />
+      <ObjectDisplay SnapToGrid="True" Background="ffffff" />
+      <Libraries Width="122">
+        <Library Name="Standard Library" Size="460" Expanded="True" />
+        <Library Name="Flow Library" Size="28" />
+      </Libraries>
+    </Facility>
+    <Process DefaultCategoryExpanded="True" />
+    <OperationalPlanningResourceGantt>
+      <FileRef Name="Data\ViewState\Table_OperationalPlanningResourceGantt.xml" />
+    </OperationalPlanningResourceGantt>
+    <OperationalPlanningOwnerGantt>
+      <FileRef Name="Data\ViewState\Table_OperationalPlanningOwnerGantt.xml" />
+    </OperationalPlanningOwnerGantt>
+    <OperationalPlanningResourceGantt>
+      <FileRef Name="Data\ViewState\Table_OperationalPlanningResourceGantt1.xml" />
+    </OperationalPlanningResourceGantt>
+    <OperationalPlanningOwnerGantt>
+      <FileRef Name="Data\ViewState\Table_OperationalPlanningOwnerGantt1.xml" />
+    </OperationalPlanningOwnerGantt>
+    <OperationalFacility>
+      <Camera Orientation="Top" Location="1.81898940354586E-12 12.5 -1.81898940354586E-12" Direction="0 -1 -2.22044604925031E-16" Zoom="12.5" />
+      <ObjectDisplay SnapToGrid="True" Background="ffffff" />
+    </OperationalFacility>
+  </ViewInfo>
+</Fragment>
+<!-- Mhvc7DOFZVxRxmhpEDH0nYgnydYWXKM64GrRm4xu721i9XTQKOWm/22L/ZIF/8ODMJuZNnOrz0gi5BdOS+5XvQ== -->

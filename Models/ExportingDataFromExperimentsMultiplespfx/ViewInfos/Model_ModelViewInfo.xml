@@ -1,0 +1,35 @@
+<Fragment>
+  <ViewInfo>
+    <Facility FollowDistanceRatio="1">
+      <Camera Orientation="Top" Location="1.81898940354586E-12 12.5 5.45696821063757E-12" Direction="0 -1 -2.22044604925031E-16" Zoom="12.5" />
+      <ObjectDisplay SnapToGrid="True" Background="ffffff" />
+      <Libraries Width="122">
+        <Library Name="Standard Library" Size="592" Expanded="True" />
+        <Library Name="Flow Library" Size="28" />
+        <Library Name="Extras Library" Size="28" />
+      </Libraries>
+    </Facility>
+    <Process DefaultCategoryExpanded="True">
+      <Categories>
+        <Category Name="Input@Sink1 AddOn Processes" Expanded="True" />
+      </Categories>
+    </Process>
+    <OperationalPlanningResourceGantt>
+      <FileRef Name="Data\ViewState\Model_OperationalPlanningResourceGantt.xml" />
+    </OperationalPlanningResourceGantt>
+    <OperationalPlanningOwnerGantt>
+      <FileRef Name="Data\ViewState\Model_OperationalPlanningOwnerGantt.xml" />
+    </OperationalPlanningOwnerGantt>
+    <OperationalPlanningResourceGantt>
+      <FileRef Name="Data\ViewState\Model_OperationalPlanningResourceGantt1.xml" />
+    </OperationalPlanningResourceGantt>
+    <OperationalPlanningOwnerGantt>
+      <FileRef Name="Data\ViewState\Model_OperationalPlanningOwnerGantt1.xml" />
+    </OperationalPlanningOwnerGantt>
+    <OperationalFacility>
+      <Camera Orientation="Top" Location="1.81898940354586E-12 12.5000000000018 5.45696821063757E-12" Direction="0 -1 -2.22044604925031E-16" Zoom="12.5" />
+      <ObjectDisplay SnapToGrid="True" Background="ffffff" />
+    </OperationalFacility>
+  </ViewInfo>
+</Fragment>
+<!-- W/LGl6pSXpVwqFIpFaZ87tPwj7OA77T9+OyC4mS4GCpC0f1ETlwPc4yjHIRkfDgUpklurRa+iTbfsw6PhRIVRA== -->

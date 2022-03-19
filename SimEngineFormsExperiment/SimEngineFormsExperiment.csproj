@@ -38,7 +38,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="SimioAPI">
-      <HintPath>C:\Program Files (x86)\Simio202\SimioAPI.dll</HintPath>
+      <HintPath>C:\Program Files\Simio LLC\Simio\SimioAPI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -90,6 +90,10 @@
     <ProjectReference Include="..\SimEngineLibrary\SimEngineLibrary.csproj">
       <Project>{ca2ab3a8-edbf-4d16-bb00-fb8c5f6cfeec}</Project>
       <Name>SimEngineLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimioApiHelper\SimioApiHelper.csproj">
+      <Project>{2762ff6d-665e-4161-b56d-ea377875a10e}</Project>
+      <Name>SimioApiHelper</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

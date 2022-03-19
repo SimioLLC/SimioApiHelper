@@ -1,0 +1,68 @@
+<XtraSerializer version="1.0" application="TabbedView">
+  <property name="#LayoutVersion" />
+  <property name="#LayoutScaleFactor">@1,Width=1@1,Height=1</property>
+  <property name="DocumentProperties" isnull="true" iskey="true">
+    <property name="AllowClose">false</property>
+  </property>
+  <property name="Orientation">Horizontal</property>
+  <property name="DocumentGroupProperties" isnull="true" iskey="true">
+    <property name="CloseTabOnMiddleClick">Never</property>
+  </property>
+  <property name="EnableFreeLayoutMode">Default</property>
+  <property name="EnableStickySplitters">Default</property>
+  <property name="CustomResizeZoneThickness">0</property>
+  <property name="Style">Default</property>
+  <property name="FloatingDocumentContainer">Default</property>
+  <property name="LoadingIndicatorProperties" isnull="true" iskey="true" />
+  <property name="DocumentSelectorProperties" isnull="true" iskey="true">
+    <property name="ShowPreview">false</property>
+  </property>
+  <property name="WindowsDialogProperties" isnull="true" iskey="true" />
+  <property name="Items" iskey="true" value="4">
+    <property name="Item1" isnull="true" iskey="true">
+      <property name="ParentName">DocumentGroup0</property>
+      <property name="IsSelected">true</property>
+      <property name="Index">0</property>
+      <property name="WindowState">Normal</property>
+      <property name="Pinned">false</property>
+      <property name="Properties" isnull="true" iskey="true" />
+      <property name="IsFloating">false</property>
+      <property name="Location">@1,X=0@1,Y=0</property>
+      <property name="Size">@3,Width=591@3,Height=419</property>
+      <property name="IsActive">true</property>
+      <property name="Name">Table17</property>
+      <property name="TypeName">Document</property>
+    </property>
+    <property name="Item2" isnull="true" iskey="true">
+      <property name="Parent">Root</property>
+      <property name="Element" isnull="true" />
+      <property name="Orientation">Horizontal</property>
+      <property name="Index">0</property>
+      <property name="Length" isnull="true" iskey="true">
+        <property name="UnitValue">1</property>
+        <property name="UnitType">Star</property>
+      </property>
+      <property name="Name">7509644</property>
+      <property name="TypeName">DockingContainer</property>
+    </property>
+    <property name="Item3" isnull="true" iskey="true">
+      <property name="Parent">7509644</property>
+      <property name="Element">DocumentGroup0</property>
+      <property name="Orientation">Horizontal</property>
+      <property name="Index">0</property>
+      <property name="Length" isnull="true" iskey="true">
+        <property name="UnitValue">1</property>
+        <property name="UnitType">Star</property>
+      </property>
+      <property name="Name">477939</property>
+      <property name="TypeName">DockingContainer</property>
+    </property>
+    <property name="Item4" isnull="true" iskey="true">
+      <property name="Properties" isnull="true" iskey="true" />
+      <property name="Length">1148</property>
+      <property name="Index">0</property>
+      <property name="Name">DocumentGroup0</property>
+      <property name="TypeName">DocumentGroup</property>
+    </property>
+  </property>
+</XtraSerializer>

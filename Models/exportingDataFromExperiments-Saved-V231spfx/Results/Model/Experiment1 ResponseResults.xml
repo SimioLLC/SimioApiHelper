@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ResponseResults Model="Model" Experiment="Experiment1" FileVersion="233" xmlns="http://www.simio.com/projects/v1">
+  <Observations Scenario="Scenario1" Response="Response1">
+    <Observation Value="12" RepNum="2" />
+    <Observation Value="11" RepNum="4" />
+    <Observation Value="7" RepNum="3" />
+    <Observation Value="11" RepNum="1" />
+    <Observation Value="13" RepNum="8" />
+    <Observation Value="15" RepNum="7" />
+    <Observation Value="15" RepNum="5" />
+    <Observation Value="8" RepNum="9" />
+    <Observation Value="14" RepNum="10" />
+    <Observation Value="7" RepNum="6" />
+  </Observations>
+</ResponseResults>

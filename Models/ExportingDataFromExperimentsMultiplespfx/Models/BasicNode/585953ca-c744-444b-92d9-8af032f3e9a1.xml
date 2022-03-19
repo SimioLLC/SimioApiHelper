@@ -1,0 +1,475 @@
+<Fragment>
+  <Compatibility ParseElementFunctionsInExpressionsLast="True" ParseNonEntityAssociatedObjectForPropertyReference="True" AllowInteractiveEntryOfNonStandardElementNames="False" ParsePropertiesForObjectTypeForAutoCreatedObjectsFirst="False" />
+  <ChangeDescriptions>
+    <ChangeDescription Version="58">Version 2.36: Renamed the 'TransferToLinkFailureLogic' process in the BasicNode process logic to 'TransferFailureLogic'. If the 'AutoTransferOnEntry' property value of the BasicNode is 'To Parent External Node' and the transfer to the specified parent external node fails, then the token now executes the 'TransferFailureLogic' process.</ChangeDescription>
+    <ChangeDescription Version="59">Version 2.37: Changed 'Capacity' display name to 'Initial Capacity' as object capacities are now user assignable.</ChangeDescription>
+    <ChangeDescription Version="64">Version 2.39: Updated the BasicNode object process logic to specify all of the object's process delays as non-interruptible.</ChangeDescription>
+    <ChangeDescription Version="65">Version 2.40: In the object process logic, the 'Action' property for all Execute steps executing an 'add-on process' is now specified as 'WaitUntilCompleted'.</ChangeDescription>
+    <ChangeDescription Version="66">Version 2.41: Minor property description and display name updates.</ChangeDescription>
+    <ChangeDescription Version="67">Version 3.42: Changes related to setting the 'Token Associated Object Destroyed Action' option for process logic in this object.</ChangeDescription>
+    <ChangeDescription Version="68">Version 3.44: 'SeizedObjects.UnitsOwned' function renamed to 'SeizedObjects.CapacityUnitsOwned'.</ChangeDescription>
+    <ChangeDescription Version="69">Version 3.47: Added new 'Appearance' property category.</ChangeDescription>
+    <ChangeDescription Version="70">Version 3.48: Hide new 'Random Number Stream' property in 'Routing Logic' category.</ChangeDescription>
+    <ChangeDescription Version="71">Version 3.49: Specified the 'OnAssociatedObjectTransferRequested' property of some processes as 'EndProcess'.</ChangeDescription>
+    <ChangeDescription Version="78">Version 3.54: Added new Notify step to 'TransferFailureLogic' process to output a warning if automatically destroying an entity. Conversion to 'OnRunInitialized' standard interface process. Added 'Run Ending' add-on process trigger.</ChangeDescription>
+    <ChangeDescription Version="81">Version 3.56: Added new 'Tally Statistics' property category.</ChangeDescription>
+    <ChangeDescription Version="82">Version 3.57: Change to new 'OnEnteredParking' standard interface process that was added to Simio's base node object.</ChangeDescription>
+    <ChangeDescription Version="84">Version 4.58: Removed 'AutoTransferOnEntry' property. The 'ExternalNodeName' property is now always visible with display name 'Bound External Output Node'.  If a transfer to parent external node attempt fails, then the token now continues normal processing instead of executing the 'TransferFailureLogic'. Added new 'Advanced Options' property category.</ChangeDescription>
+    <ChangeDescription Version="85">Version 4.60: Process logic now uses new object 'SeizedResources.CapacityUnitsOwned' function instead of deprecated 'SeizedObjects.CapacityUnitsOwned'.</ChangeDescription>
+    <ChangeDescription Version="86">Version 4.61: Set all inherited properties in 'Financials' category to not be visible.</ChangeDescription>
+    <ChangeDescription Version="87">Version 4.63: Set all inherited properties in 'Financials-&gt;Resource Costs' to not be visible.</ChangeDescription>
+    <ChangeDescription Version="88">Version 4.65: Process logic now uses new object 'SeizedResources.CapacityOwnedOf' function instead of deprecated 'SeizedResources.CapacityUnitsOwned'.</ChangeDescription>
+    <ChangeDescription Version="89">Version 4.66: If bound to an external output node of the parent model, a basic node's 'Entered' event is still fired and its 'Entered' add-on process trigger still executed before transferring the entity out of the parent model.</ChangeDescription>
+    <ChangeDescription Version="93">Version 4.68: The BasicNode object is no longer enabled as a resource object, and the 'InitialCapacity', 'RankingRule', and 'RankingExpression' properties have been replaced by equivalent 'InitialTravelerCapacity', 'EntryRankingRule', and 'EntryRankingExpression' properties. Renamed 'InitializedAddOnProcess' property to 'RunInitializedAddOnProcess'. Renamed 'ExternalNodeName' property to 'BoundExternalOutputNode'.</ChangeDescription>
+    <ChangeDescription Version="95">Version 4.73: New 'Random Number Stream' property now available in the 'Advanced Options' category.</ChangeDescription>
+    <ChangeDescription Version="96">Version 4.74: If a traveler is attempting to transfer out of the node and has no network assigned (i.e., is using free space for travel), then the node's process logic now transfers the traveler into free space.</ChangeDescription>
+    <ChangeDescription Version="97">Version 4.77: Removed an unnecessary 'TransferFailureLogic' Execute step from the 'OnEnteredToAssociatedObject' process logic.</ChangeDescription>
+    <ChangeDescription Version="98">Version 5.87: Process logic now uses new property 'HasValue' function instead of deprecated 'IsDefined'.</ChangeDescription>
+    <ChangeDescription Version="99">Version 5.91: Added information to indicate which properties to display if the new 'Show Commonly Used Properties Only' option is enabled.</ChangeDescription>
+    <ChangeDescription Version="100">Version 6.103: Some property description updates.</ChangeDescription>
+    <ChangeDescription Version="101">Version 7.130: Renamed 'RandomNumberStream' property to 'BranchingRandomNumberStream'</ChangeDescription>
+    <ChangeDescription Version="102">Version 7.131: Added new 'Routing Logic -&gt; Other Routing Out Options' property category with possible 'Branching Random Number Stream' property.</ChangeDescription>
+    <ChangeDescription Version="104">Version 8.133 'OnEntered' process logic no longer requires a Decide 'IfFreeSpaceTraveler' step. Added 'State Assignments' property category.</ChangeDescription>
+    <ChangeDescription Version="105">Version 8.134 'Routing Logic -&gt; Other Routing Out Options -&gt; Random Number Stream' property now inherited from the base node definition</ChangeDescription>
+    <ChangeDescription Version="106">Version 8.137 'TransferFailureLogic' now gives warning notification if automatically parking entity.</ChangeDescription>
+    <ChangeDescription Version="107">Version 8.147: Property description string updates.</ChangeDescription>
+    <ChangeDescription Version="108">Version 12.212: Renamed 'TalliesOnEnteringValue' property to 'TalliesOnEnteringValueExpression'. Renamed 'TalliesOnExitedValue' property to 'TalliesOnExitedValueExpression'.</ChangeDescription>
+  </ChangeDescriptions>
+  <ChangeStringReplacements>
+    <ChangeStringReplacement Version="84" RegularExpressionPattern="(^|[^\w_])(?i:AutoTransferOnEntry)([^\w_]|$)" ReplacementString="$1ExternalNodeName.HasValue$2" />
+    <ChangeStringReplacement Version="84" RegularExpressionPattern="(^|[^\w_])(?i:List[\.]AutoTransferOnEntryType[\.]None)([^\w_]|$)" ReplacementString="$1False$2" />
+    <ChangeStringReplacement Version="93" RegularExpressionPattern="(^|[^\w_])(?i:InitializedAddOnProcess)([^\w_]|$)" ReplacementString="$1RunInitializedAddOnProcess$2" />
+    <ChangeStringReplacement Version="93" RegularExpressionPattern="(^|[^\w_])(?i:ExternalNodeName)([^\w_]|$)" ReplacementString="$1BoundExternalOutputNode$2" />
+  </ChangeStringReplacements>
+  <Lists>
+    <StringList Name="ActionConditionType">
+      <Items>
+        <Item Value="NoCondition" />
+        <Item Value="IsEntity" />
+        <Item Value="IsTransporter" />
+        <Item Value="CustomCondition" />
+      </Items>
+    </StringList>
+  </Lists>
+  <PropertyDefinitions>
+    <Categories>
+      <Category Name="Crossing Logic" Description="Crossing Logic" />
+      <Category Name="Routing Logic" Description="Routing Logic" />
+      <Category Name="Routing Logic/Other Routing Out Options" Description="Routing Logic/Other Routing Out Options" InitiallyExpanded="False" />
+      <Category Name="State Assignments" Description="Optional State Assignments" InitiallyExpanded="False" />
+      <Category Name="Tally Statistics" Description="Optional Tally Statistics" InitiallyExpanded="False" />
+      <Category Name="Add-On Process Triggers" Description="Add-On Process Triggers" InitiallyExpanded="False" />
+      <Category Name="Financials" Description="Financials" InitiallyExpanded="False" />
+      <Category Name="Advanced Options" Description="Advanced Options" InitiallyExpanded="False" />
+    </Categories>
+    <RepeatingProperty Name="AssignmentsOnEntering" DisplayName="On Entering" Description="Optional state assignments when an entity is entering the object." ComplexityLevel="Advanced" Category="State Assignments" Required="False" NullString="null">
+      <PropertyDefinitions>
+        <Categories>
+          <Category Name="Basic Logic" Description="State Assignments (Basic Logic)" />
+        </Categories>
+        <ListProperty Name="AssignmentsOnEnteringAssignConditionType" DisplayName="Assign If" Description="Condition required to perform the assignment." Category="Basic Logic" DefaultValue="Entity Entering" NullString="null" List="ActionConditionType">
+          <Captions>
+            <Caption Value="NoCondition" Display="No Condition" />
+            <Caption Value="IsEntity" Display="Entity Entering" />
+            <Caption Value="IsTransporter" Display="Transporter Entering" />
+            <Caption Value="CustomCondition" Display="Custom Condition" />
+          </Captions>
+        </ListProperty>
+        <ExpressionProperty Name="AssignmentsOnEnteringAssignCondition" DisplayName="Condition" Description="The condition required to perform the assignment." Category="Basic Logic" DefaultValue="0.0" Parent="AssignmentsOnEnteringAssignConditionType" NullString="null">
+          <Switch Property="AssignmentsOnEnteringAssignConditionType" Value="CustomCondition" />
+        </ExpressionProperty>
+        <StateProperty Name="AssignmentsOnEnteringStateVariableName" DisplayName="State Variable Name" Description="Name of the state variable that will be assigned a new value." Category="Basic Logic" Required="False" NullString="null" IsAssignable="True" />
+        <ExpressionProperty Name="AssignmentsOnEnteringNewValue" DisplayName="New Value" Description="The new value to assign." Category="Basic Logic" DefaultValue="0.0" Required="False" NullString="null" UnitTypeProperty="AssignmentsOnEnteringStateVariableName" />
+        <Overrides />
+      </PropertyDefinitions>
+    </RepeatingProperty>
+    <RepeatingProperty Name="TalliesOnEntering" DisplayName="On Entering" Description="Optional tally statistics to record when an entity is entering the node." ComplexityLevel="Advanced" Category="Tally Statistics" Required="False" NullString="null">
+      <PropertyDefinitions>
+        <Categories>
+          <Category Name="Basic Logic" Description="Tally Statistics (Basic Logic)" />
+        </Categories>
+        <ListProperty Name="TalliesOnEnteringTallyConditionType" DisplayName="Tally If" Description="Condition required to record the tally statistic." Category="Basic Logic" DefaultValue="Entity Entering" NullString="null" List="ActionConditionType">
+          <Captions>
+            <Caption Value="NoCondition" Display="No Condition" />
+            <Caption Value="IsEntity" Display="Entity Entering" />
+            <Caption Value="IsTransporter" Display="Transporter Entering" />
+            <Caption Value="CustomCondition" Display="Custom Condition" />
+          </Captions>
+        </ListProperty>
+        <ExpressionProperty Name="TalliesOnEnteringTallyCondition" DisplayName="Condition" Description="The condition required to record the tally statistic." Category="Basic Logic" DefaultValue="0.0" Parent="TalliesOnEnteringTallyConditionType" NullString="null">
+          <Switch Property="TalliesOnEnteringTallyConditionType" Value="CustomCondition" />
+        </ExpressionProperty>
+        <ElementProperty Name="TalliesOnEnteringTallyStatisticName" DisplayName="Tally Statistic Name" Description="The name of the tally statistic for which to record an observation value." Category="Basic Logic" Required="False" NullString="null" Type="TallyStatistic" />
+        <EnumProperty Name="TalliesOnEnteringValueType" DisplayName="Value Type" Description="The type of observation value to record.&#xD;&#xA;&#xD;&#xA;If the value type is 'Expression', then the value of the specified expression is recorded.&#xD;&#xA;&#xD;&#xA;If the value type is 'TimeBetween', then the time since the last entity arrival to this or any other Tally step referencing the tally statistic is recorded." Category="Basic Logic" DefaultValue="Expression" NullString="null" EnumType="TallyValueType" />
+        <ExpressionProperty Name="TalliesOnEnteringValueExpression" DisplayName="Value Expression" Description="The expression returning the value to be recorded." Category="Basic Logic" DefaultValue="0.0" NullString="null" UnitTypeProperty="TalliesOnEnteringTallyStatisticName">
+          <Switch Property="TalliesOnEnteringValueType" Value="Expression" />
+        </ExpressionProperty>
+        <Overrides />
+        <PropertyReplacements>
+          <PropertyReplacement Version="108" OldPropertyName="TalliesOnEnteringValue" NewPropertyName="TalliesOnEnteringValueExpression" />
+        </PropertyReplacements>
+      </PropertyDefinitions>
+    </RepeatingProperty>
+    <RepeatingProperty Name="TalliesOnExited" DisplayName="On Exited" Description="Optional tally statistics to record when an entity has exited the node." ComplexityLevel="Advanced" Category="Tally Statistics" Required="False" NullString="null">
+      <PropertyDefinitions>
+        <Categories>
+          <Category Name="Basic Logic" Description="Tally Statistics (Basic Logic)" />
+        </Categories>
+        <ListProperty Name="TalliesOnExitedTallyConditionType" DisplayName="Tally If" Description="Condition required to record the tally statistic." Category="Basic Logic" DefaultValue="Entity Exited" NullString="null" List="ActionConditionType">
+          <Captions>
+            <Caption Value="NoCondition" Display="No Condition" />
+            <Caption Value="IsEntity" Display="Entity Exited" />
+            <Caption Value="IsTransporter" Display="Transporter Exited" />
+            <Caption Value="CustomCondition" Display="Custom Condition" />
+          </Captions>
+        </ListProperty>
+        <ExpressionProperty Name="TalliesOnExitedTallyCondition" DisplayName="Condition" Description="The condition required to record the tally statistic." Category="Basic Logic" DefaultValue="0.0" Parent="TalliesOnExitedTallyConditionType" NullString="null">
+          <Switch Property="TalliesOnExitedTallyConditionType" Value="CustomCondition" />
+        </ExpressionProperty>
+        <ElementProperty Name="TalliesOnExitedTallyStatisticName" DisplayName="Tally Statistic Name" Description="The name of the tally statistic for which to record an observation value." Category="Basic Logic" Required="False" NullString="null" Type="TallyStatistic" />
+        <EnumProperty Name="TalliesOnExitedValueType" DisplayName="Value Type" Description="The type of observation value to record.&#xD;&#xA;&#xD;&#xA;If the value type is 'Expression', then the value of the specified expression is recorded.&#xD;&#xA;&#xD;&#xA;If the value type is 'TimeBetween', then the time since the last entity arrival to this or any other Tally step referencing the tally statistic is recorded." Category="Basic Logic" DefaultValue="Expression" NullString="null" EnumType="TallyValueType" />
+        <ExpressionProperty Name="TalliesOnExitedValueExpression" DisplayName="Value Expression" Description="The expression returning the value to be recorded." Category="Basic Logic" DefaultValue="0.0" NullString="null" UnitTypeProperty="TalliesOnExitedTallyStatisticName">
+          <Switch Property="TalliesOnExitedValueType" Value="Expression" />
+        </ExpressionProperty>
+        <Overrides />
+        <PropertyReplacements>
+          <PropertyReplacement Version="108" OldPropertyName="TalliesOnExitedValue" NewPropertyName="TalliesOnExitedValueExpression" />
+        </PropertyReplacements>
+      </PropertyDefinitions>
+    </RepeatingProperty>
+    <ElementProperty Name="RunInitializedAddOnProcess" DisplayName="Run Initialized" Description="Occurs when the simulation run is initialized." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="RunEndingAddOnProcess" DisplayName="Run Ending" Description="Occurs when the simulation run is ending." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="EnteredAddOnProcess" DisplayName="Entered" Description="Occurs when an entity's leading edge has entered this node." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="ExitedAddOnProcess" DisplayName="Exited" Description="Occurs when an entity's trailing edge has exited this node." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ExternalNodeProperty Name="BoundExternalOutputNode" DisplayName="Bound External Output Node" Description="The name of an external output node that this node has been bound to in order to transfer entities out of the containing (parent) object. The transfer attempt will be performed by an entity immediately upon entering the node and, if successful, any other crossing and routing logic for the node will be ignored." ComplexityLevel="Advanced" Category="Advanced Options" Required="False" NullString="null" />
+    <Overrides>
+      <Override Name="ReportStatistics" DefaultValue="False" />
+      <Override Name="ParentCostCenter" Visible="False" />
+      <Override Name="InitialCost" Visible="False" />
+      <Override Name="InitialCostRate" Visible="False" />
+      <Override Name="ResourceIdleCostRate" Visible="False" />
+      <Override Name="ResourceCostPerUse" Visible="False" />
+      <Override Name="ResourceUsageCostRate" Visible="False" />
+      <Override Name="LogResourceUsage" Visible="False" />
+      <Override Name="DisplayCategory" Visible="False" />
+      <Override Name="DisplayColor" Visible="False" />
+      <Override Name="IncludeInPlanResourceConstraints" Visible="False" />
+      <Override Name="CapacityType" Visible="False" />
+      <Override Name="InitialWorkSchedule" Visible="False" />
+      <Override Name="WorkDayExceptions" Visible="False" />
+      <Override Name="WorkPeriodExceptions" Visible="False" />
+      <Override Name="InitialCapacity" Visible="False" />
+      <Override Name="RankingRule" Visible="False" />
+      <Override Name="RankingExpression" Visible="False" />
+      <Override Name="DynamicSelectionRule" Visible="False" />
+      <Override Name="EntryExemptionCondition" Visible="False" />
+    </Overrides>
+    <PropertyReplacements>
+      <PropertyReplacement Version="92" OldPropertyName="InitialCapacity" NewPropertyName="InitialTravelerCapacity" />
+      <PropertyReplacement Version="92" OldPropertyName="RankingRule" NewPropertyName="EntryRankingRule" />
+      <PropertyReplacement Version="92" OldPropertyName="RankingExpression" NewPropertyName="EntryRankingExpression" />
+      <PropertyReplacement Version="92" OldPropertyName="InitializedAddOnProcess" NewPropertyName="RunInitializedAddOnProcess" />
+      <PropertyReplacement Version="92" OldPropertyName="ExternalNodeName" NewPropertyName="BoundExternalOutputNode" />
+      <PropertyReplacement Version="101" OldPropertyName="RandomNumberStream" NewPropertyName="BranchingRandomNumberStream" />
+    </PropertyReplacements>
+  </PropertyDefinitions>
+  <States />
+  <Events>
+    <Event Name="Entered" Description="The Entered event provides notification that an entity has entered the node." />
+    <Event Name="Exited" Description="The Exited event provides notification that an entity has exited the node." />
+  </Events>
+  <Elements />
+  <Processes>
+    <Process Name="OnRunInitialized" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Object.OnRunInitialized" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Execute" Name="RunInitializedAddOnProcess" ID="2">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>RunInitializedAddOnProcess</Value>
+            </Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnRunEnding" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Object.OnRunEnding" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Execute" Name="RunEndingAddOnProcess" ID="2">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>RunEndingAddOnProcess</Value>
+            </Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnEntered" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Node.OnEntered" BeginStepID="2">
+      <Properties>
+        <Property Name="TokenActionOnAssociatedObjectDestroyed">EndProcess</Property>
+        <Property Name="TokenActionOnAssociatedObjectTransferRequested">EndProcess</Property>
+      </Properties>
+      <Steps>
+        <Step Type="Assign" Name="OnEnteringAssignments" ID="2">
+          <Properties>
+            <Property Name="Assignments">
+              <Value>AssignmentsOnEntering</Value>
+              <Rows>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>AssignmentsOnEnteringStateVariableName</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">AssignmentsOnEnteringNewValue</Property>
+                  <Property Name="AssignmentsSkipAssignmentCondition">Math.If(AssignmentsOnEntering.AssignmentsOnEnteringAssignConditionType==List.ActionConditionType.NoCondition,False,AssignmentsOnEntering.AssignmentsOnEnteringAssignConditionType==List.ActionConditionType.IsEntity, Entity.Is.Transporter,AssignmentsOnEntering.AssignmentsOnEnteringAssignConditionType==List.ActionConditionType.IsTransporter, !Entity.Is.Transporter, AssignmentsOnEntering.AssignmentsOnEnteringAssignCondition&lt;=0.0)</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Tally" Name="OnEnteringTallies" ID="3">
+          <Properties>
+            <Property Name="Tallies">
+              <Value>TalliesOnEntering</Value>
+              <Rows>
+                <Properties>
+                  <Property Name="TalliesTallyStatisticName">
+                    <Value>TalliesOnEnteringTallyStatisticName</Value>
+                  </Property>
+                  <Property Name="TalliesValueType">TalliesOnEnteringValueType</Property>
+                  <Property Name="TalliesValueExpression">TalliesOnEnteringValueExpression</Property>
+                  <Property Name="TalliesNumberOfObservations">Math.If(TalliesOnEntering.TalliesOnEnteringTallyConditionType==List.ActionConditionType.NoCondition,1,TalliesOnEntering.TalliesOnEnteringTallyConditionType==List.ActionConditionType.IsEntity, !Entity.Is.Transporter,TalliesOnEntering.TalliesOnEnteringTallyConditionType==List.ActionConditionType.IsTransporter, Entity.Is.Transporter, TalliesOnEntering.TalliesOnEnteringTallyCondition&gt;0.0)</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="8" />
+        </Step>
+        <Step Type="Decide" Name="IfNoBoundExternalOutputNode" ExclusionExpression="Math.If(!BoundExternalOutputNode.HasValue, 1, 2)" ID="4">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">BoundExternalOutputNode.HasValue==False</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="6" />
+          <Exit Name="False" Type="Alternate" NextID="5" />
+        </Step>
+        <Step Type="Transfer" Name="ToBoundExternalOutputNode" ID="5">
+          <Properties>
+            <Property Name="FromType">CurrentNode</Property>
+            <Property Name="ToType">ParentExternalNode</Property>
+            <Property Name="ExternalNodeName">BoundExternalOutputNode</Property>
+          </Properties>
+          <Exit Name="Failed" Type="Alternate" NextID="6" />
+        </Step>
+        <Step Type="VisitNode" Name="Entity" ID="6">
+          <Properties />
+          <Exit Name="Exit" Type="Primary" NextID="9" />
+        </Step>
+        <Step Type="Execute" Name="EnteredAddOnProcess" ID="7">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>EnteredAddOnProcess</Value>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="Fire" Name="EnteredEvent" ID="8">
+          <Properties>
+            <Property Name="EventName">Entered</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="7" />
+        </Step>
+        <Step Type="Transfer" Name="ToOutboundLink" ID="9">
+          <Properties>
+            <Property Name="FromType">CurrentNode</Property>
+            <Property Name="ToType">OutboundLink</Property>
+          </Properties>
+          <Exit Name="Failed" Type="Alternate" NextID="10" />
+        </Step>
+        <Step Type="Transfer" Name="ToFreeSpace" ID="10">
+          <Properties>
+            <Property Name="FromType">CurrentNode</Property>
+            <Property Name="ToType">FreeSpace</Property>
+          </Properties>
+          <Exit Name="Failed" Type="Alternate" NextID="11" />
+        </Step>
+        <Step Type="Execute" Name="TransferFailureLogic" ID="11">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>TransferFailureLogic</Value>
+            </Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnExited" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Node.OnExited" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Tally" Name="OnExitedTallies" ID="2">
+          <Properties>
+            <Property Name="Tallies">
+              <Value>TalliesOnExited</Value>
+              <Rows>
+                <Properties>
+                  <Property Name="TalliesTallyStatisticName">
+                    <Value>TalliesOnExitedTallyStatisticName</Value>
+                  </Property>
+                  <Property Name="TalliesValueType">TalliesOnExitedValueType</Property>
+                  <Property Name="TalliesValueExpression">TalliesOnExitedValueExpression</Property>
+                  <Property Name="TalliesNumberOfObservations">Math.If(TalliesOnExited.TalliesOnExitedTallyConditionType==List.ActionConditionType.NoCondition,1,TalliesOnExited.TalliesOnExitedTallyConditionType==List.ActionConditionType.IsEntity, !Entity.Is.Transporter,TalliesOnExited.TalliesOnExitedTallyConditionType==List.ActionConditionType.IsTransporter, Entity.Is.Transporter, TalliesOnExited.TalliesOnExitedTallyCondition&gt;0.0)</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="Execute" Name="ExitedAddOnProcess" ID="3">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>ExitedAddOnProcess</Value>
+            </Property>
+          </Properties>
+        </Step>
+        <Step Type="Fire" Name="ExitedEvent" ID="4">
+          <Properties>
+            <Property Name="EventName">Exited</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnEnteredToAssociatedObject" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Node.OnEnteredToAssociatedObject" BeginStepID="2">
+      <Properties>
+        <Property Name="TokenActionOnAssociatedObjectDestroyed">EndProcess</Property>
+        <Property Name="TokenActionOnAssociatedObjectTransferRequested">EndProcess</Property>
+      </Properties>
+      <Steps>
+        <Step Type="Assign" Name="OnEnteringAssignments" ID="2">
+          <Properties>
+            <Property Name="Assignments">
+              <Value>AssignmentsOnEntering</Value>
+              <Rows>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>AssignmentsOnEnteringStateVariableName</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">AssignmentsOnEnteringNewValue</Property>
+                  <Property Name="AssignmentsSkipAssignmentCondition">Math.If(AssignmentsOnEntering.AssignmentsOnEnteringAssignConditionType==List.ActionConditionType.NoCondition,False,AssignmentsOnEntering.AssignmentsOnEnteringAssignConditionType==List.ActionConditionType.IsEntity, Entity.Is.Transporter,AssignmentsOnEntering.AssignmentsOnEnteringAssignConditionType==List.ActionConditionType.IsTransporter, !Entity.Is.Transporter, AssignmentsOnEntering.AssignmentsOnEnteringAssignCondition&lt;=0.0)</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Tally" Name="OnEnteringTallies" ID="3">
+          <Properties>
+            <Property Name="Tallies">
+              <Value>TalliesOnEntering</Value>
+              <Rows>
+                <Properties>
+                  <Property Name="TalliesTallyStatisticName">
+                    <Value>TalliesOnEnteringTallyStatisticName</Value>
+                  </Property>
+                  <Property Name="TalliesValueType">TalliesOnEnteringValueType</Property>
+                  <Property Name="TalliesValueExpression">TalliesOnEnteringValueExpression</Property>
+                  <Property Name="TalliesNumberOfObservations">Math.If(TalliesOnEntering.TalliesOnEnteringTallyConditionType==List.ActionConditionType.NoCondition,1,TalliesOnEntering.TalliesOnEnteringTallyConditionType==List.ActionConditionType.IsEntity, !Entity.Is.Transporter,TalliesOnEntering.TalliesOnEnteringTallyConditionType==List.ActionConditionType.IsTransporter, Entity.Is.Transporter, TalliesOnEntering.TalliesOnEnteringTallyCondition&gt;0.0)</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="7" />
+        </Step>
+        <Step Type="Decide" Name="IfNoBoundExternalOutputNode" ExclusionExpression="Math.If(!BoundExternalOutputNode.HasValue, 1, 2)" ID="4">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">BoundExternalOutputNode.HasValue==False</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="8" />
+          <Exit Name="False" Type="Alternate" NextID="5" />
+        </Step>
+        <Step Type="Transfer" Name="ToBoundExternalOutputNode" ID="5">
+          <Properties>
+            <Property Name="FromType">CurrentNode</Property>
+            <Property Name="ToType">ParentExternalNode</Property>
+            <Property Name="ExternalNodeName">BoundExternalOutputNode</Property>
+          </Properties>
+          <Exit Name="Failed" Type="Alternate" NextID="8" />
+        </Step>
+        <Step Type="Execute" Name="EnteredAddOnProcess" ID="6">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>EnteredAddOnProcess</Value>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="Fire" Name="EnteredEvent" ID="7">
+          <Properties>
+            <Property Name="EventName">Entered</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="6" />
+        </Step>
+        <Step Type="Transfer" Name="ToAssociatedObject" ID="8">
+          <Properties>
+            <Property Name="FromType">CurrentNode</Property>
+            <Property Name="ToType">AssociatedObject</Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnEnteredParking" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Node.OnEnteredParking" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="EndTransfer" Name="EndTransfer" ID="2">
+          <Properties />
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="TransferFailureLogic" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Decide" Name="IfEntityDestroyable" ID="2">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">Entity.Destroyable</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="5" />
+          <Exit Name="False" Type="Alternate" NextID="3" />
+        </Step>
+        <Step Type="Notify" Name="ParkingEntity" ID="3">
+          <Properties>
+            <Property Name="NotificationType">Warning</Property>
+            <Property Name="MessageHeading">"Entity '" + Entity.Name + "' failed to initiate transfer from node"</Property>
+            <Property Name="MessageContent">"Entity '" + Entity.Name + "' failed to initiate transfer from node '" + Name + "'. The entity is being automatically parked. However, this warning may indicate a problem in the modeled logic.
+
+It is recommended to verify that the entity is using the intended travel mode. If the travel mode is 'Network Only', then verify that a followable network path has been drawn from the node to the entity's assigned destination '" + Math.If(Entity.DestinationNode!=Nothing &amp;&amp; Entity.DestinationNode!=Node, Entity.DestinationNode.Name, "No Destination") + "' using network '" + Math.If(Entity.CurrentNetwork!=Nothing, Entity.CurrentNetwork.Name, "No Network") +  "'."</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="Park" Name="Entity" ID="4">
+          <Properties />
+        </Step>
+        <Step Type="Notify" Name="DestroyingEntity" ID="5">
+          <Properties>
+            <Property Name="NotificationType">Warning</Property>
+            <Property Name="MessageHeading">"Entity '" + Entity.Name + "' failed to initiate transfer from node"</Property>
+            <Property Name="MessageContent">"Entity '" + Entity.Name + "' failed to initiate transfer from node '" + Name + "'. The entity is being automatically destroyed. However, this warning may indicate a problem in the modeled logic.
+
+It is recommended to verify that the entity is using the intended travel mode. If the travel mode is 'Network Only', then verify that a followable network path has been drawn from the node to the entity's assigned destination '" + Math.If(Entity.DestinationNode!=Nothing &amp;&amp; Entity.DestinationNode!=Node, Entity.DestinationNode.Name, "No Destination") + "' using network '" + Math.If(Entity.CurrentNetwork!=Nothing, Entity.CurrentNetwork.Name, "No Network") +  "'."</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="6" />
+        </Step>
+        <Step Type="Destroy" Name="Entity" ID="6">
+          <Properties />
+        </Step>
+      </Steps>
+    </Process>
+  </Processes>
+  <SaveHistories>
+    <SaveHistory SavedDateTime="2022-03-19T12:58:24" ProductVersion="14.236.26607.0" Edition="Internal" />
+  </SaveHistories>
+  <Graphics>
+    <AnimationSetup MinimumNumberOfFramesToDisplayIdleAnimation="10" />
+  </Graphics>
+</Fragment>
+<!-- CgieRWoYdy6tWEd7JyHE/V06YMyS/qRN9tfHyUC3Qxx08Wn7b6b946FaXRydgE4oZz5iIt50fvFCQLc2xj5NCw== -->

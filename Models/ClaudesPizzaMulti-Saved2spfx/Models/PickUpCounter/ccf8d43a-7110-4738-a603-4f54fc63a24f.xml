@@ -1,0 +1,250 @@
+<Fragment>
+  <Compatibility ParseElementFunctionsInExpressionsLast="False" ParseNonEntityAssociatedObjectForPropertyReference="False" AllowInteractiveEntryOfNonStandardElementNames="False" ParsePropertiesForObjectTypeForAutoCreatedObjectsFirst="False" />
+  <PropertyDefinitions>
+    <Categories>
+      <Category Name="Basic Logic" Description="Basic Logic" />
+      <Category Name="Process Logic" Description="Process Logic" />
+      <Category Name="Transport Logic" Description="Transport Logic" />
+      <Category Name="Travel Logic" Description="Travel Logic" />
+      <Category Name="Routing Logic" Description="Routing Logic" />
+      <Category Name="Population" Description="Population" InitiallyExpanded="False" />
+      <Category Name="Results Classification" Description="Results Classification" InitiallyExpanded="False" />
+      <Category Name="Stopping Conditions" Description="Stopping Conditions" InitiallyExpanded="False" />
+      <Category Name="Financials" Description="Financials" InitiallyExpanded="False" />
+      <Category Name="Advanced Options" Description="Advanced Options" InitiallyExpanded="False" />
+      <Category Name="Advanced Options/Token Actions" Description="Token Action Options" InitiallyExpanded="False" />
+    </Categories>
+    <ExpressionProperty Name="OrderQuantity" Category="Matching Logic" DefaultValue="1" NullString="null" />
+    <Overrides>
+      <Override Name="ResourceIdleCostRate" Visible="True" />
+      <Override Name="ResourceCostPerUse" Visible="True" />
+      <Override Name="ResourceUsageCostRate" Visible="True" />
+      <Override Name="LogResourceUsage" Visible="True" />
+      <Override Name="DisplayCategory" Visible="True" />
+      <Override Name="DisplayColor" Visible="True" />
+      <Override Name="IncludeInPlanResourceConstraints" Visible="True" />
+      <Override Name="CapacityType" Visible="True" />
+      <Override Name="InitialWorkSchedule" Visible="True" />
+      <Override Name="WorkDayExceptions" Visible="True" />
+      <Override Name="WorkPeriodExceptions" Visible="True" />
+      <Override Name="InitialCapacity" Visible="True" />
+      <Override Name="RankingRule" Visible="True" />
+      <Override Name="RankingExpression" Visible="True" />
+      <Override Name="DynamicSelectionRule" Visible="True" />
+    </Overrides>
+  </PropertyDefinitions>
+  <States>
+    <IntegerState Name="OrderSize" />
+  </States>
+  <Events />
+  <UsedObjects>
+    <UsedObject Name="TransferNode" />
+    <UsedObject Name="BasicNode" />
+  </UsedObjects>
+  <Elements>
+    <Element Type="Station" Name="PizzaInputBuffer" Scope="Public">
+      <Properties>
+        <Property Name="EntryDynamicSelectionRule">
+          <Value>None</Value>
+        </Property>
+        <Property Name="RedirectLocationType">Station</Property>
+        <Property Name="CostPerUse" Units="USD">0.0</Property>
+        <Property Name="HoldingCostRate" Units="USD per Hour">0.0</Property>
+      </Properties>
+    </Element>
+    <Element Type="Station" Name="TrayInputBuffer" Scope="Public">
+      <Properties>
+        <Property Name="EntryDynamicSelectionRule">
+          <Value>None</Value>
+        </Property>
+        <Property Name="RedirectLocationType">Station</Property>
+        <Property Name="CostPerUse" Units="USD">0.0</Property>
+        <Property Name="HoldingCostRate" Units="USD per Hour">0.0</Property>
+      </Properties>
+    </Element>
+    <Element Type="Station" Name="CustomerInputBuffer" Scope="Public">
+      <Properties>
+        <Property Name="EntryDynamicSelectionRule">
+          <Value>None</Value>
+        </Property>
+        <Property Name="RedirectLocationType">Station</Property>
+        <Property Name="CostPerUse" Units="USD">0.0</Property>
+        <Property Name="HoldingCostRate" Units="USD per Hour">0.0</Property>
+      </Properties>
+    </Element>
+    <Element Type="BatchLogic" Name="TrayAndPizza" Scope="Public">
+      <Properties>
+        <Property Name="BatchQuantity">OrderQuantity</Property>
+        <Property Name="MustSimultaneouslyBatch">True</Property>
+      </Properties>
+    </Element>
+    <Element Type="BatchLogic" Name="CustomerAndTray" Scope="Public">
+      <Properties>
+        <Property Name="MustSimultaneouslyBatch">True</Property>
+      </Properties>
+    </Element>
+    <Element Type="Station" Name="GiveTrayToCustomer" Scope="Public">
+      <Properties>
+        <Property Name="EntryDynamicSelectionRule">
+          <Value>None</Value>
+        </Property>
+        <Property Name="RedirectLocationType">Station</Property>
+        <Property Name="CostPerUse" Units="USD">0.0</Property>
+        <Property Name="HoldingCostRate" Units="USD per Hour">0.0</Property>
+      </Properties>
+    </Element>
+  </Elements>
+  <Processes>
+    <Process Name="Process1" BeginStepID="2">
+      <Properties>
+        <Property Name="TriggeringEventName">PizzaInputBuffer.Entered</Property>
+        <Property Name="TokenActionOnAssociatedObjectDestroyed">EndProcess</Property>
+      </Properties>
+      <Steps>
+        <Step Type="EndTransfer" Name="EndTransfer1" ID="2">
+          <Properties />
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Batch" Name="Batch8" ID="3">
+          <Properties>
+            <Property Name="BatchLogicName">
+              <Value>TrayAndPizza</Value>
+            </Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="Process2" BeginStepID="2">
+      <Properties>
+        <Property Name="TriggeringEventName">TrayInputBuffer.Entered</Property>
+        <Property Name="TokenActionOnAssociatedObjectDestroyed">EndProcess</Property>
+      </Properties>
+      <Steps>
+        <Step Type="EndTransfer" Name="EndTransfer1" ID="2">
+          <Properties />
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Batch" Name="Batch8" ID="3">
+          <Properties>
+            <Property Name="BatchLogicName">
+              <Value>TrayAndPizza</Value>
+            </Property>
+            <Property Name="BatchQueueType">ParentQueue</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="Transfer" Name="Transfer2" ID="4">
+          <Properties>
+            <Property Name="FromType">CurrentStation</Property>
+            <Property Name="ToType">Station</Property>
+            <Property Name="StationName">
+              <Value>GiveTrayToCustomer</Value>
+            </Property>
+            <Property Name="TokenWaitAction">WaitUntilTransferring</Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="Process3" BeginStepID="2">
+      <Properties>
+        <Property Name="TriggeringEventName">CustomerInputBuffer.Entered</Property>
+        <Property Name="TokenActionOnAssociatedObjectDestroyed">EndProcess</Property>
+      </Properties>
+      <Steps>
+        <Step Type="EndTransfer" Name="EndTransfer1" ID="2">
+          <Properties />
+          <Exit Name="Exit" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="Transfer" Name="Transfer2" ID="3">
+          <Properties>
+            <Property Name="FromType">CurrentStation</Property>
+            <Property Name="ToType">ParentExternalNode</Property>
+            <Property Name="ExternalNodeName">OrderFulfilled</Property>
+            <Property Name="StationName">
+              <Value>Processing</Value>
+            </Property>
+            <Property Name="TokenWaitAction">WaitUntilTransferring</Property>
+          </Properties>
+        </Step>
+        <Step Type="Batch" Name="Batch8" ID="4">
+          <Properties>
+            <Property Name="BatchLogicName">
+              <Value>CustomerAndTray</Value>
+            </Property>
+            <Property Name="BatchQueueType">ParentQueue</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="Process5" BeginStepID="2">
+      <Properties>
+        <Property Name="TriggeringEventName">GiveTrayToCustomer.Entered</Property>
+        <Property Name="TokenActionOnAssociatedObjectDestroyed">EndProcess</Property>
+      </Properties>
+      <Steps>
+        <Step Type="EndTransfer" Name="EndTransfer1" ID="2">
+          <Properties />
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Batch" Name="Batch8" ID="3">
+          <Properties>
+            <Property Name="BatchLogicName">
+              <Value>CustomerAndTray</Value>
+            </Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+  </Processes>
+  <External>
+    <TransferPoints>
+      <ExternalNode Name="Pizza" Location="-7.06650876998901,0,-2.73159217834473" ID="Pizza" RotationChangesLocation="False">
+        <Properties>
+          <Property Name="NodeClassName">BasicNode</Property>
+          <Property Name="InputLocationType">Station</Property>
+          <Property Name="StationName">
+            <Value>PizzaInputBuffer</Value>
+          </Property>
+        </Properties>
+      </ExternalNode>
+      <ExternalNode Name="Tray" Location="-5.81947755813599,0,-2.67220950126648" ID="Tray" RotationChangesLocation="False">
+        <Properties>
+          <Property Name="NodeClassName">BasicNode</Property>
+          <Property Name="InputLocationType">Station</Property>
+          <Property Name="StationName">
+            <Value>TrayInputBuffer</Value>
+          </Property>
+        </Properties>
+      </ExternalNode>
+      <ExternalNode Name="Customer" Location="-4.82482242584229,0,-1.29156863689423" ID="Customer" RotationChangesLocation="False">
+        <Properties>
+          <Property Name="NodeClassName">BasicNode</Property>
+          <Property Name="InputLocationType">Station</Property>
+          <Property Name="StationName">
+            <Value>CustomerInputBuffer</Value>
+          </Property>
+        </Properties>
+      </ExternalNode>
+      <ExternalNode Name="OrderFulfilled" Location="-4.21615266799927,0,-1.3212593793869" ID="OrderFulfilled" RotationChangesLocation="False">
+        <Properties>
+          <Property Name="NodeClassName">TransferNode</Property>
+        </Properties>
+      </ExternalNode>
+    </TransferPoints>
+    <Graphics>
+      <SymbolInstance Center="-5.396378 -3.576278E-07 -2.595737" Scale="1.379082">
+        <SymbolRef Id="3fdde431-a755-4422-9ce9-fd867307f1a2" />
+      </SymbolInstance>
+      <PadBoundingBoxForSymbol Value="True" />
+      <OffsetDynamicRelativeToExternalBounds Value="False" />
+    </Graphics>
+  </External>
+  <SaveHistories>
+    <SaveHistory SavedDateTime="2022-03-19T16:05:20" ProductVersion="14.236.26607.0" Edition="Internal" />
+  </SaveHistories>
+  <Graphics>
+    <AnimationSetup MinimumNumberOfFramesToDisplayIdleAnimation="10" />
+  </Graphics>
+</Fragment>
+<!-- q29cerWH/DE5aCAO52olhO6qc2fGuDbKTGrmnUG/H6c49cHEbuQyhPc5m1fgi3XDE8QE035p7bv3IfgY8YoN0A== -->

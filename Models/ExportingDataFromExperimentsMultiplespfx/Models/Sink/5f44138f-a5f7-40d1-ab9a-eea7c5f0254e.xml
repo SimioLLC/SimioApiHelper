@@ -1,0 +1,252 @@
+<Fragment>
+  <ChangeDescriptions>
+    <ChangeDescription Version="34">Version 2.37: Updated the Sink object to use the string '[DynamicObjects]' as the Data Source field for classifying the sink's 'Time In System' tally statistic results.</ChangeDescription>
+    <ChangeDescription Version="36">Version 2.39: Updated the Sink object process logic to specify all of the object's process delays as non-interruptible. Added a 'State Assignments' property category.</ChangeDescription>
+    <ChangeDescription Version="37">Version 2.40: In the object process logic, the 'Action' property for all Execute steps executing an 'add-on process' is now specified as 'WaitUntilCompleted'.</ChangeDescription>
+    <ChangeDescription Version="39">Version 2.41: Specified the Unit Type property of the Sink object's 'TimeInSystem' TallyStatistic as 'Time'. Updated the assignments repeat groups to take state units into account.</ChangeDescription>
+    <ChangeDescription Version="41">Version 3.42: Changes related to setting the 'Token Associated Object Destroyed Action' option for process logic in this object. Changed the Category field for classifying the sink's 'Time In System' tally statistic results.</ChangeDescription>
+    <ChangeDescription Version="42">Version 3.47: Add new 'Appearance' property category.</ChangeDescription>
+    <ChangeDescription Version="43">Version 3.49: Specified the 'OnAssociatedObjectTransferRequested' property of some processes as 'EndProcess'.</ChangeDescription>
+    <ChangeDescription Version="45">Version 3.54: Conversion to 'OnRunInitialized' standard interface process. Added 'Run Ending' add-on process trigger.</ChangeDescription>
+    <ChangeDescription Version="48">Version 4.58: 'Data Source' results classification for 'TimeInSystem' tally statistic is now 'DestroyedObjects'. Added new 'Advanced Options' property category.</ChangeDescription>
+    <ChangeDescription Version="50">Version 4.61: Added new 'Financials' property category.</ChangeDescription>
+    <ChangeDescription Version="53">Version 4.62: Added new 'Financials-&gt;Buffer Costs' property category.</ChangeDescription>
+    <ChangeDescription Version="54">Version 4.63: Reordered the position of the 'Financials' property category.</ChangeDescription>
+    <ChangeDescription Version="56">Version 4.68: Renamed 'InitializedAddOnProcess' property to 'RunInitializedAddOnProcess'.</ChangeDescription>
+    <ChangeDescription Version="57">Version 5.91: Added information to indicate which properties to display if the new 'Show Commonly Used Properties Only' option is enabled.</ChangeDescription>
+    <ChangeDescription Version="58">Version 6.98: Added new 'Log Time In System Observations' property (Advanced Options).</ChangeDescription>
+    <ChangeDescription Version="59">Version 6.103: Some property description updates.</ChangeDescription>
+    <ChangeDescription Version="60">Version 7.130: Required update due to BasicNode object updates.</ChangeDescription>
+    <ChangeDescription Version="61">Version 7.131: Required update due to BasicNode object updates.</ChangeDescription>
+    <ChangeDescription Version="62">Version 8.133: Required update due to BasicNode object updates.</ChangeDescription>
+    <ChangeDescription Version="63">Version 8.134: Required update due to BasicNode object updates.</ChangeDescription>
+    <ChangeDescription Version="64">Version 8.135: Hide the inherited 'ExpectedSetupTimeExpression' and 'ExpectedOperationTimeExpression' properties.</ChangeDescription>
+    <ChangeDescription Version="65">Version 8.137: Required update due to BasicNode object updates.</ChangeDescription>
+    <ChangeDescription Version="66">Version 8.147: Property description string updates.</ChangeDescription>
+    <ChangeDescription Version="67">Version 12.212: Required update due to BasicNode and TransferNode object updates.</ChangeDescription>
+    <ChangeDescription Version="69">Version 14.225: Updated External View graphics to rotate with object.</ChangeDescription>
+  </ChangeDescriptions>
+  <ChangeStringReplacements>
+    <ChangeStringReplacement Version="56" RegularExpressionPattern="(^|[^\w_])(?i:InitializedAddOnProcess)([^\w_]|$)" ReplacementString="$1RunInitializedAddOnProcess$2" />
+  </ChangeStringReplacements>
+  <PropertyDefinitions>
+    <Categories>
+      <Category Name="Process Logic" Description="Process Logic" />
+      <Category Name="State Assignments" Description="Optional State Assignments" InitiallyExpanded="False" />
+      <Category Name="Financials" Description="Financials" InitiallyExpanded="False" />
+      <Category Name="Financials/Buffer Costs" Description="Buffer Costs" InitiallyExpanded="False" />
+      <Category Name="Add-On Process Triggers" Description="Add-On Process Triggers" InitiallyExpanded="False" />
+      <Category Name="Advanced Options" Description="Advanced Options" InitiallyExpanded="False" />
+    </Categories>
+    <ExpressionProperty Name="TransferInTime" DisplayName="Transfer-In Time" Description="The time required to transfer an entity into this object." ComplexityLevel="Advanced" Category="Process Logic" DefaultValue="0.0" NullString="null" UnitType="Time" DefaultUnits="Minutes" />
+    <RepeatingProperty Name="AssignmentsOnEntering" DisplayName="On Entering" Description="Optional state assignments when an entity is entering the object." ComplexityLevel="Advanced" Category="State Assignments" Required="False" NullString="null">
+      <PropertyDefinitions>
+        <Categories>
+          <Category Name="Basic Logic" Description="State Assignments (Basic Logic)" />
+        </Categories>
+        <StateProperty Name="AssignmentsOnEnteringStateVariableName" DisplayName="State Variable Name" Description="Name of the state variable that will be assigned a new value." Category="Basic Logic" Required="False" NullString="null" IsAssignable="True" />
+        <ExpressionProperty Name="AssignmentsOnEnteringNewValue" DisplayName="New Value" Description="The new value to assign." Category="Basic Logic" DefaultValue="0.0" Required="False" NullString="null" UnitTypeProperty="AssignmentsOnEnteringStateVariableName" />
+        <Overrides />
+      </PropertyDefinitions>
+    </RepeatingProperty>
+    <ElementProperty Name="RunInitializedAddOnProcess" DisplayName="Run Initialized" Description="Occurs when the simulation run is initialized." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="RunEndingAddOnProcess" DisplayName="Run Ending" Description="Occurs when the simulation run is ending." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="EnteredAddOnProcess" DisplayName="Entered" Description="Occurs immediately after an entity has entered this object and is about to start the 'Transfer-In Time'." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="DestroyingEntityAddOnProcess" DisplayName="Destroying Entity" Description="Occurs when an entity is about to be destroyed by this Sink object." ComplexityLevel="Advanced" Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ExpressionProperty Name="CapitalCost" DisplayName="Capital Cost" Description="The initial one-time setup cost to add this object to the system." ComplexityLevel="Advanced" Category="Financials" DefaultValue="0.0" NullString="null" UnitType="Currency" />
+    <ExpressionProperty Name="InputBufferCostPerUse" DisplayName="Cost Per Use" Description="The cost to hold an entity in this buffer irrespective of the waiting time." ComplexityLevel="Advanced" Category="Financials/Buffer Costs/Input Buffer" DefaultValue="0.0" NullString="null" UnitType="Currency" />
+    <ExpressionProperty Name="InputBufferHoldingCostRate" DisplayName="Holding Cost Rate" Description="The cost per unit time to hold an entity in this buffer." ComplexityLevel="Advanced" Category="Financials/Buffer Costs/Input Buffer" DefaultValue="0.0" NullString="null" UnitType="CurrencyPerTimeUnit" />
+    <BooleanProperty Name="LogTimeInSystemObservations" DisplayName="Log Time In System Observations" Description="Indicates whether the time in system observations on entities destroyed by this Sink object are to be automatically logged. Go to Results -&gt; Logs -&gt; Tally Observation Log to view the logged data." ComplexityLevel="Advanced" Category="Advanced Options" DefaultValue="False" Required="False" NullString="null" />
+    <Overrides>
+      <Override Name="InitialCost" Visible="False" />
+      <Override Name="InitialCostRate" Visible="False" />
+      <Override Name="ResourceIdleCostRate" Visible="False" />
+      <Override Name="ResourceCostPerUse" Visible="False" />
+      <Override Name="ResourceUsageCostRate" Visible="False" />
+      <Override Name="LogResourceUsage" Visible="False" />
+      <Override Name="DisplayCategory" Visible="False" />
+      <Override Name="DisplayColor" Visible="False" />
+      <Override Name="IncludeInPlanResourceConstraints" Visible="False" />
+      <Override Name="CapacityType" Visible="False" />
+      <Override Name="InitialWorkSchedule" Visible="False" />
+      <Override Name="WorkDayExceptions" Visible="False" />
+      <Override Name="WorkPeriodExceptions" Visible="False" />
+      <Override Name="InitialCapacity" Visible="False" />
+      <Override Name="RankingRule" Visible="False" />
+      <Override Name="RankingExpression" Visible="False" />
+      <Override Name="DynamicSelectionRule" Visible="False" />
+      <Override Name="TransferOutConstraintsType" Visible="False" />
+      <Override Name="TransferOutCondition" Visible="False" />
+      <Override Name="ExpectedSetupTimeExpression" Visible="False" />
+      <Override Name="ExpectedOperationTimeExpression" Visible="False" />
+    </Overrides>
+    <PropertyReplacements>
+      <PropertyReplacement Version="55" OldPropertyName="InitializedAddOnProcess" NewPropertyName="RunInitializedAddOnProcess" />
+    </PropertyReplacements>
+  </PropertyDefinitions>
+  <States />
+  <Events />
+  <UsedObjects>
+    <UsedObject Name="BasicNode" />
+  </UsedObjects>
+  <Elements>
+    <Element Type="TallyStatistic" Name="TimeInSystem" Scope="Public" Description="The tally statistic that records time in system observations on entities destroyed by this Sink object.">
+      <Properties>
+        <Property Name="UnitType">Time</Property>
+        <Property Name="DataSource">[DestroyedEntities]</Property>
+        <Property Name="Category">FlowTime</Property>
+        <Property Name="DataItem">TimeInSystem</Property>
+        <Property Name="LogObservations">LogTimeInSystemObservations</Property>
+      </Properties>
+    </Element>
+    <Element Type="Station" Name="InputBuffer" Scope="Public" Description="The location inside the sink that entities enter to be destroyed.">
+      <Properties>
+        <Property Name="EntryDynamicSelectionRule">
+          <Value>None</Value>
+        </Property>
+        <Property Name="CostPerUse" Units="USD">InputBufferCostPerUse</Property>
+        <Property Name="HoldingCostRate" Units="USD per Hour">InputBufferHoldingCostRate</Property>
+      </Properties>
+    </Element>
+    <Element Type="CostCenter" Name="CapitalCosts">
+      <Properties>
+        <Property Name="InitialCost" Units="USD">CapitalCost</Property>
+        <Property Name="InitialCostRate" Units="USD per Hour">0.0</Property>
+        <Property Name="DataSource">[Object]</Property>
+        <Property Name="DataItem">"CapitalCost"</Property>
+      </Properties>
+    </Element>
+  </Elements>
+  <Processes>
+    <Process Name="OnRunInitialized" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Object.OnRunInitialized" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Execute" Name="RunInitializedAddOnProcess" ID="2">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>RunInitializedAddOnProcess</Value>
+            </Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnRunEnding" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Object.OnRunEnding" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Execute" Name="RunEndingAddOnProcess" ID="2">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>RunEndingAddOnProcess</Value>
+            </Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnEnteredInputBuffer" BeginStepID="2">
+      <Properties>
+        <Property Name="TriggeringEventName">InputBuffer.Entered</Property>
+        <Property Name="TokenActionOnAssociatedObjectDestroyed">EndProcess</Property>
+        <Property Name="TokenActionOnAssociatedObjectTransferRequested">EndProcess</Property>
+      </Properties>
+      <Steps>
+        <Step Type="Assign" Name="OnEnteringAssignments" ID="2">
+          <Properties>
+            <Property Name="Assignments">
+              <Value>AssignmentsOnEntering</Value>
+              <Rows>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>AssignmentsOnEnteringStateVariableName</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">AssignmentsOnEnteringNewValue</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Execute" Name="EnteredAddOnProcess" ID="3">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>EnteredAddOnProcess</Value>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="Delay" Name="TransferInTime" ID="4">
+          <Properties>
+            <Property Name="DelayTime">TransferInTime</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="5" />
+        </Step>
+        <Step Type="EndTransfer" Name="IntoInputBuffer" ID="5">
+          <Properties />
+          <Exit Name="Exit" Type="Primary" NextID="6" />
+        </Step>
+        <Step Type="Execute" Name="DestroyingEntityAddOnProcess" ID="6">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>DestroyingEntityAddOnProcess</Value>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="7" />
+        </Step>
+        <Step Type="Tally" Name="TimeInSystem" ID="7">
+          <Properties>
+            <Property Name="TallyStatisticName">
+              <Value>TimeInSystem</Value>
+            </Property>
+            <Property Name="ValueExpression">Entity.TimeInSystem</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="8" />
+        </Step>
+        <Step Type="Destroy" Name="Entity" ID="8">
+          <Properties />
+        </Step>
+      </Steps>
+    </Process>
+  </Processes>
+  <External>
+    <TransferPoints>
+      <ExternalNode Name="Input" Location="-1.25,0,0" ID="Input">
+        <Properties>
+          <Property Name="NodeClassName">BasicNode</Property>
+          <Property Name="InputLocationType">Station</Property>
+          <Property Name="StationName">
+            <Value>InputBuffer</Value>
+          </Property>
+        </Properties>
+      </ExternalNode>
+    </TransferPoints>
+    <Graphics>
+      <SymbolInstance Center="0 0 0" ExternallyVisible="True">
+        <SymbolRef Id="f5b0a0b7-4274-403c-981c-33d4b6e077a5" />
+      </SymbolInstance>
+      <Queue Queue="InputBuffer.Contents" ExternallyVisible="True">
+        <Points>
+          <Point Location="-1 0 0.5" />
+          <Point Location="-4 0 0.5" />
+        </Points>
+      </Queue>
+    </Graphics>
+  </External>
+  <SaveHistories>
+    <SaveHistory SavedDateTime="2022-03-19T12:58:24" ProductVersion="14.236.26607.0" Edition="Internal" />
+  </SaveHistories>
+  <Graphics>
+    <AnimationSetup MinimumNumberOfFramesToDisplayIdleAnimation="10" />
+  </Graphics>
+  <Dashboard>
+    <Graphics>
+      <StatusLabel Center="-5 0 -1.5" Width="10" Height="1" ExternallyVisible="True" BackColor="00ffffff" TextColor="0000ff" Expression="&quot;InputBuffer&quot;" />
+      <StatusLabel Center="1.875 0 -1.5" Width="3.75" Height="1" ExternallyVisible="True" Expression="InputBuffer.Contents" />
+      <Plot Center="11 0 2" Width="14" Height="8" ExternallyVisible="True" Title="InputBuffer.Contents" XAxisLabel="Time" YAxisLabel="Value" Look="Chameleon;Office">
+        <Range Type="Hours">1</Range>
+        <PlotLines>
+          <PlotLine Expression="InputBuffer.Contents" />
+        </PlotLines>
+      </Plot>
+    </Graphics>
+  </Dashboard>
+</Fragment>
+<!-- U/hCad3Im/5wBs9wigP2CWrPtdALp3ROZ2g07gEprRncamPfqaO++aorRwouRANxKGf3z0A4GWAsoMOYAgDaKA== -->

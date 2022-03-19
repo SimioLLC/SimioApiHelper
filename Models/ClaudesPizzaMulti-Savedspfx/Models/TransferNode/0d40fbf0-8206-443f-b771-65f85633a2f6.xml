@@ -1,0 +1,997 @@
+<Fragment>
+  <ChangeDescriptions>
+    <ChangeDescription Version="74">Version 2.36: Renamed the 'TransferToLinkFailureLogic' process in the TransferNode process logic to 'TransferFailureLogic'. If the 'AutoTransferOnEntry' property value of the TransferNode is 'To Parent External Node' and the transfer to the specified parent external node fails, then the token now executes the 'TransferFailureLogic' process.</ChangeDescription>
+    <ChangeDescription Version="75">Version 2.37: Changed 'Capacity' display name to 'Initial Capacity' as object capacities are now user assignable.</ChangeDescription>
+    <ChangeDescription Version="78">Version 2.38: The RoutingGroup element named 'RoutingOut' that is owned by the TransferNode is now a private element.</ChangeDescription>
+    <ChangeDescription Version="82">Version 2.39: Updated the TransferNode object process logic to specify all of the object's process delays as non-interruptible. For the 'Select From List' feature to set an entity's next destination, changed the default value of the destination 'Selection Expression' property to be 'Candidate.Node.InputLocation.Overload'.</ChangeDescription>
+    <ChangeDescription Version="83">Version 2.40: In the object process logic, the 'Action' property for all Execute steps executing an 'add-on process' is now specified as 'WaitUntilCompleted'.</ChangeDescription>
+    <ChangeDescription Version="85">Version 2.41: Minor property description and display name updates. The RoutingGroup element named 'RoutingOut' that is owned by the TransferNode is now a public element.</ChangeDescription>
+    <ChangeDescription Version="86">Version 3.42: Changes related to setting the 'Token Associated Object Destroyed Action' option for process logic in this object.</ChangeDescription>
+    <ChangeDescription Version="87">Version 3.44: 'SeizedObjects.UnitsOwned' function renamed to 'SeizedObjects.CapacityUnitsOwned'.</ChangeDescription>
+    <ChangeDescription Version="88">Version 3.47: Added new 'Appearance' property category.</ChangeDescription>
+    <ChangeDescription Version="89">Version 3.48: Hide new 'Random Number Stream' property in 'Routing Logic' category.</ChangeDescription>
+    <ChangeDescription Version="90">Version 3.49: Specified the 'OnAssociatedObjectTransferRequested' property of some processes as 'EndProcess'.</ChangeDescription>
+    <ChangeDescription Version="97">Version 3.54: Added new Notify step to 'TransferFailureLogic' process to output a warning if automatically destroying an entity. Conversion to 'OnRunInitialized' standard interface process. Added 'Run Ending' add-on process trigger.</ChangeDescription>
+    <ChangeDescription Version="100">Version 3.56: Added new 'Tally Statistics' property category.</ChangeDescription>
+    <ChangeDescription Version="101">Version 3.57: Change to new 'OnEnteredParking' standard interface process that was added to Simio's base node object.</ChangeDescription>
+    <ChangeDescription Version="104">Version 4.58: Removed 'AutoTransferOnEntry' property. The 'ExternalNodeName' property is now always visible with display name 'Bound External Output Node'. If a transfer to parent external node attempt fails, then the token now continues normal processing instead of executing the 'TransferFailureLogic'. Added new 'Advanced Options' property category. Added 'OnEnteredToAssociatedObject' process logic.</ChangeDescription>
+    <ChangeDescription Version="105">Version 4.59: Changed the default of the 'Blocked Routing Rule' property to 'Select Available Only'.</ChangeDescription>
+    <ChangeDescription Version="106">Version 4.60: Process logic now uses new object 'SeizedResources.CapacityUnitsOwned' function instead of deprecated 'SeizedObjects.CapacityUnitsOwned'.</ChangeDescription>
+    <ChangeDescription Version="107">Version 4.61: Set all inherited properties in 'Financials' category to not be visible.</ChangeDescription>
+    <ChangeDescription Version="108">Version 4.63: Set all inherited properties in 'Financials-&gt;Resource Costs' to not be visible.</ChangeDescription>
+    <ChangeDescription Version="109">Version 4.65: Process logic now uses new object 'SeizedResources.CapacityOwnedOf' function instead of deprecated 'SeizedResources.CapacityUnitsOwned'.</ChangeDescription>
+    <ChangeDescription Version="110">Version 4.66: If bound to an external output node of the parent model, a transfer node's 'Entered' event is still fired and its 'Entered' add-on process trigger still executed before transferring the entity out of the parent model.</ChangeDescription>
+    <ChangeDescription Version="115">Version 4.68: The TransferNode object is no longer enabled as a resource object, and the 'InitialCapacity', 'RankingRule', and 'RankingExpression' properties have been replaced by equivalent 'InitialTravelerCapacity', 'EntryRankingRule', and 'EntryRankingExpression' properties. Renamed 'InitializedAddOnProcess' property to 'RunInitializedAddOnProcess'. Renamed 'ExternalNodeName' property to 'BoundExternalOutputNode'.</ChangeDescription>
+    <ChangeDescription Version="116">Version 4.70: The blocked condition for the 'RoutingOut' RoutingGroup element owned by the node now uses new node 'AssociatedStation' and 'NumberTravelers.RoutingInToEnterAssociatedObject' functions. For the 'Select From List' feature to set an entity's next destination, changed the default value of the destination 'Selection Expression' property to be 'Candidate.Node.AssociatedStationOverload'.</ChangeDescription>
+    <ChangeDescription Version="118">Version 4.71: Renamed 'BlockedRoutingRule' property to 'BlockedDestinationRule'. Changed the default value of the transporter 'Selection Expression' property to be 'Candidate.Transporter.RideStationOverload'.</ChangeDescription>
+    <ChangeDescription Version="122">Version 4.73: New 'Random Number Stream' property now available in the 'Advanced Options' category. Renamed 'NodeName' property to 'DestinationNodeName'. Renamed 'NodeListName' property to 'DestinationNodeListName'.</ChangeDescription>
+    <ChangeDescription Version="123">Version 4.74: If a traveler is attempting to transfer out of the node and has no network assigned (i.e., is using free space for travel), then the node's process logic now transfers the traveler into free space.</ChangeDescription>
+    <ChangeDescription Version="126">Version 4.75: If the 'Routing Logic -&gt; Entity Destination Type' property is specified as'Specific', can now specify the new destination node value as 'No Destination'.</ChangeDescription>
+    <ChangeDescription Version="127">Version 4.77: Removed an unnecessary 'TransferFailureLogic' Execute step from the 'OnEnteredToAssociatedObject' process logic.</ChangeDescription>
+    <ChangeDescription Version="128">Version 5.87: Process logic now uses new property 'HasValue' function instead of deprecated 'IsDefined'.</ChangeDescription>
+    <ChangeDescription Version="130">Version 5.91: Transport Logic -&gt; 'Transporter Type' property -&gt; The 'From List' choice is now displayed as 'Select From List'. Added information to indicate which properties to display if the new 'Show Commonly Used Properties Only' option is enabled.</ChangeDescription>
+    <ChangeDescription Version="131">Version 6.103: Some property description updates.</ChangeDescription>
+    <ChangeDescription Version="132">Version 6.106: Added new 'Use Custom Routing Group' choice for the 'Entity Destination Type' property.</ChangeDescription>
+    <ChangeDescription Version="137">Version 7.122: 'RoutingOutLogic' process - The Fire step that fires the node's 'RiderWaiting' event is now executed before the Ride step instead of after.</ChangeDescription>
+    <ChangeDescription Version="139">Version 7.123: Transport Logic -&gt; Added new 'Keep Reserved' transporter status option on entity drop-off if riding on a transporter.</ChangeDescription>
+    <ChangeDescription Version="140">Version 7.130: Renamed 'RandomNumberStream' property to 'BranchingRandomNumberStream'</ChangeDescription>
+    <ChangeDescription Version="144">Version 7.131: Added new 'Routing Logic -&gt; Other Routing Out Options' property category with possible 'Required Materials', 'Route Request Ranking Rule', 'Route Request Dynamic Selection Rule', &amp; 'Branching Random Number Stream' properties.</ChangeDescription>
+    <ChangeDescription Version="146">Version 8.133 'OnEntered' process logic no longer requires a Decide 'IfFreeSpaceTraveler' step. Added 'State Assignments' property category.</ChangeDescription>
+    <ChangeDescription Version="147">Version 8.134 'Routing Logic -&gt; Other Routing Out Options -&gt; Random Number Stream' property now inherited from the base node definition</ChangeDescription>
+    <ChangeDescription Version="148">Version 8.137 'TransferFailureLogic' now gives warning notification if automatically parking entity.</ChangeDescription>
+    <ChangeDescription Version="150">Version 8.141 Added new 'Lot ID' property to 'Required Materials' repeat group.</ChangeDescription>
+    <ChangeDescription Version="151">Version 8.147: Property description string updates.</ChangeDescription>
+    <ChangeDescription Version="152">Version 8.158: Step label updates.</ChangeDescription>
+    <ChangeDescription Version="153">Version 9.161: Property description string updates.</ChangeDescription>
+    <ChangeDescription Version="154">Version 9.164: Property description string updates.</ChangeDescription>
+    <ChangeDescription Version="155">Version 10.174: Added 'None (Destroy Entity)' option to EntityDestinationType property.</ChangeDescription>
+    <ChangeDescription Version="156">Version 10.175: Added Other Routing Out Options -&gt; Required Materials -&gt; InventorySiteType &amp; SiteObjectName properties.</ChangeDescription>
+    <ChangeDescription Version="157">Version 11.193:  Other Routing Out Options -&gt; Required Materials -&gt; Optional 'Lot ID' property if required material from an inventory site.</ChangeDescription>
+    <ChangeDescription Version="158">Version 11.203: Added 'Route Constraint Logic' property.</ChangeDescription>
+    <ChangeDescription Version="159">Version 12.212: Renamed 'TalliesOnEnteringValue' property to 'TalliesOnEnteringValueExpression'. Renamed 'TalliesOnExitedValue' property to 'TalliesOnExitedValueExpression'.</ChangeDescription>
+    <ChangeDescription Version="160">Version 14.231: RideOnTransporter property changed to list property with possible values Always, Never, or Conditional. Renamed TransporterSelectionExpression property to TransporterSelectionValueExpression.</ChangeDescription>
+    <ChangeDescription Version="162">Version 14.232: Property value transformation data added to convert old RideOnTransporter property from boolean to list property.</ChangeDescription>
+  </ChangeDescriptions>
+  <ChangeStringReplacements>
+    <ChangeStringReplacement Version="104" RegularExpressionPattern="(^|[^\w_])(?i:AutoTransferOnEntry)([^\w_]|$)" ReplacementString="$1ExternalNodeName.HasValue$2" />
+    <ChangeStringReplacement Version="104" RegularExpressionPattern="(^|[^\w_])(?i:List[\.]AutoTransferOnEntryType[\.]None)([^\w_]|$)" ReplacementString="$1False$2" />
+    <ChangeStringReplacement Version="115" RegularExpressionPattern="(^|[^\w_])(?i:InitializedAddOnProcess)([^\w_]|$)" ReplacementString="$1RunInitializedAddOnProcess$2" />
+    <ChangeStringReplacement Version="115" RegularExpressionPattern="(^|[^\w_])(?i:ExternalNodeName)([^\w_]|$)" ReplacementString="$1BoundExternalOutputNode$2" />
+    <ChangeStringReplacement Version="118" RegularExpressionPattern="(^|[^\w_])(?i:BlockedRoutingRule)([^\w_]|$)" ReplacementString="$1BlockedDestinationRule$2" />
+    <ChangeStringReplacement Version="122" RegularExpressionPattern="(^|[^\w_])(?i:NodeName)([^\w_]|$)" ReplacementString="$1DestinationNodeName$2" />
+    <ChangeStringReplacement Version="122" RegularExpressionPattern="(^|[^\w_])(?i:NodeListName)([^\w_]|$)" ReplacementString="$1DestinationNodeListName$2" />
+  </ChangeStringReplacements>
+  <Lists>
+    <StringList Name="EntityDestinationType">
+      <Items>
+        <Item Value="Continue" />
+        <Item Value="Specific" />
+        <Item Value="BySequence" />
+        <Item Value="SelectFromList" />
+        <Item Value="UseCustomRoutingGroup" />
+        <Item Value="DestroyEntity" />
+      </Items>
+    </StringList>
+    <StringList Name="RideOnTransporterType">
+      <Items>
+        <Item Value="Never" />
+        <Item Value="Always" />
+        <Item Value="Conditional" />
+      </Items>
+    </StringList>
+    <StringList Name="ActionConditionType">
+      <Items>
+        <Item Value="NoCondition" />
+        <Item Value="IsEntity" />
+        <Item Value="IsTransporter" />
+        <Item Value="CustomCondition" />
+      </Items>
+    </StringList>
+  </Lists>
+  <PropertyDefinitions>
+    <Categories>
+      <Category Name="Crossing Logic" Description="Crossing Logic" />
+      <Category Name="Routing Logic" Description="Routing Logic" />
+      <Category Name="Routing Logic/Other Routing Out Options" Description="Routing Logic/Other Routing Out Options" InitiallyExpanded="False" />
+      <Category Name="Transport Logic" Description="Transport Logic" />
+      <Category Name="Transport Logic/Transporter Selection" Description="Transport Logic/Transporter Selection" />
+      <Category Name="Transport Logic/Transporter Status On Drop-Off" Description="Transporter Status Options On Entity Drop-Off" />
+      <Category Name="State Assignments" Description="Optional State Assignments" InitiallyExpanded="False" />
+      <Category Name="Tally Statistics" Description="Optional Tally Statistics" InitiallyExpanded="False" />
+      <Category Name="Add-On Process Triggers" Description="Add-On Process Triggers" InitiallyExpanded="False" />
+      <Category Name="Financials" Description="Financials" InitiallyExpanded="False" />
+      <Category Name="Advanced Options" Description="Advanced Options" InitiallyExpanded="False" />
+      <Category Name="Advanced Options/Deprecated Properties" Description="Advanced Options/Deprecated Properties" InitiallyExpanded="False" />
+    </Categories>
+    <ListProperty Name="DestinationType" DisplayName="Entity Destination Type" Description="The method used to set a destination node for entities exiting the transfer node.&#xD;&#xA;&#xD;&#xA;If the method is 'By Sequence', then the entity must have a sequence table assigned. The destination node value will be set to the next destination in the sequence.&#xD;&#xA;&#xD;&#xA;Either the ‘Select From List’ or ‘Use Custom Routing Group’ methods may be used to route an entity to a location selected from a list of possible destination nodes. Note that the custom routing group approach can be particularly useful if it is desirable to have a single logical queue for entities waiting to be routed that is shared between multiple transfer node locations. Refer to the Routing Group element for more information." Category="Routing Logic" DefaultValue="Continue" NullString="null" List="EntityDestinationType">
+      <Captions>
+        <Caption Value="BySequence" Display="By Sequence" />
+        <Caption Value="SelectFromList" Display="Select From List" />
+        <Caption Value="UseCustomRoutingGroup" Display="Use Custom Routing Group" />
+        <Caption Value="DestroyEntity" Display="None (Destroy Entity)" />
+      </Captions>
+    </ListProperty>
+    <NodeProperty Name="DestinationNodeName" DisplayName="Node Name" Description="The name of the specific node that is the destination." Category="Routing Logic" DefaultValue="No Destination" Required="False" Parent="DestinationType" NullString="No Destination" ValidObjectType="Node" LocationType="Cartesian">
+      <Switch Property="DestinationType" Value="Specific" />
+    </NodeProperty>
+    <NodeListProperty Name="DestinationNodeListName" DisplayName="Node List Name" Description="Identifies the list of possible destination nodes." Category="Routing Logic" Parent="DestinationType" NullString="null">
+      <Switch Property="DestinationType" Value="SelectFromList" />
+    </NodeListProperty>
+    <ElementProperty Name="DestinationRoutingGroupName" DisplayName="Routing Group Name" Description="The name of the Routing Group element that will be used to route each entity to a location selected from a list of possible destination nodes.&#xD;&#xA;&#xD;&#xA;Go to Definitions-&gt;Elements to add a new Routing Group element to the model." Category="Routing Logic" Parent="DestinationType" NullString="null" Type="RoutingGroup">
+      <Switch Property="DestinationType" Value="UseCustomRoutingGroup" />
+    </ElementProperty>
+    <EnumProperty Name="DestinationSelectionGoal" DisplayName="Selection Goal" Description="The goal used to select a destination if there are multiple candidates available in the list of possible destination nodes." Category="Routing Logic" DefaultValue="Preferred Order" Parent="DestinationType" NullString="null" EnumType="NodeSelectionGoal">
+      <Switch Property="DestinationType" Value="SelectFromList, UseCustomRoutingGroup" />
+      <Captions>
+        <Caption Value="SmallestDistance" Display="Smallest Distance" />
+        <Caption Value="LargestDistance" Display="Largest Distance" />
+        <Caption Value="PreferredOrder" Display="Preferred Order" />
+        <Caption Value="SmallestValue" Display="Smallest Value" />
+        <Caption Value="LargestValue" Display="Largest Value" />
+      </Captions>
+    </EnumProperty>
+    <ExpressionProperty Name="DestinationSelectionExpression" DisplayName="Selection Expression" Description="The expression used to get the value for each candidate destination node.&#xD;&#xA;&#xD;&#xA;In the expression, use the syntax Candidate.[NodeClass].[Attribute] or Candidate.[NodeAssociatedObjectClass].[Attribute] to evaluate attributes of either the candidate destination nodes themselves or the objects associated with those candidate nodes (e.g., Candidate.Node.AssociatedStation.Capacity or Candidate.Server.Capacity)." Category="Routing Logic" DefaultValue="Candidate.Node.AssociatedStationOverload" Parent="DestinationSelectionGoal" NullString="null" SupportForeign="True">
+      <Switch Property="DestinationSelectionGoal" Comparison="GreaterThan" Value="Random" />
+    </ExpressionProperty>
+    <ExpressionProperty Name="DestinationSelectionCondition" DisplayName="Selection Condition" Description="Optional condition evaluated for each candidate destination node that must be true for the node to be selected.&#xD;&#xA;&#xD;&#xA;In the expression, use the syntax Candidate.[NodeClass].[Attribute] or Candidate.[NodeAssociatedObjectClass].[Attribute] to reference an attribute of either the candidate destination nodes themselves or the objects associated with those candidate nodes (e.g., Candidate.Node.AssociatedStation.Capacity or Candidate.Server.Capacity)." Category="Routing Logic" Required="False" Parent="DestinationType" NullString="null" SupportForeign="True">
+      <Switch Property="DestinationType" Value="SelectFromList, UseCustomRoutingGroup" />
+    </ExpressionProperty>
+    <EnumProperty Name="BlockedDestinationRule" DisplayName="Blocked Destination Rule" Description="The rule used to manage destination selection if there are one or more candidates in the list of possible destination nodes that have no space available.&#xD;&#xA;&#xD;&#xA;If the rule is 'Select Any', then whether or not a destination is blocked will be ignored.&#xD;&#xA;&#xD;&#xA;If the rule is 'Select Available Only', then only a destination that is not currently blocked may be assigned, and if all possible destinations are blocked then an entity will be held at the TransferNode until a destination becomes available.&#xD;&#xA;&#xD;&#xA;If the rule is 'Prefer Available', then a destination that is not currently blocked will be preferred, but if all possible destinations are blocked then the best destination per the selection goal will still be immediately assigned." Category="Routing Logic" DefaultValue="Select Available Only" Parent="DestinationType" NullString="null" EnumType="BlockedRoutingRule">
+      <Switch Property="DestinationType" Value="SelectFromList, UseCustomRoutingGroup" />
+      <Captions>
+        <Caption Value="SelectAny" Display="Select Any" />
+        <Caption Value="SelectAvailableOnly" Display="Select Available Only" />
+        <Caption Value="PreferAvailable" Display="Prefer Available" />
+      </Captions>
+    </EnumProperty>
+    <RepeatingProperty Name="RouteConstraintLogic" DisplayName="Route Constraint Logic" Description="Constraint logic used to enforce additional constraints on an entity’s route request." Category="Routing Logic/Other Routing Out Options" Required="False" NullString="null">
+      <Switch Property="DestinationType" Value="SelectFromList, UseCustomRoutingGroup" />
+      <PropertyDefinitions>
+        <Categories>
+          <Category Name="Constraint Logic" Description="Constraint Logic" />
+        </Categories>
+        <ElementProperty Name="RouteConstraintLogicName" DisplayName="Constraint Logic Name" Description="The name of the Constraint Logic element used to enforce additional constraints on an entity’s route request." Category="Constraint Logic" Required="False" NullString="null" Type="ConstraintLogic" />
+        <Overrides />
+      </PropertyDefinitions>
+    </RepeatingProperty>
+    <EnumProperty Name="RouteRequestRankingRule" DisplayName="Route Request Ranking Rule" Description="The static rule used to rank competing entities waiting to be assigned an available destination." Category="Routing Logic/Other Routing Out Options" DefaultValue="First In First Out" NullString="null" EnumType="QueueRanking">
+      <Switch Property="DestinationType" Value="SelectFromList" />
+      <Captions>
+        <Caption Value="FirstInFirstOut" Display="First In First Out" />
+        <Caption Value="LastInFirstOut" Display="Last In First Out" />
+        <Caption Value="SmallestValueFirst" Display="Smallest Value First" />
+        <Caption Value="LargestValueFirst" Display="Largest Value First" />
+      </Captions>
+    </EnumProperty>
+    <ExpressionProperty Name="RouteRequestRankingExpression" DisplayName="Route Request Ranking Expression" Description="The expression used with a Smallest Value First or Largest Value First ranking rule." Category="Routing Logic/Other Routing Out Options" DefaultValue="Entity.Priority" Required="False" Parent="RouteRequestRankingRule" NullString="null">
+      <Switch Property="RouteRequestRankingRule" Comparison="GreaterThan" Value="LastInFirstOut" />
+    </ExpressionProperty>
+    <SelectionRuleProperty Name="RouteRequestDynamicSelectionRule" DisplayName="Route Request Dynamic Selection Rule" Description="The rule used to dynamically select an entity from competing requests waiting to be assigned an available destination." Category="Routing Logic/Other Routing Out Options" DefaultValue="None" NullString="None">
+      <Switch Property="DestinationType" Value="SelectFromList" />
+    </SelectionRuleProperty>
+    <ListProperty Name="RideOnTransporter" DisplayName="Ride On Transporter" Description="Indicates whether an entity must ride a transporter to exit the transfer node." Category="Transport Logic" DefaultValue="Never" NullString="null" List="RideOnTransporterType" />
+    <ExpressionProperty Name="RideOnTransporterCondition" DisplayName="Condition" Description="The condition expression indicating whether an entity must ride a transporter to exit the transfer node." Category="Transport Logic" DefaultValue="0.0" Parent="RideOnTransporter" NullString="null">
+      <Switch Property="RideOnTransporter" Value="Conditional" />
+    </ExpressionProperty>
+    <EnumProperty Name="TransporterType" DisplayName="Transporter Type" Description="The method for specifying the transporter object to ride." Category="Transport Logic/Transporter Selection" DefaultValue="Specific" NullString="null" EnumType="TransporterType">
+      <Switch Property="RideOnTransporter" Comparison="NotEqual" Value="Never" />
+      <Captions>
+        <Caption Value="FromList" Display="Select From List" />
+      </Captions>
+    </EnumProperty>
+    <ObjectInstanceProperty Name="TransporterName" DisplayName="Transporter Name" Description="The name of the transporter object to ride." Category="Transport Logic/Transporter Selection" NullString="null" ValidObjectType="Transporter" LocationType="Cartesian">
+      <Switch Property="TransporterType" Value="Specific" />
+    </ObjectInstanceProperty>
+    <TransporterListProperty Name="TransporterListName" DisplayName="Transporter List Name" Description="The name of the transporter list from which to select the transporter object to ride." Category="Transport Logic/Transporter Selection" NullString="null">
+      <Switch Property="TransporterType" Value="FromList" />
+    </TransporterListProperty>
+    <EnumProperty Name="TransporterReservationMethod" DisplayName="Reservation Method" Description="The type of reservation method used to select a transporter object to ride.&#xD;&#xA;&#xD;&#xA;Reserve Closest - Reserve the transporter that is closest to the transfer node. The rule used to break ties is the specified selection goal.&#xD;&#xA;&#xD;&#xA;Reserve Best - Reserve the transporter using the specified selection goal. The rule used to break ties is the transporter that is closest to the transfer node.&#xD;&#xA;&#xD;&#xA;First Available At Location - Can only select a transporter that is already located at the transfer node. The rule used to break ties is the specified selection goal." Category="Transport Logic/Transporter Selection" DefaultValue="Reserve Closest" NullString="null" EnumType="ReservationMethod">
+      <Switch Property="RideOnTransporter" Comparison="NotEqual" Value="Never" />
+      <Captions>
+        <Caption Value="ReserveClosest" Display="Reserve Closest" />
+        <Caption Value="ReserveBest" Display="Reserve Best" />
+        <Caption Value="FirstAvailableAtLocation" Display="First Available At Location" />
+      </Captions>
+    </EnumProperty>
+    <EnumProperty Name="TransporterSelectionGoal" DisplayName="Selection Goal" Description="The rule used in conjunction with the specified reservation method to select a transporter object from multiple candidates." Category="Transport Logic/Transporter Selection" DefaultValue="Preferred Order" NullString="null" EnumType="ExtendedSelectionGoal">
+      <Switch Property="RideOnTransporter" Comparison="NotEqual" Value="Never" />
+      <Captions>
+        <Caption Value="PreferredOrder" Display="Preferred Order" />
+        <Caption Value="SmallestValue" Display="Smallest Value" />
+        <Caption Value="LargestValue" Display="Largest Value" />
+      </Captions>
+    </EnumProperty>
+    <ExpressionProperty Name="TransporterSelectionValueExpression" DisplayName="Value Expression" Description="The expression used to get the value for each candidate transporter.&#xD;&#xA;&#xD;&#xA;In the expression, use the syntax Candidate.[TransporterClass].[Attribute] to reference an attribute of the candidate transporter objects (e.g., Candidate.Transporter.RideStation.Capacity)." Category="Transport Logic/Transporter Selection" DefaultValue="Candidate.Transporter.RideStationOverload" Parent="TransporterSelectionGoal" NullString="null" SupportForeign="True">
+      <Switch Property="TransporterSelectionGoal" Comparison="NotEqual" Value="PreferredOrder" />
+    </ExpressionProperty>
+    <ExpressionProperty Name="TransporterSelectionCondition" DisplayName="Selection Condition" Description="Optional condition evaluated for each candidate transporter that must be true for the transporter to be selected.&#xD;&#xA;&#xD;&#xA;In the expression, use the syntax Candidate.[TransporterClass].[Attribute] to reference an attribute of the candidate transporter objects (e.g., Candidate.Transporter.RideStation.Capacity)." Category="Transport Logic/Transporter Selection" Required="False" NullString="null" SupportForeign="True">
+      <Switch Property="RideOnTransporter" Comparison="NotEqual" Value="Never" />
+    </ExpressionProperty>
+    <ExpressionProperty Name="TransporterStatusOnDropOffKeepReservedCondition" DisplayName="Keep Reserved If" Description="Optional condition indicating whether, on drop-off, to keep the transporter resource reserved for possible later reuse by the same entity. Other entities will be unable to use the reserved transporter for processing tasks or new ride pickup requests unless the reservation is cancelled.&#xD;&#xA;&#xD;&#xA;This condition is evaluated when the entity is picked up at the TransferNode. In the expression, use the syntax Entity.CurrentTransporter.[Attribute] to reference an attribute of the selected transporter (e.g., Entity.CurrentTransporter.Is.Vehicle1).&#xD;&#xA;&#xD;&#xA;Note that when an entity is attempting to select a resource from a group of candidates (e.g., from a list or from a population of some resource type), by default a preference will be given to select a resource that has already been reserved by that entity irrespective of the specified selection goal.&#xD;&#xA;&#xD;&#xA;Leaving this property blank (no condition) is equivalent to entering False." Category="Transport Logic/Transporter Status On Drop-Off" Required="False" NullString="null">
+      <Switch Property="RideOnTransporter" Comparison="NotEqual" Value="Never" />
+    </ExpressionProperty>
+    <RepeatingProperty Name="AssignmentsOnEntering" DisplayName="On Entering" Description="Optional state assignments when an entity is entering the object." Category="State Assignments" Required="False" NullString="null">
+      <PropertyDefinitions>
+        <Categories>
+          <Category Name="Basic Logic" Description="State Assignments (Basic Logic)" />
+        </Categories>
+        <ListProperty Name="AssignmentsOnEnteringAssignConditionType" DisplayName="Assign If" Description="Condition required to perform the assignment." Category="Basic Logic" DefaultValue="Entity Entering" NullString="null" List="ActionConditionType">
+          <Captions>
+            <Caption Value="NoCondition" Display="No Condition" />
+            <Caption Value="IsEntity" Display="Entity Entering" />
+            <Caption Value="IsTransporter" Display="Transporter Entering" />
+            <Caption Value="CustomCondition" Display="Custom Condition" />
+          </Captions>
+        </ListProperty>
+        <ExpressionProperty Name="AssignmentsOnEnteringAssignCondition" DisplayName="Condition" Description="The condition required to perform the assignment." Category="Basic Logic" DefaultValue="0.0" Parent="AssignmentsOnEnteringAssignConditionType" NullString="null">
+          <Switch Property="AssignmentsOnEnteringAssignConditionType" Value="CustomCondition" />
+        </ExpressionProperty>
+        <StateProperty Name="AssignmentsOnEnteringStateVariableName" DisplayName="State Variable Name" Description="Name of the state variable that will be assigned a new value." Category="Basic Logic" Required="False" NullString="null" IsAssignable="True" />
+        <ExpressionProperty Name="AssignmentsOnEnteringNewValue" DisplayName="New Value" Description="The new value to assign." Category="Basic Logic" DefaultValue="0.0" Required="False" NullString="null" UnitTypeProperty="AssignmentsOnEnteringStateVariableName" />
+        <Overrides />
+      </PropertyDefinitions>
+    </RepeatingProperty>
+    <RepeatingProperty Name="TalliesOnEntering" DisplayName="On Entering" Description="Optional tally statistics to record when an entity is entering the node." Category="Tally Statistics" Required="False" NullString="null">
+      <PropertyDefinitions>
+        <Categories>
+          <Category Name="Basic Logic" Description="Tally Statistics (Basic Logic)" />
+        </Categories>
+        <ListProperty Name="TalliesOnEnteringTallyConditionType" DisplayName="Tally If" Description="Condition required to record the tally statistic." Category="Basic Logic" DefaultValue="Entity Entering" NullString="null" List="ActionConditionType">
+          <Captions>
+            <Caption Value="NoCondition" Display="No Condition" />
+            <Caption Value="IsEntity" Display="Entity Entering" />
+            <Caption Value="IsTransporter" Display="Transporter Entering" />
+            <Caption Value="CustomCondition" Display="Custom Condition" />
+          </Captions>
+        </ListProperty>
+        <ExpressionProperty Name="TalliesOnEnteringTallyCondition" DisplayName="Condition" Description="The condition required to record the tally statistic." Category="Basic Logic" DefaultValue="0.0" Parent="TalliesOnEnteringTallyConditionType" NullString="null">
+          <Switch Property="TalliesOnEnteringTallyConditionType" Value="CustomCondition" />
+        </ExpressionProperty>
+        <ElementProperty Name="TalliesOnEnteringTallyStatisticName" DisplayName="Tally Statistic Name" Description="The name of the tally statistic for which to record an observation value." Category="Basic Logic" Required="False" NullString="null" Type="TallyStatistic" />
+        <EnumProperty Name="TalliesOnEnteringValueType" DisplayName="Value Type" Description="The type of observation value to record.&#xD;&#xA;&#xD;&#xA;If the value type is 'Expression', then the value of the specified expression is recorded.&#xD;&#xA;&#xD;&#xA;If the value type is 'TimeBetween', then the time since the last entity arrival to this or any other Tally step referencing the tally statistic is recorded." Category="Basic Logic" DefaultValue="Expression" NullString="null" EnumType="TallyValueType" />
+        <ExpressionProperty Name="TalliesOnEnteringValueExpression" DisplayName="Value Expression" Description="The expression returning the value to be recorded." Category="Basic Logic" DefaultValue="0.0" NullString="null" UnitTypeProperty="TalliesOnEnteringTallyStatisticName">
+          <Switch Property="TalliesOnEnteringValueType" Value="Expression" />
+        </ExpressionProperty>
+        <Overrides />
+        <PropertyReplacements>
+          <PropertyReplacement Version="159" OldPropertyName="TalliesOnEnteringValue" NewPropertyName="TalliesOnEnteringValueExpression" />
+        </PropertyReplacements>
+      </PropertyDefinitions>
+    </RepeatingProperty>
+    <RepeatingProperty Name="TalliesOnExited" DisplayName="On Exited" Description="Optional tally statistics to record when an entity has exited the node." Category="Tally Statistics" Required="False" NullString="null">
+      <PropertyDefinitions>
+        <Categories>
+          <Category Name="Basic Logic" Description="Tally Statistics (Basic Logic)" />
+        </Categories>
+        <ListProperty Name="TalliesOnExitedTallyConditionType" DisplayName="Tally If" Description="Condition required to record the tally statistic." Category="Basic Logic" DefaultValue="Entity Exited" NullString="null" List="ActionConditionType">
+          <Captions>
+            <Caption Value="NoCondition" Display="No Condition" />
+            <Caption Value="IsEntity" Display="Entity Exited" />
+            <Caption Value="IsTransporter" Display="Transporter Exited" />
+            <Caption Value="CustomCondition" Display="Custom Condition" />
+          </Captions>
+        </ListProperty>
+        <ExpressionProperty Name="TalliesOnExitedTallyCondition" DisplayName="Condition" Description="The condition required to record the tally statistic." Category="Basic Logic" DefaultValue="0.0" Parent="TalliesOnExitedTallyConditionType" NullString="null">
+          <Switch Property="TalliesOnExitedTallyConditionType" Value="CustomCondition" />
+        </ExpressionProperty>
+        <ElementProperty Name="TalliesOnExitedTallyStatisticName" DisplayName="Tally Statistic Name" Description="The name of the tally statistic for which to record an observation value." Category="Basic Logic" Required="False" NullString="null" Type="TallyStatistic" />
+        <EnumProperty Name="TalliesOnExitedValueType" DisplayName="Value Type" Description="The type of observation value to record.&#xD;&#xA;&#xD;&#xA;If the value type is 'Expression', then the value of the specified expression is recorded.&#xD;&#xA;&#xD;&#xA;If the value type is 'TimeBetween', then the time since the last entity arrival to this or any other Tally step referencing the tally statistic is recorded." Category="Basic Logic" DefaultValue="Expression" NullString="null" EnumType="TallyValueType" />
+        <ExpressionProperty Name="TalliesOnExitedValueExpression" DisplayName="Value Expression" Description="The expression returning the value to be recorded." Category="Basic Logic" DefaultValue="0.0" NullString="null" UnitTypeProperty="TalliesOnExitedTallyStatisticName">
+          <Switch Property="TalliesOnExitedValueType" Value="Expression" />
+        </ExpressionProperty>
+        <Overrides />
+        <PropertyReplacements>
+          <PropertyReplacement Version="159" OldPropertyName="TalliesOnExitedValue" NewPropertyName="TalliesOnExitedValueExpression" />
+        </PropertyReplacements>
+      </PropertyDefinitions>
+    </RepeatingProperty>
+    <ElementProperty Name="RunInitializedAddOnProcess" DisplayName="Run Initialized" Description="Occurs when the simulation run is initialized." Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="RunEndingAddOnProcess" DisplayName="Run Ending" Description="Occurs when the simulation run is ending." Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="EnteredAddOnProcess" DisplayName="Entered" Description="Occurs when an entity's leading edge has entered this node." Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ElementProperty Name="ExitedAddOnProcess" DisplayName="Exited" Description="Occurs when an entity's trailing edge has exited this node." Category="Add-On Process Triggers" Required="False" NullString="null" ValueListFilter="UserExecutableProcessesOnly" Type="Process" />
+    <ExternalNodeProperty Name="BoundExternalOutputNode" DisplayName="Bound External Output Node" Description="The name of an external output node that this node has been bound to in order to transfer entities out of the containing (parent) object. The transfer attempt will be performed by an entity after entering the node and, if successful, any other crossing or routing logic for the node will be ignored." Category="Advanced Options" Required="False" NullString="null" />
+    <RepeatingProperty Name="RoutingOutRequiredMaterials" DisplayName="Required Materials" Description="Additional material availability constraints enforced on an entity's route request.&#xD;&#xA;&#xD;&#xA;NOTE: This repeat group has been deprecated. Use the Routing Logic -&gt; Other Routing Options -&gt; Route Constraint Logic property instead. To edit the deprecated repeat group, go to File -&gt; Settings -&gt; GUI and set the Display Deprecated Properties in Properties Window value to True." Category="Advanced Options/Deprecated Properties" Required="False" Deprecated="True" NullString="null">
+      <Switch Property="DestinationType" Value="SelectFromList, UseCustomRoutingGroup" />
+      <PropertyDefinitions>
+        <Categories>
+          <Category Name="Basic Logic" Description="Basic Logic" />
+        </Categories>
+        <EnumProperty Name="RequiredMaterialConsumptionType" DisplayName="Consumption Type" Description="Indicates whether the material required to be available for consumption is a single material or a bill of materials." Category="Basic Logic" DefaultValue="Material" NullString="null" EnumType="BOMActionRules">
+          <Captions>
+            <Caption Value="BillOfMaterials" Display="Bill Of Materials" />
+            <Caption Value="OperationSpecified" Display="" Visible="False" />
+          </Captions>
+        </EnumProperty>
+        <ElementProperty Name="RequiredMaterialName" DisplayName="Material Name" Description="The name of the material which is either specifically required or whose bill of materials is required." Category="Basic Logic" Required="False" NullString="null" Type="Material" />
+        <EnumProperty Name="RequiredMaterialInventorySiteType" DisplayName="Inventory Site Type" Description="Indicates the fixed object that is the inventory location. Applies only to material elements whose Location Based Inventory property is set to True.&#xD;&#xA;&#xD;&#xA;The 'ParentObject' setting may be used to indicate that the inventory site is the server, combiner, or separator." Category="Basic Logic" DefaultValue="None" NullString="null" EnumType="InventorySiteType">
+          <Captions>
+            <Caption Value="AssociatedObject" Visible="False" />
+          </Captions>
+        </EnumProperty>
+        <ObjectInstanceProperty Name="RequiredMaterialSiteObjectName" DisplayName="Site Object Name" Description="The name of the fixed object that is the inventory location." Category="Basic Logic" Required="False" NullString="null" LocationType="Cartesian">
+          <Switch Property="RequiredMaterialInventorySiteType" Value="SpecificObject" />
+        </ObjectInstanceProperty>
+        <ExpressionProperty Name="RequiredMaterialQuantity" DisplayName="Quantity" Description="The quantity required." Category="Basic Logic" DefaultValue="1.0" NullString="null" />
+        <ExpressionProperty Name="RequiredMaterialLotID" DisplayName="Lot ID" Description="Optional string value indicating the lot identifier of the required material." Category="Basic Logic" Required="False" NullString="null" />
+        <Overrides />
+      </PropertyDefinitions>
+    </RepeatingProperty>
+    <Overrides>
+      <Override Name="ReportStatistics" DefaultValue="False" />
+      <Override Name="ParentCostCenter" Visible="False" />
+      <Override Name="InitialCost" Visible="False" />
+      <Override Name="InitialCostRate" Visible="False" />
+      <Override Name="ResourceIdleCostRate" Visible="False" />
+      <Override Name="ResourceCostPerUse" Visible="False" />
+      <Override Name="ResourceUsageCostRate" Visible="False" />
+      <Override Name="LogResourceUsage" Visible="False" />
+      <Override Name="DisplayCategory" Visible="False" />
+      <Override Name="DisplayColor" Visible="False" />
+      <Override Name="IncludeInPlanResourceConstraints" Visible="False" />
+      <Override Name="CapacityType" Visible="False" />
+      <Override Name="InitialWorkSchedule" Visible="False" />
+      <Override Name="WorkDayExceptions" Visible="False" />
+      <Override Name="WorkPeriodExceptions" Visible="False" />
+      <Override Name="InitialCapacity" Visible="False" />
+      <Override Name="RankingRule" Visible="False" />
+      <Override Name="RankingExpression" Visible="False" />
+      <Override Name="DynamicSelectionRule" Visible="False" />
+      <Override Name="InitialTravelerCapacity" Description="The initial maximum number of traveling entities that may simultaneously occupy this node.&#xD;&#xA;&#xD;&#xA;NOTE: An entity using the 'Ride On Transporter' option at this transfer node will be exempted from being blocked by or counted against the node's traveler capacity limit. Also, refer to the user-assignable ‘CurrentTravelerCapacity’ state variable of a node to dynamically change its traveler capacity during a simulation run." />
+      <Override Name="EntryExemptionCondition" Visible="False" DefaultValue="$(DefinitionName).RideOnTransporter &amp;&amp; !Entity.Is.Transporter" />
+    </Overrides>
+    <PropertyReplacements>
+      <PropertyReplacement Version="114" OldPropertyName="InitialCapacity" NewPropertyName="InitialTravelerCapacity" />
+      <PropertyReplacement Version="114" OldPropertyName="RankingRule" NewPropertyName="EntryRankingRule" />
+      <PropertyReplacement Version="114" OldPropertyName="RankingExpression" NewPropertyName="EntryRankingExpression" />
+      <PropertyReplacement Version="114" OldPropertyName="InitializedAddOnProcess" NewPropertyName="RunInitializedAddOnProcess" />
+      <PropertyReplacement Version="114" OldPropertyName="ExternalNodeName" NewPropertyName="BoundExternalOutputNode" />
+      <PropertyReplacement Version="116" OldPropertyName="BlockedRoutingRule" NewPropertyName="BlockedDestinationRule" />
+      <PropertyReplacement Version="121" OldPropertyName="NodeName" NewPropertyName="DestinationNodeName" />
+      <PropertyReplacement Version="121" OldPropertyName="NodeListName" NewPropertyName="DestinationNodeListName" />
+      <PropertyReplacement Version="140" OldPropertyName="RandomNumberStream" NewPropertyName="BranchingRandomNumberStream" />
+      <PropertyReplacement Version="160" OldPropertyName="RideOnTransporter" NewPropertyName="RideOnTransporterCondition" />
+      <PropertyReplacement Version="160" OldPropertyName="RideOnTransporter" NewPropertyName="RideOnTransporter">
+        <PropertyValueTransformers>
+          <PropertyValueTransformer ComparisonOperator="Equal" OldValues="True" NewValue="Always" />
+          <PropertyValueTransformer ComparisonOperator="Equal" OldValues="False" NewValue="Never" />
+          <PropertyValueTransformer ComparisonOperator="NotEqual" OldValues="True,False" NewValue="Conditional" />
+        </PropertyValueTransformers>
+      </PropertyReplacement>
+      <PropertyReplacement Version="160" OldPropertyName="TransporterSelectionExpression" NewPropertyName="TransporterSelectionValueExpression" />
+    </PropertyReplacements>
+  </PropertyDefinitions>
+  <States />
+  <Events>
+    <Event Name="Entered" Description="The Entered event provides notification that an entity has entered the node." />
+    <Event Name="Exited" Description="The Exited event provides notification that an entity has exited the node." />
+    <Event Name="RiderWaiting" Description="The RiderWaiting event provides notification that an entity has entered the RidePickupQueue of the node waiting for a ride." />
+  </Events>
+  <Elements>
+    <Element Type="RoutingGroup" Name="RoutingOut" Scope="Public" Description="Element holding 'Select From List' routing out logic for this TransferNode object.">
+      <Properties>
+        <Property Name="DestinationNodeListName">DestinationNodeListName</Property>
+        <Property Name="RouteRequestRankingRule">RouteRequestRankingRule</Property>
+        <Property Name="RouteRequestRankingExpression">RouteRequestRankingExpression</Property>
+        <Property Name="RouteRequestDynamicSelectionRule">
+          <Value>RouteRequestDynamicSelectionRule</Value>
+        </Property>
+      </Properties>
+    </Element>
+  </Elements>
+  <Processes>
+    <Process Name="OnRunInitialized" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Object.OnRunInitialized" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Execute" Name="RunInitializedAddOnProcess" ID="2">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>RunInitializedAddOnProcess</Value>
+            </Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnRunEnding" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Object.OnRunEnding" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Execute" Name="RunEndingAddOnProcess" ID="2">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>RunEndingAddOnProcess</Value>
+            </Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnEntered" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Node.OnEntered" BeginStepID="2">
+      <Properties>
+        <Property Name="TokenActionOnAssociatedObjectDestroyed">EndProcess</Property>
+        <Property Name="TokenActionOnAssociatedObjectTransferRequested">EndProcess</Property>
+      </Properties>
+      <Steps>
+        <Step Type="Assign" Name="OnEnteringAssignments" ID="2">
+          <Properties>
+            <Property Name="Assignments">
+              <Value>AssignmentsOnEntering</Value>
+              <Rows>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>AssignmentsOnEnteringStateVariableName</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">AssignmentsOnEnteringNewValue</Property>
+                  <Property Name="AssignmentsSkipAssignmentCondition">Math.If(AssignmentsOnEntering.AssignmentsOnEnteringAssignConditionType==List.ActionConditionType.NoCondition,False,AssignmentsOnEntering.AssignmentsOnEnteringAssignConditionType==List.ActionConditionType.IsEntity, Entity.Is.Transporter,AssignmentsOnEntering.AssignmentsOnEnteringAssignConditionType==List.ActionConditionType.IsTransporter, !Entity.Is.Transporter, AssignmentsOnEntering.AssignmentsOnEnteringAssignCondition&lt;=0.0)</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Tally" Name="OnEnteringTallies" ID="3">
+          <Properties>
+            <Property Name="Tallies">
+              <Value>TalliesOnEntering</Value>
+              <Rows>
+                <Properties>
+                  <Property Name="TalliesTallyStatisticName">
+                    <Value>TalliesOnEnteringTallyStatisticName</Value>
+                  </Property>
+                  <Property Name="TalliesValueType">TalliesOnEnteringValueType</Property>
+                  <Property Name="TalliesValueExpression">TalliesOnEnteringValueExpression</Property>
+                  <Property Name="TalliesNumberOfObservations">Math.If(TalliesOnEntering.TalliesOnEnteringTallyConditionType==List.ActionConditionType.NoCondition,1,TalliesOnEntering.TalliesOnEnteringTallyConditionType==List.ActionConditionType.IsEntity, !Entity.Is.Transporter,TalliesOnEntering.TalliesOnEnteringTallyConditionType==List.ActionConditionType.IsTransporter, Entity.Is.Transporter, TalliesOnEntering.TalliesOnEnteringTallyCondition&gt;0.0)</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="9" />
+        </Step>
+        <Step Type="Decide" Name="IfNoBoundExternalOutputNode" ExclusionExpression="Math.If(!BoundExternalOutputNode.HasValue, 1, 2)" ID="4">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">BoundExternalOutputNode.HasValue==False</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="6" />
+          <Exit Name="False" Type="Alternate" NextID="5" />
+        </Step>
+        <Step Type="Transfer" Name="ToBoundExternalOutputNode" ID="5">
+          <Properties>
+            <Property Name="FromType">CurrentNode</Property>
+            <Property Name="ToType">ParentExternalNode</Property>
+            <Property Name="ExternalNodeName">BoundExternalOutputNode</Property>
+          </Properties>
+          <Exit Name="Failed" Type="Alternate" NextID="6" />
+        </Step>
+        <Step Type="VisitNode" Name="Entity" ID="6">
+          <Properties />
+          <Exit Name="Exit" Type="Primary" NextID="10" />
+        </Step>
+        <Step Type="Execute" Name="EnteredAddOnProcess" ID="7">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>EnteredAddOnProcess</Value>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="Execute" Name="RoutingOutLogic" ID="8">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>RoutingOutLogic</Value>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="14" />
+        </Step>
+        <Step Type="Fire" Name="EnteredEvent" ID="9">
+          <Properties>
+            <Property Name="EventName">Entered</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="7" />
+        </Step>
+        <Step Type="Decide" Name="IfTransporter" ExclusionExpression="(DestinationType == List.EntityDestinationType.Continue) &amp;&amp; (RideOnTransporter == List.RideOnTransporterType.Never)" ID="10">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">Entity.Is.Transporter</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="11" />
+          <Exit Name="False" Type="Alternate" NextID="8" />
+        </Step>
+        <Step Type="Transfer" Name="ToOutboundLink" ID="11">
+          <Properties>
+            <Property Name="FromType">CurrentNode</Property>
+            <Property Name="ToType">OutboundLink</Property>
+          </Properties>
+          <Exit Name="Failed" Type="Alternate" NextID="12" />
+        </Step>
+        <Step Type="Transfer" Name="ToFreeSpace" ID="12">
+          <Properties>
+            <Property Name="FromType">CurrentNode</Property>
+            <Property Name="ToType">FreeSpace</Property>
+          </Properties>
+          <Exit Name="Failed" Type="Alternate" NextID="13" />
+        </Step>
+        <Step Type="Execute" Name="TransferFailureLogic" ID="13">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>TransferFailureLogic</Value>
+            </Property>
+          </Properties>
+        </Step>
+        <Step Type="Decide" Name="IfRidingTransporter" ExclusionExpression="Math.If(RideOnTransporter == List.RideOnTransporterType.Never, 2, 0)" ID="14">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">Entity.CurrentTransporter!=Nothing &amp;&amp; !Entity.IsUnloadingFromTransporter</Property>
+          </Properties>
+          <Exit Name="False" Type="Alternate" NextID="11" />
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnExited" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Node.OnExited" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Tally" Name="OnExitedTallies" ID="2">
+          <Properties>
+            <Property Name="Tallies">
+              <Value>TalliesOnExited</Value>
+              <Rows>
+                <Properties>
+                  <Property Name="TalliesTallyStatisticName">
+                    <Value>TalliesOnExitedTallyStatisticName</Value>
+                  </Property>
+                  <Property Name="TalliesValueType">TalliesOnExitedValueType</Property>
+                  <Property Name="TalliesValueExpression">TalliesOnExitedValueExpression</Property>
+                  <Property Name="TalliesNumberOfObservations">Math.If(TalliesOnExited.TalliesOnExitedTallyConditionType==List.ActionConditionType.NoCondition,1,TalliesOnExited.TalliesOnExitedTallyConditionType==List.ActionConditionType.IsEntity, !Entity.Is.Transporter,TalliesOnExited.TalliesOnExitedTallyConditionType==List.ActionConditionType.IsTransporter, Entity.Is.Transporter, TalliesOnExited.TalliesOnExitedTallyCondition&gt;0.0)</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="Execute" Name="ExitedAddOnProcess" ID="3">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>ExitedAddOnProcess</Value>
+            </Property>
+          </Properties>
+        </Step>
+        <Step Type="Fire" Name="ExitedEvent" ID="4">
+          <Properties>
+            <Property Name="EventName">Exited</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnEnteredToAssociatedObject" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Node.OnEnteredToAssociatedObject" BeginStepID="2">
+      <Properties>
+        <Property Name="TokenActionOnAssociatedObjectDestroyed">EndProcess</Property>
+        <Property Name="TokenActionOnAssociatedObjectTransferRequested">EndProcess</Property>
+      </Properties>
+      <Steps>
+        <Step Type="Assign" Name="OnEnteringAssignments" ID="2">
+          <Properties>
+            <Property Name="Assignments">
+              <Value>AssignmentsOnEntering</Value>
+              <Rows>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>AssignmentsOnEnteringStateVariableName</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">AssignmentsOnEnteringNewValue</Property>
+                  <Property Name="AssignmentsSkipAssignmentCondition">Math.If(AssignmentsOnEntering.AssignmentsOnEnteringAssignConditionType==List.ActionConditionType.NoCondition,False,AssignmentsOnEntering.AssignmentsOnEnteringAssignConditionType==List.ActionConditionType.IsEntity, Entity.Is.Transporter,AssignmentsOnEntering.AssignmentsOnEnteringAssignConditionType==List.ActionConditionType.IsTransporter, !Entity.Is.Transporter, AssignmentsOnEntering.AssignmentsOnEnteringAssignCondition&lt;=0.0)</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Tally" Name="OnEnteringTallies" ID="3">
+          <Properties>
+            <Property Name="Tallies">
+              <Value>TalliesOnEntering</Value>
+              <Rows>
+                <Properties>
+                  <Property Name="TalliesTallyStatisticName">
+                    <Value>TalliesOnEnteringTallyStatisticName</Value>
+                  </Property>
+                  <Property Name="TalliesValueType">TalliesOnEnteringValueType</Property>
+                  <Property Name="TalliesValueExpression">TalliesOnEnteringValueExpression</Property>
+                  <Property Name="TalliesNumberOfObservations">Math.If(TalliesOnEntering.TalliesOnEnteringTallyConditionType==List.ActionConditionType.NoCondition,1,TalliesOnEntering.TalliesOnEnteringTallyConditionType==List.ActionConditionType.IsEntity, !Entity.Is.Transporter,TalliesOnEntering.TalliesOnEnteringTallyConditionType==List.ActionConditionType.IsTransporter, Entity.Is.Transporter, TalliesOnEntering.TalliesOnEnteringTallyCondition&gt;0.0)</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="7" />
+        </Step>
+        <Step Type="Decide" Name="IfNoBoundExternalOutputNode" ExclusionExpression="Math.If(!BoundExternalOutputNode.HasValue, 1, 2)" ID="4">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">BoundExternalOutputNode.HasValue==False</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="8" />
+          <Exit Name="False" Type="Alternate" NextID="5" />
+        </Step>
+        <Step Type="Transfer" Name="ToBoundExternalOutputNode" ID="5">
+          <Properties>
+            <Property Name="FromType">CurrentNode</Property>
+            <Property Name="ToType">ParentExternalNode</Property>
+            <Property Name="ExternalNodeName">BoundExternalOutputNode</Property>
+          </Properties>
+          <Exit Name="Failed" Type="Alternate" NextID="8" />
+        </Step>
+        <Step Type="Execute" Name="EnteredAddOnProcess" ID="6">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>EnteredAddOnProcess</Value>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="Fire" Name="EnteredEvent" ID="7">
+          <Properties>
+            <Property Name="EventName">Entered</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="6" />
+        </Step>
+        <Step Type="Transfer" Name="ToAssociatedObject" ID="8">
+          <Properties>
+            <Property Name="FromType">CurrentNode</Property>
+            <Property Name="ToType">AssociatedObject</Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnEnteredFromAssociatedObject" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Node.OnEnteredFromAssociatedObject" BeginStepID="2">
+      <Properties>
+        <Property Name="TokenActionOnAssociatedObjectDestroyed">EndProcess</Property>
+        <Property Name="TokenActionOnAssociatedObjectTransferRequested">EndProcess</Property>
+      </Properties>
+      <Steps>
+        <Step Type="Assign" Name="OnEnteringAssignments" ID="2">
+          <Properties>
+            <Property Name="Assignments">
+              <Value>AssignmentsOnEntering</Value>
+              <Rows>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>AssignmentsOnEnteringStateVariableName</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">AssignmentsOnEnteringNewValue</Property>
+                  <Property Name="AssignmentsSkipAssignmentCondition">Math.If(AssignmentsOnEntering.AssignmentsOnEnteringAssignConditionType==List.ActionConditionType.NoCondition,False,AssignmentsOnEntering.AssignmentsOnEnteringAssignConditionType==List.ActionConditionType.IsEntity, Entity.Is.Transporter,AssignmentsOnEntering.AssignmentsOnEnteringAssignConditionType==List.ActionConditionType.IsTransporter, !Entity.Is.Transporter, AssignmentsOnEntering.AssignmentsOnEnteringAssignCondition&lt;=0.0)</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Tally" Name="OnEnteringTallies" ID="3">
+          <Properties>
+            <Property Name="Tallies">
+              <Value>TalliesOnEntering</Value>
+              <Rows>
+                <Properties>
+                  <Property Name="TalliesTallyStatisticName">
+                    <Value>TalliesOnEnteringTallyStatisticName</Value>
+                  </Property>
+                  <Property Name="TalliesValueType">TalliesOnEnteringValueType</Property>
+                  <Property Name="TalliesValueExpression">TalliesOnEnteringValueExpression</Property>
+                  <Property Name="TalliesNumberOfObservations">Math.If(TalliesOnEntering.TalliesOnEnteringTallyConditionType==List.ActionConditionType.NoCondition,1,TalliesOnEntering.TalliesOnEnteringTallyConditionType==List.ActionConditionType.IsEntity, !Entity.Is.Transporter,TalliesOnEntering.TalliesOnEnteringTallyConditionType==List.ActionConditionType.IsTransporter, Entity.Is.Transporter, TalliesOnEntering.TalliesOnEnteringTallyCondition&gt;0.0)</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="8" />
+        </Step>
+        <Step Type="Decide" Name="IfNoBoundExternalOutputNode" ExclusionExpression="Math.If(!BoundExternalOutputNode.HasValue, 1, 2)" ID="4">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">BoundExternalOutputNode.HasValue==False</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="9" />
+          <Exit Name="False" Type="Alternate" NextID="5" />
+        </Step>
+        <Step Type="Transfer" Name="ToBoundExternalOutputNode" ID="5">
+          <Properties>
+            <Property Name="FromType">CurrentNode</Property>
+            <Property Name="ToType">ParentExternalNode</Property>
+            <Property Name="ExternalNodeName">BoundExternalOutputNode</Property>
+          </Properties>
+          <Exit Name="Failed" Type="Alternate" NextID="9" />
+        </Step>
+        <Step Type="Execute" Name="EnteredAddOnProcess" ID="6">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>EnteredAddOnProcess</Value>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="Execute" Name="RoutingOutLogic" ID="7">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>RoutingOutLogic</Value>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="13" />
+        </Step>
+        <Step Type="Fire" Name="EnteredEvent" ID="8">
+          <Properties>
+            <Property Name="EventName">Entered</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="6" />
+        </Step>
+        <Step Type="Decide" Name="IfTransporter" ExclusionExpression="(DestinationType == List.EntityDestinationType.Continue) &amp;&amp; (RideOnTransporter == List.RideOnTransporterType.Never)" ID="9">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">Entity.Is.Transporter</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="10" />
+          <Exit Name="False" Type="Alternate" NextID="7" />
+        </Step>
+        <Step Type="Transfer" Name="ToOutboundLink" ID="10">
+          <Properties>
+            <Property Name="FromType">CurrentNode</Property>
+            <Property Name="ToType">OutboundLink</Property>
+          </Properties>
+          <Exit Name="Failed" Type="Alternate" NextID="11" />
+        </Step>
+        <Step Type="Transfer" Name="ToFreeSpace" ID="11">
+          <Properties>
+            <Property Name="FromType">CurrentNode</Property>
+            <Property Name="ToType">FreeSpace</Property>
+          </Properties>
+          <Exit Name="Failed" Type="Alternate" NextID="12" />
+        </Step>
+        <Step Type="Execute" Name="TransferFailureLogic" ID="12">
+          <Properties>
+            <Property Name="ProcessName">
+              <Value>TransferFailureLogic</Value>
+            </Property>
+          </Properties>
+        </Step>
+        <Step Type="Decide" Name="IfRidingTransporter" ExclusionExpression="Math.If(RideOnTransporter == List.RideOnTransporterType.Never, 2, 0)" ID="13">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">Entity.CurrentTransporter!=Nothing &amp;&amp; !Entity.IsUnloadingFromTransporter</Property>
+          </Properties>
+          <Exit Name="False" Type="Alternate" NextID="10" />
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="OnEnteredParking" IsOverride="True" ShowAsUserExecutableProcess="False" InterfaceProcessID="Node.OnEnteredParking" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="EndTransfer" Name="EndTransfer" ID="2">
+          <Properties />
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="TransferFailureLogic" BeginStepID="2">
+      <Properties />
+      <Steps>
+        <Step Type="Decide" Name="IfEntityDestroyable" ID="2">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">Entity.Destroyable</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="5" />
+          <Exit Name="False" Type="Alternate" NextID="3" />
+        </Step>
+        <Step Type="Notify" Name="ParkingEntity" ID="3">
+          <Properties>
+            <Property Name="NotificationType">Warning</Property>
+            <Property Name="MessageHeading">"Entity '" + Entity.Name + "' failed to initiate transfer from node"</Property>
+            <Property Name="MessageContent">"Entity '" + Entity.Name + "' failed to initiate transfer from node '" + Name + "'. The entity is being automatically parked. However, this warning may indicate a problem in the modeled logic.
+
+It is recommended to verify that the entity is using the intended travel mode. If the travel mode is 'Network Only', then verify that a followable network path has been drawn from the node to the entity's assigned destination '" + Math.If(Entity.DestinationNode!=Nothing &amp;&amp; Entity.DestinationNode!=Node, Entity.DestinationNode.Name, "No Destination") + "' using network '" + Math.If(Entity.CurrentNetwork!=Nothing, Entity.CurrentNetwork.Name, "No Network") +  "'."</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="Park" Name="Entity" ID="4">
+          <Properties />
+        </Step>
+        <Step Type="Notify" Name="DestroyingEntity" ID="5">
+          <Properties>
+            <Property Name="NotificationType">Warning</Property>
+            <Property Name="MessageHeading">"Entity '" + Entity.Name + "' failed to initiate transfer from node"</Property>
+            <Property Name="MessageContent">"Entity '" + Entity.Name + "' failed to initiate transfer from node '" + Name + "'. The entity is being automatically destroyed. However, this warning may indicate a problem in the modeled logic.
+
+It is recommended to verify that the entity is using the intended travel mode. If the travel mode is 'Network Only', then verify that a followable network path has been drawn from the node to the entity's assigned destination '" + Math.If(Entity.DestinationNode!=Nothing &amp;&amp; Entity.DestinationNode!=Node, Entity.DestinationNode.Name, "No Destination") + "' using network '" + Math.If(Entity.CurrentNetwork!=Nothing, Entity.CurrentNetwork.Name, "No Network") +  "'."</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="6" />
+        </Step>
+        <Step Type="Destroy" Name="Entity" ID="6">
+          <Properties />
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="RoutingOutLogic" BeginStepID="2">
+      <Properties>
+        <Property Name="TokenActionOnAssociatedObjectDestroyed">EndProcess</Property>
+      </Properties>
+      <Steps>
+        <Step Type="Decide" Name="IfDestinationTypeContinue" ExclusionExpression="Math.If(DestinationType == List.EntityDestinationType.Continue, 1, 2)" ID="2">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">DestinationType==List.EntityDestinationType.Continue</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="12" />
+          <Exit Name="False" Type="Alternate" NextID="3" />
+        </Step>
+        <Step Type="Decide" Name="IfDestinationTypeSpecific" ExclusionExpression="Math.If(DestinationType == List.EntityDestinationType.Specific, 1, 2)" ID="3">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">DestinationType==List.EntityDestinationType.Specific</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="11" />
+          <Exit Name="False" Type="Alternate" NextID="4" />
+        </Step>
+        <Step Type="Decide" Name="IfDestinationTypeBySequence" ExclusionExpression="Math.If(DestinationType == List.EntityDestinationType.BySequence, 1, 2)" ID="4">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">DestinationType==List.EntityDestinationType.BySequence</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="10" />
+          <Exit Name="False" Type="Alternate" NextID="5" />
+        </Step>
+        <Step Type="Decide" Name="IfDestinationTypeSelectFromList" ExclusionExpression="Math.If(DestinationType == List.EntityDestinationType.SelectFromList, 1, 2)" ID="5">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">DestinationType==List.EntityDestinationType.SelectFromList</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="9" />
+          <Exit Name="False" Type="Alternate" NextID="6" />
+        </Step>
+        <Step Type="Decide" Name="IfDestinationTypeCustomRoutingGroup" ExclusionExpression="Math.If(DestinationType == List.EntityDestinationType.UseCustomRoutingGroup, 1, 2)" ID="6">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">DestinationType==List.EntityDestinationType.UseCustomRoutingGroup</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="8" />
+          <Exit Name="False" Type="Alternate" NextID="7" />
+        </Step>
+        <Step Type="Destroy" Name="Entity" ID="7">
+          <Properties />
+        </Step>
+        <Step Type="Route" Name="NextDestination" ID="8">
+          <Properties>
+            <Property Name="RoutingGroupName">
+              <Value>DestinationRoutingGroupName</Value>
+            </Property>
+            <Property Name="SelectionGoal">DestinationSelectionGoal</Property>
+            <Property Name="SelectionValueExpression">DestinationSelectionExpression</Property>
+            <Property Name="BlockedDestinationRule">BlockedDestinationRule</Property>
+            <Property Name="SelectionCondition">DestinationSelectionCondition</Property>
+            <Property Name="RouteConstraintLogic">
+              <Value>RouteConstraintLogic</Value>
+              <Rows>
+                <Properties>
+                  <Property Name="ConstraintLogicName">
+                    <Value>RouteConstraintLogic.RouteConstraintLogicName</Value>
+                  </Property>
+                </Properties>
+              </Rows>
+            </Property>
+            <Property Name="RequiredMaterials">
+              <Value>RoutingOutRequiredMaterials</Value>
+              <Rows>
+                <Properties>
+                  <Property Name="RequiredMaterialConsumptionType">RoutingOutRequiredMaterials.RequiredMaterialConsumptionType</Property>
+                  <Property Name="RequiredMaterialName">
+                    <Value>RoutingOutRequiredMaterials.RequiredMaterialName</Value>
+                  </Property>
+                  <Property Name="RequiredMaterialInventorySiteType">RoutingOutRequiredMaterials.RequiredMaterialInventorySiteType</Property>
+                  <Property Name="RequiredMaterialSiteObjectName">RoutingOutRequiredMaterials.RequiredMaterialSiteObjectName</Property>
+                  <Property Name="RequiredMaterialQuantity">RoutingOutRequiredMaterials.RequiredMaterialQuantity</Property>
+                  <Property Name="RequiredMaterialLotID">RoutingOutRequiredMaterials.RequiredMaterialLotID</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="12" />
+        </Step>
+        <Step Type="Route" Name="NextDestination" ID="9">
+          <Properties>
+            <Property Name="RoutingGroupName">
+              <Value>RoutingOut</Value>
+            </Property>
+            <Property Name="SelectionGoal">DestinationSelectionGoal</Property>
+            <Property Name="SelectionValueExpression">DestinationSelectionExpression</Property>
+            <Property Name="BlockedDestinationRule">BlockedDestinationRule</Property>
+            <Property Name="SelectionCondition">DestinationSelectionCondition</Property>
+            <Property Name="RouteConstraintLogic">
+              <Value>RouteConstraintLogic</Value>
+              <Rows>
+                <Properties>
+                  <Property Name="ConstraintLogicName">
+                    <Value>RouteConstraintLogic.RouteConstraintLogicName</Value>
+                  </Property>
+                </Properties>
+              </Rows>
+            </Property>
+            <Property Name="RequiredMaterials">
+              <Value>RoutingOutRequiredMaterials</Value>
+              <Rows>
+                <Properties>
+                  <Property Name="RequiredMaterialConsumptionType">RoutingOutRequiredMaterials.RequiredMaterialConsumptionType</Property>
+                  <Property Name="RequiredMaterialName">
+                    <Value>RoutingOutRequiredMaterials.RequiredMaterialName</Value>
+                  </Property>
+                  <Property Name="RequiredMaterialInventorySiteType">RoutingOutRequiredMaterials.RequiredMaterialInventorySiteType</Property>
+                  <Property Name="RequiredMaterialSiteObjectName">RoutingOutRequiredMaterials.RequiredMaterialSiteObjectName</Property>
+                  <Property Name="RequiredMaterialQuantity">RoutingOutRequiredMaterials.RequiredMaterialQuantity</Property>
+                  <Property Name="RequiredMaterialLotID">RoutingOutRequiredMaterials.RequiredMaterialLotID</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="12" />
+        </Step>
+        <Step Type="SetNode" Name="NextDestination" ID="10">
+          <Properties>
+            <Property Name="DestinationType">BySequence</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="12" />
+        </Step>
+        <Step Type="SetNode" Name="NextDestination" ID="11">
+          <Properties>
+            <Property Name="NodeName">DestinationNodeName</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="12" />
+        </Step>
+        <Step Type="Decide" Name="IfRideTransporter" ExclusionExpression="Math.If(RideOnTransporter == List.RideOnTransporterType.Never, 2, RideOnTransporter == List.RideOnTransporterType.Always, 1, 0)" ID="12">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">RideOnTransporterCondition</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="13" />
+        </Step>
+        <Step Type="Fire" Name="RiderWaitingEvent" ID="13">
+          <Properties>
+            <Property Name="EventName">RiderWaiting</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="14" />
+        </Step>
+        <Step Type="Ride" Name="Transporter" ID="14">
+          <Properties>
+            <Property Name="TransporterType">TransporterType</Property>
+            <Property Name="TransporterName">TransporterName</Property>
+            <Property Name="TransporterListName">TransporterListName</Property>
+            <Property Name="ReservationMethod">TransporterReservationMethod</Property>
+            <Property Name="SelectionGoal">TransporterSelectionGoal</Property>
+            <Property Name="SelectionValueExpression">TransporterSelectionValueExpression</Property>
+            <Property Name="SelectionCondition">TransporterSelectionCondition</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="15" />
+        </Step>
+        <Step Type="Decide" Name="IfReserveTransporter" ID="15">
+          <Properties>
+            <Property Name="DecideType">ConditionBased</Property>
+            <Property Name="ConditionOrProbability">TransporterStatusOnDropOffKeepReservedCondition</Property>
+          </Properties>
+          <Exit Name="True" Type="Primary" NextID="16" />
+        </Step>
+        <Step Type="Notify" Name="IfReservationWarning" ID="16">
+          <Properties>
+            <Property Name="NotificationType">Warning</Property>
+            <Property Name="MessageHeading">"Ignoring attempt by entity '" + Entity.Name + "' to reserve transporter '" + Entity.CurrentTransporter.Name + "'."</Property>
+            <Property Name="MessageContent">"The transport logic option at node '" + Entity.PreviousNode.Name + "' to keep the selected transporter reserved on entity drop-off is not supported for transporters with ride capacity greater than one."</Property>
+            <Property Name="NotifyCondition">Entity.CurrentTransporter.RideStation.Capacity &gt; 1</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="17" />
+        </Step>
+        <Step Type="Reserve" Name="Transporter" ID="17">
+          <Properties>
+            <Property Name="ResourceName">Entity.CurrentTransporter</Property>
+            <Property Name="ReservationTimeout">Math.If(Entity.CurrentTransporter.RideStation.Capacity &gt; 1, 0.0, Infinity)</Property>
+          </Properties>
+        </Step>
+      </Steps>
+    </Process>
+  </Processes>
+  <SaveHistories>
+    <SaveHistory SavedDateTime="2022-03-19T15:59:12" ProductVersion="14.236.26607.0" Edition="Internal" />
+  </SaveHistories>
+  <Graphics>
+    <AnimationSetup MinimumNumberOfFramesToDisplayIdleAnimation="10" />
+  </Graphics>
+</Fragment>
+<!-- v1SwbwPQb9t3FbkbqOf6qpNMzOzY3qcbDM2v04qJ3PkQPCWH9wQCxauiU/4Ma3wgQAm06CKVcnajHMm3+QviSg== -->

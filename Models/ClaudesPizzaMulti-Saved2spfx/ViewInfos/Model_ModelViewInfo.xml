@@ -1,0 +1,36 @@
+<Fragment>
+  <ViewInfo ActiveModel="True" ActiveView="Facility">
+    <Facility FollowDistanceRatio="1">
+      <Camera Orientation="Perspective" Location="7.21687836487214 7.21687836487032 7.21687836487578" Direction="-0.577350269189626 -0.577350269189626 -0.577350269189626" Zoom="12.5" />
+      <ObjectDisplay SnapToGrid="True" Background="ffffff" />
+      <Libraries Width="122">
+        <Library Name="Standard Library" Size="592" Expanded="True" />
+        <Library Name="Flow Library" Size="28" />
+        <Library Name="Extras Library" Size="28" />
+      </Libraries>
+    </Facility>
+    <Process DefaultCategoryExpanded="True">
+      <Categories>
+        <Category Name="AnimationAssigns" Expanded="True" />
+        <Category Name="BasicNode1 AddOn Processes" Expanded="True" />
+        <Category Name="Customer@PickUpCounter1 AddOn Processes" Expanded="True" />
+        <Category Name="Order1 AddOn Processes" Expanded="True" />
+        <Category Name="Output@Source1 AddOn Processes" Expanded="True" />
+        <Category Name="Worker1 AddOn Processes" Expanded="True" />
+      </Categories>
+    </Process>
+    <OperationalPlanningResourceGantt>
+      <FileRef Name="Data\ViewState\Model_OperationalPlanningResourceGantt.xml" />
+    </OperationalPlanningResourceGantt>
+    <OperationalPlanningOwnerGantt>
+      <FileRef Name="Data\ViewState\Model_OperationalPlanningOwnerGantt.xml" />
+    </OperationalPlanningOwnerGantt>
+    <OperationalPlanningResourceGantt>
+      <FileRef Name="Data\ViewState\Model_OperationalPlanningResourceGantt1.xml" />
+    </OperationalPlanningResourceGantt>
+    <OperationalPlanningOwnerGantt>
+      <FileRef Name="Data\ViewState\Model_OperationalPlanningOwnerGantt1.xml" />
+    </OperationalPlanningOwnerGantt>
+  </ViewInfo>
+</Fragment>
+<!-- qvQirAgzC1OpeIXmcR0KBxHdkbEK0HTw6JyRqwD+hpEgc18O9eGCnkr/EQYVnEptRjzAgjVU2gte21q7dDO6PQ== -->

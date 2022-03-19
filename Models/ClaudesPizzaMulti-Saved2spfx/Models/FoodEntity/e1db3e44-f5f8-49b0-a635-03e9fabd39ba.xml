@@ -1,0 +1,48 @@
+<Fragment>
+  <Compatibility ParseElementFunctionsInExpressionsLast="False" ParseNonEntityAssociatedObjectForPropertyReference="False" AllowInteractiveEntryOfNonStandardElementNames="False" ParsePropertiesForObjectTypeForAutoCreatedObjectsFirst="False" />
+  <PropertyDefinitions>
+    <Categories>
+      <Category Name="Basic Logic" Description="Basic Logic" />
+      <Category Name="Process Logic" Description="Process Logic" />
+      <Category Name="Transport Logic" Description="Transport Logic" />
+      <Category Name="Travel Logic" Description="Travel Logic" />
+      <Category Name="Routing Logic" Description="Routing Logic" />
+      <Category Name="Population" Description="Population" InitiallyExpanded="False" />
+      <Category Name="Results Classification" Description="Results Classification" InitiallyExpanded="False" />
+      <Category Name="Stopping Conditions" Description="Stopping Conditions" InitiallyExpanded="False" />
+      <Category Name="Financials" Description="Financials" InitiallyExpanded="False" />
+      <Category Name="Advanced Options" Description="Advanced Options" InitiallyExpanded="False" />
+      <Category Name="Advanced Options/Token Actions" Description="Token Action Options" InitiallyExpanded="False" />
+    </Categories>
+    <Overrides>
+      <Override Name="ResourceIdleCostRate" Visible="False" />
+      <Override Name="ResourceCostPerUse" Visible="False" />
+      <Override Name="ResourceUsageCostRate" Visible="False" />
+      <Override Name="LogResourceUsage" Visible="False" />
+      <Override Name="DisplayCategory" Visible="False" />
+      <Override Name="DisplayColor" Visible="False" />
+      <Override Name="IncludeInPlanResourceConstraints" Visible="False" />
+      <Override Name="CapacityType" Visible="False" />
+      <Override Name="InitialWorkSchedule" Visible="False" />
+      <Override Name="WorkDayExceptions" Visible="False" />
+      <Override Name="WorkPeriodExceptions" Visible="False" />
+      <Override Name="InitialCapacity" Visible="False" />
+      <Override Name="RankingRule" Visible="False" />
+      <Override Name="RankingExpression" Visible="False" />
+      <Override Name="DynamicSelectionRule" Visible="False" />
+      <Override Name="CurrentSizeIndex" DefaultValue="FoodEntity.Picture" />
+    </Overrides>
+  </PropertyDefinitions>
+  <States>
+    <DiscreteState Name="Picture" />
+  </States>
+  <Events />
+  <Processes />
+  <SaveHistories>
+    <SaveHistory SavedDateTime="2022-03-19T16:05:20" ProductVersion="14.236.26607.0" Edition="Internal" />
+  </SaveHistories>
+  <Graphics>
+    <AnimationSetup MinimumNumberOfFramesToDisplayIdleAnimation="10" />
+  </Graphics>
+</Fragment>
+<!-- gHS6mMh4Sp67stk5rqmCFO8eNEnK5skyOgWnWPexawWwlmHaoGkEtGh6g2AP69m0vLCaQjP0nZTSXgXT5YOyFQ== -->

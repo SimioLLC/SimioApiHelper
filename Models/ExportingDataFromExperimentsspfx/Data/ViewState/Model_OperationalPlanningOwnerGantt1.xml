@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OperationalPlanningOwnerGantt Model="Model" FileVersion="233" xmlns="http://www.simio.com/projects/v1">
+  <Gantt StartTime="2012-01-02T00:00:00" StopTime="2012-01-02T01:00:00">
+    <Columns>
+      <Column Name="Entity" Width="150" />
+      <Column Name="#" Width="50" />
+    </Columns>
+  </Gantt>
+</OperationalPlanningOwnerGantt>

@@ -1,0 +1,62 @@
+<Fragment>
+  <Compatibility ParseElementFunctionsInExpressionsLast="False" ParseNonEntityAssociatedObjectForPropertyReference="False" AllowInteractiveEntryOfNonStandardElementNames="False" ParsePropertiesForObjectTypeForAutoCreatedObjectsFirst="False" />
+  <PropertyDefinitions>
+    <Categories>
+      <Category Name="Travel Logic" Description="Travel Logic" />
+      <Category Name="Routing Logic" Description="Routing Logic" />
+      <Category Name="Dynamic Objects" Description="Dynamic Objects" InitiallyExpanded="False" />
+      <Category Name="Appearance" Description="Appearance" InitiallyExpanded="False" />
+      <Category Name="Financials" Description="Financials" InitiallyExpanded="False" />
+    </Categories>
+    <Overrides>
+      <Override Name="ResourceIdleCostRate" Visible="False" />
+      <Override Name="ResourceCostPerUse" Visible="False" />
+      <Override Name="ResourceUsageCostRate" Visible="False" />
+      <Override Name="LogResourceUsage" Visible="False" />
+      <Override Name="DisplayCategory" Visible="False" />
+      <Override Name="DisplayColor" Visible="False" />
+      <Override Name="IncludeInPlanResourceConstraints" Visible="False" />
+      <Override Name="CapacityType" Visible="False" />
+      <Override Name="InitialWorkSchedule" Visible="False" />
+      <Override Name="WorkDayExceptions" Visible="False" />
+      <Override Name="WorkPeriodExceptions" Visible="False" />
+      <Override Name="InitialCapacity" Visible="False" />
+      <Override Name="RankingRule" Visible="False" />
+      <Override Name="RankingExpression" Visible="False" />
+      <Override Name="DynamicSelectionRule" Visible="False" />
+      <Override Name="CurrentSizeIndex" DefaultValue="CustomerEntity.Picture" />
+    </Overrides>
+  </PropertyDefinitions>
+  <States>
+    <DiscreteState Name="Picture" Description="A utility state to hold a picture index. This state can then be referenced in an expression for Current Symbol Index." />
+    <IntegerState Name="OrderSize" />
+    <DiscreteState Name="GroupNumber" />
+    <BooleanState Name="Parent" />
+    <IntegerState Name="GroupSize" />
+    <DiscreteState Name="EatingTime" />
+    <StringState Name="Animation" />
+    <IntegerState Name="SittingAtTable" />
+  </States>
+  <Events />
+  <Processes />
+  <External>
+    <Graphics>
+      <Polygon Center="0 0 0" Color="008000" YHeight="0.25">
+        <Points>
+          <Point Location="-0.25 0 0.25" />
+          <Point Location="-0.25 0 -0.25" />
+          <Point Location="0.25 0 0" />
+        </Points>
+      </Polygon>
+      <PadBoundingBoxForSymbol Value="True" />
+      <OffsetDynamicRelativeToExternalBounds Value="False" />
+    </Graphics>
+  </External>
+  <SaveHistories>
+    <SaveHistory SavedDateTime="2022-03-19T15:59:12" ProductVersion="14.236.26607.0" Edition="Internal" />
+  </SaveHistories>
+  <Graphics>
+    <AnimationSetup MinimumNumberOfFramesToDisplayIdleAnimation="10" />
+  </Graphics>
+</Fragment>
+<!-- r2DtGh1Ll/KcjbSo1iW0Ua4CksLBg1J+W95MLaLHVr+w21F32BPspcL/4r+S/H2fnB56yWllzY6c/UWnbUG5gw== -->

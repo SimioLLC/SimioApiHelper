@@ -1,0 +1,260 @@
+<Fragment>
+  <Compatibility ParseElementFunctionsInExpressionsLast="False" ParseNonEntityAssociatedObjectForPropertyReference="False" AllowInteractiveEntryOfNonStandardElementNames="False" ParsePropertiesForObjectTypeForAutoCreatedObjectsFirst="False" />
+  <PropertyDefinitions>
+    <Categories>
+      <Category Name="Basic Logic" Description="Basic Logic" />
+      <Category Name="Process Logic" Description="Process Logic" />
+      <Category Name="Transport Logic" Description="Transport Logic" />
+      <Category Name="Travel Logic" Description="Travel Logic" />
+      <Category Name="Routing Logic" Description="Routing Logic" />
+      <Category Name="Population" Description="Population" InitiallyExpanded="False" />
+      <Category Name="Results Classification" Description="Results Classification" InitiallyExpanded="False" />
+      <Category Name="Stopping Conditions" Description="Stopping Conditions" InitiallyExpanded="False" />
+      <Category Name="Financials" Description="Financials" InitiallyExpanded="False" />
+      <Category Name="Advanced Options" Description="Advanced Options" InitiallyExpanded="False" />
+      <Category Name="Advanced Options/Token Actions" Description="Token Action Options" InitiallyExpanded="False" />
+    </Categories>
+    <ExpressionProperty Name="NumberOfSeats" DisplayName="Number Of Seats" Category="Eating Properties" DefaultValue="4" NullString="null" />
+    <ExpressionProperty Name="SplitQuantity" Category="Eating Properties" DefaultValue="(Entity.BatchMembers - 1)" Required="False" NullString="null" />
+    <ExpressionProperty Name="TimeToEat" DisplayName="Time To Eat" Category="Eating Properties" DefaultValue="0.0" NullString="null" UnitType="Time" DefaultUnits="Minutes" />
+    <Overrides>
+      <Override Name="ResourceIdleCostRate" Visible="True" />
+      <Override Name="ResourceCostPerUse" Visible="True" />
+      <Override Name="ResourceUsageCostRate" Visible="True" />
+      <Override Name="LogResourceUsage" Visible="True" />
+      <Override Name="DisplayCategory" Visible="True" />
+      <Override Name="DisplayColor" Visible="True" />
+      <Override Name="IncludeInPlanResourceConstraints" Visible="True" />
+      <Override Name="CapacityType" Visible="True" />
+      <Override Name="InitialWorkSchedule" Visible="True" />
+      <Override Name="WorkDayExceptions" Visible="True" />
+      <Override Name="WorkPeriodExceptions" Visible="True" />
+      <Override Name="InitialCapacity" Visible="True" />
+      <Override Name="RankingRule" Visible="True" />
+      <Override Name="RankingExpression" Visible="True" />
+      <Override Name="DynamicSelectionRule" Visible="True" />
+    </Overrides>
+  </PropertyDefinitions>
+  <States />
+  <Events />
+  <UsedObjects>
+    <UsedObject Name="CustomerEntity" />
+    <UsedObject Name="TransferNode" />
+    <UsedObject Name="BasicNode" />
+  </UsedObjects>
+  <Elements>
+    <Element Type="Station" Name="EatingStation" Scope="Public">
+      <Properties>
+        <Property Name="InitialCapacity">NumberOfSeats</Property>
+        <Property Name="EntryDynamicSelectionRule">
+          <Value>None</Value>
+        </Property>
+        <Property Name="RedirectLocationType">Station</Property>
+        <Property Name="CostPerUse" Units="USD">0.0</Property>
+        <Property Name="HoldingCostRate" Units="USD per Hour">0.0</Property>
+      </Properties>
+    </Element>
+    <Element Type="Station" Name="SplitStation" Scope="Public">
+      <Properties>
+        <Property Name="InitialCapacity">1</Property>
+        <Property Name="EntryDynamicSelectionRule">
+          <Value>None</Value>
+        </Property>
+        <Property Name="RedirectLocationType">Station</Property>
+        <Property Name="CostPerUse" Units="USD">0.0</Property>
+        <Property Name="HoldingCostRate" Units="USD per Hour">0.0</Property>
+      </Properties>
+    </Element>
+  </Elements>
+  <Processes>
+    <Process Name="Eat" BeginStepID="7">
+      <Properties>
+        <Property Name="TriggeringEventName">EatingStation.Entered</Property>
+        <Property Name="TokenActionOnAssociatedObjectDestroyed">EndProcess</Property>
+      </Properties>
+      <Steps>
+        <Step Type="EndTransfer" Name="EndTransfer2" ID="2">
+          <Properties />
+          <Exit Name="Exit" Type="Primary" NextID="3" />
+        </Step>
+        <Step Type="Delay" Name="Delay1" ID="3">
+          <Properties>
+            <Property Name="DelayTime">TimeToEat</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="5" />
+        </Step>
+        <Step Type="Transfer" Name="Transfer4" ID="4">
+          <Properties>
+            <Property Name="FromType">CurrentStation</Property>
+            <Property Name="ToType">ParentExternalNode</Property>
+            <Property Name="ExternalNodeName">Output</Property>
+            <Property Name="TokenWaitAction">WaitUntilTransferring</Property>
+          </Properties>
+          <Exit Name="OK" Type="Primary" NextID="6" />
+        </Step>
+        <Step Type="Assign" Name="Assign3" ID="5">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>SplitStation.CurrentCapacity</Value>
+            </Property>
+            <Property Name="NewValue">1</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="4" />
+        </Step>
+        <Step Type="Assign" Name="Assign5" ID="6">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>CustomerEntity.Animation</Value>
+            </Property>
+            <Property Name="NewValue">"Walk Carrying Front"</Property>
+            <Property Name="Assignments">
+              <Rows>
+                <Properties>
+                  <Property Name="AssignmentsStateVariableName">
+                    <Value>CustomerEntity.SittingAtTable</Value>
+                  </Property>
+                  <Property Name="AssignmentsNewValue">0</Property>
+                </Properties>
+              </Rows>
+            </Property>
+          </Properties>
+        </Step>
+        <Step Type="Assign" Name="Assign1" ID="7">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>CustomerEntity.SittingAtTable</Value>
+            </Property>
+            <Property Name="NewValue">1</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="2" />
+        </Step>
+      </Steps>
+    </Process>
+    <Process Name="Split" BeginStepID="5">
+      <Properties>
+        <Property Name="TriggeringEventName">SplitStation.Entered</Property>
+        <Property Name="TokenActionOnAssociatedObjectDestroyed">EndProcess</Property>
+      </Properties>
+      <Steps>
+        <Step Type="UnBatch" Name="UnBatch2" ID="2">
+          <Properties>
+            <Property Name="DesiredQuantity">SplitQuantity</Property>
+            <Property Name="OnEnteredFreeSpaceProcess">True</Property>
+          </Properties>
+          <Exit Name="Parent" Type="Primary" NextID="3" />
+          <Exit Name="Member" Type="Alternate" NextID="4" />
+        </Step>
+        <Step Type="Transfer" Name="Transfer2" ID="3">
+          <Properties>
+            <Property Name="FromType">CurrentStation</Property>
+            <Property Name="ToType">Station</Property>
+            <Property Name="StationName">
+              <Value>EatingStation</Value>
+            </Property>
+            <Property Name="TokenWaitAction">WaitUntilTransferring</Property>
+          </Properties>
+          <Exit Name="OK" Type="Primary" NextID="7" />
+        </Step>
+        <Step Type="Transfer" Name="Transfer2" ID="4">
+          <Properties>
+            <Property Name="ToType">Station</Property>
+            <Property Name="StationName">
+              <Value>EatingStation</Value>
+            </Property>
+            <Property Name="TokenWaitAction">WaitUntilTransferring</Property>
+          </Properties>
+          <Exit Name="OK" Type="Primary" NextID="7" />
+        </Step>
+        <Step Type="EndTransfer" Name="EndTransfer1" ID="5">
+          <Properties />
+          <Exit Name="Exit" Type="Primary" NextID="2" />
+        </Step>
+        <Step Type="Assign" Name="Assign2" ID="6">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>SplitStation.CurrentCapacity</Value>
+            </Property>
+          </Properties>
+        </Step>
+        <Step Type="Assign" Name="Assign4" ID="7">
+          <Properties>
+            <Property Name="StateVariableName">
+              <Value>CustomerEntity.Animation</Value>
+            </Property>
+            <Property Name="NewValue">"Sit"</Property>
+          </Properties>
+          <Exit Name="Exit" Type="Primary" NextID="6" />
+        </Step>
+      </Steps>
+    </Process>
+  </Processes>
+  <External>
+    <TransferPoints>
+      <ExternalNode Name="Input" Location="-0.141194514930251,0,-0.968419013807079" ID="Input" RotationChangesLocation="False">
+        <Properties>
+          <Property Name="NodeClassName">BasicNode</Property>
+          <Property Name="InputLocationType">Station</Property>
+          <Property Name="StationName">
+            <Value>SplitStation</Value>
+          </Property>
+        </Properties>
+      </ExternalNode>
+      <ExternalNode Name="Output" Location="0.245025545358661,0,-0.969776806421578" ID="Output" RotationChangesLocation="False">
+        <Properties>
+          <Property Name="NodeClassName">TransferNode</Property>
+        </Properties>
+      </ExternalNode>
+    </TransferPoints>
+    <Graphics>
+      <SymbolInstance Center="0.08829522 -1.788139E-07 0.1958894" Scale="1.547432">
+        <SymbolRef Id="66d9c73e-7e7c-4e5e-acf6-5289fc806d63" />
+      </SymbolInstance>
+      <Queue Queue="EatingStation.Contents" Alignment="OrientedPoint" KeepInPlace="True" RotationChangesLocation="False" RotationChangesOrientation="False">
+        <Points>
+          <Point Location="-0.7956159 0.3952618 -0.2137234" Direction="0.3415651 0 0" />
+          <Point Location="0.9472456 0.3952622 -0.2651523" Direction="-0.3413331 0 0.02969131" />
+          <Point Location="-0.7631161 0.3952618 0.7379392" Direction="0.3415651 0 0" />
+          <Point Location="0.9837009 0.3952618 0.7365824" Direction="-0.3068824 0.0252347 0.02915049" />
+        </Points>
+      </Queue>
+      <Rectangle Center="0.08921105 1.180923 0.1950434" Width="1.171033" Height="1.888797" TileTexture="False">
+        <Decorations>
+          <Decoration SurfaceId="0">
+            <MaterialRef Id="07fa528e-f1d3-4b53-b9aa-27fecc4bdbeb" />
+          </Decoration>
+        </Decorations>
+      </Rectangle>
+      <Line Center="0.1137162 0.9875901 1.144428" LineWidth="0.01" YHeight="0.2">
+        <Points>
+          <Point Location="-0.4992661 0.9875902 1.144565" />
+          <Point Location="0.6662393 0.9875904 1.147459" />
+        </Points>
+        <Decorations>
+          <Decoration SurfaceId="0">
+            <MaterialRef Id="07fa528e-f1d3-4b53-b9aa-27fecc4bdbeb" />
+          </Decoration>
+        </Decorations>
+      </Line>
+      <Line Center="0.1116628 0.9875901 -0.7484651" LineWidth="0.01" YHeight="0.2">
+        <Points>
+          <Point Location="-0.5013196 0.9875902 -0.748328" />
+          <Point Location="0.664186 0.9875904 -0.745434" />
+        </Points>
+        <Decorations>
+          <Decoration SurfaceId="0">
+            <MaterialRef Id="07fa528e-f1d3-4b53-b9aa-27fecc4bdbeb" />
+          </Decoration>
+        </Decorations>
+      </Line>
+      <PadBoundingBoxForSymbol Value="True" />
+      <OffsetDynamicRelativeToExternalBounds Value="False" />
+    </Graphics>
+  </External>
+  <SaveHistories>
+    <SaveHistory SavedDateTime="2022-03-19T16:05:20" ProductVersion="14.236.26607.0" Edition="Internal" />
+  </SaveHistories>
+  <Graphics>
+    <AnimationSetup MinimumNumberOfFramesToDisplayIdleAnimation="10" />
+  </Graphics>
+</Fragment>
+<!-- zjArubI+o/4+dap3VA9Bn6MHdYy8Ih1BjM+GwvMLP/8N7DQfikYARdtFHD0WyKzFYMlKBAzYFqjLVwvdqhAwNg== -->

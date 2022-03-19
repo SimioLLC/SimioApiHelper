@@ -1,0 +1,15 @@
+<Fragment>
+  <Row>
+    <Properties>
+      <Property Name="TableCapacity">Table1.CurrentCapacity</Property>
+      <Property Name="NodeInstanceProperty1">Input@Table1</Property>
+    </Properties>
+  </Row>
+  <Row>
+    <Properties>
+      <Property Name="TableCapacity">Table2.CurrentCapacity</Property>
+      <Property Name="NodeInstanceProperty1">Input@Table2</Property>
+    </Properties>
+  </Row>
+</Fragment>
+<!-- Kb+Qnknk8Fo9nSC3JcoL0tuoyFmfaPgxwSimprqmTyqvmitU5Ytxb3xTecrOVBQXhPrR3JKpsBgtcsbt6KckgA== -->
