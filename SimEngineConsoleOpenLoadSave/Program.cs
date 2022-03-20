@@ -23,10 +23,9 @@ namespace SimEngineConsoleOpenLoadSave
         static void Main(string[] args)
         {
             // Open project
-            string[] warnings;
             try
             {
-                string projectFilenameLoadPath = @"..\..\..\models\ExportingDataFromExperimentsMultiple.spfx"; 
+                string projectFilenameLoadPath = @"..\..\..\models\ExportingDataFromExperimentsMultiple.spfx";
                 string extensionsPath = "";
                 string programFolder = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
 
@@ -55,7 +54,7 @@ namespace SimEngineConsoleOpenLoadSave
 
                 // Open/Load the project file. This can take a few seconds (e.g. ClaudesPizza = 8 sec)
                 Logit($"Info: Loading Project=[{projectFilenameLoadPath}]");
-                _simioProject = SimioProjectFactory.LoadProject(projectFilenameLoadPath, out warnings);
+                _simioProject = SimioProjectFactory.LoadProject(projectFilenameLoadPath, out string[] warnings);
 
                 if (warnings.Length > 0)
                     Logit($"Warning: Project was loaded, but with {warnings.Length} warnings.");

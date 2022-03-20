@@ -33,17 +33,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=2.0.12.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.12\lib\net45\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=2.0.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.14\lib\net45\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PeanutButter.SimpleHTTPServer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PeanutButter.SimpleHTTPServer.2.0.66\lib\net462\PeanutButter.SimpleHTTPServer.dll</HintPath>
+    </Reference>
+    <Reference Include="PeanutButter.SimpleTcpServer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PeanutButter.SimpleTcpServer.2.0.66\lib\net462\PeanutButter.SimpleTcpServer.dll</HintPath>
+    </Reference>
+    <Reference Include="PeanutButter.Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PeanutButter.Utils.2.0.66\lib\net462\PeanutButter.Utils.dll</HintPath>
     </Reference>
     <Reference Include="SimioAPI">
-      <HintPath>C:\Program Files (x86)\Simio\SimioAPI.dll</HintPath>
+      <HintPath>C:\Program Files\Simio LLC\Simio\SimioAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="SimioAPI.Extensions">
+      <HintPath>C:\Program Files\Simio LLC\Simio\SimioAPI.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="SimioDLL">
-      <HintPath>C:\Program Files (x86)\Simio\SimioDLL.dll</HintPath>
-    </Reference>
-    <Reference Include="SimpleHttpServer">
-      <HintPath>..\..\..\test\SimpleHttpServer\SimpleHttpServer\bin\Debug\SimpleHttpServer.dll</HintPath>
+      <HintPath>C:\Program Files\Simio LLC\Simio\SimioDLL.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

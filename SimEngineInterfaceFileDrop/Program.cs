@@ -318,8 +318,6 @@ namespace SimEngineInterfaceFileDrop
 
                 while (!done)
                 {
-
-
                     // Take a break
                     System.Threading.Thread.Sleep(1000);
                 }; // while
